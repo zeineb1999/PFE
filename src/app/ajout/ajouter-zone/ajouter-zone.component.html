@@ -1,0 +1,14 @@
+<div>
+    <label>Nom Local:</label>
+    <input type="text" [(ngModel)]="nomLocal" name="nomLocal" required><br>
+    
+    <label>Type Local:</label>
+    <input type="text" [(ngModel)]="typeLocal" name="typeLocal" required><br>
+    
+    <label>Étage:</label>
+    <select [(ngModel)]="etageId" name="etageId" required>
+        <option *ngFor="let etage of etages" [value]="etage.id">{{ etage.id }}</option>
+    </select><br>
+
+    <button (click)="ajouterZone()">Ajouter Zone</button>
+</div>

@@ -1,0 +1,36 @@
+<div>
+    <label>Nom:</label>
+    <input type="text" [(ngModel)]="nom" name="nom"><br>
+    <!-- Ajoutez d'autres champs pour les détails de l'équipement -->
+    <label>Marque:</label>
+    <input type="text" [(ngModel)]="marque" name="marque"><br>
+    
+    <label>État:</label>
+    <select [(ngModel)]="etat" name="etat">
+        <option value="ON">ON</option>
+        <option value="OFF">OFF</option>
+    </select><br>
+    
+    <label>Catégorie:</label>
+    <input type="text" [(ngModel)]="categorie" name="categorie"><br>
+    
+    <label>Type:</label>
+    <input type="text" [(ngModel)]="type" name="type"><br>
+    
+    <label>Puissance:</label>
+    <input type="number" [(ngModel)]="puissance" name="puissance"><br>
+    
+    <label>Consommation maximale:</label>
+    <input type="number" [(ngModel)]="maxConsommation" name="maxConsommation"><br>
+    
+    <label>Consommation minimale:</label>
+    <input type="number" [(ngModel)]="minConsommation" name="minConsommation"><br>
+
+    <label>Zone:</label>
+    <select [(ngModel)]="zoneId" name="zoneId">
+        <option *ngFor="let zone of zones" [value]="zone.id">{{ zone.nomLocal }}</option>
+    </select><br>
+
+    <button (click)="ajouterEquipement()">Ajouter Equipement</button>
+</div>
+  

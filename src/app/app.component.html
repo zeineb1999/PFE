@@ -1,0 +1,43 @@
+<div class="main-content  min-h-screen flex flex-col justify-between">
+  <div class="page-content ">
+      <div class="container-fluid">
+          <!-- Main Content -->
+          <router-outlet></router-outlet>
+      </div>
+  </div>
+  <!-- Footer -->
+  <app-footer></app-footer>
+</div>
+<!--<app-header></app-header>
+<div class="flex h-screen">
+  <div class="flex-shrink-0 w-64 bg-gray-200 border-r border-gray-300 dark:bg-gray-800 dark:border-gray-700">
+    <app-side></app-side>
+  </div>
+
+  <div class="flex-grow p-4">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+<app-footer></app-footer>
+<h2>List of movies</h2>
+<ul>
+  <li *ngFor="let movie of movies">
+    <h2 (click)="movieClicked(movie)">{{movie.title}}</h2>
+  </li>
+</ul>
+<hr>
+Title <input type="text" [(ngModel)] = "selectedMovies.title"/><br>
+Desc <input type="text" [(ngModel)] ="selectedMovies.desc"/><br>
+Year <input type="text" [(ngModel)] ="selectedMovies.year"/><br>
+<button *ngIf="selectedMovies.id != -1" (click)="updateMovie()">PUT</button>
+<button *ngIf="selectedMovies.id == -1" (click)="createMovie()">POST</button>
+<button *ngIf="selectedMovies.id != -1"  (click)="deleteMovie()">DELETE</button>
+<br>
+<div class="my-4">
+  <img src="https://www.wrappixel.com/wp-content/uploads/edd/2020/04/monster-angular-admin-y.jpg" class="img-fluid" alt="xtreme-ang" />
+</div>  
+<br>username<input  [(ngModel)] = "register.username" placeholder="username"><br>
+password<input  [(ngModel)] = "register.password" placeholder="password" type="password"><br>
+email <input  [(ngModel)] = "register.email" placeholder="email"><br>
+<button (click)="registerUser()" >Register User</button>
+-->
