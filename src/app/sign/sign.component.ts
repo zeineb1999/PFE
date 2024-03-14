@@ -16,6 +16,7 @@ export class SignComponent {
   sign() {
     if (this.username && this.password) {
       this.authService.login(this.username, this.password).subscribe(response => {
+        console.log(response)
         localStorage.setItem('token', response.access);
         this.successMessage = 'Connexion réussie !';
       setTimeout(() => {

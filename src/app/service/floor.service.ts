@@ -2,7 +2,18 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-
+export interface Equipement {
+  id: number;
+  nom: string;
+  marque: string;
+  etat: string;
+  categorie: string;
+  type: string;
+  puissance: number;
+  maxConsommation: number;
+  minConsommation: number;
+  zoneId: number;
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -48,9 +59,21 @@ export class FloorService {
     const body = {  nom: equipement.nom, marque: equipement.marque, etat: equipement.etat, categorie: equipement.categorie, type: equipement.type, puissance: equipement.puissance, maxConsommation: equipement.maxConsommation, minConsommation: equipement.minConsommation, zoneE: equipement.zoneE}
     return this.http.post(this.baseurl + '/equipement/', body,{headers: this.httpHeaders});
   }
+  getOneZone(id: number) : Observable<any>{
+    return this.http.get(this.baseurl + '/zones/'+ id+'/' ,
+    {headers: this.httpHeaders});
+ 
+  }
+  getZoneDetails(zoneId: number): Observable<any> {
+    return this.http.get(this.baseurl + '/zones/'+ zoneId+'/' ,
+    {headers: this.httpHeaders});
 
 
 }
+getEquipementsByZone(zoneId: number): Observable<any> {
+  return this.http.get<any>(this.baseurl + '/zones/'+ zoneId+'/equipements/' ,
+    {headers: this.httpHeaders});
+}
 
   
-
+}

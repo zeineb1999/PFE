@@ -1,0 +1,7 @@
+<div *ngFor="let zone of zones" (click)="redirectToZoneDetails(zone.id)">
+    <p>{{ zone.nomLocal }}</p>
+</div>
+<h2>List of zone</h2>
+
+<button routerLink="/ajouterZone" class="bg-green-500 text-white hover:bg-green-600 px-4 py-2 rounded">Ajouter une zone</button>
+

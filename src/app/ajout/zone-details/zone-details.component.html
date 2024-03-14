@@ -1,0 +1,54 @@
+<h2>Détails de la zone</h2>
+
+<div *ngIf="zoneDetails">
+  <p><strong>Identifiant:</strong> {{ zoneDetails.id }}</p>
+  <p><strong>Nom local:</strong> {{ zoneDetails.nomLocal }}</p>
+  <p><strong>Type local:</strong> {{ zoneDetails.typeLocal }}</p>
+  <p><strong>Étage:</strong> {{ zoneDetails.etageZ }}</p>
+  <!-- Ajoutez d'autres détails de la zone ici selon vos besoins -->
+</div>
+
+<div *ngIf="!zoneDetails">
+  <p>Chargement des détails de la zone...</p>
+</div>
+<h2>Équipements de la zone</h2>
+
+<div *ngIf="equipements.length > 0">
+  <ul>
+    <li *ngFor="let equipement of equipements">
+      {{ equipement.nom }} 
+    </li>
+  </ul>
+</div>
+
+<div *ngIf="equipements.length === 0">
+    <p>Aucun équipement trouvé pour cette zone.</p>
+</div>
+
+<!-- Ajoutez un bouton pour rediriger vers le composant d'ajout d'équipement -->
+<button (click)="redirectToAjouterEquipement()">Ajouter un équipement</button>
+
+<!--<h2>Détails de la zone</h2>
+
+<div *ngIf="zoneDetails">
+  <p><strong>Identifiant:</strong> {{ zoneDetails.id }}</p>
+  <p><strong>Nom local:</strong> {{ zoneDetails.nomLocal }}</p>
+  <p><strong>Type local:</strong> {{ zoneDetails.typeLocal }}</p>
+  <p><strong>Étage:</strong> {{ zoneDetails.etageZ }}</p>
+ 
+</div>
+
+<h2>Équipements de la zone</h2>
+
+<div *ngIf="equipements.length > 0">
+  <ul>
+    <li *ngFor="let equipement of equipements">
+      {{ equipement.nom }} 
+    </li>
+  </ul>
+</div>
+
+<div *ngIf="equipements.length === 0">
+  <p>Aucun équipement trouvé pour cette zone.</p>
+</div>
+-->

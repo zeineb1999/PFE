@@ -22,6 +22,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { AjouterEtageComponent } from './ajout/ajouter-etage/ajouter-etage.component';
 import { AjouterZoneComponent } from './ajout/ajouter-zone/ajouter-zone.component';
 import { AjouterEquipementComponent } from './ajout/ajouter-equipement/ajouter-equipement.component';
+import { ToutesZonesComponent } from './ajout/toutes-zones/toutes-zones.component';
+import { ZoneDetailsComponent } from './ajout/zone-details/zone-details.component';
 
 
 @NgModule({
@@ -40,7 +42,9 @@ import { AjouterEquipementComponent } from './ajout/ajouter-equipement/ajouter-e
     ProfileComponent,
     AjouterEtageComponent,
     AjouterZoneComponent,
-    AjouterEquipementComponent
+    AjouterEquipementComponent,
+    ToutesZonesComponent,
+    ZoneDetailsComponent
   ],
   imports: [
     BrowserModule,

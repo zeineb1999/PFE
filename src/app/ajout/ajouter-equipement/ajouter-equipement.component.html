@@ -1,7 +1,7 @@
-<div>
+<!--<div>
     <label>Nom:</label>
     <input type="text" [(ngModel)]="nom" name="nom"><br>
-    <!-- Ajoutez d'autres champs pour les détails de l'équipement -->
+ 
     <label>Marque:</label>
     <input type="text" [(ngModel)]="marque" name="marque"><br>
     
@@ -33,4 +33,133 @@
 
     <button (click)="ajouterEquipement()">Ajouter Equipement</button>
 </div>
-  
+-->
+<app-header></app-header>
+<section class="bg-gray-100 bg-no-repeat bg-cover" style="background-image: url('assets/Medical-Devices1.jpg');">
+  <!--style="background-image: url('assets/Medical-Devices.jpg');"-->
+  <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+
+    <div class="w-full flex justify-center">
+      <div class="relative inline-block mb-12 text-center">
+        <span class="text-2xl md:text-2xl font-bold">
+          L'efficacité des soins commence par le bon équipement !
+        </span>
+        <span class="mt-4 absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-blue-400 to-green-500 rounded-full"></span>
+      </div>
+    </div>
+
+      <div class="rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12 m-auto w-3/5">
+
+        <div class="w-full mb-8 flex flex-col">
+            <h1 class="w-full text-center md:text-2xl">Rajouter un équipement électrique dans</h1>
+            <h1 class="text-center text-2xl md:text-3xl font-bold ">
+              <span class="inline-block bg-gradient-to-r from-blue-500 to-green-400 text-transparent bg-clip-text">Zone {{zoneRoomId}}</span>
+            </h1>
+        </div>
+
+        <form action="#" class="space-y-4">
+          <div>
+            <label class="sr-only" for="nom">Nom </label>
+            <input
+              [(ngModel)]="nom" name="nom"
+              class="w-full rounded-lg border-blue-500 p-3 text-sm"
+              placeholder="Nom"
+              type="text"
+              id="nom"
+            />
+          </div>
+
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div>
+              <label class="sr-only" for="marque">Marque</label>
+              <input
+                [(ngModel)]="marque"
+                class="w-full rounded-lg border-gray-200 p-3 text-sm"
+                placeholder="Marque"
+                type="text"
+                id="marque"
+                name="marque"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label class="sr-only" for="categorie">Catégorie </label>
+            <input
+              [(ngModel)]="categorie"
+              class="w-full rounded-lg border-gray-200 p-3 text-sm"
+              placeholder="Catégorie"
+              type="text"
+              id="categorie"
+              name="categorie"
+            />
+          </div>
+
+          <div>
+            <label class="sr-only" for="categorie">Type </label>
+            <input
+              [(ngModel)]="type"
+              class="w-full rounded-lg border-gray-200 p-3 text-sm"
+              placeholder="Type"
+              type="text"
+              id="type"
+              name="type"
+            />
+          </div>
+
+          <div>
+            <label class="sr-only" for="puissance">Puissance </label>
+            <input
+              [(ngModel)]="puissance"
+              class="w-full rounded-lg border-gray-200 p-3 text-sm"
+              placeholder="Puissance"
+              type="number"
+              id="puissance"
+              name="puissance"
+            />
+          </div>
+
+          <div>
+            <label class="sr-only" for="maxConsommation">Consommation maximale </label>
+            <input
+              [(ngModel)]="maxConsommation"
+              class="w-full rounded-lg border-gray-200 p-3 text-sm"
+              placeholder="Consommation maximale"
+              type="number"
+              id="maxConsommation"
+              name="maxConsommation"
+            />
+          </div>
+
+          <div>
+            <label class="sr-only" for="minConsommation">Consommation minimale </label>
+            <input
+              [(ngModel)]="minConsommation"
+              class="w-full rounded-lg border-gray-200 p-3 text-sm"
+              placeholder="Consommation minimale"
+              type="number"
+              id="minConsommation"
+              name="minConsommation"
+            />
+          </div>
+
+          <!--<label>Zone:</label>
+          <select [(ngModel)]="zoneId" name="zoneId">
+              <option *ngFor="let zone of zones" [value]="zone.id">{{ zone.nomLocal }}</option>
+          </select><br>-->
+
+          <div class="mt-4">
+            <button
+              type="submit"
+              class="inline-block w-full rounded-lg bg-blue-500 px-5 py-3 font-medium text-white sm:w-auto"
+              (click)="ajouterEquipement()"
+            >
+            Ajouter
+            </button>
+          </div>
+        </form>
+      </div>
+
+
+  </div>
+</section>
