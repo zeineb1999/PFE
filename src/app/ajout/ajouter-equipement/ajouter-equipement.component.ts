@@ -83,8 +83,9 @@ export class AjouterEquipementComponent implements OnInit {
 }
 */
 import { Component, OnInit } from '@angular/core';
-import {FloorService } from  '../../service/floor.service';
+import { FloorService } from '../../service/floor.service';
 import { ActivatedRoute, Router } from '@angular/router';
+
 interface Equipement {
   nom?: string;
   marque: string;
@@ -96,10 +97,12 @@ interface Equipement {
   minConsommation: number;
   zoneId: number;
 }
-interface  Zone {
+
+interface Zone {
   id: number;
   nomLocal: string;
 }
+
 @Component({
   selector: 'app-ajouter-equipement',
   templateUrl: './ajouter-equipement.component.html',
@@ -121,18 +124,23 @@ export class AjouterEquipementComponent implements OnInit {
   minConsommation!: number;
   zoneId!: number;
 
-  zoneRoomId!: any ;
+  zoneRoomId!: any;
+
+  constructor(
+    private floorService: FloorService,
+    private router: Router, // Injecter Router
+    private route: ActivatedRoute
+  ) {
+    this.getZones();
+  }
 
   ngOnInit() {
     this.zoneRoomId = parseInt(this.route.snapshot.paramMap.get('zoneId') || '');
-    
-  }  ;
-  constructor(private floorService: FloorService,private route: ActivatedRoute) {
-    this.getZones();
   }
+
   getZones = () => {
     this.floorService.getAllZones().subscribe(
-      (data: Zone[]) => { // Spécifiez le type de données comme Movie[]
+      (data: Zone[]) => {
         this.zones = data;
       },
       error => {
@@ -145,7 +153,7 @@ export class AjouterEquipementComponent implements OnInit {
     const equipementData = {
       nom: this.nom,
       marque: this.marque,
-      etat: 'OFF',
+      etat: 'OFF', // Vous aviez initialement 'OFF', j'ai conservé cela
       categorie: this.categorie,
       type: this.type,
       puissance: this.puissance,
@@ -155,15 +163,18 @@ export class AjouterEquipementComponent implements OnInit {
     };
 
     this.floorService.addEquipement(equipementData).subscribe(
-    (data: Equipement) => { // Spécifiez le type de données comme Movie
-    console.log(data);
-    this.equipements.push(data); // Mettez à jour les propriétés du film sélectionné
+      (data: Equipement) => {
+        console.log(data);
+        this.equipements.push(data);
+        
+        // Redirection vers la page '/equipements' après l'ajout d'un équipement
+        this.router.navigateByUrl(`/zone-details/${this.zoneRoomId}`);
 
-  },
-  error => {
-    console.log(error);
+
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
-  );
-}
-
 }

@@ -74,6 +74,9 @@ getEquipementsByZone(zoneId: number): Observable<any> {
   return this.http.get<any>(this.baseurl + '/zones/'+ zoneId+'/equipements/' ,
     {headers: this.httpHeaders});
 }
-
+getAllEquipements() : Observable<any>{
+  return this.http.get(this.baseurl + '/equipement/',
+   {headers: this.httpHeaders});
+}
   
 }

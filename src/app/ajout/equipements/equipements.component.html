@@ -1,0 +1,165 @@
+<app-header></app-header>
+
+<div class="w-full flex justify-center">
+  <div class="relative inline-block my-12 text-center">
+    <span class="text-2xl md:text-2xl font-bold">
+      Equipements de l'hopital
+    </span>
+    <span class="mt-6 absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-blue-400 to-green-500 rounded-full"></span>
+  </div>
+</div>
+
+
+<section class="container px-4 mx-auto">
+
+  <span class="px-3 py-1 text-xs text-purple-600 bg-purple-100 rounded-full">6 étages</span>
+  <span class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full ml-2">100 zones</span>
+
+  <div class="flex flex-col mt-6">
+      <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+              <div class="overflow-hidden border border-gray-200  md:rounded-lg">
+                  <table class="table min-w-full">
+                      <thead>
+                          <tr>
+                              <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 ">
+                                  <div class="flex items-center gap-x-2">
+                                      <input type="checkbox" class="text-blue-500 border-gray-300 rounded cursor-pointer">
+                                      <span>Nom</span>
+                                  </div>
+                              </th>
+
+                              <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
+                                <div class="flex items-center gap-x-2">
+                                    <span>Marque</span>
+                                </div>
+                              </th>
+
+                              <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
+                                <div class="flex items-center gap-x-2">
+                                    <span>Etat</span>
+                                </div>
+                              </th>
+
+                              <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
+                                <div class="flex items-center gap-x-2">
+                                    <span>Catégorie</span>
+                                </div>
+                              </th>
+
+                              <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
+                                  <div class="flex items-center gap-x-2">
+                                      <span>Type</span>
+                                  </div>
+                              </th>
+
+                              <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">
+                                  <div class="flex items-center gap-x-2">
+                                      <span>Puissance</span>
+                                  </div>
+                              </th>
+
+                              <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
+                                <div class="flex items-center gap-x-2">
+                                    <span>Consommation maximale</span>
+                                </div>
+                              </th>
+
+                              <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
+                                <div class="flex items-center gap-x-2">
+                                    <span>Consommation minimale</span>
+                                </div>
+                              </th>
+
+                              <th scope="col" class="relative py-3.5 px-4">
+                                  <span class="sr-only">Edit</span>
+                              </th>
+
+                              <th scope="col" class="relative py-3.5 px-4">
+                                <span class="sr-only">Delete</span>
+                              </th>
+
+                              <th scope="col" class="relative py-3.5 px-4">
+                                <span class="sr-only">Details</span>
+                              </th>
+                          </tr>
+                      </thead>
+                      <tbody class="bg-white">
+                        <tr *ngFor="let equipement of equipements">
+
+                          <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
+                            <div class="inline-flex items-center gap-x-3">
+                              <input type="checkbox" class="text-blue-500 border-gray-300 rounded cursor-pointer">
+                                <span>{{ equipement.nom }}</span>
+                            </div>
+                          </td>
+
+                          <td class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right">
+                            <div class="inline-flex items-center gap-x-3">
+                                {{ equipement.marque }}
+                            </div>
+                          </td>
+
+                          <td class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right">
+                            <div class="inline-flex items-center gap-x-3">
+                              <span *ngIf="equipement.etat=='ON'" class="px-3 py-1 text-xs text-green-600 bg-green-100 rounded-full">{{equipement.etat}}</span>
+                              <span *ngIf="equipement.etat=='OFF'" class="px-3 py-1 text-xs text-red-500 bg-red-100 rounded-full">{{equipement.etat}}</span>
+                            </div>
+                          </td>
+
+                          <td class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right">
+                            <div class="inline-flex items-center gap-x-3">
+                                {{equipement.categorie}}
+                            </div>
+                          </td>
+
+                          <td class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right">
+                            <div class="inline-flex items-center gap-x-3">
+                                {{equipement.type}}
+                            </div>
+                          </td>
+
+                          <td class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right">
+                            <div class="inline-flex items-center gap-x-3">
+                                {{equipement.puissance}}
+                            </div>
+                          </td>
+
+                          <td class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right">
+                            <div class="inline-flex items-center gap-x-3">
+                                {{equipement.maxConsommation}}
+                            </div>
+                          </td>
+
+                          <td class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right">
+                            <div class="inline-flex items-center gap-x-3">
+                                {{equipement.minConsommation}}
+                            </div>
+                          </td>
+
+                          <td>
+                            <i class="fa-regular fa-pen-to-square cursor-pointer " style="color: #3b72f6;"></i>
+                          </td>
+                          <td>
+                            <i class="fa-regular fa-square-minus cursor-pointer" style="color: #e30000;"></i>
+                          </td>
+                          <td   >
+                            <!--(click)="redirectToEquipementDetails(equipement.id)"-->
+                            <i class="fa-solid fa-bars cursor-pointer" style="color: #6b7280;"></i>
+                          </td>
+
+                        </tr>
+
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <button routerLink="/ajouterEquipement" class="my-6 flex justify-center items-center rounded-full shadow-lg p-6 bg-gradient-to-r from-blue-500 to-green-400 text-transparent bg-clip-text" style="height: 60px; width:fit-content; border:1px solid #e7e7e7">
+    <span><i class="fa-solid fa-plus fa-2xl"></i></span>
+    <b><span class="ml-4">Ajouter un equipement</span></b>
+  </button>
+
+</section>

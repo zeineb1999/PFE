@@ -12,6 +12,9 @@ import { AjouterZoneComponent } from './ajout/ajouter-zone/ajouter-zone.componen
 import { AjouterEquipementComponent } from './ajout/ajouter-equipement/ajouter-equipement.component';
 import { ToutesZonesComponent } from './ajout/toutes-zones/toutes-zones.component';
 import { ZoneDetailsComponent } from './ajout/zone-details/zone-details.component';
+import { EquipementsComponent } from './ajout/equipements/equipements.component';
+import { AjoutEquipementSansZoneComponent } from './ajout/ajout-equipement-sans-zone/ajout-equipement-sans-zone.component';
+
 const routes: Routes = [
   { path: 'facesnaps/:id', component: SingleFaceSnapComponent },
   { path: 'facesnaps', component: FaceSnapListComponent },
@@ -21,13 +24,13 @@ const routes: Routes = [
   {path : 'signup/login',component:SignComponent},
   {path : 'login',component:SignComponent},
   {path:'profile',component:ProfileComponent},
-  {path:'profile/login',component:SignComponent},
   {path:'ajouterEtage',component:AjouterEtageComponent},
   {path:'ajouterZone',component:AjouterZoneComponent},
   {path:'ajouterEquipement/:zoneId',component:AjouterEquipementComponent},
+  {path:'ajouterEquipement',component:AjoutEquipementSansZoneComponent},
   {path:'toutesZones',component:ToutesZonesComponent},
   { path: 'zone-details/:zoneId', component: ZoneDetailsComponent },
-
+  {path: 'equipements', component: EquipementsComponent },
 ];
 
 @NgModule({
