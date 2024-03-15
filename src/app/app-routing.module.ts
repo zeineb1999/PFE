@@ -14,6 +14,7 @@ import { ToutesZonesComponent } from './ajout/toutes-zones/toutes-zones.componen
 import { ZoneDetailsComponent } from './ajout/zone-details/zone-details.component';
 import { EquipementsComponent } from './ajout/equipements/equipements.component';
 import { AjoutEquipementSansZoneComponent } from './ajout/ajout-equipement-sans-zone/ajout-equipement-sans-zone.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: 'facesnaps/:id', component: SingleFaceSnapComponent },
@@ -31,6 +32,7 @@ const routes: Routes = [
   {path:'toutesZones',component:ToutesZonesComponent},
   { path: 'zone-details/:zoneId', component: ZoneDetailsComponent },
   {path: 'equipements', component: EquipementsComponent },
+  {path: 'dashboard', component: DashboardComponent },
 ];
 
 @NgModule({
