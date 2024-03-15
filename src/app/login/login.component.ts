@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { UserService } from '../service/user.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Router } from '@angular/router';
+
+import { ActivatedRoute, Router } from '@angular/router';
 interface Registration {
   username: string;
   last_name:string;
@@ -39,17 +40,19 @@ export class LoginComponent implements OnInit{
   registerUser() {
     this.userService.registerNewUser(this.register).subscribe(
       response => {
-        alert('User '+ this.register.username+ ' Has been created ')
+        alert('User '+ this.register.username+ ' Has been created ');
+        this.router.navigateByUrl('/login')
       },
       error =>   console.log( 'error',error)
     );
   
 
   }
-  constructor(private userService: UserService, private api: ApiService) {
+  constructor(private userService: UserService, private api: ApiService,private route: ActivatedRoute, private router: Router) {
     // Code du constructeur
  
     
+
   }
   
 

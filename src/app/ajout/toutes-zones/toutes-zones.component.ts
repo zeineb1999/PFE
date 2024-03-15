@@ -1,4 +1,46 @@
+// toutes-zones.component.ts
+
 import { Component, OnInit } from '@angular/core';
+import { FloorService } from  'src/app/service/floor.service';
+import { ActivatedRoute, Router } from '@angular/router';
+
+@Component({
+  selector: 'app-toutes-zones',
+  templateUrl: './toutes-zones.component.html',
+  styleUrls: ['./toutes-zones.component.css']
+})
+export class ToutesZonesComponent implements OnInit {
+  etages: any[] = [];
+
+  constructor(private floorService:FloorService,private route: ActivatedRoute, private router: Router) {
+    // Code du constructeur
+  
+   }
+
+  ngOnInit(): void {
+    this.floorService.getAllEtages().subscribe(etages => {
+      this.etages = etages;
+    });
+  }
+
+  fetchZonesForEtage(etageId: number): void {
+    const etage = this.etages.find(e => e.id === etageId);
+    if (etage) {
+      this.floorService.getZonesForEtage(etageId).subscribe(zones => {
+        etage.zones = zones;
+        etage.showZones = true;
+      });
+    }
+  }
+  redirectToZoneDetails(zoneId: number): void {
+    this.router.navigate(['/zone-details', zoneId]);
+  }
+  
+}
+
+
+
+/*import { Component, OnInit } from '@angular/core';
 import { FloorService } from 'src/app/service/floor.service';
 import { Router } from '@angular/router'; // Importez le service Router
 
@@ -52,3 +94,4 @@ export class ToutesZonesComponent implements OnInit {
     );
   }
 }
+*/

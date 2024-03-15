@@ -29,7 +29,7 @@ export class FloorService {
         catchError(this.handleError)
       );
   }
-
+  
   ajouterZone(nomLocal: string, typeLocal: string, etageId: number): Observable<any> {
     const zoneData = {
       nomLocal: nomLocal,
@@ -70,10 +70,17 @@ export class FloorService {
 
 
 }
+
+getZonesForEtage(etageId: number): Observable<any> {
+  return this.http.get<any>(this.baseurl + '/etage/'+ etageId+'/zones/' ,
+    {headers: this.httpHeaders});
+}
 getEquipementsByZone(zoneId: number): Observable<any> {
   return this.http.get<any>(this.baseurl + '/zones/'+ zoneId+'/equipements/' ,
     {headers: this.httpHeaders});
 }
+
+
 getAllEquipements() : Observable<any>{
   return this.http.get(this.baseurl + '/equipement/',
    {headers: this.httpHeaders});

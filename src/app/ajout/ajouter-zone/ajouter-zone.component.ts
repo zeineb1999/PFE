@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FloorService } from '../../service/floor.service';
 
+import { ActivatedRoute, Router } from '@angular/router';
+
+
 @Component({
   selector: 'app-ajouter-zone',
   templateUrl: './ajouter-zone.component.html',
@@ -12,7 +15,10 @@ export class AjouterZoneComponent implements OnInit {
   etageId?: number;
   etages: any[] = [];
 
-  constructor(private floorService: FloorService) { }
+  constructor(private floorService:FloorService,private route: ActivatedRoute, private router: Router) {
+    // Code du constructeur
+  
+   }
 
   ngOnInit(): void {
     // Chargez les étages depuis votre API Django lors de l'initialisation du composant
@@ -37,6 +43,7 @@ export class AjouterZoneComponent implements OnInit {
                 this.nomLocal = '';
                 this.typeLocal = '';
                 this.etageId = 1;
+                this.router.navigateByUrl('/toutesZones');
             },
             (error) => {
                 console.error('Erreur lors de l\'ajout de la zone :', error);
