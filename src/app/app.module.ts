@@ -27,6 +27,10 @@ import { ZoneDetailsComponent } from './ajout/zone-details/zone-details.componen
 import { EquipementsComponent } from './ajout/equipements/equipements.component';
 import { AjoutEquipementSansZoneComponent } from './ajout/ajout-equipement-sans-zone/ajout-equipement-sans-zone.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ThreejsSceneComponent } from './threejs-scene/threejs-scene.component';
+import { EquipementDetailsComponent } from './ajout/equipement-details/equipement-details.component';
+import { UpdateEquipementComponent } from './ajout/update-equipement/update-equipement.component';
+import { UpdateZoneComponent } from './ajout/update-zone/update-zone.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +54,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     EquipementsComponent,
     AjoutEquipementSansZoneComponent,
     DashboardComponent,
+    ThreejsSceneComponent,
+    EquipementDetailsComponent,
+    UpdateEquipementComponent,
+    UpdateZoneComponent,
   
   ],
   imports: [

@@ -1,0 +1,14 @@
+<h2>Détails de la equipement</h2>
+
+<div *ngIf="equipementDetails">
+  <p><strong>Identifiant:</strong> {{ equipementDetails.id }}</p>
+  <p><strong>Nom :</strong> {{ equipementDetails.nom }}</p>
+  <p><strong>Marque:</strong> {{ equipementDetails.marque }}</p>
+  <p><strong>État:</strong> {{ equipementDetails.etat }}</p>
+  <!-- Ajoutez d'autres détails de la zone ici selon vos besoins -->
+</div>
+
+<div *ngIf="!equipementDetails">
+  <p>Chargement des détails de l equipement...</p>
+</div>
+

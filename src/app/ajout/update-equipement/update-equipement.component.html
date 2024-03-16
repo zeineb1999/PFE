@@ -1,0 +1,65 @@
+<app-header></app-header>
+<section class="bg-gray-100 bg-no-repeat bg-cover" style="background-image: url('assets/Medical-Devices1.jpg');">
+  <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12 m-auto w-3/5">
+      <div class="w-full mb-8 flex flex-col">
+        <h1 class="w-full text-center md:text-2xl">Modifier un équipement électrique </h1>
+        <h1 class="text-center text-2xl md:text-3xl font-bold">
+          <span class="inline-block bg-gradient-to-r from-blue-500 to-green-400 text-transparent bg-clip-text">Equipement {{equipementId}}</span>
+        </h1>
+      </div>
+      <form (submit)="updateEquipement()" class="space-y-4">
+        <div>
+          <label class="sr-only" for="nom">Nom </label>
+          <input [(ngModel)]="equipement.nom" name="nom" class="w-full rounded-lg border-blue-500 p-3 text-sm" placeholder="Nom" type="text" id="nom" />
+        </div>
+        <div>
+          <label class="sr-only" for="marque">Marque </label>
+          <input [(ngModel)]="equipement.marque" name="marque" class="w-full rounded-lg border-blue-500 p-3 text-sm" placeholder="Marque" type="text" id="marque" />
+        </div>
+        <div>
+          <label class="sr-only" for="etat">État </label>
+          <select [(ngModel)]="equipement.etat" name="etat" class="w-full rounded-lg border-blue-500 p-3 text-sm" id="etat">
+            <option value="ON">ON</option>
+            <option value="OFF">OFF</option>
+          </select>
+        </div>
+        <div>
+          <label class="sr-only" for="categorie">Catégorie </label>
+          <input [(ngModel)]="equipement.categorie" name="categorie" class="w-full rounded-lg border-blue-500 p-3 text-sm" placeholder="Catégorie" type="text" id="categorie" />
+        </div>
+        <div>
+          <label class="sr-only" for="type">Type </label>
+          <input [(ngModel)]="equipement.type" name="type" class="w-full rounded-lg border-blue-500 p-3 text-sm" placeholder="Type" type="text" id="type" />
+        </div>
+        <div>
+          <label class="sr-only" for="puissance">Puissance </label>
+          <input [(ngModel)]="equipement.puissance" name="puissance" class="w-full rounded-lg border-blue-500 p-3 text-sm" placeholder="Puissance" type="number" id="puissance" />
+        </div>
+        <div>
+          <label class="sr-only" for="maxConsommation">Consommation maximale </label>
+          <input [(ngModel)]="equipement.maxConsommation" name="maxConsommation" class="w-full rounded-lg border-blue-500 p-3 text-sm" placeholder="Consommation maximale" type="number" id="maxConsommation" />
+        </div>
+        <div>
+          <label class="sr-only" for="minConsommation">Consommation minimale </label>
+          <input [(ngModel)]="equipement.minConsommation" name="minConsommation" class="w-full rounded-lg border-blue-500 p-3 text-sm" placeholder="Consommation minimale" type="number" id="minConsommation" />
+        </div>
+        <div>
+          <label class="sr-only" for="equipement.zoneE">Zone </label>
+          <select [(ngModel)]="equipement.zoneE" name="zoneId" class="w-full rounded-lg border-blue-500 p-3 text-sm" id="zoneE">
+            <option *ngFor="let zone of zones" [value]="zone.id">{{ zone.nomLocal }}</option>
+          </select>
+        </div>
+        <div class="mt-4">
+          <button type="submit" class="inline-block w-full rounded-lg bg-blue-500 px-5 py-3 font-medium text-white sm:w-auto">Modifier</button>
+        </div>
+        <div *ngIf="successMessage" class="success-message flex items-center justify-center fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50">
+            <div class="bg-green-500 text-white font-bold rounded-lg border shadow-lg p-5">
+              {{ successMessage }}
+            </div>
+        </div>
+          
+      </form>
+    </div>
+  </div>
+</section>

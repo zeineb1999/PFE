@@ -1,7 +1,6 @@
-
 import { Component, OnInit } from '@angular/core';
 import { FloorService } from 'src/app/service/floor.service';
-import { Router } from '@angular/router'; // Importez le service Router
+import { Router } from '@angular/router';
 
 interface Equipement {
   id: number;
@@ -15,6 +14,7 @@ interface Equipement {
   minConsommation: number;
   zoneId: number;
 }
+
 @Component({
   selector: 'app-equipements',
   templateUrl: './equipements.component.html',
@@ -22,13 +22,17 @@ interface Equipement {
 })
 export class EquipementsComponent implements OnInit {
   equipements: Equipement[] = [];
-  selectedEquipement: any;
+  selectedEquipement: Equipement | undefined;
 
   constructor(private floorService: FloorService, private router: Router) { }
 
   ngOnInit(): void {
+    this.loadEquipements();
+  }
+
+  loadEquipements(): void {
     this.floorService.getAllEquipements().subscribe(
-      (data) => {
+      (data: Equipement[]) => {
         this.equipements = data;
       },
       (error) => {
@@ -36,26 +40,22 @@ export class EquipementsComponent implements OnInit {
       }
     );
   }
-  equipementsClicked = (equipement: Equipement) => { // Spécifiez le type de movie comme Movie
-    this.floorService.getOneZone(equipement.id).subscribe(
-      (data: Equipement) => { // Spécifiez le type de données comme Movie
-        console.log(data);
-        this.selectedEquipement = data; // Mettez à jour les propriétés du film sélectionné
-      },
-      error => {
-        console.log(error);
-      }
-    );
+
+  equipementsClicked(equipement: Equipement): void {
+    this.selectedEquipement = equipement;
   }
+
   redirectToEquipementDetails(equipementId: number): void {
-    this.floorService.getZoneDetails(equipementId).subscribe(
-      (details) => {
-        // Redirigez vers la page des détails de la zone avec ses équipements
-        this.router.navigate(['/equipement-details', equipementId], { state: { zone: details } });
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    this.router.navigate(['/equipement-details', equipementId]);
+  }
+
+  deleteEquipement(equipementId: number): void {
+    this.floorService.deleteEquipement(equipementId).subscribe(() => {
+      // Mettre à jour les données après la suppression
+      this.loadEquipements();
+    });
+  }
+  updateEquipement(equipementId: number): void {
+    this.router.navigate(['/updateEquipement', equipementId]);
   }
 }

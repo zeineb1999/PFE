@@ -12,7 +12,13 @@ export interface Equipement {
   puissance: number;
   maxConsommation: number;
   minConsommation: number;
-  zoneId: number;
+  zoneE: number;
+}
+export interface Zone {
+  id: number;
+  nomLocal: string;
+  typeLocal: string;
+  etageZ: number;
 }
 @Injectable({
   providedIn: 'root'
@@ -68,9 +74,12 @@ export class FloorService {
     return this.http.get(this.baseurl + '/zones/'+ zoneId+'/' ,
     {headers: this.httpHeaders});
 
-
+    
 }
-
+getEquipementDetails(equipementId: number): Observable<any> {
+  return this.http.get(this.baseurl + '/equipement/'+ equipementId+'/' ,
+  {headers: this.httpHeaders});
+}
 getZonesForEtage(etageId: number): Observable<any> {
   return this.http.get<any>(this.baseurl + '/etage/'+ etageId+'/zones/' ,
     {headers: this.httpHeaders});
@@ -85,5 +94,42 @@ getAllEquipements() : Observable<any>{
   return this.http.get(this.baseurl + '/equipement/',
    {headers: this.httpHeaders});
 }
-  
+
+deleteEquipement(equipementId: number): Observable<any> {
+  return this.http.delete(`${this.baseurl}/equipement/${equipementId}`, { headers: this.httpHeaders })
+    .pipe(
+      catchError(this.handleError)
+    );
+}
+modifierEquipement(equipementId: number, equipementData: Equipement): Observable<any> {
+  const url = `${this.baseurl}/equipement/${equipementId}/`;
+  return this.http.put(url, equipementData, { headers: this.httpHeaders })
+    .pipe(
+      catchError(this.handleError)
+    );
+}
+
+getEquipementAModifier(equipementId: number): Observable<Equipement> {
+  const url = `${this.baseurl}/equipement/${equipementId}/`;
+  return this.http.get<Equipement>(url, { headers: this.httpHeaders })
+    .pipe(
+      catchError(this.handleError)
+    );
+}
+modifierZone(zoneId: number, zoneData:  Zone) : Observable<any> {
+  const url = `${this.baseurl}/zones/${zoneId}/`;
+  return this.http.put(url, zoneData, { headers: this.httpHeaders })
+    .pipe(
+      catchError(this.handleError)
+    );
+}
+
+getZoneAModifier(zoneId: number): Observable<Zone> {
+  const url = `${this.baseurl}/zones/${zoneId}/`;
+  return this.http.get<Zone>(url, { headers: this.httpHeaders })
+    .pipe(
+      catchError(this.handleError)
+    );
+}
+
 }

@@ -1,14 +1,77 @@
-<div>
-    <label>Nom Local:</label>
-    <input type="text" [(ngModel)]="nomLocal" name="nomLocal" required><br>
-    
-    <label>Type Local:</label>
-    <input type="text" [(ngModel)]="typeLocal" name="typeLocal" required><br>
-    
-    <label>Étage:</label>
-    <select [(ngModel)]="etageId" name="etageId" required>
-        <option *ngFor="let etage of etages" [value]="etage.id">{{ etage.id }}</option>
-    </select><br>
+<app-header></app-header>
+<section class="bg-gray-100 bg-no-repeat bg-cover" style="background-image: url('assets/Medical-Devices1.jpg');">
+  <!--style="background-image: url('assets/Medical-Devices.jpg');"-->
+  <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
 
-    <button (click)="ajouterZone()">Ajouter Zone</button>
-</div>
+    <div class="w-full flex justify-center">
+      <div class="relative inline-block mb-12 text-center">
+        <span class="text-2xl md:text-2xl font-bold">
+          L'efficacité des soins commence par le bon équipement !
+        </span>
+        <span class="mt-4 absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-blue-400 to-green-500 rounded-full"></span>
+      </div>
+    </div>
+
+      <div class="rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12 m-auto w-3/5">
+
+        <div class="w-full mb-8 flex flex-col">
+            <h1 class="w-full text-center md:text-2xl">Rajouter un local dans votre hopital</h1>
+            <h1 class="text-center text-2xl md:text-3xl font-bold ">
+              <span class="inline-block bg-gradient-to-r from-blue-500 to-green-400 text-transparent bg-clip-text">local</span>
+            </h1>
+        </div>
+
+        <form action="#" class="space-y-4">
+          <div>
+            <label class="sr-only" for="nom">Nom local  </label>
+            <input
+              [(ngModel)]="nomLocal" name="nomLocal"
+              class="w-full rounded-lg border-blue-500 p-3 text-sm"
+              placeholder="Nom"
+              type="text"
+              id="nom"
+            />
+          </div>
+
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div>
+              <label class="sr-only" for="typeLocal">Type Local</label>
+              <input
+                [(ngModel)]="typeLocal"
+                class="w-full rounded-lg border-gray-200 p-3 text-sm"
+                placeholder="typeLocal"
+                type="text"
+                id="typeLocal"
+                name="typeLocal"
+              />
+            </div>
+          </div>
+          <div class="relative">
+            <label for="etage">Étage:</label>
+            <select [(ngModel)]="etageId" name="etageId" id="etage" required
+                    class="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
+              <option *ngFor="let etage of etages" [value]="etage.id">{{ etage.id }}</option>
+            </select>
+          </div>
+          
+          
+        
+          
+   
+          <div class="mt-4">
+            <button
+              type="submit"
+              class="inline-block w-full rounded-lg bg-blue-500 px-5 py-3 font-medium text-white sm:w-auto"
+              (click)="ajouterZone()"
+            >
+            Ajouter
+            </button>
+          </div>
+        </form>
+      </div>
+
+
+  </div>
+</section>
+
+

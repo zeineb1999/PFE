@@ -138,14 +138,14 @@
                           </td>
 
                           <td>
-                            <i class="fa-regular fa-pen-to-square cursor-pointer " style="color: #3b72f6;"></i>
+                            <i class="fa-regular fa-pen-to-square cursor-pointer " style="color: #3b72f6;" (click)="updateEquipement(equipement.id)" ></i>
                           </td>
                           <td>
-                            <i class="fa-regular fa-square-minus cursor-pointer" style="color: #e30000;"></i>
+                            <i class="fa-regular fa-square-minus cursor-pointer" style="color: #e30000; " (click)="deleteEquipement(equipement.id)"></i>
                           </td>
                           <td   >
                             <!--(click)="redirectToEquipementDetails(equipement.id)"-->
-                            <i class="fa-solid fa-bars cursor-pointer" style="color: #6b7280;"></i>
+                            <i class="fa-solid fa-bars cursor-pointer" style="color: #6b7280;" (click)="redirectToEquipementDetails(equipement.id)" ></i>
                           </td>
 
                         </tr>

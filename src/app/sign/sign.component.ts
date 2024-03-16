@@ -22,7 +22,7 @@ export class SignComponent {
       setTimeout(() => {
         this.successMessage = ''; // Effacer le message après quelques secondes
         this.router.navigate(['/profile']); // Redirigez l'utilisateur vers la page de tableau de bord après la connexion réussie
-      }, 3000); // 3000 millisecondes = 3 secondes
+      }, 1000); // 3000 millisecondes = 3 secondes
     });
   }
 }

@@ -15,6 +15,10 @@ import { ZoneDetailsComponent } from './ajout/zone-details/zone-details.componen
 import { EquipementsComponent } from './ajout/equipements/equipements.component';
 import { AjoutEquipementSansZoneComponent } from './ajout/ajout-equipement-sans-zone/ajout-equipement-sans-zone.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ThreejsSceneComponent } from './threejs-scene/threejs-scene.component';
+import { EquipementDetailsComponent } from './ajout/equipement-details/equipement-details.component';
+import { UpdateEquipementComponent } from './ajout/update-equipement/update-equipement.component';
+import { UpdateZoneComponent } from './ajout/update-zone/update-zone.component';
 
 const routes: Routes = [
   { path: 'facesnaps/:id', component: SingleFaceSnapComponent },
@@ -31,8 +35,12 @@ const routes: Routes = [
   {path:'ajouterEquipement',component:AjoutEquipementSansZoneComponent},
   {path:'toutesZones',component:ToutesZonesComponent},
   { path: 'zone-details/:zoneId', component: ZoneDetailsComponent },
+  { path: 'equipement-details/:equipementId', component: EquipementDetailsComponent },
   {path: 'equipements', component: EquipementsComponent },
   {path: 'dashboard', component: DashboardComponent },
+  {path: 'threejs', component: ThreejsSceneComponent },
+  {path: 'updateEquipement/:equipementId', component: UpdateEquipementComponent },
+  {path: 'updateZone/:zoneId', component: UpdateZoneComponent },
 ];
 
 @NgModule({
