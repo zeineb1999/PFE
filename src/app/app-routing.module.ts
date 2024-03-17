@@ -19,6 +19,8 @@ import { ThreejsSceneComponent } from './threejs-scene/threejs-scene.component';
 import { EquipementDetailsComponent } from './ajout/equipement-details/equipement-details.component';
 import { UpdateEquipementComponent } from './ajout/update-equipement/update-equipement.component';
 import { UpdateZoneComponent } from './ajout/update-zone/update-zone.component';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { AjouterZoneSansEtageComponent } from './ajout/ajouter-zone-sans-etage/ajouter-zone-sans-etage.component';
 
 const routes: Routes = [
   { path: 'facesnaps/:id', component: SingleFaceSnapComponent },
@@ -31,6 +33,7 @@ const routes: Routes = [
   {path:'profile',component:ProfileComponent},
   {path:'ajouterEtage',component:AjouterEtageComponent},
   {path:'ajouterZone',component:AjouterZoneComponent},
+  {path:'ajouterZone/:etageId',component:AjouterZoneSansEtageComponent},
   {path:'ajouterEquipement/:zoneId',component:AjouterEquipementComponent},
   {path:'ajouterEquipement',component:AjoutEquipementSansZoneComponent},
   {path:'toutesZones',component:ToutesZonesComponent},
@@ -41,6 +44,7 @@ const routes: Routes = [
   {path: 'threejs', component: ThreejsSceneComponent },
   {path: 'updateEquipement/:equipementId', component: UpdateEquipementComponent },
   {path: 'updateZone/:zoneId', component: UpdateZoneComponent },
+  {path: 'notifications', component: NotificationsComponent },
 ];
 
 @NgModule({

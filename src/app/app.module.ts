@@ -31,6 +31,9 @@ import { ThreejsSceneComponent } from './threejs-scene/threejs-scene.component';
 import { EquipementDetailsComponent } from './ajout/equipement-details/equipement-details.component';
 import { UpdateEquipementComponent } from './ajout/update-equipement/update-equipement.component';
 import { UpdateZoneComponent } from './ajout/update-zone/update-zone.component';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { AjouterZoneSansEtageComponent } from './ajout/ajouter-zone-sans-etage/ajouter-zone-sans-etage.component';
+import { UpdateEtageComponent } from './ajout/update-etage/update-etage.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +61,9 @@ import { UpdateZoneComponent } from './ajout/update-zone/update-zone.component';
     EquipementDetailsComponent,
     UpdateEquipementComponent,
     UpdateZoneComponent,
+    NotificationsComponent,
+    AjouterZoneSansEtageComponent,
+    UpdateEtageComponent,
   
   ],
   imports: [

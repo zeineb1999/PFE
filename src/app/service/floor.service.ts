@@ -65,6 +65,10 @@ export class FloorService {
     const body = {  nom: equipement.nom, marque: equipement.marque, etat: equipement.etat, categorie: equipement.categorie, type: equipement.type, puissance: equipement.puissance, maxConsommation: equipement.maxConsommation, minConsommation: equipement.minConsommation, zoneE: equipement.zoneE}
     return this.http.post(this.baseurl + '/equipement/', body,{headers: this.httpHeaders});
   }
+  addZone(zone:{  nomLocal: string, typeLocal: string, etageZ: number }) : Observable<any>{
+    const body = {  nomLocal: zone.nomLocal,typeLocal: zone.typeLocal,etageZ: zone.etageZ}
+    return this.http.post(this.baseurl + '/zones/', body,{headers: this.httpHeaders});
+  }
   getOneZone(id: number) : Observable<any>{
     return this.http.get(this.baseurl + '/zones/'+ id+'/' ,
     {headers: this.httpHeaders});
@@ -97,6 +101,18 @@ getAllEquipements() : Observable<any>{
 
 deleteEquipement(equipementId: number): Observable<any> {
   return this.http.delete(`${this.baseurl}/equipement/${equipementId}`, { headers: this.httpHeaders })
+    .pipe(
+      catchError(this.handleError)
+    );
+}
+deleteZone(zoneId: number): Observable<any> {
+  return this.http.delete(`${this.baseurl}/zones/${zoneId}`, { headers: this.httpHeaders })
+    .pipe(
+      catchError(this.handleError)
+    );
+}
+deleteEtage(etageId: number): Observable<any> {
+  return this.http.delete(`${this.baseurl}/etage/${etageId}`, { headers: this.httpHeaders })
     .pipe(
       catchError(this.handleError)
     );
