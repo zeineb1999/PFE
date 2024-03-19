@@ -1,27 +1,29 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   login(username: string, password: string) : Observable<any>{
     return this.http.post<any>('http://127.0.0.1:8000/api/api/token/', { username, password });
   }
   logout() {
     // Supprimez le token JWT stocké côté client
+    localStorage.removeItem('isLoggedIn');
+
     localStorage.removeItem('token');
+    this.router.navigate(['/login']);
   }
 
   getToken() {
     // Récupérez le token JWT stocké côté client
     return localStorage.getItem('token');
   }
- 
-    
-  
+
   getProfile() {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
@@ -33,5 +35,5 @@ export class AuthService {
     const body = { username: newUsername, first_name: newFirstname, last_name: newLastname };
     return this.http.put<any>('http://127.0.0.1:8000/api/profile/', body, { headers });
   }
-  
+
 }

@@ -23,8 +23,9 @@ interface Equipement {
 export class EquipementsComponent implements OnInit {
   equipements: Equipement[] = [];
   selectedEquipement: Equipement | undefined;
+  isLoggedIn: boolean;
 
-  constructor(private floorService: FloorService, private router: Router) { }
+  constructor(private floorService: FloorService, private router: Router) {   this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';}
 
   ngOnInit(): void {
     this.loadEquipements();

@@ -38,14 +38,15 @@ export class AjoutEquipementSansZoneComponent implements OnInit {
   maxConsommation!: number;
   minConsommation!: number;
   zoneId!: number;
-
+  isLoggedIn: boolean;
+  
 
 
   ngOnInit() {
    
   }  ;
   constructor(private floorService: FloorService, private router: Router, // Injecter Router
-  private route: ActivatedRoute) {
+  private route: ActivatedRoute) {this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     this.getZones();
   }
   getZones = () => {

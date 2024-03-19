@@ -1,4 +1,4 @@
-
+<div *ngIf="isLoggedIn">
 <app-header></app-header>
 <section class="bg-gray-100 bg-no-repeat bg-cover" style="background-image: url('assets/Medical-Devices1.jpg');">
   <!--style="background-image: url('assets/Medical-Devices.jpg');"-->
@@ -7,7 +7,7 @@
     <div class="w-full flex justify-center">
       <div class="relative inline-block mb-12 text-center">
         <span class="text-2xl md:text-2xl font-bold">
-          L'efficacité des soins commence par le bon équipement !
+          Créons un espace où le confort rencontre l'efficacité des soins !
         </span>
         <span class="mt-4 absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-blue-400 to-green-500 rounded-full"></span>
       </div>
@@ -16,50 +16,124 @@
       <div class="rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12 m-auto w-3/5">
 
         <div class="w-full mb-8 flex flex-col">
-            <h1 class="w-full text-center md:text-2xl">Rajouter un local dans votre hopital</h1>
-            <h1 class="text-center text-2xl md:text-3xl font-bold ">
-              <span class="inline-block bg-gradient-to-r from-blue-500 to-green-400 text-transparent bg-clip-text">local</span>
+            <h1 class="w-full text-center md:text-2xl"></h1>
+            <h1 class="text-center text-xl md:text-xl font-bold ">
+              <!--<span class="inline-block bg-gradient-to-r from-blue-500 to-green-400 text-transparent bg-clip-text">Rajouter un local à l'étage {{ this.etageZ}}</span>-->
+              <span class="inline-block text-black">Rajouter un local à l'étage {{ this.etageZ}}</span>
             </h1>
         </div>
 
         <form action="#" class="space-y-4">
-          <div>
-            <label class="sr-only" for="nom">Nom local  </label>
-            <input
-              [(ngModel)]="nomLocal" name="nomLocal"
-              class="w-full rounded-lg border-blue-500 p-3 text-sm"
-              placeholder="Nom"
-              type="text"
-              id="nom"
-            />
+
+          <div class="flex w-72 flex-col gap-6">
+            <div class="relative h-11 w-full min-w-[200px]">
+              <input
+                class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-blue-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                [(ngModel)]="numLocal" name="numLocal"
+                placeholder=""
+                type="number"
+                id="num"
+              />
+              <label class="text-gray-400 after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-blue-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-blue-500 peer-focus:after:scale-x-100 peer-focus:after:border-blue-500 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                Numéro du local
+              </label>
+            </div>
           </div>
 
-          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <div>
-              <label class="sr-only" for="typeLocal">Type Local</label>
+
+          <div class="flex w-72 flex-col gap-6">
+            <div class="relative h-11 w-full min-w-[200px]">
               <input
+                class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-blue-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                [(ngModel)]="nomLocal" name="nomLocal"
+                placeholder=""
+                type="text"
+                id="nom"
+              />
+              <label class="text-gray-400 after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-blue-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-blue-500 peer-focus:after:scale-x-100 peer-focus:after:border-blue-500 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                Nom du local
+              </label>
+            </div>
+          </div>
+
+          <div class="flex w-72 flex-col gap-6">
+            <div class="relative h-11 w-full min-w-[200px]">
+              <input
+                class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-blue-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
                 [(ngModel)]="typeLocal"
-                class="w-full rounded-lg border-gray-200 p-3 text-sm"
-                placeholder="typeLocal"
+                placeholder=""
                 type="text"
                 id="typeLocal"
                 name="typeLocal"
               />
+              <label class="text-gray-400 after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-blue-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-blue-500 peer-focus:after:scale-x-100 peer-focus:after:border-blue-500 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                Type du local
+              </label>
             </div>
           </div>
-          
-          
-          
-        
-          
-   
-          <div class="mt-4">
+
+          <div class="flex w-72 flex-col gap-6">
+            <div class="relative h-11 w-full min-w-[200px]">
+              <input
+                class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-blue-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                [(ngModel)]="surfaceLocal"
+                placeholder=""
+                type="number"
+                id="surfaceLocal"
+                name="surfaceLocal"
+              />
+              <label class="text-gray-400 after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-blue-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-blue-500 peer-focus:after:scale-x-100 peer-focus:after:border-blue-500 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                Surface du local
+              </label>
+            </div>
+          </div>
+
+          <div class="flex w-72 flex-col gap-6">
+            <div class="relative h-11 w-full min-w-[200px]">
+              <input
+                class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-blue-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                [(ngModel)]="hauteur"
+                placeholder=""
+                type="number"
+                id="hauteur"
+                name="hauteur"
+              />
+              <label class="text-gray-400 after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-blue-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-blue-500 peer-focus:after:scale-x-100 peer-focus:after:border-blue-500 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                Hauteur du plafond
+              </label>
+            </div>
+          </div>
+
+          <div class="flex w-72 flex-col gap-6">
+            <div class="relative h-11 w-full min-w-[200px]">
+              <input
+                class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-blue-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                [(ngModel)]="temperature"
+                placeholder=""
+                type="number"
+                id="temp"
+                name="temp"
+              />
+              <label class="text-gray-400 after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-blue-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-blue-500 peer-focus:after:scale-x-100 peer-focus:after:border-blue-500 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                Température désirée dans le local
+              </label>
+            </div>
+          </div>
+
+
+          <div class="mt-4 flex justify-between">
+            <button
+              type="button"
+              (click)="goBack()"
+              class="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">
+              <i class="fa-solid fa-chevron-left mr-2"></i>
+              <span>Retour</span>
+            </button>
             <button
               type="submit"
-              class="inline-block w-full rounded-lg bg-blue-500 px-5 py-3 font-medium text-white sm:w-auto"
               (click)="ajouterZone()"
-            >
-            Ajouter
+              class="text-white border border-blue-500 bg-blue-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+              Ajouter
             </button>
           </div>
         </form>
@@ -68,5 +142,5 @@
 
   </div>
 </section>
-
+</div>
 

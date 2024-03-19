@@ -1,3 +1,4 @@
+<div *ngIf="isLoggedIn">
 <app-header></app-header>
 <body class="font-sans antialiased text-gray-900 leading-normal tracking-wider bg-cover"
     style="background-image:url('https://www.dreso.com/fileadmin/_processed_/8/7/csm_Smart_Hospital_Website_17a7cc1e84.jpg');">
@@ -16,27 +17,27 @@
                 <div class="block lg:hidden rounded-full shadow-xl mx-auto -mt-16 h-48 w-48 bg-cover bg-center"
                     style="background-image: url('https://source.unsplash.com/MP0IUfwrn0A')"></div>
 
-                <h1 class="text-3xl font-bold pt-8 lg:pt-0">{{ user.username }}</h1>
+                <h1 class="text-3xl font-bold pt-8 lg:pt-0">{{ user?.username }}</h1>
                 <div class="mx-auto lg:mx-0 w-4/5 pt-3 border-b-2 border-blue-500 opacity-25"></div>
                 <p class="pt-6 text-gray-600 text-xs lg:text-sm flex items-center justify-center lg:justify-start">
-                  <i class="fa-solid fa-user h-4 fill-current text-blue-700 pr-4"></i> Lastname : <strong>{{ user.lastname }}</strong>
+                  <i class="fa-solid fa-user h-4 fill-current text-blue-700 pr-4"></i> Lastname : <strong>{{ user?.lastname }}</strong>
               </p>
-              
+
               <p class="pt-6 text-gray-600 text-xs lg:text-sm flex items-center justify-center lg:justify-start">
-                <i class="fa-solid fa-user h-4 fill-current text-blue-700 pr-4"></i> Firstname : <strong> {{ user.firstname }}</strong> </p>
-           
+                <i class="fa-solid fa-user h-4 fill-current text-blue-700 pr-4"></i> Firstname : <strong> {{ user?.firstname }}</strong> </p>
+
                 <p class="pt-6 text-gray-600 text-xs lg:text-sm flex items-center justify-center lg:justify-start">
                     <i class="fa-solid fa-envelope h-4 fill-current text-blue-700 pr-4"></i>
-                        Your email : <strong> {{ user.email }}</strong>
+                        Your email : <strong> {{ user?.email }}</strong>
                 </p>
-               
+
                 <div class="pt-12 pb-8">
-                    <button class="bg-red-700 hover:bg-red-900 text-white font-bold py-2 px-4 rounded-full "routerLink="/login">
+                    <button class="bg-red-700 hover:bg-red-900 text-white font-bold py-2 px-4 rounded-full "(click)="SeDeconnecter()">
 				         Se deconnecter
 				     </button>
                 </div>
 
-               
+
                 <!-- Use https://simpleicons.org/ to find the svg for your preferred product -->
 
             </div>
@@ -44,7 +45,7 @@
         </div>
 
 
-   
+
 
     </div>
 
@@ -84,7 +85,7 @@
     </script>
 
 </body>
-
+</div>
 
 
  <!--<div *ngIf="user">
@@ -93,7 +94,7 @@
     <p><strong>Nom:</strong> {{ user.lastname }}</p>
     <p><strong>Prénom:</strong> {{ user.firstname }}</p>
     <p><strong>email:</strong> {{ user.email }}</p>
- 
+
   </div>
     <div>
       <label>Nom d'utilisateur:</label>
@@ -109,5 +110,3 @@
     </div>
     <button type="button" (click)="updateProfile()">Enregistrer</button>
  -->
-  
-  

@@ -13,8 +13,9 @@ export class NotificationsComponent implements OnInit {
     'Notification 2',
     'Notification 3'
   ]; // C'est un exemple, vous devez remplacer cela par vos données de notifications réelles
-
-  constructor() { }
+  isLoggedIn: boolean;
+ 
+  constructor() { this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true'; }
 
   ngOnInit(): void {
   }

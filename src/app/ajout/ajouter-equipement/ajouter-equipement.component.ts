@@ -125,12 +125,13 @@ export class AjouterEquipementComponent implements OnInit {
   zoneId!: number;
 
   zoneRoomId!: any;
-
+  isLoggedIn: boolean;
+ 
   constructor(
     private floorService: FloorService,
     private router: Router, // Injecter Router
     private route: ActivatedRoute
-  ) {
+  ) { this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     this.getZones();
   }
 

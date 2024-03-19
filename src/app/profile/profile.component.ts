@@ -11,8 +11,9 @@ export class ProfileComponent implements OnInit {
   newUsername: string = '';
   newFirstname: string = '';
   newLastname: string = '';
-
-  constructor(private authService: AuthService) { }
+  isLoggedIn: boolean;
+  
+  constructor(private authService: AuthService) {this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true'; }
 
   ngOnInit(): void {
     this.authService.getProfile().subscribe(profile => {
@@ -25,6 +26,9 @@ export class ProfileComponent implements OnInit {
       .subscribe(response => {
         // Mettre à jour les données du profil affichées si nécessaire
       });
+  }
+  SeDeconnecter() {
+    this.authService.logout();
   }
   
 }

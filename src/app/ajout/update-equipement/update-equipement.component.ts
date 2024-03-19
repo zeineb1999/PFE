@@ -44,12 +44,13 @@ export class UpdateEquipementComponent implements OnInit {
     equipementId: number = 0;
     successMessage: string = ''; // Variable pour stocker le message de succès
   
+    isLoggedIn: boolean;
   
     constructor(
       private floorService: FloorService,
       private router: Router,
       private route: ActivatedRoute
-    ) {}
+    ) {this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';}
   
     ngOnInit() {
       this.route.paramMap.pipe(

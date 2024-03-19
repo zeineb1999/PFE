@@ -29,8 +29,9 @@ export class EquipementDetailsComponent implements OnInit {
   equipementId!: number;
   equipementDetails: Equipement | undefined;
  
+  isLoggedIn: boolean;
 
-  constructor(private route: ActivatedRoute, private router: Router, private floorService: FloorService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private floorService: FloorService) {  this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true'; }
 
   ngOnInit(): void {
     // Récupérer le paramètre zoneId de l'URL

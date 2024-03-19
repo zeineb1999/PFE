@@ -9,8 +9,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class AjouterEtageComponent {
   floorSurface?: number;
+  isLoggedIn: boolean;
+ 
 
-  constructor(private floorService: FloorService,private route: ActivatedRoute, private router: Router) { }
+  constructor(private floorService: FloorService,private route: ActivatedRoute, private router: Router) {  this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';}
 
   ajouterEtage() {
     if (this.floorSurface) {

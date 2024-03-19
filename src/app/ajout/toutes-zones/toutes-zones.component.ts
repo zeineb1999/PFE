@@ -14,7 +14,7 @@ export class ToutesZonesComponent implements OnInit {
 
   constructor(private floorService:FloorService,private route: ActivatedRoute, private router: Router) {
     // Code du constructeur
-  
+
    }
 
   ngOnInit(): void {
@@ -35,7 +35,7 @@ export class ToutesZonesComponent implements OnInit {
   redirectToZoneDetails(zoneId: number): void {
     this.router.navigate(['/zone-details', zoneId]);
   }
-  
+
 }
 
 
@@ -75,7 +75,7 @@ export class ToutesZonesComponent implements OnInit {
       (data: Zone) => { // Spécifiez le type de données comme Movie
         console.log(data);
         this.selectedZones = data; // Mettez à jour les propriétés du film sélectionné
-       
+
       },
       error => {
         console.log(error);
@@ -111,9 +111,9 @@ import { Location } from '@angular/common'; // Importez Location depuis @angular
 })
 export class ToutesZonesComponent implements OnInit {
   etages: any[] = [];
-
+  isLoggedIn: boolean;
   constructor(private floorService:FloorService,private route: ActivatedRoute, private router: Router,private location: Location) {
-    // Code du constructeur
+    this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
 
    }
 
@@ -156,14 +156,14 @@ export class ToutesZonesComponent implements OnInit {
     // Redirigez vers le composant d'ajout d'équipement en passant l'ID de la zone dans l'URL
     this.router.navigate(['/equipements', zoneId]);
   }
- 
+
   deleteZone(zoneId: number): void {
     this.floorService.deleteZone(zoneId).subscribe(() => {
       // Redirigez vers la même page pour rafraîchir
       window.location.reload();
     });
   }
-  
+
   updateEtage(etageId: number): void {
     this.router.navigate(['/updateEtage',etageId]);
   }
@@ -173,10 +173,12 @@ export class ToutesZonesComponent implements OnInit {
       window.location.reload();
     });
   }
-  
+
   updateZone(zoneId: number): void {
     this.router.navigate(['/updateZone',zoneId]);
   }
+
+  
 
 }
 

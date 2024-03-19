@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+/*import { Component, OnInit } from '@angular/core';
 import { FloorService } from '../../service/floor.service';
 import { ActivatedRoute, Router } from '@angular/router';
 interface Zone {
@@ -59,3 +59,79 @@ export class AjouterZoneSansEtageComponent implements OnInit {
     }
   }
 }  
+*/
+import { Component, OnInit } from '@angular/core';
+import { FloorService } from '../../service/floor.service';
+import { ActivatedRoute, Router } from '@angular/router';
+interface Zone {
+
+  nomLocal: string;
+  typeLocal: string;
+  etageZ: number;
+}
+
+@Component({
+  selector: 'app-ajouter-zone-sans-etage',
+  templateUrl: './ajouter-zone-sans-etage.component.html',
+  styleUrls: ['./ajouter-zone-sans-etage.component.css']
+})
+export class AjouterZoneSansEtageComponent implements OnInit {
+  zones: Zone[] = [];
+  etageZ?: number;
+
+  numLocal?: number;
+  nomLocal?: string;
+  typeLocal?: string;
+  etageId?: number;
+  etages: any[] = [];
+  temperature?: number;
+  surfaceLocal?: number;
+  hauteur?: number;
+  isLoggedIn: boolean;
+ 
+  constructor(private floorService:FloorService,private route: ActivatedRoute, private router: Router) {
+    // Code du constructeur
+     this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+   }
+
+  ngOnInit(): void {
+    this.etageZ = parseInt(this.route.snapshot.paramMap.get('etageId') || '');
+    this.loadEtages();
+  }
+
+  loadEtages(): void {
+    // Appelez votre service pour charger les étages depuis l'API Django
+    this.floorService.getAllEtages().subscribe((data: any[]) => {
+      this.etages = data;
+    });
+  }
+  ajouterZone(): void {
+    const zoneData: Zone = {
+      nomLocal: this.nomLocal || '',
+      typeLocal: this.typeLocal || '',
+      etageZ: this.etageZ || 0 // Assurez-vous que la valeur par défaut est correcte
+    };
+
+    // Vérifiez si les valeurs sont définies avant d'appeler le service
+    if (zoneData.nomLocal && zoneData.typeLocal && zoneData.etageZ) {
+      this.floorService.addZone(zoneData).subscribe(
+        (data: Zone) => {
+          console.log(data);
+          this.zones.push(data);
+
+          // Redirection vers la page '/toutesZones' après l'ajout d'une zone
+          this.router.navigateByUrl(`/toutesZones`);
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    } else {
+      console.log("Veuillez remplir tous les champs.");
+    }
+  }
+
+  goBack() {
+    window.history.back();
+  }
+}

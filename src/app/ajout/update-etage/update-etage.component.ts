@@ -17,12 +17,18 @@ interface Etage {
   styleUrls: ['./update-etage.component.css']
 })
 export class UpdateEtageComponent  {
+  isLoggedIn: boolean;
  
     etages: Etage[] = [];
     etage: Etage = {
       id: 0,
       surface: 0
     };
+    constructor(
+      
+    ){
+       this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    }
 }
 /*
 

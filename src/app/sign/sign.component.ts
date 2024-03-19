@@ -19,12 +19,12 @@ export class SignComponent {
         console.log(response)
         localStorage.setItem('token', response.access);
         this.successMessage = 'Connexion réussie !';
-      setTimeout(() => {
-        this.successMessage = ''; // Effacer le message après quelques secondes
-        this.router.navigate(['/profile']); // Redirigez l'utilisateur vers la page de tableau de bord après la connexion réussie
-      }, 1000); // 3000 millisecondes = 3 secondes
-    });
+        setTimeout(() => {
+          localStorage.setItem('isLoggedIn', 'true');
+          this.successMessage = ''; // Effacer le message après quelques secondes
+          this.router.navigate(['/profile']); // Redirigez l'utilisateur vers la page de tableau de bord après la connexion réussie
+        }, 1000); // 3000 millisecondes = 3 secondes
+      });
+    }
   }
 }
-}
-  

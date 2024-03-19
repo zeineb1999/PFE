@@ -35,6 +35,7 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { AjouterZoneSansEtageComponent } from './ajout/ajouter-zone-sans-etage/ajouter-zone-sans-etage.component';
 import { UpdateEtageComponent } from './ajout/update-etage/update-etage.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,6 +65,7 @@ import { UpdateEtageComponent } from './ajout/update-etage/update-etage.componen
     NotificationsComponent,
     AjouterZoneSansEtageComponent,
     UpdateEtageComponent,
+    
   
   ],
   imports: [

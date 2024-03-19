@@ -1,5 +1,6 @@
+<div *ngIf="isLoggedIn">
 <app-header></app-header>
-<div class="flex flex-wrap">
+<!--<div class="flex flex-wrap">
     <div class="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
         <div
         class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-blueGray-700"
@@ -15,7 +16,7 @@
           </div>
         </div>
         <div class="p-4 flex-auto">
-          <!-- Chart -->
+          
           <div class="relative" style="height: 350px">
             <canvas id="line-chart"></canvas>
           </div>
@@ -37,7 +38,7 @@
           </div>
         </div>
         <div class="p-4 flex-auto">
-          <!-- Chart -->
+         
           <div class="relative" style="height: 350px">
             <canvas id="bar-chart"></canvas>
           </div>
@@ -66,7 +67,7 @@
           </div>
         </div>
         <div class="block w-full overflow-x-auto">
-          <!-- Projects table -->
+         
           <table class="items-center w-full bg-transparent border-collapse">
             <thead>
               <tr>
@@ -235,7 +236,7 @@
           </div>
         </div>
         <div class="block w-full overflow-x-auto">
-          <!-- Projects table -->
+       
           <table class="items-center w-full bg-transparent border-collapse">
             <thead class="thead-light">
               <tr>
@@ -406,3 +407,24 @@
       </div>
     </div>
   </div>
+-->
+
+<!-- mon-composant.component.html -->
+<!-- mon-composant.component.html -->
+
+<!-- mon-composant.component.html -->
+
+<button (click)="loadCSVData('Temp-Hum-Sensor-B.csv')">Charger les données CSV</button>
+<table *ngIf="csvData">
+  <thead>
+    <tr>
+      <th *ngFor="let header of csvData[0]">{{ header }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of csvData.slice(1)">
+      <td *ngFor="let cell of row">{{ cell }}</td>
+    </tr>
+  </tbody>
+</table>
+</div>

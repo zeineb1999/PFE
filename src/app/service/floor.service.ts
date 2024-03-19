@@ -147,5 +147,20 @@ getZoneAModifier(zoneId: number): Observable<Zone> {
       catchError(this.handleError)
     );
 }
+// excel.service.ts
 
+
+
+
+getCSVData(file_path: string) {
+  return this.http.get<any>('http://localhost:8000/api/read-csv/' + file_path);
 }
+
+getNotifications() {
+  return ["one","two","three","four","five"];
+}
+}
+
+
+
+

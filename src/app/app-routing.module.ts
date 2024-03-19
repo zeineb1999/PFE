@@ -22,6 +22,8 @@ import { UpdateZoneComponent } from './ajout/update-zone/update-zone.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { AjouterZoneSansEtageComponent } from './ajout/ajouter-zone-sans-etage/ajouter-zone-sans-etage.component';
 
+
+
 const routes: Routes = [
   { path: 'facesnaps/:id', component: SingleFaceSnapComponent },
   { path: 'facesnaps', component: FaceSnapListComponent },
@@ -45,6 +47,7 @@ const routes: Routes = [
   {path: 'updateEquipement/:equipementId', component: UpdateEquipementComponent },
   {path: 'updateZone/:zoneId', component: UpdateZoneComponent },
   {path: 'notifications', component: NotificationsComponent },
+  
 ];
 
 @NgModule({
