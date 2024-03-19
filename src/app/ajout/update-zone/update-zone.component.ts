@@ -8,6 +8,7 @@ interface Zone {
   id: number;
   nomLocal: string;
   typeLocal: string;
+  surface:number;
   etageZ: number;
 }
 interface Etage {
@@ -26,6 +27,7 @@ export class UpdateZoneComponent  implements OnInit {
       id: 0,
       nomLocal: '', // Assurez-vous d'initialiser nom avec une valeur par défaut
       typeLocal: '',
+      surface: 0,
      
       etageZ: 0
     };

@@ -2,6 +2,7 @@ import { NgModule,LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import * as fr from '@angular/common/locales/fr';
 
+
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule  } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';

@@ -76,33 +76,25 @@
             <div class="relative h-11 w-full min-w-[200px]">
               <input
                 class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-blue-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
-                [(ngModel)]="surfaceLocal"
+                [(ngModel)]="surface"
                 placeholder=""
                 type="number"
-                id="surfaceLocal"
-                name="surfaceLocal"
+                id="surface"
+                name="surface"
               />
               <label class="text-gray-400 after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-blue-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-blue-500 peer-focus:after:scale-x-100 peer-focus:after:border-blue-500 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
                 Surface du local
               </label>
             </div>
           </div>
-
-          <div class="flex w-72 flex-col gap-6">
-            <div class="relative h-11 w-full min-w-[200px]">
-              <input
-                class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-blue-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
-                [(ngModel)]="hauteur"
-                placeholder=""
-                type="number"
-                id="hauteur"
-                name="hauteur"
-              />
-              <label class="text-gray-400 after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-blue-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-blue-500 peer-focus:after:scale-x-100 peer-focus:after:border-blue-500 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
-                Hauteur du plafond
-              </label>
+          
+          <div *ngIf="surfaceAlert" class="success-message flex items-center justify-center fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50">
+            <div class="bg-red-500 text-white font-bold rounded-lg border shadow-lg p-5">
+              La surface de la zone à ajouter est supérieure au reste de la surface de l'étage.
             </div>
           </div>
+          
+
 
           <div class="flex w-72 flex-col gap-6">
             <div class="relative h-11 w-full min-w-[200px]">
