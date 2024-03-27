@@ -5,10 +5,10 @@ import { Router } from '@angular/router';
 interface Equipement {
   id: number;
   nom?: string;
-  marque: string;
+  
   etat: string;
   categorie: string;
-  type: string;
+ 
   puissance: number;
   maxConsommation: number;
   minConsommation: number;

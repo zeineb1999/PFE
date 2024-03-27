@@ -1,0 +1,15 @@
+.etages-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .etage {
+    margin-bottom: 20px;
+  }
+  
+  .local {
+    background-color: #ccc;
+    padding: 5px;
+    margin-bottom: 5px;
+  }
+  

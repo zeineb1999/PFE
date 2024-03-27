@@ -1,5 +1,23 @@
-<div *ngIf="isLoggedIn">
+<div>
+  <app-widget-area></app-widget-area>
+</div>
+<mat-divider></mat-divider>
+<div>
+  <div>Line chart</div>
+  <div>Line chart</div>
+  <div>Line chart</div>
+  <div>Line chart</div>
+</div>
+<mat-divider></mat-divider>
+<div>
+  <div>Table</div>
+  <div>Pie chart</div>
+</div>
+<!--<div *ngIf="isLoggedIn">
 <app-header></app-header>
+
+
+commentaire -->
 <!--<div class="flex flex-wrap">
     <div class="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
         <div
@@ -413,7 +431,7 @@
 <!-- mon-composant.component.html -->
 
 <!-- mon-composant.component.html -->
-
+<!--
 <button (click)="loadCSVData('Temp-Hum-Sensor-B.csv')">Charger les données CSV</button>
 <table *ngIf="csvData">
   <thead>
@@ -426,5 +444,25 @@
       <td *ngFor="let cell of row">{{ cell }}</td>
     </tr>
   </tbody>
-</table>
+</table>-->
+<!-- debut 
+<div *ngIf="excelData">
+<div class="bg-white py-24 sm:py-32">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <dl class="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-3">
+      <div class="mx-auto flex max-w-xs flex-col gap-y-4">
+        <dt class="text-base leading-7 text-gray-600">Capteur de temperature</dt>
+        <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">{{ excelData[currentIndex].column1 }}  degré</dd>
+      </div>
+    
+      <div class="mx-auto flex max-w-xs flex-col gap-y-4">
+        <dt class="text-base leading-7 text-gray-600">Capteur d humidité</dt>
+        <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">{{ excelData[currentIndex].column2 }} %</dd>
+      </div>
+    </dl>
+  </div>
 </div>
+</div>
+
+</div>
+-->

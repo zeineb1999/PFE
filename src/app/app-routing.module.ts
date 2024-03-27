@@ -21,13 +21,24 @@ import { UpdateEquipementComponent } from './ajout/update-equipement/update-equi
 import { UpdateZoneComponent } from './ajout/update-zone/update-zone.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { AjouterZoneSansEtageComponent } from './ajout/ajouter-zone-sans-etage/ajouter-zone-sans-etage.component';
-
+import  {FacturesComponent} from './factures/factures.component';
+import { HopitalConfigComponent } from './hopital-config/hopital-config.component';
+import { DefaultComponent } from './layouts/default/default.component';
+import { PostsComponent } from './modules/posts/posts.component';
+import { GrapheComponent } from './graphe/graphe.component';
 
 
 const routes: Routes = [
+  
   { path: 'facesnaps/:id', component: SingleFaceSnapComponent },
   { path: 'facesnaps', component: FaceSnapListComponent },
   {path: '', component:SignComponent },
+  {path: '', component:DefaultComponent,children:[
+    {path: '', component:DashboardComponent
+   },{
+   path: 'posts', component:PostsComponent}
+  ]},
+  {path: 'dashboard',component:GrapheComponent},
   {path : 'forgetPassword',component:ForgetPassComponent},
   {path : 'signup',component:LoginComponent},
   {path : 'signup/login',component:SignComponent},
@@ -47,6 +58,9 @@ const routes: Routes = [
   {path: 'updateEquipement/:equipementId', component: UpdateEquipementComponent },
   {path: 'updateZone/:zoneId', component: UpdateZoneComponent },
   {path: 'notifications', component: NotificationsComponent },
+  {path: 'factures', component: FacturesComponent },
+  {path: 'hopitalConfig', component: HopitalConfigComponent},
+
   
 ];
 

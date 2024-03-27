@@ -6,10 +6,10 @@ import { switchMap } from 'rxjs/operators';
 interface Equipement {
   id: number;
   nom: string;
-  marque: string;
+
   etat: string;
   categorie: string;
-  type: string;
+
   puissance: number;
   maxConsommation: number;
   minConsommation: number;
@@ -32,10 +32,10 @@ export class UpdateEquipementComponent implements OnInit {
     equipement: Equipement = {
       id: 0,
       nom: '', // Assurez-vous d'initialiser nom avec une valeur par défaut
-      marque: '',
+    
       etat: '',
       categorie: '',
-      type: '',
+    
       puissance: 0,
       maxConsommation: 0,
       minConsommation: 0,

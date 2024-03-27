@@ -1,0 +1,30 @@
+.floor {
+    display: flex;
+    flex-wrap: wrap; /* Permettre le retour à la ligne si nécessaire */
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .floor-square {
+    width: 200px; /* Largeur initiale du carré de l'étage */
+    height: auto; /* Hauteur automatique en fonction du contenu */
+    background-color: lightgray; /* Couleur de fond du carré de l'étage */
+    border: 1px solid darkgray; /* Bordure du carré de l'étage */
+    padding: 20px; /* Espacement interne */
+    margin: 10px; /* Marge autour du carré de l'étage */
+    display: flex;
+    flex-direction: column; /* Pour afficher le contenu verticalement */
+    align-items: center; /* Pour centrer le contenu horizontalement */
+  }
+  
+  .local {
+    width: 50px;
+    height: 50px;
+    background-color: lightblue;
+    border: 1px solid darkblue;
+    margin: 5px; /* Marge entre les zones */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  

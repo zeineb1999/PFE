@@ -42,7 +42,18 @@
                       <span *ngIf="nomPage=='equipements'" class="absolute -bottom-0.5 left-0 w-full h-0.5 bg-gradient-to-r from-blue-500 via-blue-400 to-green-500"></span>
                     </div>
                   </a>
+                  <a href="#" [ngStyle]="{ 'background-color': nomPage=='factures' ? '#ececec' : 'white' }" class="px-3 py-5 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform lg:mt-0 hover:bg-gray-100" routerLink="/factures">
+                    <div class=" ">Parametrage 
+                      <span *ngIf="nomPage=='factures'" class="absolute -bottom-0.5 left-0 w-full h-0.5 bg-gradient-to-r from-blue-500 via-blue-400 to-green-500"></span>
+                    </div>
+                  </a>
                 </div>
+                <!--<h1>{{ 'header.title' | translate }}</h1>
+                <div>
+                  <span>{{ 'header.language' | translate }}:</span>
+                  <button (click)="switchLanguage('fr')">{{ 'language.french' | translate }}</button>
+                  <button (click)="switchLanguage('en')">{{ 'language.english' | translate }}</button>
+                </div>-->
             </div>
 
 

@@ -5,23 +5,34 @@ import { FloorService } from "../service/floor.service";
   selector: "app-dashboard",
   templateUrl: "./dashboard.component.html",
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   csvData: any;
   isLoggedIn: boolean;
+  excelData: any;
+  currentIndex: number = 0;
 
   constructor(private floorService: FloorService) { 
     this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
   }
 
-  loadCSVData(file_path: string) {
-    this.floorService.getCSVData(file_path).subscribe(
-      response => {
-        this.csvData = response.data;
-        console.log('Données CSV récupérées avec succès');
-      },
-      error => {
-        console.error('Une erreur s\'est produite lors de la récupération des données CSV:', error);
+  ngOnInit(): void {
+    this.getExcelData();
+  }
+
+  getExcelData(): void {
+    this.floorService.getExcelData().subscribe(data => {
+      this.excelData = data;
+      this.updateDataEverySecond();
+    });
+  }
+
+  updateDataEverySecond(): void {
+    setInterval(() => {
+      if (this.currentIndex < this.excelData.length - 1) {
+        this.currentIndex++;
+      } else {
+        this.currentIndex = 0;
       }
-    );
+    }, 1000); // Met à jour les données chaque seconde
   }
 }

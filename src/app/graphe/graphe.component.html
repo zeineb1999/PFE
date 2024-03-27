@@ -1,0 +1,22 @@
+<div *ngIf="isLoggedIn">
+<app-header></app-header>
+<div>
+    <highcharts-chart
+ [Highcharts]="Highcharts" 
+ [options]="chartOptions"
+    style="width: 100%; height: 400px; display: block;">
+</highcharts-chart>
+  </div>
+  <mat-divider></mat-divider>
+  <div>
+    <div>Line chart</div>
+    <div>Line chart</div>
+    <div>Line chart</div>
+    <div>Line chart</div>
+  </div>
+  <mat-divider></mat-divider>
+  <div>
+    <div>Table</div>
+    <div>Pie chart</div>
+  </div>
+</div>

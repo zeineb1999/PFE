@@ -1,7 +1,18 @@
 import { NgModule,LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import * as fr from '@angular/common/locales/fr';
+import { initializeApp, getApp,provideFirebaseApp } from '@angular/fire/app';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+ // Assurez-vous de mettre le bon chemin ici
+ 
+ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+ import {  HttpClient } from '@angular/common/http';
 
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatCardModule } from '@angular/material/card';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule  } from '@angular/common/http';
@@ -35,7 +46,27 @@ import { UpdateZoneComponent } from './ajout/update-zone/update-zone.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { AjouterZoneSansEtageComponent } from './ajout/ajouter-zone-sans-etage/ajouter-zone-sans-etage.component';
 import { UpdateEtageComponent } from './ajout/update-etage/update-etage.component';
+import { FacturesComponent } from './factures/factures.component';
+import { HopitalConfigComponent } from './hopital-config/hopital-config.component';
+//import { DefaultComponent } from './layouts/default/default.component';
+import { DefaultModule } from './layouts/default/default.module';
+import { GrapheComponent } from './graphe/graphe.component';
 
+
+
+import{MatDividerModule} from '@angular/material/divider'
+import {MatToolbarModule} from '@angular/material/toolbar'
+import {MatIconModule} from '@angular/material/icon'
+import { FlexLayoutModule } from '@angular/flex-layout';
+import {MatButtonModule} from '@angular/material/button'
+import  {MatMenuModule} from '@angular/material/menu'
+import {MatListModule} from '@angular/material/list'
+import { RouterModule } from '@angular/router';
+import { HighchartsChartModule } from 'highcharts-angular';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -58,7 +89,7 @@ import { UpdateEtageComponent } from './ajout/update-etage/update-etage.componen
     ZoneDetailsComponent,
     EquipementsComponent,
     AjoutEquipementSansZoneComponent,
-    DashboardComponent,
+    //DashboardComponent,
     ThreejsSceneComponent,
     EquipementDetailsComponent,
     UpdateEquipementComponent,
@@ -66,14 +97,43 @@ import { UpdateEtageComponent } from './ajout/update-etage/update-etage.componen
     NotificationsComponent,
     AjouterZoneSansEtageComponent,
     UpdateEtageComponent,
+    FacturesComponent,
+    HopitalConfigComponent,
+    GrapheComponent,
+   
+   
+    
     
   
   ],
   imports: [
+    MatDividerModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    FlexLayoutModule,
+    MatMenuModule,
+    MatListModule,
+    RouterModule,
+    HighchartsChartModule,
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    MatCardModule,
+    DefaultModule,
+
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
+    
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'fr-FR'}

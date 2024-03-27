@@ -1,0 +1,308 @@
+<app-header></app-header>
+<div class="h-3/4">
+
+    <div class="w-1/2 mx-auto mt-7 mb-4">
+      <div class="overflow-hidden rounded-full bg-gray-200">
+        <div class="h-2 {{width}} transition-all duration-500 rounded-full bg-blue-500"></div>
+      </div>
+  
+      <ol class="mt-4 grid grid-cols-4 text-sm font-medium text-gray-500">
+        <li class="flex items-center justify-start {{color[0]}} sm:gap-1.5">
+          <span class="hidden sm:inline">Entete</span>
+  
+          <svg
+            class="h-6 w-6 sm:h-5 sm:w-5"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"
+            />
+          </svg>
+        </li>
+  
+        <li class="flex items-center justify-center {{color[1]}} sm:gap-1.5">
+          <span class="hidden sm:inline">Client</span>
+  
+          <svg
+            class="h-6 w-6 sm:h-5 sm:w-5"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"
+            />
+          </svg>
+        </li>
+  
+        <li class="flex items-center justify-end {{color[2]}} sm:gap-1.5">
+          <span class="hidden sm:inline">Commandes</span>
+  
+          <svg
+            class="h-6 w-6 sm:h-5 sm:w-5"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"
+            />
+          </svg>
+        </li>
+
+        <li class="flex items-center justify-end {{color[3]}} sm:gap-1.5">
+          <span class="hidden sm:inline">Facture final</span>
+  
+          <svg
+            class="h-6 w-6 sm:h-5 sm:w-5"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+            />
+          </svg>
+        </li>
+      </ol>
+    </div>
+  </div>
+
+<section class="max-w-4xl mb-28 p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
+  <ng-container *ngIf="step==0">
+    <h2 class="text-lg mb-5 font-semibold text-gray-700 capitalize dark:text-white">Create L'entete de facture</h2>
+
+    
+        <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+            
+            <ng-container *ngFor="let champ of champsTitle">
+                <div>
+                  <div class="flex justify-between">
+                    <label class="text-gray-700 dark:text-gray-200" for="">{{champ}} </label>
+                    <span (click)="deleteChamp(champ,'title')" class="cursor-pointer mr-3 transition-all duration-200 text-gray-600 bg-gray-200 rounded-full hover:bg-gray-500 text-base px-2 font-semibold font-sans ">X</span>
+                  </div>
+                    <input  [(ngModel)]="champsTitleValue[champ]" required id="" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
+                  </div>
+            </ng-container>
+           
+        </div>
+
+        
+        <div class="flex justify-between mt-10">
+            <div class="flex w-3/4">
+                <input [(ngModel)]="newChamp" type="text" class="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
+                <button [disabled]="newChamp==''" (click)="addChamp()" class="px-5 mx-2  text-white transition-colors duration-300 transform bg-blue-400 rounded-md disabled:bg-gray-300   hover:bg-blue-300 focus:outline-none whitespace-nowrap">Ajouter un champ</button>
+            </div>
+
+            <button (click)="nextStep()" class="px-8   text-white transition-colors duration-300 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Save</button>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="step==1">
+    <h2 class="text-lg mb-5 font-semibold text-gray-700 capitalize dark:text-white">Create L'entete de facture</h2>
+
+    <div class="ng-autocomplete w-3/4 mx-auto md:w-1/2">
+      
+      
+      <ng-template #itemTemplate let-item>
+      <a [innerHTML]="item.name"></a>
+      </ng-template>
+      
+      <ng-template #notFoundTemplate let-notFound>
+      <div [innerHTML]="notFound"></div>
+      </ng-template>
+      </div>
+    
+        <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+            
+            <ng-container *ngFor="let champ of champsClient">
+                <div>
+                    <div class="flex justify-between">
+                      <label class="text-gray-700 dark:text-gray-200" for="">{{champ}} </label>
+                      <span (click)="deleteChamp(champ,'client')" class="cursor-pointer mr-3 transition-all duration-200 text-gray-600 bg-gray-200 rounded-full hover:bg-gray-500 text-base px-2 font-semibold font-sans ">X</span>
+                    </div>
+                    <input *ngIf="champ!='FactureNumber'" [(ngModel)]="champsClientValue[champ]" id="" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
+                    <input *ngIf="champ=='FactureNumber'" [(ngModel)]="factureNumber" id="" type="number" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
+                </div>
+
+            </ng-container>
+           
+        </div>
+
+        
+        <div class="flex justify-between mt-10">
+            <div class="flex w-3/4">
+                <input [(ngModel)]="newChamp" type="text" class="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
+                <button [disabled]="newChamp==''" (click)="addChamp()" class="px-5 mx-2  text-white transition-colors duration-300 transform bg-blue-400 rounded-md disabled:bg-gray-300   hover:bg-blue-300 focus:outline-none whitespace-nowrap">Ajouter un champ</button>
+            </div>
+            <button (click)="previousStep()" class="px-2  mx-3 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">précédent</button>
+
+            <button (click)="nextStep()" class="px-8   text-white transition-colors duration-300 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Save</button>
+        </div>
+    </ng-container>
+
+
+
+
+    <ng-container *ngIf="step==2">
+        <h2 class="text-lg mb-5 font-semibold text-gray-700 capitalize dark:text-white">Create facture</h2>
+
+    
+        <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+            <div *ngFor="let champ of champsFacture">
+              <div class="flex justify-between">
+                <label class="text-gray-700 dark:text-gray-200" for="">{{champ}} </label>
+                <div>
+                <span *ngIf="typeItem[champ]=='P'" (click)="change(champ)" class="text-white cursor-pointer mr-3 transition-all duration-400 text-gray-600 bg-yellow-200 rounded-full hover:bg-yellow-500 text-base px-2 font-semibold font-sans ">{{typeItem[champ]}}</span>
+                <span *ngIf="typeItem[champ]=='D'" (click)="change(champ)" class="text-white cursor-pointer mr-3 transition-all duration-200 text-gray-600 bg-blue-500 rounded-full hover:bg-blue-700 text-base px-2 font-semibold font-sans ">{{typeItem[champ]}}</span>
+                <span (click)="deleteChamp(champ,'facture')" class="cursor-pointer mr-3 transition-all duration-200 text-gray-600 bg-gray-200 rounded-full hover:bg-gray-500 text-base px-2 font-semibold font-sans ">X</span>
+              
+                </div>  
+              </div>
+                <input [(ngModel)]="champsClientValueFacture[champ]" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
+            </div>
+
+
+           
+        </div>
+        <div class="flex justify-between mt-10">
+            <div class="flex w-3/4">
+                <input [(ngModel)]="newChamp" type="text" placeholder="Saisir votre champ" class="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
+                <button [disabled]="newChamp==''" (click)="addChampFacture()" class="px-5 mx-2  text-white transition-colors duration-300 transform bg-blue-400 rounded-md disabled:bg-gray-300   hover:bg-blue-300 focus:outline-none whitespace-nowrap">Ajouter un champ</button>
+            </div>
+            <button (click)="previousStep()" class="px-2  mx-3 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">précédent</button>
+
+            <button (click)="nextStep()" class="px-8   text-white transition-colors duration-300 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Save</button>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="step==3">
+
+      <div class="flex justify-between mt-5 h-10">
+        
+        <button  (click)="previousStep()" class="px-5 mx-2  text-white transition-colors duration-300 transform bg-gray-400 rounded-md  hover:bg-gray-300 focus:outline-none whitespace-nowrap">précédent</button>
+        
+
+        <button (click)="stock()" class="px-8   text-white transition-colors duration-300 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Stocker</button>
+    </div>
+
+
+      <div class="max-w-3xl mx-auto p-6 bg-white rounded shadow-sm my-6" id="invoice">
+
+        <div class="grid grid-cols-6 items-center">
+                
+          <div class="text-left col-span-3">
+            <p class="font-semibold pb-3">
+              {{champsTitleValue["Name"]}}
+            </p>
+            <p class="text-gray-500 text-sm">
+              {{champsTitleValue["Adresse"]}}
+            </p>
+            <p class="text-gray-500 text-sm mt-1">
+              {{champsTitleValue["Tel/Fax"]}}
+            </p>
+            <p class="text-gray-500 text-sm mt-1">
+              <span class="text-black  ">RCN :</span>{{champsTitleValue["RCN"]}} <span class="text-black  "> / NIF :</span>  {{champsTitleValue["NIF"]}}
+            </p>
+          </div>
+          <div class="col-span-2 h-full">
+            <p class="text-gray-500 text-sm pb-10">
+              {{champsTitleValue["Date"]}}
+            </p>
+            <p class="text-gray-500 text-sm">
+              <span class="text-black  ">Declaration:</span> {{champsTitleValue["Declaration"]}}
+            </p>
+            <p class="text-gray-500 text-sm">
+              <span class="text-black  ">Nombre de Colis:</span> {{champsClientValue["Nombre_Colis"]}}
+            </p>
+          </div>
+       
+
+
+        </div>
+      
+        <!-- Client info -->
+        <div class=" mt-12">
+          <div>
+            <ng-container *ngFor="let champ of champsClient">
+             <p *ngIf="champ!='FactureNumber' && champ!='Nombre_Colis'"  class="text-gray-500">{{champ}} : <span class="text-black"> {{champsClientValue[champ]}}</span></p>
+             <p *ngIf="champ=='FactureNumber'"  class="text-gray-500">{{champ}} : <span class="text-black"> {{champsClientValue[champ]}} </span></p> 
+            </ng-container>
+          </div>
+          
+        </div>
+      
+        <!-- Invoice Items -->
+        <div class="-mx-4 mt-8 flow-root sm:mx-0">
+          <table class="min-w-full">
+            <colgroup>
+              <col class="w-full sm:w-3/4">
+              <col class="sm:w-full mr-3">
+              <col class="sm:w-full ml-3">
+            </colgroup>
+            <thead class="border-b border-gray-300 text-gray-900">
+              <tr>
+                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">Items</th>
+                <th scope="col" class="hidden px-3 py-3.5 text-right text-sm font-semibold text-gray-900 sm:table-cell">Prestation</th>
+                <th scope="col" class="py-3.5 pl-6 pr-0  text-right text-sm font-semibold text-gray-900 ">Debour</th>
+              </tr>
+            </thead>
+            <tbody>
+            <ng-container *ngFor="let champ of champsFacture">
+              <tr class="border-b border-gray-200">
+                <td class="max-w-0 py-2 pl-4 pr-3 text-sm sm:pl-0">
+                  <div class="font-medium text-gray-900">{{champ}}</div>
+                </td>
+                <ng-container *ngIf="typeItem[champ]=='P'">
+                  <td *ngIf="champsClientValueFacture[champ]!='0'" class="py-2 pl-1 pr-0  text-right text-sm text-gray-500 sm:pr-5">{{champsClientValueFacture[champ]}} DA</td>
+                  <td *ngIf="champsClientValueFacture[champ]=='0'" class="py-2 pl-1 pr-0  text-right text-sm text-gray-500 sm:pr-5">--</td>
+                  <td  class="py-2 pl-1 pr-0  text-right text-sm text-gray-500 sm:pr-0">--</td>
+                </ng-container>
+                <ng-container *ngIf="typeItem[champ]=='D'">
+                  <td  class="py-2 pl-3 pr-4 text-right text-sm text-gray-500 sm:pr-5">--</td>
+                  <td *ngIf="champsClientValueFacture[champ]!='0'" class="py-2 pl-3 pr-4 text-right text-sm text-gray-500 sm:pr-0">{{champsClientValueFacture[champ]}} DA</td>
+                  <td *ngIf="champsClientValueFacture[champ]=='0'" class="py-2 pl-3 pr-4 text-right text-sm text-gray-500 sm:pr-0">--</td>
+                  </ng-container>
+            </tr>
+            </ng-container>
+            </tbody>
+            <tfoot>
+         
+              <tr>
+                <th scope="row" colspan="3" class="hidden pl-4 pr-3 pt-4 text-right text-sm font-semibold text-gray-900 sm:table-cell sm:pl-0">NET A PAYER</th>
+                <th scope="row" class="pl-6 pr-3 pt-4 text-left text-sm font-semibold text-gray-900 sm:hidden">NET A PAYER</th>
+                <td class="pl-3 pr-4 pt-4 text-right text-sm font-semibold text-gray-900 sm:pr-0">{{NetPayer}}&nbsp;DA</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      
+        <!--  Footer  -->
+        <div class="border-t-2 pt-4 text-xs text-gray-500 text-center mt-16">
+          Please pay the invoice before the due date. You can pay the invoice by logging in to your account from our client portal.
+        </div>
+      
+      </div>
+      
+
+    </ng-container>
+
+</section>

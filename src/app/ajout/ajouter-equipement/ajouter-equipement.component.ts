@@ -88,10 +88,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 interface Equipement {
   nom?: string;
-  marque: string;
   etat: string;
   categorie: string;
-  type: string;
   puissance: number;
   maxConsommation: number;
   minConsommation: number;
@@ -115,10 +113,10 @@ export class AjouterEquipementComponent implements OnInit {
   selectedEquipements: any;
   selectedZones: any;
   nom!: string;
-  marque!: string;
+ 
   etat!: string;
   categorie!: string;
-  type!: string;
+
   puissance!: number;
   maxConsommation!: number;
   minConsommation!: number;
@@ -153,10 +151,10 @@ export class AjouterEquipementComponent implements OnInit {
   ajouterEquipement() {
     const equipementData = {
       nom: this.nom,
-      marque: this.marque,
+    
       etat: 'OFF', // Vous aviez initialement 'OFF', j'ai conservé cela
       categorie: this.categorie,
-      type: this.type,
+    
       puissance: this.puissance,
       maxConsommation: this.maxConsommation,
       minConsommation: this.minConsommation,

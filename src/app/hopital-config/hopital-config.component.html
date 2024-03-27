@@ -1,0 +1,32 @@
+<form [formGroup]="hopitalForm" (ngSubmit)="onSubmit()">
+    <label for="numFloors">Nombre d'étages:</label>
+    <input type="number" id="numFloors" formControlName="numFloors" required>
+  
+    <label for="firstFloorWidth">Largeur du premier étage:</label>
+    <input type="number" id="firstFloorWidth" formControlName="firstFloorWidth" required>
+  
+    <label for="firstFloorHeight">Longueur du premier étage:</label>
+    <input type="number" id="firstFloorHeight" formControlName="firstFloorHeight" required>
+  
+    <button type="submit" [disabled]="hopitalForm.invalid">Valider</button>
+  </form>
+  
+  <div *ngIf="hopitalForm.valid">
+    <h3>Plan du premier étage</h3>
+    <div class="floor">
+      <div *ngFor="let row of rooms; let i = index" class="row">
+        <div *ngFor="let cell of row; let j = index" class="cell" [ngClass]="{'room': cell.isRoom}">{{cell.isRoom}}</div>
+      </div>
+    </div>
+  
+    <form [formGroup]="addRoomForm" (ngSubmit)="addRoom()">
+      <label for="roomWidth">Largeur de la chambre:</label>
+      <input type="number" id="roomWidth" formControlName="roomWidth" required>
+  
+      <label for="roomHeight">Longueur de la chambre:</label>
+      <input type="number" id="roomHeight" formControlName="roomHeight" required>
+  
+      <button type="submit" [disabled]="addRoomForm.invalid">Ajouter une chambre</button>
+    </form>
+  </div>
+  

@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable , interval } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { catchError } from 'rxjs/operators';
 export interface Equipement {
   id: number;
   nom: string;
-  marque: string;
   etat: string;
   categorie: string;
-  type: string;
   puissance: number;
   maxConsommation: number;
   minConsommation: number;
@@ -62,8 +61,8 @@ export class FloorService {
     return this.http.get(this.baseurl + '/zones/',
      {headers: this.httpHeaders});
   }
-  addEquipement(equipement:{  nom: string, marque: string, etat: string, categorie: string, type: string, puissance: number, maxConsommation: number, minConsommation: number, zoneE: number }) : Observable<any>{
-    const body = {  nom: equipement.nom, marque: equipement.marque, etat: equipement.etat, categorie: equipement.categorie, type: equipement.type, puissance: equipement.puissance, maxConsommation: equipement.maxConsommation, minConsommation: equipement.minConsommation, zoneE: equipement.zoneE}
+  addEquipement(equipement:{  nom: string,  etat: string, categorie: string, puissance: number, maxConsommation: number, minConsommation: number, zoneE: number }) : Observable<any>{
+    const body = {  nom: equipement.nom,  etat: equipement.etat, categorie: equipement.categorie, puissance: equipement.puissance, maxConsommation: equipement.maxConsommation, minConsommation: equipement.minConsommation, zoneE: equipement.zoneE}
     return this.http.post(this.baseurl + '/equipement/', body,{headers: this.httpHeaders});
   }
   addZone(zone:{  nomLocal: string, typeLocal: string,surface: number,	 etageZ: number }) : Observable<any>{
@@ -159,6 +158,14 @@ getCSVData(file_path: string) {
 
 getNotifications() {
   return ["one","two","three","four","five"];
+}
+
+private excelDataUrl = 'http://localhost:8000/api/excel-data/'
+getExcelData(): Observable<any> {
+  return interval(10000) // Met à jour les données toutes les 10 secondes
+    .pipe(
+      switchMap(() => this.http.get<any>(this.excelDataUrl))
+    );
 }
 }
 

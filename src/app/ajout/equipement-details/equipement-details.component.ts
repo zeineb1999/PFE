@@ -10,10 +10,9 @@ import { FloorService } from 'src/app/service/floor.service';
 interface Equipement {
     id: number;
     nom: string;
-    marque: string;
     etat: string;
     categorie: string;
-    type: string;
+
     puissance: number;
     maxConsommation: number;
     minConsommation: number;
