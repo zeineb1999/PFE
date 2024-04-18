@@ -63,6 +63,10 @@ import  {MatMenuModule} from '@angular/material/menu'
 import {MatListModule} from '@angular/material/list'
 import { RouterModule } from '@angular/router';
 import { HighchartsChartModule } from 'highcharts-angular';
+import { ArchitectureComponent } from './architecture/architecture.component';
+import { EquipementsListComponent } from './graphe/equipements-list/equipements-list.component';
+import { ConsumptionEvolutionComponent } from './graphe/consumption-evolution/consumption-evolution.component';
+import { BuildingsConsumptionComponent } from './graphe/buildings-consumption/buildings-consumption.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -100,6 +104,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     FacturesComponent,
     HopitalConfigComponent,
     GrapheComponent,
+    ArchitectureComponent,
+    EquipementsListComponent,
+    ConsumptionEvolutionComponent,
+    BuildingsConsumptionComponent,
    
    
     

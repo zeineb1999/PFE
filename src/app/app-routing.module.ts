@@ -26,7 +26,7 @@ import { HopitalConfigComponent } from './hopital-config/hopital-config.componen
 import { DefaultComponent } from './layouts/default/default.component';
 import { PostsComponent } from './modules/posts/posts.component';
 import { GrapheComponent } from './graphe/graphe.component';
-
+import { ArchitectureComponent } from './architecture/architecture.component';
 
 const routes: Routes = [
   
@@ -34,8 +34,8 @@ const routes: Routes = [
   { path: 'facesnaps', component: FaceSnapListComponent },
   {path: '', component:SignComponent },
   {path: '', component:DefaultComponent,children:[
-    {path: '', component:DashboardComponent
-   },{
+  {path: '', component:DashboardComponent
+  },{
    path: 'posts', component:PostsComponent}
   ]},
   {path: 'dashboard',component:GrapheComponent},
@@ -50,8 +50,8 @@ const routes: Routes = [
   {path:'ajouterEquipement/:zoneId',component:AjouterEquipementComponent},
   {path:'ajouterEquipement',component:AjoutEquipementSansZoneComponent},
   {path:'toutesZones',component:ToutesZonesComponent},
-  { path: 'zone-details/:zoneId', component: ZoneDetailsComponent },
-  { path: 'equipement-details/:equipementId', component: EquipementDetailsComponent },
+  {path: 'zone-details/:zoneId', component: ZoneDetailsComponent },
+  {path: 'equipement-details/:equipementId', component: EquipementDetailsComponent },
   {path: 'equipements', component: EquipementsComponent },
   {path: 'dashboard', component: DashboardComponent },
   {path: 'threejs', component: ThreejsSceneComponent },
@@ -60,6 +60,7 @@ const routes: Routes = [
   {path: 'notifications', component: NotificationsComponent },
   {path: 'factures', component: FacturesComponent },
   {path: 'hopitalConfig', component: HopitalConfigComponent},
+  {path: 'architecture', component: ArchitectureComponent},
 
   
 ];

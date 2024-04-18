@@ -9,7 +9,7 @@
       <span class="mt-6 absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-blue-400 to-green-500 rounded-full"></span>
     </div>
   </div>
-  <div>
+  <!--<div>
     <h2>Hôpital</h2>
     
     <div *ngFor="let floor of etages" class="floor">
@@ -20,14 +20,25 @@
       </div>
     </div>
   </div>
+-->
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/treemap.js"></script>
+  <script src="https://code.highcharts.com/modules/treegraph.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+  <figure class="highcharts-figure">
+  <div id="container"></div>
   
-  
-  
+  </figure>
   <section class="container px-4 mx-auto">
   
     <button routerLink="/ajouterEtage" class="my-6 flex justify-center items-center rounded-full shadow-lg p-6 bg-gradient-to-r from-blue-500 to-green-400 text-transparent bg-clip-text" style="height: 60px; width:fit-content; border:1px solid #e7e7e7">
       <span><i class="fa-solid fa-plus fa-2xl"></i></span>
       <b><span class="ml-4">Ajouter un etage</span></b>
+    </button>
+    <button routerLink="/architecture" class="my-6 flex justify-center items-center rounded-full shadow-lg p-6 bg-gradient-to-r from-blue-500 to-green-400 text-transparent bg-clip-text" style="height: 60px; width:fit-content; border:1px solid #e7e7e7">
+      <span><i class="fa-solid fa-plus fa-2xl"></i></span>
+      <b><span class="ml-4">Personnaliser l architecture</span></b>
     </button>
   
     <span class="px-3 py-1 text-xs text-blue-500 bg-blue-100 rounded-full ml-2">100 zones</span>

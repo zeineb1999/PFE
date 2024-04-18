@@ -1,0 +1,29 @@
+
+/* avant ibtissem
+.custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #c0c0c0 #f1f1f1;
+  }
+  */
+
+  /* Style personnalisé de la barre de défilement verticale */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 10px; /* Largeur de la barre de défilement */
+    border-radius: 50%;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Couleur de fond de la piste */
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #222; /* Couleur de la barre de défilement */
+    border-radius: 50px; /* Rayon des coins de la barre de défilement */
+  }
+  
+  /* Pour Firefox */
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #c0c0c0 #f1f1f1;
+  }
+  
