@@ -1,0 +1,95 @@
+<!--Liste d'équipements-->
+<div class="w-full max-w-screen-xl mx-auto px-6">
+  <div class="flex justify-center py-4 px-3 ">
+      <div class="w-full">
+          <div class="bg-white shadow-md rounded-lg px-3 py-2 mb-4">
+              <div class="block text-gray-700 text-lg font-semibold py-2 px-2">
+                  Liste des équipements
+              </div>
+
+              <div class="flex items-center">
+                <!-- Barre de recherche des equipements -->
+                <div class="flex items-center bg-gray-200 rounded-md " style="width: 24%; height: fit-content">
+                  <div class="pl-2">
+                      <svg class="fill-current text-gray-500 w-6 h-6"
+                          viewBox="0 0 24 24">
+                          <path class="heroicon-ui"
+                              d="M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" />
+                      </svg>
+                  </div>
+                  <input
+                    class="w-full rounded-md bg-gray-200 text-gray-700 leading-tight focus:outline-none py-2 px-2"
+                    id="search" type="text" placeholder="Chercher un équipement" [(ngModel)]="EquipementAChercher"
+                  >
+                </div>
+
+              </div>
+
+              <!-- Liste des equipements -->
+              <div class="overflow-y-auto max-h-64 custom-scrollbar">
+
+                  <div class="py-3 text-sm">
+                    <!-- Afficher un spinner en attendant le chargement ... -->
+                    <div *ngIf="this.EquipementsLoading == true">
+                      <div aria-label="Loading..." role="status" class="flex flex-col items-center space-x-2">
+                        <svg class="h-8 w-8 animate-spin stroke-gray-500 m-2" viewBox="0 0 256 256">
+                            <line x1="128" y1="32" x2="128" y2="64" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line>
+                            <line x1="195.9" y1="60.1" x2="173.3" y2="82.7" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="24"></line>
+                            <line x1="224" y1="128" x2="192" y2="128" stroke-linecap="round" stroke-linejoin="round" stroke-width="24">
+                            </line>
+                            <line x1="195.9" y1="195.9" x2="173.3" y2="173.3" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="24"></line>
+                            <line x1="128" y1="224" x2="128" y2="192" stroke-linecap="round" stroke-linejoin="round" stroke-width="24">
+                            </line>
+                            <line x1="60.1" y1="195.9" x2="82.7" y2="173.3" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="24"></line>
+                            <line x1="32" y1="128" x2="64" y2="128" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line>
+                            <line x1="60.1" y1="60.1" x2="82.7" y2="82.7" stroke-linecap="round" stroke-linejoin="round" stroke-width="24">
+                            </line>
+                        </svg>
+                        <div class="text-xs font-medium text-gray-500">Chargement des équipement en cours...</div>
+                      </div>
+                    </div>
+
+                    <table *ngIf="this.EquipementsLoading == false" class="w-full">
+                      <div *ngFor="let equip of this.equipements" class="" style="min-height: 0;">
+                        <div *ngIf="(this.EquipementAChercher && equip.nom.toLowerCase().startsWith(this.EquipementAChercher.toLowerCase())) || (!this.EquipementAChercher)"
+                          class="flex justify-between cursor-pointer text-gray-700 hover:text-blue-400 hover:bg-blue-100 rounded-md px-2 py-2 my-2"
+                          (click)="redirectToEquipementDetails(equip.id)"
+                        >
+                          <div class="font-medium px-2 mr-4 flex items-center" style="width: 25%; min-width: 25%;">
+                            <div *ngIf="equip.etat=='ON'" class="bg-green-400 h-2 min-w-2 max-w-2 m-2 mr-4 rounded-full"></div>
+                            <div *ngIf="equip.etat=='OFF'" class="bg-red-500 h-2 min-w-2 max-w-2 m-2 mr-4 rounded-full"></div>
+                            <div class="flex items-center" style="height:fit-content">{{equip.nom}}</div>
+                          </div>
+                          <div style="width: 60%;" class="">
+                            {{equip.batiment}}<i class="fa-solid fa-chevron-right fa-sm mx-2"></i>
+                            Etage {{equip.numEtage}} : {{equip.nomEtage}} <i class="fa-solid fa-chevron-right fa-sm mx-2"></i>
+                            {{equip.typeLocal}} {{equip.localId}} : {{equip.nomLocal}} 
+                            <!-- <span>{{equip.batiment}}</span><i class="fa-solid fa-chevron-right fa-sm mx-2"></i>
+                            <span>Etage {{equip.numEtage}} : {{equip.nomEtage}} </span><i class="fa-solid fa-chevron-right fa-sm mx-2"></i>
+                            <span>{{equip.typeLocal}} {{equip.localId}} : {{equip.nomLocal}} </span> -->
+                          </div>
+                          <div *ngIf="equip.consommation_kW >= 0.01" class="mr-6 text-sm font-normal text-gray-500 tracking-wide flex items-center justify-end" style="width: 10%;">
+                            {{equip.consommation_kW.toFixed(2)}} kWh
+                          </div>
+                          <div *ngIf="equip.consommation_kW < 0.01" class="mr-6 text-sm font-normal text-gray-500 tracking-wide  flex items-center justify-end" style="width: 10%;">
+                            {{equip.consommation_W.toFixed(2)}} Wh
+                          </div>
+                        </div>
+                      </div>
+                    </table>
+                  </div>
+              </div>
+              <!-- Boutons en bas de la liste -->
+              <div class="block bg-gray-200 text-sm text-right py-2 px-3 -mx-3 -mb-2 rounded-b-lg">
+
+                  <button routerLink="/ajouterEquipement" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Ajouter un équipement
+                  </button>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

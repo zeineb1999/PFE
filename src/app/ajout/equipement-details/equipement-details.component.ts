@@ -1,11 +1,9 @@
 
 
-
-
-
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FloorService } from 'src/app/service/floor.service';
+import * as Highcharts from 'highcharts';
 
 interface Equipement {
     id: number;
@@ -27,12 +25,21 @@ interface Equipement {
 export class EquipementDetailsComponent implements OnInit {
   equipementId!: number;
   equipementDetails: Equipement | undefined;
- 
+
   isLoggedIn: boolean;
+  chartOptions: any;
+  Highcharts = Highcharts;
+  consommation_annuelle_totale: number = 0;
+  equipementInfos: any;
 
   constructor(private route: ActivatedRoute, private router: Router, private floorService: FloorService) {  this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true'; }
 
   ngOnInit(): void {
+    this.loadDetails();
+    this.LoadEquipementsParMois();
+  }
+
+  loadDetails (){
     // Récupérer le paramètre zoneId de l'URL
     this.equipementId = parseInt(this.route.snapshot.paramMap.get('equipementId') || '');
 
@@ -45,58 +52,179 @@ export class EquipementDetailsComponent implements OnInit {
         console.error('Une erreur s\'est produite lors de la récupération des détails de la zone :', error);
       }
     );
-   
   }
 
-}
-/*import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { FloorService } from 'src/app/service/floor.service';
+  LoadEquipementsParMois(){
 
-interface Equipement {
-  id: number;
-  nom: string;
-  // Ajoutez d'autres propriétés d'équipement ici selon vos besoins
-}
+    let derniers_jours_de_mois = ['31', '29', '31', '30', '31', '30', '31', '31', '30', '31', '30', '31']
+    let mois = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+    let mois2 = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+    let noms_mois = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septempbre', 'octobre', 'novembre', 'décembre']
 
-@Component({
-  selector: 'app-zone-details',
-  templateUrl: './zone-details.component.html',
-  styleUrls: ['./zone-details.component.css']
-})
-export class ZoneDetailsComponent implements OnInit {
-  zoneId!: number;
-  zoneDetails: any; // Assurez-vous de définir le type correct pour les détails de la zone
-  equipements: Equipement[] = [];
-
-  constructor(private route: ActivatedRoute, private floorService: FloorService) { }
-
-  ngOnInit(): void {
-    this.zoneId = this.route.snapshot.params['id']; // Obtenez l'ID de la zone à partir de l'URL
-    this.loadZoneDetails();
-    this.loadEquipements();
-  }
-
-  loadZoneDetails(): void {
-    this.floorService.getZoneDetails(this.zoneId).subscribe(
-      (data) => {
-        this.zoneDetails = data;
-      },
-      (error) => {
-        console.error('Une erreur s\'est produite lors du chargement des détails de la zone :', error);
+    let consommations_mois: any[] = []
+    this.consommation_annuelle_totale = 0;
+    mois.forEach(this_mois => {
+      if(parseInt(this_mois) <= new Date().getMonth() + 1){
+        let dateDebut = '2024-'+this_mois+'-01 00:00:00'
+        let dateFin = '2024-'+this_mois+'-'+derniers_jours_de_mois[parseInt(this_mois)-1]+' 00:00:00'
+        this.floorService.getAnEquipementConsommation(this.equipementId, dateDebut, dateFin)
+        .subscribe((data: any) =>{
+          this.equipementInfos = data;
+          console.log(noms_mois[parseInt(this_mois)-1], ' equipementInfos : ', data)
+          consommations_mois.push({nom: noms_mois[parseInt(this_mois)-1], y: data.consommation_kW})
+          console.log('consommations_mois: ', consommations_mois)
+          this.consommation_annuelle_totale += data.consommation_kW;
+  
+          if(consommations_mois.length == new Date().getMonth() + 1){
+            // Trier la liste par mois
+            consommations_mois.sort(this.comparerMois);
+            this.insertChart(consommations_mois, noms_mois, this.consommation_annuelle_totale)
+          }
+        });
       }
-    );
+    });
   }
 
-  loadEquipements(): void {
-    this.floorService.getEquipementsByZone(this.zoneId).subscribe(
-      (data: Equipement[]) => {
-        this.equipements = data;
-      },
-      (error) => {
-        console.error('Une erreur s\'est produite lors du chargement des équipements de la zone :', error);
+  comparerMois(a: any, b: any) {
+    return a.mois - b.mois;
+  }
+
+  insertChart(consommations_mois: any[], noms_mois: any[], consommation_annuelle_totale: any){
+    let i = -1;
+    let newTab : any[] =[]
+    let month_data: any
+
+    // Trier les donnes par mois
+    let diff : number [] = [];
+    let prec : number = 0;
+    let j = 0;
+    while(newTab.length < new Date().getMonth() + 1) {
+      month_data = consommations_mois.find(mois => mois.nom === noms_mois[j]);
+      console.log('moissssss: ', month_data)
+      if(prec==0 || j==0){
+        diff.push(0)
+      } else {
+        diff.push((month_data.y - prec)*100 / prec)
       }
-    );
+      newTab.push(month_data)
+      prec = month_data.y
+      j++;
+    }
+
+    if(newTab.length == new Date().getMonth() + 1){
+      Highcharts.chart('columns-container', {
+        data: {
+          table: 'datatable'
+        },
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: '<span class="font-medium">Consommation annuelle de l\'énergie électrique de : </span> <b>'+(this.equipementDetails ? this.equipementDetails.nom : '')+'</b> en kWh'
+        },
+        subtitle: {
+          text: ''
+        },
+        xAxis: {
+            type: 'category',
+            categories: noms_mois,
+        },
+        yAxis: {
+            allowDecimals: false,
+            title: {
+                text: 'Electricité consommée (kWh)'
+            }
+        },
+        plotOptions: {
+          pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+              enabled: true,
+              format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+            },
+          },
+          series: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+              enabled: true,
+              formatter: (function() {
+
+                return function() {
+                  console.log('this : ', this.y?.toFixed(2))
+                  if (this.y) {
+                    i++; // Incrémenter i à chaque fois que la fonction est appelée
+                    if(diff[i]){
+                      if (diff[i] < 0) {
+                        return '<div class="mr-2">' + this.y.toFixed(2) + '</div><div class="text-xs" style="color: red; font-size: 0.6rem;"> ' + diff[i].toFixed(1) + '% </div>';
+                      } else {
+                        return '<div class="mr-2">' + this.y.toFixed(2) + '</div><div class="text-xs" style="color: green; font-size: 0.6rem;"> +' + diff[i].toFixed(1) + '% </div>';
+                      }
+                    } else if (diff[i] == 0) {
+                      return '<div class="mr-2">' + this.y.toFixed(1) + '</div>';
+                    }
+
+                  } else if(this.y == 0){
+                    i++; // Incrémenter i à chaque fois que la fonction est appelée
+                    if(diff[i]){
+                      if (diff[i] < 0) {
+                        return '<div class="mr-2">0 </div><div class="text-xs" style="color: red; font-size: 0.6rem;"> ' + diff[i] + '% </div>';
+                      } else if (diff[i] == 0) {
+                        return '<div class="mr-2">0 </div>';
+                      } else {
+                        return '<div class="mr-2">0 </div><div class="text-xs" style="color: green; font-size: 0.6rem;"> +' + diff[i] + '% </div>';
+                      }
+                    }
+                  }
+                  return 0;
+                };
+              })()
+            },
+            point: {
+              events: {
+                mouseOver: function() {
+                  let afficheur= document.getElementById('afficheur-consommation')
+                  if(afficheur){
+                    console.log(this.category)
+                    afficheur.innerHTML = '<div class="text-5xl text-gray-200 text-bold py-2 cons-totale-titre  flex justify-center"  *ngIf="equipementDetails">'+this.category+'</div>'+
+                    '<div class="text-5xl text-gray-200 py-4 cons-totale-val  flex justify-center">'+this.y?.toFixed(2)+' kWh</div>'+
+                    '<style>'+
+                    '.cons-totale {flex-direction: column;border: 2px #edf5f9 solid;border-radius: 10%;background-color: #edf5f9;}'+
+                    '.cons-totale-titre {color: #424b5b;font-weight: bolder;font-size: large; width: 100%;}'+
+                    '.cons-totale-val {color: #25a335;font-weight: bolder;font-size: xx-large;width: 100%;}'+
+                    '</style>'
+                  }
+                },
+                mouseOut: function() {
+                  let afficheur= document.getElementById('afficheur-consommation')
+                  if(afficheur){
+                    console.log(this.category)
+                    afficheur.innerHTML = '<div class="text-5xl text-gray-200 text-bold py-2 cons-totale-titre  flex justify-center"  *ngIf="equipementDetails">Total</div>'+
+                    '<div class="text-5xl text-gray-200 py-4 cons-totale-val  flex justify-center">'+consommation_annuelle_totale?.toFixed(2)+' kWh</div>'+
+                    '<style>'+
+                    '.cons-totale {flex-direction: column;border: 2px #edf5f9 solid;border-radius: 10%;background-color: #edf5f9;}'+
+                    '.cons-totale-titre {color: #424b5b;font-weight: bolder;font-size: large;width: 100%;}'+
+                    '.cons-totale-val {color: #25a335;font-weight: bolder;font-size: xx-large; width: 100%;}'+
+                    '</style>'
+                  }
+                }
+              }
+          }
+        }
+        },
+        series: [{
+          type: 'column',
+          name: '<span class="font-medium">Consommation annuelle de l\'énergie électrique de : </span> <b>'+(this.equipementDetails ? this.equipementDetails.nom : '')+'</b> en kWh',
+          color: '',
+          data: newTab
+        }]
+      });
+    }
+
+  }
+
+  redirectToModifierEquipement(){
+    this.router.navigate(['/updateEquipement', this.equipementId]);
   }
 }
-*/

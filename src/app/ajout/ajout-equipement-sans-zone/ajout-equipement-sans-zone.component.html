@@ -7,8 +7,7 @@
     <div class="w-full flex justify-center">
       <div class="relative inline-block mb-12 text-center">
         <span class="text-2xl md:text-2xl font-bold">
-          L'efficacité des soins commence par le bon équipement !
-        </span>
+        {{'ajoutC1.title1' | translate }}  </span>
         <span class="mt-4 absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-blue-400 to-green-500 rounded-full"></span>
       </div>
     </div>
@@ -16,19 +15,19 @@
       <div class="rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12 m-auto w-3/5">
 
         <div class="w-full mb-8 flex flex-col">
-            <h1 class="w-full text-center md:text-2xl">Rajouter un équipement électrique dans</h1>
+            <h1 class="w-full text-center md:text-2xl">    {{'ajoutC1.title2' | translate }}</h1>
             <h1 class="text-center text-2xl md:text-3xl font-bold ">
-              <span class="inline-block bg-gradient-to-r from-blue-500 to-green-400 text-transparent bg-clip-text">Dans un local </span>
+              <span class="inline-block bg-gradient-to-r from-blue-500 to-green-400 text-transparent bg-clip-text">  {{'ajoutC1.title6' | translate }}  </span>
             </h1>
         </div>
 
         <form action="#" class="space-y-4">
           <div>
-            <label class="sr-only" for="nom">Nom </label>
+            <label class="sr-only" for="nom">    {{'ajoutC1.title3' | translate }} </label>
             <input
               [(ngModel)]="nom" name="nom"
               class="w-full rounded-lg border-blue-500 p-3 text-sm"
-              placeholder="Nom"
+              placeholder=" {{'ajoutC1.title3' | translate }}"
               type="text"
               id="nom"
             />
@@ -36,11 +35,11 @@
 
           <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
-              <label class="sr-only" for="marque">Marque</label>
+              <label class="sr-only" for="marque">{{'ajoutC1.title4' | translate }} </label>
               <input
                 [(ngModel)]="marque"
                 class="w-full rounded-lg border-gray-200 p-3 text-sm"
-                placeholder="Marque"
+                placeholder=" {{'ajoutC1.title4' | translate }}"
                 type="text"
                 id="marque"
                 name="marque"
@@ -49,11 +48,11 @@
           </div>
 
           <div>
-            <label class="sr-only" for="categorie">Catégorie </label>
+            <label class="sr-only" for="categorie">{{'ajoutC1.title5' | translate }} </label>
             <input
               [(ngModel)]="categorie"
               class="w-full rounded-lg border-gray-200 p-3 text-sm"
-              placeholder="Catégorie"
+              placeholder=" {{'ajoutC1.title5' | translate }}"
               type="text"
               id="categorie"
               name="categorie"
@@ -61,11 +60,11 @@
           </div>
 
           <div>
-            <label class="sr-only" for="categorie">Type </label>
+            <label class="sr-only" for="categorie">{{'ajoutC1.title7' | translate }}  </label>
             <input
               [(ngModel)]="type"
               class="w-full rounded-lg border-gray-200 p-3 text-sm"
-              placeholder="Type"
+              placeholder=" {{'ajoutC1.title7' | translate }}"
               type="text"
               id="type"
               name="type"
@@ -73,11 +72,11 @@
           </div>
 
           <div>
-            <label class="sr-only" for="puissance">Puissance </label>
+            <label class="sr-only" for="puissance">{{'ajoutC1.title8' | translate }}  </label>
             <input
               [(ngModel)]="puissance"
               class="w-full rounded-lg border-gray-200 p-3 text-sm"
-              placeholder="Puissance"
+              placeholder=" {{'ajoutC1.title8' | translate }}"
               type="number"
               id="puissance"
               name="puissance"
@@ -85,11 +84,11 @@
           </div>
 
           <div>
-            <label class="sr-only" for="maxConsommation">Consommation maximale </label>
+            <label class="sr-only" for="maxConsommation">C{{'ajoutC1.title9' | translate }}  </label>
             <input
               [(ngModel)]="maxConsommation"
               class="w-full rounded-lg border-gray-200 p-3 text-sm"
-              placeholder="Consommation maximale"
+              placeholder=" {{'ajoutC1.title9' | translate }}"
               type="number"
               id="maxConsommation"
               name="maxConsommation"
@@ -97,11 +96,11 @@
           </div>
 
           <div>
-            <label class="sr-only" for="minConsommation">Consommation minimale </label>
+            <label class="sr-only" for="minConsommation">{{'ajoutC1.title10' | translate }}  </label>
             <input
               [(ngModel)]="minConsommation"
               class="w-full rounded-lg border-gray-200 p-3 text-sm"
-              placeholder="Consommation minimale"
+              placeholder=" {{'ajoutC1.title10' | translate }}"
               type="number"
               id="minConsommation"
               name="minConsommation"
@@ -110,7 +109,7 @@
         
         
 
-          <label>Zone:</label>
+          <label> {{'ajoutC1.title11' | translate }}  :</label>
           <select [(ngModel)]="zoneId" name="zoneId">
               <option *ngFor="let zone of zones" [value]="zone.id">{{ zone.nomLocal }}</option>
           </select><br>
@@ -121,7 +120,7 @@
               class="inline-block w-full rounded-lg bg-blue-500 px-5 py-3 font-medium text-white sm:w-auto"
               (click)="ajouterEquipement()"
             >
-            Ajouter
+            {{'ajoutC1.title12' | translate }} 
             </button>
           </div>
         </form>

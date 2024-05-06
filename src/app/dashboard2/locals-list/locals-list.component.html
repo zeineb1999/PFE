@@ -1,0 +1,41 @@
+<div class="w-full max-w-screen-xl mx-auto mb-4">
+  <div class="flex justify-center p-4 px-3">
+    <div class="w-full">
+      <div class="flex row flex-wrap g-white shadow-md rounded-lg px-3 py-2 mb-4">
+        <div class="block py-2 px-2 w-full">
+          <div class="text-gray-700 text-lg font-semibold">
+            Température et Humidité moyenne /h
+          </div>
+
+          <section style=" max-height: 700px; " class="overflow-y-auto custom-scrollbar">
+            <div *ngFor="let batiment of batiments">
+              <div class="flex gap-1 py-2">
+                <i class="fa-solid fa-building fa-lg mr-2 flex items-center" style="color: #18577a; "></i>
+                <span style="font-size: 17px; font-weight: bold; color: #18577a; padding: 2% 2%;" >{{batiment.nomBatiment}}</span>
+              </div>
+          
+              <div *ngFor="let etage of batiment.etages" class="" style="font-size: 14px; font-weight: bold;">
+                <div class="flex gap-1 py-2">
+                  <i class="fa-solid fa-stairs fa-lg mr-2 flex items-center" style="color: #18577a;"></i>
+                  <span class="text-gray-700" style="font-size: 13px;">{{etage.nomEtage}}</span>
+                </div>
+                <div *ngFor="let local of etage.zones" class=" flex justify-between items-center pr-2"
+                  style="font-size: 12px; font-weight: normal;">
+                  <span class="flex gap-1 py-2" style="width: 50%;">
+                    <i class="fa-solid fa-door-closed fa-lg mr-2 flex items-center" style="color: #18577a;"></i>
+                    <span style="font-size: 11px;">{{local.nomLocal}}</span>
+                  </span>
+                  <span *ngIf="localsT[local.id-1] !== null">{{localsT[local.id-1]}} °C</span>
+                  <span *ngIf="localsH[local.id-1] !== null">{{localsH[local.id-1]}} %</span>
+          
+                </div>
+          
+              </div>
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

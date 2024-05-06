@@ -1,202 +1,180 @@
 <div *ngIf="isLoggedIn">
-<app-header></app-header>
-
-
-<div *ngIf="zoneDetails">
-  <div class="w-full flex justify-center">
-    <div class="relative inline-block my-12 text-center">
-      <span class="text-2xl md:text-2xl font-bold">
-        Détails de la zone {{zoneDetails.id}}
-      </span>
-      <span class="mt-6 absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-blue-400 to-green-500 rounded-full"></span>
+  <app-header></app-header>
+  
+  
+  <div *ngIf="zoneDetails">
+    <div class="w-full flex justify-center">
+      <div class="relative inline-block my-12 text-center">
+        <span class="text-2xl md:text-2xl font-bold">
+          {{'ajoutC1.title62'|translate}} {{zoneDetails.id}}
+        </span>
+        <span class="mt-6 absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-blue-400 to-green-500 rounded-full"></span>
+      </div>
     </div>
+  
+    <div class="flow-root mx-12">
+      <dl class="-my-3 divide-y divide-gray-100 text-sm">
+        <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+          <dt class="font-medium text-gray-900">{{'ajoutC1.title63'|translate}}</dt>
+          <dd class="font-medium text-gray-700 sm:col-span-2">{{ this.batiment }}</dd>
+        </div>
+  
+        <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+          <dt class="font-medium text-gray-900">{{'ajoutC1.title17'|translate}}</dt>
+          <dd class="font-medium m:col-span-2">{{ zoneDetails.etageZ }}</dd>
+        </div>
+  
+        <div class="grid grid-cols-1 gap-1 py-4 sm:grid-cols-3 sm:gap-4">
+          <dt class="font-medium text-gray-900">{{'ajoutC1.title64'|translate}}</dt>
+          <dd class="font-medium m:col-span-2">{{ zoneDetails.id }}</dd>
+        </div>
+  
+        <div class="grid grid-cols-1 gap-1 py-4 sm:grid-cols-3 sm:gap-4">
+          <dt class="font-medium text-gray-900">{{'ajoutC1.title3'|translate}}</dt>
+          <dd class="font-medium :col-span-2">{{ zoneDetails.nomLocal }}</dd>
+        </div>
+  
+        <div class="grid grid-cols-1 gap-1 py-4 sm:grid-cols-3 sm:gap-4">
+          <dt class="font-medium text-gray-900">{{'ajoutC1.title7'|translate}}</dt>
+          <dd class="font-medium:col-span-2">{{ zoneDetails.typeLocal }}</dd>
+        </div>
+  
+        <div class="grid grid-cols-1 gap-1 py-4 sm:grid-cols-3 sm:gap-4 ">
+          <dt class="flex items-center">
+            <span class="font-medium text-gray-900 text-lg">{{'ajoutC1.title65'|translate}}</span>
+            <span class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full ml-4">{{ equipements.length }} {{'ajoutC1.title65'|translate}}</span>
+          </dt>
+            <dd class="font-medium:col-span-2">
+              <button (click)="redirectToAjouterEquipement()" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">
+                {{'ajoutC1.title45'|translate}}
+              </button>
+            </dd>
+  
+        </div>
+      </dl>
+    </div>
+    <!-- Ajoutez d'autres détails de la zone ici selon vos besoins -->
   </div>
-
-  <div class="flow-root m-6">
-    <dl class="-my-3 divide-y divide-gray-100 text-sm">
-      <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
-        <dt class="font-medium text-gray-900">Étage</dt>
-        <dd class="text-gray-700 sm:col-span-2">{{ zoneDetails.etageZ }}</dd>
-      </div>
-
-      <div class="grid grid-cols-1 gap-1 py-4 sm:grid-cols-3 sm:gap-4">
-        <dt class="font-medium text-gray-900">Numéro</dt>
-        <dd class="text-gray-700 sm:col-span-2">{{ zoneDetails.id }}</dd>
-      </div>
-
-      <div class="grid grid-cols-1 gap-1 py-4 sm:grid-cols-3 sm:gap-4">
-        <dt class="font-medium text-gray-900">Nom</dt>
-        <dd class="text-gray-700 sm:col-span-2">{{ zoneDetails.nomLocal }}</dd>
-      </div>
-
-      <div class="grid grid-cols-1 gap-1 py-4 sm:grid-cols-3 sm:gap-4">
-        <dt class="font-medium text-gray-900">Type</dt>
-        <dd class="text-gray-700 sm:col-span-2">{{ zoneDetails.typeLocal }}</dd>
-      </div>
-
-      <div class="grid grid-cols-1 gap-1 py-4 sm:grid-cols-3 sm:gap-4 ">
-        <dt class="flex items-center">
-          <span class="font-medium text-gray-900 text-lg">Equipements</span>
-          <span class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full ml-4">{{ equipements.length }} équipements</span>
-        </dt>
-
-      </div>
-    </dl>
-  </div>
-  <!-- Ajoutez d'autres détails de la zone ici selon vos besoins -->
-</div>
-
-
-<section class="container px-4 mx-auto">
-
-
-
-  <div *ngIf="equipements.length === 0">
-    <p>Aucun équipement trouvé pour cette zone.</p>
-  </div>
-
-  <div *ngIf="equipements.length > 0" class="overflow-hidden border border-gray-200  md:rounded-lg">
-      <table class="table min-w-full">
-          <thead>
-              <tr>
-                  <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 ">
+  
+  
+  <section class="mx-12 my-6">
+  
+  
+  
+    <div *ngIf="equipements.length === 0">
+      <p>{{'ajoutC1.title66'|translate}}.</p>
+    </div>
+  
+    <div *ngIf="equipements.length > 0" class="overflow-hidden shadow-md md:rounded-lg">
+        <table class="table min-w-full">
+            <thead>
+                <tr>
+                    <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 ">
+                        <div class="flex items-center gap-x-2">
+  <!--                           <input type="checkbox" class="text-blue-500 border-gray-300 rounded cursor-pointer">-->
+                          <span>{{'ajoutC1.title3'|translate}}</span>
+                        </div>
+                    </th>
+  
+                    <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
                       <div class="flex items-center gap-x-2">
-                          <input type="checkbox" class="text-blue-500 border-gray-300 rounded cursor-pointer">
-                          <span>Nom</span>
+                          <span>{{'ajoutC1.title29'|translate}}</span>
                       </div>
-                  </th>
-
-                  <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
-                    <div class="flex items-center gap-x-2">
-                        <span>Marque</span>
-                    </div>
-                  </th>
-
-                  <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
-                    <div class="flex items-center gap-x-2">
-                        <span>Etat</span>
-                    </div>
-                  </th>
-
-                  <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
-                    <div class="flex items-center gap-x-2">
-                        <span>Catégorie</span>
-                    </div>
-                  </th>
-
-                  <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
+                    </th>
+  
+                    <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
+                        <div class="flex items-center gap-x-2">
+                            <span>{{'ajoutC1.title7'|translate}}</span>
+                        </div>
+                    </th>
+  
+                    <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">
+                        <div class="flex items-center gap-x-2">
+                            <span>{{'ajoutC1.title8'|translate}}</span>
+                        </div>
+                    </th>
+  <!--
+                    <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
                       <div class="flex items-center gap-x-2">
-                          <span>Type</span>
+                          <span>Consommation maximale</span>
                       </div>
-                  </th>
-
-                  <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">
+                    </th>
+  
+                    <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
                       <div class="flex items-center gap-x-2">
-                          <span>Puissance</span>
+                          <span>Consommation minimale</span>
                       </div>
-                  </th>
-<!--
-                  <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
-                    <div class="flex items-center gap-x-2">
-                        <span>Consommation maximale</span>
-                    </div>
-                  </th>
-
-                  <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
-                    <div class="flex items-center gap-x-2">
-                        <span>Consommation minimale</span>
-                    </div>
-                  </th>
--->
-                  <th scope="col" class="relative py-3.5 px-4">
-                      <span class="sr-only">Edit</span>
-                  </th>
-
-                  <th scope="col" class="relative py-3.5 px-4">
-                    <span class="sr-only">Delete</span>
-                  </th>
-
-                  <th scope="col" class="relative py-3.5 px-4">
-                    <span class="sr-only">Details</span>
-                  </th>
+                    </th>
+  -->
+                    <th scope="col" class="relative py-3.5 px-4">
+                        <span class="sr-only">{{'ajoutC1.title38'|translate}}</span>
+                    </th>
+  
+                    <th scope="col" class="relative py-3.5 px-4">
+                      <span class="sr-only">{{'ajoutC1.title43'|translate}}</span>
+                    </th>
+  
+                    <th scope="col" class="relative py-3.5 px-4">
+                      <span class="sr-only">{{'ajoutC1.title44'|translate}}</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="bg-white">
+              <tr *ngFor="let equipement of equipements" class="even:bg-gray-50 w-full">
+  
+                <td class="px-4 py-4 text-sm font-medium text-gray-700" style="width: 35%;">
+                  <div class="inline-flex items-center gap-x-3">
+                    <!-- <input type="checkbox" class="text-blue-500 border-gray-300 rounded cursor-pointer"> -->
+                      <span>{{ equipement.nom }}</span>
+                  </div>
+                </td>
+  
+                <td class="px-4 py-4 text-sm font-medium text-gray-700" style="width: 10%;">
+                  <div class="inline-flex items-center gap-x-3">
+                    <span *ngIf="equipement.etat=='OFF'" class="px-3 py-1 text-xs text-green-600 bg-red-100 rounded-full"><i class="fa-solid fa-power-off" style="color: #a30000;"></i></span>
+                    <span *ngIf="equipement.etat=='ON'" class="px-3 py-1 text-xs text-green-600 bg-green-100 rounded-full"><i class="fa-solid fa-power-off" style="color: #006226;"></i></span>
+                    <span *ngIf="equipement.categorie!='normal'" class="px-3 py-1 text-xs text-green-600 bg-red-100 rounded-full"><i class="fa-solid fa-triangle-exclamation" style="color: #a30000;"></i></span>
+  
+                  </div>
+                </td>
+  
+                <td class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right">
+                  <div class="inline-flex items-center gap-x-3">
+                      {{equipement.type}}
+                  </div>
+                </td>
+  
+                <td class="px-12 py-3.5  text-sm font-medium text-gray-700 text-left rtl:text-right">
+                  <div class="inline-flex items-center gap-x-3">
+                      {{equipement.puissance}} W
+                  </div>
+                </td>
+  
+                <td class="row">
+                  <span class="text-xs cursor-pointer mx-4" style="color: #3b72f6;" (click)="updateEquipement(equipement.id)">{{'ajoutC1.title38'|translate}}
+                    <i class="fa-solid fa-pen fa-xs ml-1"></i>
+                  </span>
+                  <span class="text-xs cursor-pointer mx-4" style="color: #e30000;" (click)="deleteEquipement(equipement.id)">{{'ajoutC1.title43'|translate}}
+                    <i class="fa-solid fa-trash fa-xs ml-1"></i>
+                  </span>
+                  <span class=" cursor-pointer text-xs mx-4" style="color: #6b7280;" (click) = "redirectToEquipementDetails(equipement.id)">{{'ajoutC1.title44'|translate}}
+                    <i class="fa-solid fa-bars fa-ws ml-1"></i>
+                  </span>
+                </td>
               </tr>
-          </thead>
-          <tbody class="bg-white">
-            <tr *ngFor="let equipement of equipements" class="even:bg-gray-50">
-
-              <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                <div class="inline-flex items-center gap-x-3">
-                  <input type="checkbox" class="text-blue-500 border-gray-300 rounded cursor-pointer">
-                    <span>{{ equipement.nom }}</span>
-                </div>
-              </td>
-
-              <td class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right">
-                <div class="inline-flex items-center gap-x-3">
-                    {{ equipement.marque }}
-                </div>
-              </td>
-
-              <td class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right">
-                <div class="inline-flex items-center gap-x-3">
-                  <span *ngIf="equipement.etat=='ON'" class="px-3 py-1 text-xs text-green-600 bg-green-100 rounded-full">On</span>
-                  <span *ngIf="equipement.etat=='OFF'" class="px-3 py-1 text-xs text-red-500 bg-red-100 rounded-full">Off</span>
-
-                </div>
-              </td>
-
-              <td class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right">
-                <div class="inline-flex items-center gap-x-3">
-                    {{equipement.categorie}}
-                </div>
-              </td>
-
-              <td class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right">
-                <div class="inline-flex items-center gap-x-3">
-                    {{equipement.type}}
-                </div>
-              </td>
-
-              <td class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right">
-                <div class="inline-flex items-center gap-x-3">
-                    {{equipement.puissance}}
-                </div>
-              </td>
-<!--
-              <td class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right">
-                <div class="inline-flex items-center gap-x-3">
-                    {{equipement.maxConsommation}}
-                </div>
-              </td>
-
-              <td class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right">
-                <div class="inline-flex items-center gap-x-3">
-                    {{equipement.minConsommation}}
-                </div>
-              </td>
--->
-              <td class="row">
-                <span class="text-xs cursor-pointer mx-6" style="color: #3b72f6;" (click)="updateEquipement(equipement.id)">Modifier
-                  <i class="fa-solid fa-pen fa-xs ml-1"></i>
-                </span>
-                <span class="text-xs cursor-pointer mx-6" style="color: #e30000;" (click)="deleteEquipement(equipement.id)">Supprimer
-                  <i class="fa-solid fa-trash fa-xs ml-1"></i>
-                </span>
-              </td>
-            </tr>
-
-          </tbody>
-      </table>
+  
+            </tbody>
+        </table>
+    </div>
+  
+    <button (click)="redirectToAjouterEquipement()" class="my-6 flex justify-center items-center rounded-full shadow-lg p-6 bg-gradient-to-r from-blue-500 to-green-400 text-transparent bg-clip-text" style="height: 60px; width:fit-content; border:1px solid #e7e7e7">
+      <span><i class="fa-solid fa-plus fa-2xl"></i></span>
+      <b><span class="ml-4">{{'ajoutC1.title45'|translate}}</span></b>
+    </button>
+    <br><br><br>
+  
+  </section>
+  
+  
+  
   </div>
-
-  <button (click)="redirectToAjouterEquipement()" class="my-6 flex justify-center items-center rounded-full shadow-lg p-6 bg-gradient-to-r from-blue-500 to-green-400 text-transparent bg-clip-text" style="height: 60px; width:fit-content; border:1px solid #e7e7e7">
-    <span><i class="fa-solid fa-plus fa-2xl"></i></span>
-    <b><span class="ml-4">Ajouter un equipement</span></b>
-  </button>
-  <br><br><br>
-
-</section>
-
-
-
-</div>

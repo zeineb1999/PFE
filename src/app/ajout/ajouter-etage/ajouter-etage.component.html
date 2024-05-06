@@ -8,16 +8,16 @@
     <div class="w-full flex justify-center">
       <div class="relative inline-block mb-12 text-center">
         <span class="text-2xl md:text-2xl font-bold">
-          L'efficacité des soins commence par le bon équipement !
-        </span>
+          {{'ajoutC1.title1' | translate }}  </span>
         <span class="mt-4 absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-blue-400 to-green-500 rounded-full"></span>
       </div>
     </div>
 
       <div class="rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12 m-auto w-3/5">
-
+        
         <div class="w-full mb-8 flex flex-col">
-            <h1 class="w-full text-center md:text-2xl">Rajouter un etage dans votre hopital</h1>
+            <h1 class="w-full text-center md:text-2xl">  {{'ajoutC1.title13' | translate }} 
+            </h1>
             <h1 class="text-center text-2xl md:text-3xl font-bold ">
               <span class="inline-block bg-gradient-to-r from-blue-500 to-green-400 text-transparent bg-clip-text">Etage</span>
             </h1>
@@ -25,11 +25,12 @@
 
         <form action="#" class="space-y-4">
           <div>
-            <label class="sr-only" for="floorSurface">surface etage  </label>
+            <label class="sr-only" for="floorSurface">  {{'ajoutC1.title14' | translate }} 
+            </label>
             <input
               [(ngModel)]="floorSurface" name="floorSurface"
               class="w-full rounded-lg border-blue-500 p-3 text-sm"
-              placeholder="floorSurface"
+              placeholder=" {{'ajoutC1.title14' | translate }}"
               type="text"
               id="floorSurface"
             />
@@ -47,7 +48,7 @@
               class="inline-block w-full rounded-lg bg-blue-500 px-5 py-3 font-medium text-white sm:w-auto"
               (click)="ajouterEtage()"
             >
-            Ajouter
+            {{'ajoutC1.title12' | translate }} 
             </button>
           </div>
         </form>

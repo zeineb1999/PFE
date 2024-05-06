@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FaceSnapListComponent } from './face-snap-list/face-snap-list.component';
-import { LandingPageComponent } from './landing-page/landing-page.component';
-import {SingleFaceSnapComponent} from './single-face-snap/single-face-snap.component';
+
+
 import {ForgetPassComponent} from './forget-pass/forget-pass.component';
 import { LoginComponent } from './login/login.component';
 import { SignComponent } from './sign/sign.component';
@@ -15,33 +14,28 @@ import { ZoneDetailsComponent } from './ajout/zone-details/zone-details.componen
 import { EquipementsComponent } from './ajout/equipements/equipements.component';
 import { AjoutEquipementSansZoneComponent } from './ajout/ajout-equipement-sans-zone/ajout-equipement-sans-zone.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ThreejsSceneComponent } from './threejs-scene/threejs-scene.component';
 import { EquipementDetailsComponent } from './ajout/equipement-details/equipement-details.component';
 import { UpdateEquipementComponent } from './ajout/update-equipement/update-equipement.component';
 import { UpdateZoneComponent } from './ajout/update-zone/update-zone.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { AjouterZoneSansEtageComponent } from './ajout/ajouter-zone-sans-etage/ajouter-zone-sans-etage.component';
 import  {FacturesComponent} from './factures/factures.component';
-import { HopitalConfigComponent } from './hopital-config/hopital-config.component';
-import { DefaultComponent } from './layouts/default/default.component';
-import { PostsComponent } from './modules/posts/posts.component';
-import { GrapheComponent } from './graphe/graphe.component';
 import { ArchitectureComponent } from './architecture/architecture.component';
-
+import { ChangerPasswordComponent } from './changer-password/changer-password.component';
+import { Dashboard2Component } from './dashboard2/dashboard2.component';
+import { AcceuilComponent } from './acceuil/acceuil.component';
+import { AlerteDetailsComponent } from './alerte-details/alerte-details.component';
+import { RedigerRapportComponent } from './rediger-rapport/rediger-rapport.component';
 const routes: Routes = [
   
-  { path: 'facesnaps/:id', component: SingleFaceSnapComponent },
-  { path: 'facesnaps', component: FaceSnapListComponent },
-  {path: '', component:SignComponent },
-  {path: '', component:DefaultComponent,children:[
-  {path: '', component:DashboardComponent
-  },{
-   path: 'posts', component:PostsComponent}
-  ]},
-  {path: 'dashboard',component:GrapheComponent},
+  
+ 
+  {path: '', component:AcceuilComponent },
+ 
+  {path: 'rediger-rapport/:alerteId', component: RedigerRapportComponent },
   {path : 'forgetPassword',component:ForgetPassComponent},
   {path : 'signup',component:LoginComponent},
-  {path : 'signup/login',component:SignComponent},
+  //{path : 'signup/login',component:SignComponent},
   {path : 'login',component:SignComponent},
   {path:'profile',component:ProfileComponent},
   {path:'ajouterEtage',component:AjouterEtageComponent},
@@ -54,14 +48,15 @@ const routes: Routes = [
   {path: 'equipement-details/:equipementId', component: EquipementDetailsComponent },
   {path: 'equipements', component: EquipementsComponent },
   {path: 'dashboard', component: DashboardComponent },
-  {path: 'threejs', component: ThreejsSceneComponent },
   {path: 'updateEquipement/:equipementId', component: UpdateEquipementComponent },
   {path: 'updateZone/:zoneId', component: UpdateZoneComponent },
   {path: 'notifications', component: NotificationsComponent },
   {path: 'factures', component: FacturesComponent },
-  {path: 'hopitalConfig', component: HopitalConfigComponent},
-  {path: 'architecture', component: ArchitectureComponent},
-
+  {path: 'architecture', component: ArchitectureComponent}, 
+  { path: 'changerPassword/:uidb64/:token', component: ChangerPasswordComponent },
+  { path: 'dashboard2', component: Dashboard2Component },
+  { path: 'acceuil', component: AcceuilComponent },
+  {path: 'alerte-details/:alerteId', component: AlerteDetailsComponent },
   
 ];
 

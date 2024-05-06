@@ -7,8 +7,8 @@
     <div class="w-full flex justify-center">
       <div class="relative inline-block mb-12 text-center">
         <span class="text-2xl md:text-2xl font-bold">
-          Créons un espace où le confort rencontre l'efficacité des soins !
-        </span>
+          {{'ajoutC1.title18' | translate}}
+           </span>
         <span class="mt-4 absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-blue-400 to-green-500 rounded-full"></span>
       </div>
     </div>
@@ -19,7 +19,7 @@
             <h1 class="w-full text-center md:text-2xl"></h1>
             <h1 class="text-center text-xl md:text-xl font-bold ">
               <!--<span class="inline-block bg-gradient-to-r from-blue-500 to-green-400 text-transparent bg-clip-text">Rajouter un local à l'étage {{ this.etageZ}}</span>-->
-              <span class="inline-block text-black">Rajouter un local à l'étage {{ this.etageZ}}</span>
+              <span class="inline-block text-black"> {{'ajoutC1.title19' | translate}} {{ this.etageZ}}</span>
             </h1>
         </div>
 
@@ -35,7 +35,7 @@
                 id="num"
               />
               <label class="text-gray-400 after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-blue-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-blue-500 peer-focus:after:scale-x-100 peer-focus:after:border-blue-500 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
-                Numéro du local
+                {{'ajoutC1.title20' | translate}}
               </label>
             </div>
           </div>
@@ -51,7 +51,7 @@
                 id="nom"
               />
               <label class="text-gray-400 after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-blue-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-blue-500 peer-focus:after:scale-x-100 peer-focus:after:border-blue-500 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
-                Nom du local
+                {{'ajoutC1.title21' | translate}}
               </label>
             </div>
           </div>
@@ -67,7 +67,7 @@
                 name="typeLocal"
               />
               <label class="text-gray-400 after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-blue-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-blue-500 peer-focus:after:scale-x-100 peer-focus:after:border-blue-500 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
-                Type du local
+                {{'ajoutC1.title22' | translate}}
               </label>
             </div>
           </div>
@@ -83,15 +83,14 @@
                 name="surface"
               />
               <label class="text-gray-400 after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-blue-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-blue-500 peer-focus:after:scale-x-100 peer-focus:after:border-blue-500 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
-                Surface du local
+                {{'ajoutC1.title23' | translate}}
               </label>
             </div>
           </div>
           
           <div *ngIf="surfaceAlert" class="success-message flex items-center justify-center fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50">
             <div class="bg-red-500 text-white font-bold rounded-lg border shadow-lg p-5">
-              La surface de la zone à ajouter est supérieure au reste de la surface de l'étage.
-            </div>
+              {{'ajoutC1.title24' | translate}}  </div>
           </div>
           
 
@@ -107,7 +106,7 @@
                 name="temp"
               />
               <label class="text-gray-400 after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-blue-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-blue-500 peer-focus:after:scale-x-100 peer-focus:after:border-blue-500 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
-                Température désirée dans le local
+                {{'ajoutC1.title25' | translate}}
               </label>
             </div>
           </div>
@@ -119,13 +118,13 @@
               (click)="goBack()"
               class="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">
               <i class="fa-solid fa-chevron-left mr-2"></i>
-              <span>Retour</span>
+              <span> {{'ajoutC1.title26' | translate}}</span>
             </button>
             <button
               type="submit"
               (click)="ajouterZone()"
               class="text-white border border-blue-500 bg-blue-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
-              Ajouter
+              {{'ajoutC1.title12' | translate}}
             </button>
           </div>
         </form>

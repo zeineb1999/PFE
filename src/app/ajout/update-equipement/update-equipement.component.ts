@@ -88,7 +88,7 @@ export class UpdateEquipementComponent implements OnInit {
           this.successMessage = 'Équipement modifié avec succès !'; // Définir le message de succès
           setTimeout(() => {
             this.successMessage = ''; // Effacer le message après quelques secondes
-            this.router.navigate(['/equipements']); // Rediriger vers une autre page après la modification
+            window.history.back(); // Rediriger vers une autre page après la modification
           }, 1000); // 3000 millisecondes = 3 secondes
         },
         error => {
@@ -96,5 +96,9 @@ export class UpdateEquipementComponent implements OnInit {
         }
       );
     }
+
+    retour(){
+      window.history.back();
+    }
+
   }
-  

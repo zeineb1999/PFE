@@ -10,6 +10,7 @@ interface Registration {
   first_name:string;
   password: string;
   email: string;
+  
 }
 @Component({
   selector: 'app-login',
@@ -27,7 +28,9 @@ export class LoginComponent implements OnInit{
     password: '',
     email: ''
   };
+  role: string=''
   ngOnInit(){
+    this.role='';
     this.register ={
       username : '',
       last_name:'',
@@ -36,12 +39,19 @@ export class LoginComponent implements OnInit{
       email : ''
 
     };
-    
+  
     
   }
   registerUser() {
     this.userService.registerNewUser(this.register).subscribe(
       response => {
+        const userId = response.id;
+        console.log('User ID:', userId);
+        this.userService.registerNewRole(userId, this.role).subscribe(
+          response => {
+            
+          }
+        )
         alert('User '+ this.register.username+ ' Has been created ');
         this.router.navigateByUrl('/login')
       },

@@ -20,5 +20,9 @@ export class UserService {
     return this.http.post(this.baseurl + '/users/',
      userData);
   }
+  registerNewRole(userId: number, role: string): Observable<any>{
+    const body = {userId: userId, role: role}
+    return this.http.post(this.baseurl + `/profileUser/`, body);
+  }
  
 }

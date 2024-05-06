@@ -1,0 +1,55 @@
+<app-header></app-header>
+
+<section id="accueil" class="relative bg-[url(assets/acc-bg.jpg)] bg-cover bg-center bg-no-repeat">
+  <div class="absolute inset-0 bg-gradient-to-r from-white/95 to-white/25"></div>
+
+  <div class="relative mx-auto max-w-screen-xl px-4 py-32 sm:px-6 lg:flex lg:h-screen lg:items-center lg:px-8">
+    <div class="max-w-xl ltr:sm:text-left rtl:sm:text-right mb-4">
+      <h1 class="text-3xl font-extrabold sm:text-5xl" style="font-family: Inter,ui-sans-serif,system-ui,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;">
+        <strong class="block font-extrabold" style="color: #c41f5a;">
+          {{'Acceuil.title' | translate}} 
+        </strong>
+        <strong class="block font-extrabold my-6 text-[#18577a]">
+          {{'Accueil.title2' | translate}} 
+        </strong>
+      </h1>
+
+      <div class="mt-8 flex flex-wrap gap-4 text-center">
+        <a href="http://localhost:4200/login" class="block w-full rounded bg-[#18577a] px-12 py-3 text-sm font-medium text-white shadow hover:[#18577a] focus:outline-none focus:ring active:bg-[#18577a] sm:w-auto">
+          {{'Acceuil.title1' | translate}}  <i class="fa-solid fa-chevron-right ml-4"></i>
+        </a>
+
+        <a href="#infos" class="block w-full rounded bg-white px-12 py-3 text-sm font-medium text-[#c41f5a] shadow hover:text-rose-700 focus:outline-none focus:ring active:text-rose-500 sm:w-auto">
+          {{'Acceuil.title3' | translate}} 
+        </a>
+      </div>
+    </div>
+
+    
+  </div>
+  <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+      <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+        <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">{{ "sign.title1" | translate}}</h1>
+        <div class="space-y-4 md:space-y-6">
+          <div>
+            <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ "sign.title2" | translate}}</label>
+            <input type="text" [(ngModel)]="username" placeholder="{{ 'sign.title2' | translate}}" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
+          </div>
+
+          <div>
+            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ "sign.title3" | translate}}</label>
+            <input type="password" [(ngModel)]="password" placeholder="{{ 'sign.title3' | translate}}" type="password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
+          </div>
+
+          <button (click)="sign()" class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">{{ "sign.title4" | translate}}</button>
+          <div *ngIf="successMessage" class="success-message flex items-center justify-center fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50">
+            <div class="bg-green-500 text-white font-bold rounded-lg border shadow-lg p-5">
+              {{ successMessage }}
+            </div>
+          </div>
+          <p class="text-sm font-light text-gray-500 dark:text-gray-400">{{ "sign.title5" | translate}} <a class="font-medium text-blue-600 hover:underline dark:text-blue-500" routerLink="/forgetPassword">{{ "sign.title6" | translate}}</a></p>
+          <p class="text-sm font-light text-gray-500 dark:text-gray-400">{{ "sign.title7" | translate}} <a class="font-medium text-blue-600 hover:underline dark:text-blue-500" routerLink="/signup">{{ "sign.title8" | translate}}</a></p>
+        </div>
+      </div>
+    </div>
+</section>

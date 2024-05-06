@@ -1,9 +1,0 @@
-<div #rendererContainer style="width: 100%; height: 100%;"></div>
-
-<div>
-  <h2>Informations sur la scène Three.js</h2>
-  <ul>
-    <li>Position de la caméra: {{ camera.position.x }}, {{ camera.position.y }}, {{ camera.position.z }}</li>
-    <li *ngFor="let cube of cubes; let i = index">Rotation du cube {{ i + 1 }}: {{ cube.rotation.x }}, {{ cube.rotation.y }}, {{ cube.rotation.z }}</li>
-  </ul>
-</div>

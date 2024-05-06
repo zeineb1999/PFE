@@ -1,14 +1,88 @@
-<div *ngIf="isLoggedIn">
-<h2>Détails de la equipement</h2>
-
-<div *ngIf="equipementDetails">
-  <p><strong>Identifiant:</strong> {{ equipementDetails.id }}</p>
-  <p><strong>Nom :</strong> {{ equipementDetails.nom }}</p>
-  <p><strong>État:</strong> {{ equipementDetails.etat }}</p>
-  <!-- Ajoutez d'autres détails de la zone ici selon vos besoins -->
-</div>
-
 <div *ngIf="!equipementDetails">
-  <p>Chargement des détails de l equipement...</p>
+  <p>  {{'ajoutC1.title27' | translate}} </p>
 </div>
+
+<div *ngIf="isLoggedIn" class="mx-6">
+  <app-header></app-header>
+
+
+  <div *ngIf="equipementDetails">
+    <div class="w-full flex justify-center">
+      <div class="relative inline-block my-12 text-center">
+        <span class="text-2xl md:text-2xl font-bold">
+          {{'ajoutC1.title28' | translate}} {{equipementDetails.id}}
+        </span>
+        <span class="mt-6 absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-blue-400 to-green-500 rounded-full"></span>
+      </div>
+    </div>
+
+    <div class="flow-root m-6" *ngIf="equipementDetails">
+      <dl class="-my-3 divide-y divide-gray-100 text-sm">
+        <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+          <dt class="font-medium text-gray-900">  {{'ajoutC1.title3' | translate}} </dt>
+          <dd class="font-medium text-gray-700 sm:col-span-2">{{ equipementDetails.nom }}</dd>
+        </div>
+
+        <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+          <dt class="font-medium text-gray-900">  {{'ajoutC1.title29' | translate}} </dt>
+          <dd class="font-medium m:col-span-2 text-gray-700 ">
+            <span *ngIf="equipementDetails.etat=='OFF'" class="px-3 py-1 text-xs text-red-600 bg-red-100 rounded-full"> {{'ajoutC1.title30' | translate}}</span>
+            <span *ngIf="equipementDetails.etat=='ON'" class="px-3 py-1 text-xs text-green-600 bg-green-100 rounded-full"> {{'ajoutC1.title31' | translate}}</span>
+          </dd>
+        </div>
+
+        <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+          <dt class="font-medium text-gray-900">{{'ajoutC1.title32' | translate}}</dt>
+          <dd class="font-medium m:col-span-2 text-gray-700 ">
+            <span *ngIf="equipementDetails.categorie!='normal'" class="">{{'ajoutC1.title34' | translate}}</span>
+            <span *ngIf="equipementDetails.categorie=='normal'" class="">{{'ajoutC1.title35' | translate}}</span>
+          </dd>
+        </div>
+
+        <div class="grid grid-cols-1 gap-1 py-4 sm:grid-cols-3 sm:gap-4">
+          <dt class="font-medium text-gray-900">{{'ajoutC1.title36' | translate}}</dt>
+          <dd class="font-medium m:col-span-2 text-gray-700 ">{{equipementDetails.puissance}} W</dd>
+        </div>
+
+        <div class="grid grid-cols-1 gap-1 py-4 sm:grid-cols-3 sm:gap-4">
+          <dt class="font-medium text-gray-900">{{'ajoutC1.title37' | translate}}</dt>
+          <dd class="font-medium col-span-2 text-gray-700 ">
+            <div style="display: flex; align-items:center; justify-content: flex-start;" *ngIf="equipementInfos">
+              <span>{{equipementInfos.batiment}}</span><i class="fa-solid fa-chevron-right fa-sm mx-2"></i>
+              <span>{{'ajoutC1.title17' | translate}} {{equipementInfos.numEtage}} : {{equipementInfos.nomEtage}} </span><i class="fa-solid fa-chevron-right fa-sm mx-2"></i>
+              <span>{{equipementInfos.typeLocal}} {{equipementInfos.localId}} : {{equipementInfos.nomLocal}} </span>
+            </div>
+          </dd>
+        </div>
+
+        <div class="grid grid-cols-1 gap-1 py-4 sm:grid-cols-3 sm:gap-4">
+          <dt class="font-medium text-gray-900">
+            <button (click)="redirectToModifierEquipement()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+              {{'ajoutC1.title38' | translate}}
+            </button>
+
+          </dt>
+        </div>
+
+
+        <div class="grid grid-cols-1 gap-1 py-4 sm:grid-cols-3 sm:gap-4">
+          <dt class="font-medium text-gray-900"></dt>
+          <dd class="font-medium:col-span-2"></dd>
+        </div>
+
+      </dl>
+    </div>
+    <!-- Ajoutez d'autres détails de la zone ici selon vos besoins -->
+  </div>
+
+
+  <section class="container px-4 mx-auto flex items-center w-full">
+    <div id="columns-container" style="width: 60%" class=" shadow-xl"></div>
+    <div  id="afficheur-consommation" class="p-8 ml-16 flex justify-center items-center cons-totale shadow-md" style="width: 250px;">
+      <div class="text-5xl text-gray-200 text-bold py-2 cons-totale-titre  flex justify-center"  *ngIf="equipementDetails">{{'ajoutC1.title39' | translate}} :</div>
+      <div class="text-5xl text-gray-200 py-4 cons-totale-val flex justify-center">{{this.consommation_annuelle_totale.toFixed(2)}} kWh</div>
+    </div>
+  </section>
+
+
 </div>

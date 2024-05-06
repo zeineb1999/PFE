@@ -14,8 +14,9 @@ export class AuthService {
   logout() {
     // Supprimez le token JWT stocké côté client
     localStorage.removeItem('isLoggedIn');
-
+    localStorage.removeItem('role');
     localStorage.removeItem('token');
+    localStorage.removeItem('id');
     this.router.navigate(['/login']);
   }
 
@@ -29,11 +30,44 @@ export class AuthService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<any>('http://127.0.0.1:8000/api/profile/', { headers });
   }
-  updateUserProfile(newUsername: string, newFirstname: string, newLastname: string) {
+  getAllusers() {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    const body = { username: newUsername, first_name: newFirstname, last_name: newLastname };
+    return this.http.get<any>('http://127.0.0.1:8000/api/Allusers/', { headers });
+  }
+  getRole(user_Id : number) {
+   
+    const url = `http://127.0.0.1:8000/api/getRole/${user_Id}`;
+    return this.http.get<any>(url);
+  }
+  sendCode(email:string,code: number): Observable<any> {
+    return this.http.post<any>('http://127.0.0.1:8000/api/modificationProfile/', { email ,code});
+
+  }
+  deleteUser(id: number): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.delete<any>(`http://127.0.0.1:8000/api/deleteUser/${id}`, { headers });
+  }
+  updateUserProfile(newUsername: string, newFirstname: string, newLastname: string,newEmail:string) {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const body = { username: newUsername, firstname: newFirstname, lastname: newLastname, email:newEmail };
     return this.http.put<any>('http://127.0.0.1:8000/api/profile/', body, { headers });
   }
+  public resetPassword(email: string, code: number): Observable<any> {
+    
+    return this.http.post<any>('http://127.0.0.1:8000/api/send-reset-password-email/', { email });
+  }
+  
 
+  //return this.http.post<any>('http://127.0.0.1:8000/api/ChangePassword/', { email,password});
+  
+  public changerPassword(uidb64: string, token: string, newPassword: string): Observable<any> {
+    // Envoyer uidb64, token et nouveau mot de passe au backend pour réinitialisation
+    const url = `http://127.0.0.1:8000/api/reset_password_avec_uid/${uidb64}/${token}/`;
+    return this.http.post<any>(url, { newPassword });
+  }
+
+  
 }

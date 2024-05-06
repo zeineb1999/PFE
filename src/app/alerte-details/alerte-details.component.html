@@ -1,0 +1,76 @@
+
+
+
+
+  <div *ngIf="page!='dashboard2'">
+
+    <app-header></app-header>
+  
+    <div *ngIf="thisAlerte">
+      <div class="w-full flex justify-center">
+        <div class="relative inline-block my-12 text-center">
+          <span class="text-2xl md:text-2xl font-bold">
+            Détails de l'alerte {{thisAlerte.id}}
+          </span>
+          <span
+            class="mt-6 absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-blue-400 to-green-500 rounded-full"></span>
+        </div>
+      </div>
+  
+        <div class="flow-root mx-12">
+          <dl class="-my-3 divide-y divide-gray-100 text-sm">
+            <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+              <dt class="font-medium text-gray-900">{{'alerte.title1' | translate }}</dt>
+              <dd class="font-medium text-gray-700 sm:col-span-2">{{ this.thisAlerte.id }}</dd>
+            </div>
+  
+            <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+              <dt class="font-medium text-gray-900">{{'ajoutC1.title7' | translate }}</dt>
+              <dd class="font-medium text-gray-700 sm:col-span-2">{{ this.thisAlerte.type }}</dd>
+            </div>
+  
+            <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+              <dt class="font-medium text-gray-900">{{'ajoutC1.title11' | translate }}</dt>
+              <dd class="font-medium text-gray-700 sm:col-span-2">
+                <div style="display: flex; align-items:center; justify-content: flex-start;" *ngIf="local">
+                  {{batiment}}<i class="fa-solid fa-chevron-right fa-sm mx-2"></i>
+                  Etage {{etage.id}} : {{etage.nomEtage}} <i class="fa-solid fa-chevron-right fa-sm mx-2"></i>
+                  {{local.typeLocal}} {{local.id}} : {{local.nomLocal}}
+                </div>
+              </dd>
+            </div>
+  
+  
+            <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+              <dt class="font-medium text-gray-900">{{'alerte.title2' | translate }}:</dt>
+              <dd class="font-medium text-gray-700 sm:col-span-2">{{ this.thisAlerte.text }}</dd>
+            </div>
+  
+  
+          </dl>
+        </div>
+        <!-- Ajoutez d'autres détails de la zone ici selon vos besoins -->
+  
+    <div *ngIf="!(this.roleUser=='Responsable de maintenance')">
+  
+      <form *ngIf="thisAlerte.type=='temperature' || thisAlerte.type=='humidite' ||thisAlerte.type=='surConsommation' ">
+        <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 ">{{'alerte.title4' | translate }}
+          </label>
+        <select id="Rid" [(ngModel)]="Rid" name="Rid"
+          class="w-6 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+          <option selected disabled></option>
+          <option *ngFor="let R of responsables_maintenance" [value]="R.id">{{R.id}} {{R.username}}</option>
+        </select>
+  
+        <label for="message">{{'alerte.title3' | translate }} </label>
+        <input type="text" id="message">
+        <button type="button" (click)="sendNotification(thisAlerte.id)">{{'alerte.title5' | translate }}</button>
+      </form>
+    </div>
+      <div *ngIf="this.roleUser=='Responsable de maintenance'">
+        
+        <button (click)="redirectToRedigerRapport()">Rédiger le rapport de maintenance</button>
+      </div>
+    </div>
+  
+  </div>

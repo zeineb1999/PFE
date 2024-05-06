@@ -1,112 +1,929 @@
 <div *ngIf="isLoggedIn">
-<app-header></app-header>
-<body class="font-sans antialiased text-gray-900 leading-normal tracking-wider bg-cover"
-    style="background-image:url('https://www.dreso.com/fileadmin/_processed_/8/7/csm_Smart_Hospital_Website_17a7cc1e84.jpg');">
+  <div *ngIf="this.role=='admin' || this.role=='Admin'" class="pt-12 pb-8">
+     
 
+<nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+  <div class="px-3 py-3 lg:px-5 lg:pl-3">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center justify-start rtl:justify-end">
+        <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar" type="button" class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+            <span class="sr-only">{{'profile.title1'| translate}}</span>
+            <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+               <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
+            </svg>
+         </button>
+        <a  class="flex ms-2 md:me-24">
+          <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 me-3" alt="FlowBite Logo" />
+          <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">{{'profile.title2'| translate}}
 
+          </span>
+        </a>
+      </div>
+    
+    </div>
+  </div>
+</nav>
 
-    <div class="max-w-4xl flex items-center h-auto lg:h-screen flex-wrap mx-auto my-32 lg:my-0">
+<aside id="logo-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-blue-200 border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
+   <div class="h-full px-3 pb-4 overflow-y-auto bg-blue-200 dark:bg-gray-800">
+      <ul class="space-y-2 font-medium">
+         <li>
+            <a class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+               <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
+                  <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"/>
+                  <path d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z"/>
+               </svg>
+               <span class="ms-3">{{'header.titlefour'| translate}}</span>
+            </a>
+         </li>
+         <li>
+            <a class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+               <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
+                  <path d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z"/>
+               </svg>
+               <span class="flex-1 ms-3 whitespace-nowrap">{{ this.role }} </span>
+                </a>
+         </li>
+         <li>
+            <a  class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+               <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="m17.418 3.623-.018-.008a6.713 6.713 0 0 0-2.4-.569V2h1a1 1 0 1 0 0-2h-2a1 1 0 0 0-1 1v2H9.89A6.977 6.977 0 0 1 12 8v5h-2V8A5 5 0 1 0 0 8v6a1 1 0 0 0 1 1h8v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h6a1 1 0 0 0 1-1V8a5 5 0 0 0-2.582-4.377ZM6 12H4a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2Z"/>
+               </svg>
+               <span class="flex-1 ms-3 whitespace-nowrap">{{ user?.username }}</span>
+               <i class="fa-solid fa-pen-to-square fa-lg text-blue-500 hover:text-blue-700 cursor-pointer ml-2" (click)="modifierUsername()"></i>
+               <div *ngIf="demandeModificationUsername"  class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+                <div class="fixed inset-0 bg-gray-500 bg-opacity-80 transition-opacity"></div>
 
-        <!--Main Col-->
-        <div id="profile"
-            class="w-full lg:w-3/5 rounded-lg lg:rounded-l-lg shadow-2xl bg-white opacity-75 mx-6 mx-auto">
-
-
-            <div class="p-4 md:p-12 text-center lg:text-left">
-                <!-- Image for mobile view-->
-                <div class="block lg:hidden rounded-full shadow-xl mx-auto -mt-16 h-48 w-48 bg-cover bg-center"
-                    style="background-image: url('https://source.unsplash.com/MP0IUfwrn0A')"></div>
-
-                <h1 class="text-3xl font-bold pt-8 lg:pt-0">{{ user?.username }}</h1>
-                <div class="mx-auto lg:mx-0 w-4/5 pt-3 border-b-2 border-blue-500 opacity-25"></div>
-                <p class="pt-6 text-gray-600 text-xs lg:text-sm flex items-center justify-center lg:justify-start">
-                  <i class="fa-solid fa-user h-4 fill-current text-blue-700 pr-4"></i> Lastname : <strong>{{ user?.lastname }}</strong>
-              </p>
-
-              <p class="pt-6 text-gray-600 text-xs lg:text-sm flex items-center justify-center lg:justify-start">
-                <i class="fa-solid fa-user h-4 fill-current text-blue-700 pr-4"></i> Firstname : <strong> {{ user?.firstname }}</strong> </p>
-
-                <p class="pt-6 text-gray-600 text-xs lg:text-sm flex items-center justify-center lg:justify-start">
-                    <i class="fa-solid fa-envelope h-4 fill-current text-blue-700 pr-4"></i>
-                        Your email : <strong> {{ user?.email }}</strong>
-                </p>
-
-                <div class="pt-12 pb-8">
-                    <button class="bg-red-700 hover:bg-red-900 text-white font-bold py-2 px-4 rounded-full "(click)="SeDeconnecter()">
-				         Se deconnecter
-				     </button>
+                <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+                  <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                    <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                      <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                        <div class="sm:flex sm:items-start">
+                          <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                            <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                            </svg>
+                          </div>
+                          <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                            <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">{{'profile.title3'|translate}} {{user?.username}}</h3>
+                            
+                          <input type="text" id="newUsername" name="newUsername" [(ngModel)]="newUsername" class="block w-full border-b-2 border-blue-500 text-gray-600 text-sm focus:outline-none">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                        <button (click)="confirmerModifierUsername()" type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">{{'ajoutC1.title38'|translate}}</button>
+                        <button (click)="annulerModificationUsername()" type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">{{'ajoutC1.title51'|translate}}</button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+              </div>
 
+              
+              
+              </a>
+         </li>
+         <li>
+            <a class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+               <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+                  <path d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"/>
+               </svg>
+               <span class="flex-1 ms-3 whitespace-nowrap">{{ user?.firstname }}</span>
+               <i class="fa-solid fa-pen-to-square fa-lg text-blue-500 hover:text-blue-700 cursor-pointer ml-2" (click)="modifierFirstname()"></i>
+               <div *ngIf="demandeModificationFirstname"  class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+                <div class="fixed inset-0 bg-gray-500 bg-opacity-80 transition-opacity"></div>
 
-                <!-- Use https://simpleicons.org/ to find the svg for your preferred product -->
+                <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+                  <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                    <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                      <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                        <div class="sm:flex sm:items-start">
+                          <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                            <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                            </svg>
+                          </div>
+                          <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                            <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">{{'profile.title4' | translate}} {{user?.firstname}}</h3>
+                            
+                          <input type="text" id="newFirstname" name="newFirstname" [(ngModel)]="newFirstname" class="block w-full border-b-2 border-blue-500 text-gray-600 text-sm focus:outline-none">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                        <button (click)="confirmerModifierFirstname()" type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">{{'ajoutC1.title38'|translate}}</button>
+                        <button (click)="annulerModificationFirstname()" type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">{{'ajoutC1.title51'|translate}}</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+         </li>
+         <li>
+            <a  class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+               <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                  <path d="M17 5.923A1 1 0 0 0 16 5h-3V4a4 4 0 1 0-8 0v1H2a1 1 0 0 0-1 .923L.086 17.846A2 2 0 0 0 2.08 20h13.84a2 2 0 0 0 1.994-2.153L17 5.923ZM7 9a1 1 0 0 1-2 0V7h2v2Zm0-5a2 2 0 1 1 4 0v1H7V4Zm6 5a1 1 0 1 1-2 0V7h2v2Z"/>
+               </svg>
+               <span class="flex-1 ms-3 whitespace-nowrap">{{user?.lastname}}</span>
+               <i class="fa-solid fa-pen-to-square fa-lg text-blue-500 hover:text-blue-700 cursor-pointer ml-2" (click)="modifierLastname()"></i>
+               <div *ngIf="demandeModificationLastname"  class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+                <div class="fixed inset-0 bg-gray-500 bg-opacity-80 transition-opacity"></div>
 
+                <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+                  <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                    <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                      <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                        <div class="sm:flex sm:items-start">
+                          <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                            <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                            </svg>
+                          </div>
+                          <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                            <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">{{'ajoutC1.title5'|translate}} {{user?.Lastname}}</h3>
+                            
+                          <input type="text" id="newLastname" name="newLastname" [(ngModel)]="newLastname" class="block w-full border-b-2 border-blue-500 text-gray-600 text-sm focus:outline-none">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                        <button (click)="confirmerModifierLastname()" type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">{{'ajoutC1.title38'|translate}}</button>
+                        <button (click)="annulerModificationLastname()" type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">{{'ajoutC1.title51'|translate}}</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+         </li>
+         <li>
+          <a  class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+             <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                <path d="M17 5.923A1 1 0 0 0 16 5h-3V4a4 4 0 1 0-8 0v1H2a1 1 0 0 0-1 .923L.086 17.846A2 2 0 0 0 2.08 20h13.84a2 2 0 0 0 1.994-2.153L17 5.923ZM7 9a1 1 0 0 1-2 0V7h2v2Zm0-5a2 2 0 1 1 4 0v1H7V4Zm6 5a1 1 0 1 1-2 0V7h2v2Z"/>
+             </svg>
+             <span class="flex-1 ms-3 whitespace-nowrap">{{ user?.email }}</span>
+             <i class="fa-solid fa-pen-to-square fa-lg text-blue-500 hover:text-blue-700 cursor-pointer ml-2" (click)="modifierEmail()"></i>
+             <div *ngIf="demandeModificationEmail"  class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+              <div class="fixed inset-0 bg-gray-500 bg-opacity-80 transition-opacity"></div>
+
+              <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+                <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                  <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                    <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                      <div class="sm:flex sm:items-start">
+                        <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                          <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                          </svg>
+                        </div>
+                        <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                          <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">{{'profile.title6'|translate}}</h3>
+                          
+                        <input type="text" id="newEmail" name="newEmail" [(ngModel)]="newEmail" class="block w-full border-b-2 border-blue-500 text-gray-600 text-sm focus:outline-none">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                      <button (click)="confirmerModifierEmail()" type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">{{'ajoutC1.title38'|translate}}</button>
+                      <button (click)="annulerModificationEmail()" type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">{{'ajoutC1.title51'|translate}}</button>
+        
+        
+        
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
+            <div *ngIf="demandeCodeEmail"  class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+              <div class="fixed inset-0 bg-gray-500 bg-opacity-80 transition-opacity"></div>
+
+              <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+                <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                  <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                    <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                      <div class="sm:flex sm:items-start">
+                        <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                          <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                          </svg>
+                        </div>
+                        <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                          <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">{{'profile.title7'|translate}} {{this.newEmail}}</h3>
+                          
+                        <input type="number" id="code" name="code" [(ngModel)]="code" class="block w-full border-b-2 border-blue-500 text-gray-600 text-sm focus:outline-none">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                      <button (click)="confirmerCodeEmail()" type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">{{'ajoutC1.title38'|translate}}</button>
+                      <button (click)="annulerCodeEmail()" type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">{{'ajoutC1.title51'|translate}}</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+       </li>
+        <!-- <li>
+           
+               <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                   <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.96 2.96 0 0 0 .13 5H5Z"/>
+                   <path d="M6.737 11.061a2.961 2.961 0 0 1 .81-1.515l6.117-6.116A4.839 4.839 0 0 1 16 2.141V2a1.97 1.97 0 0 0-1.933-2H7v5a2 2 0 0 1-2 2H0v11a1.969 1.969 0 0 0 1.933 2h12.134A1.97 1.97 0 0 0 16 18v-3.093l-1.546 1.546c-.413.413-.94.695-1.513.81l-3.4.679a2.947 2.947 0 0 1-1.85-.227 2.96 2.96 0 0 1-1.635-3.257l.681-3.397Z"/>
+                   <path d="M8.961 16a.93.93 0 0 0 .189-.019l3.4-.679a.961.961 0 0 0 .49-.263l6.118-6.117a2.884 2.884 0 0 0-4.079-4.078l-6.117 6.117a.96.96 0 0 0-.263.491l-.679 3.4A.961.961 0 0 0 8.961 16Zm7.477-9.8a.958.958 0 0 1 .68-.281.961.961 0 0 1 .682 1.644l-.315.315-1.36-1.36.313-.318Zm-5.911 5.911 4.236-4.236 1.359 1.359-4.236 4.237-1.7.339.341-1.699Z"/>
+                </svg>
+               <span class="flex-1 ms-3 whitespace-nowrap">modifier profile</span>
+            </a>
+         </li>
+        -->
+         <li>
+          <a (click)="SeDeconnecter()" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+            <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 16">
+               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 8h11m0 0L8 4m4 4-4 4m4-11h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3"/>
+            </svg>
+               <span class="flex-1 ms-3 whitespace-nowrap">{{'profile.title8'|translate}}</span>
+            </a>
+         </li>
+      </ul>
+   </div>
+</aside>
+
+<div class="p-4 sm:ml-64">
+   <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
+      <div class="grid grid-cols-3 gap-4 mb-4">
+         
+             <div class="flex items-center bg-white border rounded-sm overflow-hidden shadow">
+            <div class="p-4 bg-green-400"><svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-white" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
+                    </path>
+                </svg></div>
+            <div class="px-4 text-gray-700">
+                <h3 class="text-sm tracking-wider">{{'profile.title9'|translate}}</h3>
+                <p class="text-3xl">{{this.utilisateurs.length }}</p>
+           </div>
         </div>
-
-
-
-
+        
+        <div class="flex items-center bg-white border rounded-sm overflow-hidden shadow">
+          <div class="p-8 bg-blue-400"><i class="fa-regular fa-bell fa-2xl" style="color: white"></i></div>
+          <div class="px-4 text-gray-700">
+              <h3 class="text-sm tracking-wider">{{'profile.title10'|translate}}</h3>
+              <p class="text-3xl">{{this.alertes.length }}</p>
+          </div>
+      </div>
+      <div class="flex items-center bg-white border rounded-sm overflow-hidden shadow">
+        <div class="p-4 bg-red-400"><svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-white" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4">
+                </path>
+            </svg></div>
+        <div class="px-4 text-gray-700">
+            <h3 class="text-sm tracking-wider">{{'profile.title11'|translate}}</h3>
+            <p class="text-3xl">{{this.etages.length }}</p>
+        </div>
     </div>
+      </div>
+      <div class="flex items-center justify-center h-100 mb-4 rounded bg-gray-50 dark:bg-gray-800">
+        <div class="w-full">
+          <div class="p-4 flex">
+            <h1 class="text-3xl">{{'profile.title12'|translate}}</h1>
+          </div>
+            <div class="px-3 py-4 flex justify-center">
+            <table class="w-full text-md bg-white shadow-md rounded mb-4">
+              <tbody>
+                  <tr class="border-b">
+                      <th class="text-left p-3 px-5">{{'login.title2'|translate}}</th>
+                      <th class="text-left p-3 px-5">{{'login.title3'|translate}}</th>
+                      <th class="text-left p-3 px-5">{{'login.title5'|translate}}</th>
+                      <th class="text-left p-3 px-5">{{'login.title6'|translate}}</th>
+                      <th></th>
+                  </tr>
+                  <tr *ngFor="let user of utilisateurs" class="border-b hover:bg-orange-100">
+                  
+                    <td class="p-3 px-5">
+                      <div class="bg-transparent border-b-2 border-gray-300 py-2">
+                        {{ user.first_name }}
+                    </div>
+                    
+                    </td>
+                    <td class="p-3 px-5">
+                      <div class="bg-transparent border-b-2 border-gray-300 py-2">
+                        {{ user.last_name }}
+                    </div>
+                    
+                    </td>
+                  
+                    <td class="p-3 px-5">
+                      <div class="bg-transparent border-b-2 border-gray-300 py-2">
+                        {{ user.email }}
+                    </div>
+                    
+                  </td>
+                  <td class="p-3 px-5">
+                    <div class="bg-transparent border-b-2 border-gray-300 py-2">
+                      {{ user.role }}
+                  </div>
+                  </td>
+                    <td class="p-3 px-5 flex justify-end">
+                        <button  (click)="deleteUser(user.id)"  type="button"
+                            class="mr-3 text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">{{'ajoutC1.title43'|translate}}</button>
+                    </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      
+      
+      <div class="grid grid-cols-2 gap-4">
+        <div class="flex items-center bg-white border rounded-sm overflow-hidden shadow">
+          <div class="p-4 bg-green-400"><svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-white" fill="none"
+                  viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
+                  </path>
+              </svg></div>
+          <div class="px-4 text-gray-700">
+              <h3 class="text-sm tracking-wider">{{'profile.title13'|translate}}</h3>
+              <p class="text-3xl">{{this.batiments.length }}</p>
+         </div>
+      </div><div class="flex items-center bg-white border rounded-sm overflow-hidden shadow">
+        <div class="p-4 bg-green-400"><svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-white" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
+                </path>
+            </svg></div>
+        <div class="px-4 text-gray-700">
+            <h3 class="text-sm tracking-wider">{{'profile.title14'|translate}}</h3>
+            <p class="text-3xl">{{this.equipements.length }}</p>
+       </div>
+    </div>
+        
+          <div class="w-full mb-4 rounded bg-gray-50 dark:bg-gray-800">
+            <div class="p-4 flex">
+              <h1 class="text-3xl">{{'profile.title15'|translate}}</h1>
+            </div>
+              <div class="px-3 py-4 flex justify-center">
+              <table class="w-full text-md bg-white shadow-md rounded mb-4">
+                <tbody>
+                    <tr class="border-b">
+                        
+                        
+                        <th class="text-left p-3 px-5">{{'ajoutC1.title3'|translate}} {{'ajoutC1.title63'|translate}}</th>
+                        
+                        <th></th>
+                    </tr>
+                    <tr *ngFor="let user of batiments" class="border-b hover:bg-orange-100">
+                    
+                      
+                      
+                     
+                    
+                      <td class="p-3 px-5">
+                        <div class="bg-transparent border-b-2 border-gray-300 py-2">
+                          {{ user.nomBatiment }}
+                      </div>
+                      
+                    </td>
+                    
+                      <td class="p-3 px-5 flex justify-end">
+                          <button  (click)="deleteBatiment(user.id)"  type="button"
+                              class="mr-3 text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">{{'ajoutC1.title43'|translate}}</button>
+                      </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+         
+          <div class="w-full mb-4 rounded bg-gray-50 dark:bg-gray-800">
+            <div class="p-4 flex">
+                <h1 class="text-3xl">{{'profile.title16'|translate}}</h1>
+            </div>
+            <div class="px-3 py-4 flex justify-center" style="max-height: 350px; overflow-y: auto;">
+                <table class="w-full text-md bg-white shadow-md rounded mb-4">
+                    <tbody>
+                        <tr class="border-b">
+                            <th class="text-left p-3 px-5">{{'ajoutC1.title3'|translate}}{{'ajoutC1.title60'|translate}} </th>
+                            <th></th>
+                        </tr>
+                        <tr *ngFor="let user of equipements" class="border-b hover:bg-orange-100">
+                            <td class="p-3 px-5">
+                                <div class="bg-transparent border-b-2 border-gray-300 py-2">
+                                    {{ user.nom }}
+                                </div>
+                            </td>
+                            <td class="p-3 px-5 flex justify-end">
+                                <button (click)="deleteEquipement(user.id)" type="button"
+                                    class="mr-3 text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Supprimer</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+      </div>
+   </div>
+   <div *ngIf="errorMessage" class="success-message flex items-center justify-center fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50">
+    <div class="bg-red-500 text-white font-bold rounded-lg border shadow-lg p-5">
+        {{ errorMessage }}
+    </div>
+  </div>
+</div>
+<div *ngIf="demandeModificationUsername"  class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+  <div class="fixed inset-0 bg-gray-500 bg-opacity-80 transition-opacity"></div>
 
-    <script src="https://unpkg.com/popper.js@1/dist/umd/popper.min.js"></script>
-    <script src="https://unpkg.com/tippy.js@4"></script>
-    <script>
-        //Init tooltips
-		tippy('.link',{
-		  placement: 'bottom'
-		})
+  <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+    <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+      <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+        <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+          <div class="sm:flex sm:items-start">
+            <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+              <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+              </svg>
+            </div>
+            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+              <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">{{'profile.titre17' | translate}} {{user?.username}}</h3>
+              
+            <input type="text" id="newUsername" name="newUsername" [(ngModel)]="newUsername" class="block w-full border-b-2 border-blue-500 text-gray-600 text-sm focus:outline-none">
+            </div>
+          </div>
+        </div>
+        <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+          <button (click)="confirmerModifierUsername()" type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">{{'ajoutC1.title38'|translate}}</button>
+          <button (click)="annulerModificationUsername()" type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">{{'ajoutC1.title51'|translate}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="demandeModificationFirstname"  class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+  <div class="fixed inset-0 bg-gray-500 bg-opacity-80 transition-opacity"></div>
 
-		//Toggle mode
-		const toggle = document.querySelector('.js-change-theme');
-		const body = document.querySelector('body');
-		const profile = document.getElementById('profile');
+  <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+    <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+      <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+        <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+          <div class="sm:flex sm:items-start">
+            <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+              <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+              </svg>
+            </div>
+            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+              <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">{{'profile.titre4' | translate}} {{user?.firstname}}</h3>
+              
+            <input type="text" id="newFirstname" name="newFirstname" [(ngModel)]="newFirstname" class="block w-full border-b-2 border-blue-500 text-gray-600 text-sm focus:outline-none">
+            </div>
+          </div>
+        </div>
+        <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+          <button (click)="confirmerModifierFirstname()" type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">{{'ajoutC1.title38'|translate}}</button>
+          <button (click)="annulerModificationFirstname()" type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">{{'ajoutC1.title51'|translate}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="demandeModificationLastname"  class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+  <div class="fixed inset-0 bg-gray-500 bg-opacity-80 transition-opacity"></div>
+
+  <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+    <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+      <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+        <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+          <div class="sm:flex sm:items-start">
+            <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+              <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+              </svg>
+            </div>
+            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+              <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">{{'profile.titre5' | translate}} {{user?.Lastname}}</h3>
+              
+            <input type="text" id="newLastname" name="newLastname" [(ngModel)]="newLastname" class="block w-full border-b-2 border-blue-500 text-gray-600 text-sm focus:outline-none">
+            </div>
+          </div>
+        </div>
+        <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+          <button (click)="confirmerModifierLastname()" type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">{{'ajoutC1.title38'|translate}}</button>
+          <button (click)="annulerModificationLastname()" type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">{{'ajoutC1.title51'|translate}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="demandeModificationEmail"  class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+  <div class="fixed inset-0 bg-gray-500 bg-opacity-80 transition-opacity"></div>
+
+  <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+    <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+      <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+        <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+          <div class="sm:flex sm:items-start">
+            <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+              <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+              </svg>
+            </div>
+            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+              <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">{{'profile.titre6' | translate}} </h3>
+              
+            <input type="text" id="newEmail" name="newEmail" [(ngModel)]="newEmail" class="block w-full border-b-2 border-blue-500 text-gray-600 text-sm focus:outline-none">
+            </div>
+          </div>
+        </div>
+        <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+          <button (click)="confirmerModifierEmail()" type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">{{'ajoutC1.title38'|translate}}</button>
+          <button (click)="annulerModificationEmail()" type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">{{'ajoutC1.title51'|translate}}</button>
 
 
-		toggle.addEventListener('click', () => {
 
-		  if (body.classList.contains('text-gray-900')) {
-			toggle.innerHTML = "☀️";
-			body.classList.remove('text-gray-900');
-			body.classList.add('text-gray-100');
-			profile.classList.remove('bg-white');
-			profile.classList.add('bg-gray-900');
-		  } else
-		  {
-			toggle.innerHTML = "🌙";
-			body.classList.remove('text-gray-100');
-			body.classList.add('text-gray-900');
-			profile.classList.remove('bg-gray-900');
-			profile.classList.add('bg-white');
-
-		  }
-		});
-
-    </script>
-
-</body>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
+<div *ngIf="demandeCodeEmail"  class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+  <div class="fixed inset-0 bg-gray-500 bg-opacity-80 transition-opacity"></div>
 
- <!--<div *ngIf="user">
-    <h2>Profil utilisateur</h2>
-    <p><strong>Username:</strong> {{ user.username }}</p>
-    <p><strong>Nom:</strong> {{ user.lastname }}</p>
-    <p><strong>Prénom:</strong> {{ user.firstname }}</p>
-    <p><strong>email:</strong> {{ user.email }}</p>
+  <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+    <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+      <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+        <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+          <div class="sm:flex sm:items-start">
+            <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+              <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+              </svg>
+            </div>
+            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+              <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">{{'profile.titre7' | translate}} {{this.newEmail}}</h3>
+              
+            <input type="number" id="code" name="code" [(ngModel)]="code" class="block w-full border-b-2 border-blue-500 text-gray-600 text-sm focus:outline-none">
+            </div>
+          </div>
+        </div>
+        <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+          <button (click)="confirmerCodeEmail()" type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">{{'ajoutC1.title38'|translate}}</button>
+          <button (click)="annulerCodeEmail()" type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">{{'ajoutC1.title51'|translate}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
   </div>
-    <div>
-      <label>Nom d'utilisateur:</label>
-      <input type="text" [(ngModel)]="newUsername">
+  <div *ngIf="!(this.role=='admin' || this.role=='Admin' || this.role=='')" class="pt-12 pb-8">
+   
+    
+
+
+    <app-header></app-header>
+    <body class="font-sans antialiased text-gray-900 leading-normal tracking-wider bg-cover"
+        style="background-image:url('https://www.dreso.com/fileadmin/_processed_/8/7/csm_Smart_Hospital_Website_17a7cc1e84.jpg');">
+    
+        <div class="max-w-4xl flex items-center h-auto lg:h-screen flex-wrap mx-auto my-32 lg:my-0">
+    
+            <!--Main Col-->
+            <div id="profile"
+                class="w-full lg:w-3/5 rounded-lg lg:rounded-l-lg shadow-2xl bg-white opacity-75 mx-6 mx-auto">
+    
+                <div class="p-4 md:p-12 text-center lg:text-left">
+                    <!-- Image for mobile view-->
+                    <div class="block lg:hidden rounded-full shadow-xl mx-auto -mt-16 h-48 w-48 bg-cover bg-center"
+                        style="background-image: url('https://source.unsplash.com/MP0IUfwrn0A')"></div>
+    
+                    <h1 class="text-3xl font-bold pt-8 lg:pt-0">{{ user?.username }} : {{ this.role }} </h1>
+                    
+                  
+                    <div class="mx-auto lg:mx-0 w-4/5 pt-3 border-b-2 border-blue-500 opacity-25"></div>
+                    
+                    <div class="pt-6">
+                        <label for="newUsername" class="text-gray-600 text-xs lg:text-sm">{{'login.title1' | translate}}:</label>
+                        <div class="flex items-center">
+                          <h3 class="block w-full border-b-2 border-blue-500 text-gray-600 text-sm focus:outline-none">{{ user?.username }}</h3>
+                          <!--
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 ml-2 rounded-full" (click)="modifierUsername()">
+                                Modifier
+                            </button>
+                          -->
+                          <i class="fa-solid fa-pen-to-square fa-lg text-blue-500 hover:text-blue-700 cursor-pointer ml-2" (click)="modifierUsername()"></i>
+
+                        </div>
+                    </div>
+                   
+    
+                                  <div class="pt-6">
+                                    <label for="newFirstname" class="text-gray-600 text-xs lg:text-sm">{{'login.title2' | translate}}:</label>
+                                    <div class="flex items-center">
+                                      <h3 class="block w-full border-b-2 border-blue-500 text-gray-600 text-sm focus:outline-none">{{ user?.firstname }}</h3>
+                                      
+                                        
+                                        <i class="fa-solid fa-pen-to-square fa-lg text-blue-500 hover:text-blue-700 cursor-pointer ml-2" (click)="modifierFirstname()"></i>
+
+                                    </div>
+                                </div>
+                             
+                
+                  <div class="pt-6">
+                        <label for="newLastname" class="text-gray-600 text-xs lg:text-sm">{{'login.title3' | translate}}:</label>
+                        <div class="flex items-center">
+                          <h3 class="block w-full border-b-2 border-blue-500 text-gray-600 text-sm focus:outline-none">{{ user?.lastname }}</h3>
+                
+                            
+                            <i class="fa-solid fa-pen-to-square fa-lg text-blue-500 hover:text-blue-700 cursor-pointer ml-2" (click)="modifierLastname()"></i>
+
+                        </div>
+                    </div>
+                   
+                                
+                
+                                  <div class="pt-6">
+                                    <label for="newEmail" class="text-gray-600 text-xs lg:text-sm">{{'login.title5' | translate}}:</label>
+                                    <div class="flex items-center">
+                                      <h3 class="block w-full border-b-2 border-blue-500 text-gray-600 text-sm focus:outline-none">{{ user?.email }}</h3>
+                            
+                                      <i class="fa-solid fa-pen-to-square fa-lg text-blue-500 hover:text-blue-700 cursor-pointer ml-2" (click)="modifierEmail()"></i>
+
+                                    </div>
+                                </div>
+                             
+                    <div class="pt-12 pb-8">
+                        <button class="bg-red-700 hover:bg-red-900 text-white font-bold py-2 px-4 rounded-full" (click)="SeDeconnecter()">
+                          {{'login.title8' | translate}}
+                        </button>
+
+                    </div>
+                    
+                    <div *ngIf="this.role=='admin' || this.role=='Admin'" class="pt-12 pb-8">
+                      <button class="bg-red-700 hover:bg-red-900 text-white font-bold py-2 px-4 rounded-full" routerLink="/">
+                        {{'login.title18' | translate}}
+                      </button>
+                  </div>
+                  
+    
+                </div>
+    
+            </div>
+        </div>
+    </body>
+    <div *ngIf="errorMessage" class="success-message flex items-center justify-center fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50">
+      <div class="bg-red-500 text-white font-bold rounded-lg border shadow-lg p-5">
+          {{ errorMessage }}
+      </div>
     </div>
-    <div>
-      <label>Prénom:</label>
-      <input type="text" [(ngModel)]="newFirstname">
+    <div *ngIf="demandeModificationUsername"  class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+      <div class="fixed inset-0 bg-gray-500 bg-opacity-80 transition-opacity"></div>
+    
+      <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+          <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+            <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+              <div class="sm:flex sm:items-start">
+                <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                  <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                  </svg>
+                </div>
+                <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                  <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">{{'profile.titre3' | translate}} {{user?.username}}</h3>
+                  
+                <input type="text" id="newUsername" name="newUsername" [(ngModel)]="newUsername" class="block w-full border-b-2 border-blue-500 text-gray-600 text-sm focus:outline-none">
+                </div>
+              </div>
+            </div>
+            <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+              <button (click)="confirmerModifierUsername()" type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">{{'ajoutC1.title38'|translate}}</button>
+              <button (click)="annulerModificationUsername()" type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">{{'ajoutC1.title51'|translate}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div>
-      <label>Nom de famille:</label>
-      <input type="text" [(ngModel)]="newLastname">
+    <div *ngIf="demandeModificationFirstname"  class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+      <div class="fixed inset-0 bg-gray-500 bg-opacity-80 transition-opacity"></div>
+    
+      <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+          <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+            <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+              <div class="sm:flex sm:items-start">
+                <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                  <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                  </svg>
+                </div>
+                <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                  <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">{{'profile.titre4' | translate}} {{user?.firstname}}</h3>
+                  
+                <input type="text" id="newFirstname" name="newFirstname" [(ngModel)]="newFirstname" class="block w-full border-b-2 border-blue-500 text-gray-600 text-sm focus:outline-none">
+                </div>
+              </div>
+            </div>
+            <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+              <button (click)="confirmerModifierFirstname()" type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">{{'ajoutC1.title38'|translate}}</button>
+              <button (click)="annulerModificationFirstname()" type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">{{'ajoutC1.title51'|translate}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <button type="button" (click)="updateProfile()">Enregistrer</button>
- -->
+    <div *ngIf="demandeModificationLastname"  class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+      <div class="fixed inset-0 bg-gray-500 bg-opacity-80 transition-opacity"></div>
+    
+      <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+          <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+            <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+              <div class="sm:flex sm:items-start">
+                <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                  <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                  </svg>
+                </div>
+                <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                  <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">{{'profile.titre5' | translate}} {{user?.Lastname}}</h3>
+                  
+                <input type="text" id="newLastname" name="newLastname" [(ngModel)]="newLastname" class="block w-full border-b-2 border-blue-500 text-gray-600 text-sm focus:outline-none">
+                </div>
+              </div>
+            </div>
+            <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+              <button (click)="confirmerModifierLastname()" type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">{{'ajoutC1.title38'|translate}}</button>
+              <button (click)="annulerModificationLastname()" type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">{{'ajoutC1.title51'|translate}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="demandeModificationEmail"  class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+      <div class="fixed inset-0 bg-gray-500 bg-opacity-80 transition-opacity"></div>
+    
+      <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+          <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+            <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+              <div class="sm:flex sm:items-start">
+                <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                  <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                  </svg>
+                </div>
+                <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                  <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">{{'profile.titre6' | translate}} </h3>
+                  
+                <input type="text" id="newEmail" name="newEmail" [(ngModel)]="newEmail" class="block w-full border-b-2 border-blue-500 text-gray-600 text-sm focus:outline-none">
+                </div>
+              </div>
+            </div>
+            <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+              <button (click)="confirmerModifierEmail()" type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">{{'ajoutC1.title38'|translate}}</button>
+              <button (click)="annulerModificationEmail()" type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">{{'ajoutC1.title51'|translate}}</button>
+    
+    
+    
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div *ngIf="demandeCodeEmail"  class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+      <div class="fixed inset-0 bg-gray-500 bg-opacity-80 transition-opacity"></div>
+    
+      <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+          <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+            <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+              <div class="sm:flex sm:items-start">
+                <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                  <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                  </svg>
+                </div>
+                <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                  <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">{{'profile.titre7' | translate}} {{this.newEmail}}</h3>
+                  
+                <input type="number" id="code" name="code" [(ngModel)]="code" class="block w-full border-b-2 border-blue-500 text-gray-600 text-sm focus:outline-none">
+                </div>
+              </div>
+            </div>
+            <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+              <button (click)="confirmerCodeEmail()" type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">{{'ajoutC1.title38'|translate}}</button>
+              <button (click)="annulerCodeEmail()" type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">{{'ajoutC1.title51'|translate}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+  
+<!--<div *ngIf="isLoggedIn">
+  <app-header></app-header>
+  <body class="font-sans antialiased text-gray-900 leading-normal tracking-wider bg-cover"
+      style="background-image:url('https://www.dreso.com/fileadmin/_processed_/8/7/csm_Smart_Hospital_Website_17a7cc1e84.jpg');">
+
+      <div class="max-w-4xl flex items-center h-auto lg:h-screen flex-wrap mx-auto my-32 lg:my-0">
+          <div id="profile"
+              class="w-full lg:w-3/5 rounded-lg lg:rounded-l-lg shadow-2xl bg-white opacity-75 mx-6 mx-auto">
+              <div class="p-4 md:p-12 text-center lg:text-left">
+                 
+                  <div class="block lg:hidden rounded-full shadow-xl mx-auto -mt-16 h-48 w-48 bg-cover bg-center"
+                      style="background-image: url('https://source.unsplash.com/MP0IUfwrn0A')"></div>
+
+                  <h1 class="text-3xl font-bold pt-8 lg:pt-0">{{ user?.username }}</h1>
+                  <div class="mx-auto lg:mx-0 w-4/5 pt-3 border-b-2 border-blue-500 opacity-25"></div>
+                  
+                  <form>
+                      <div class="pt-6">
+                          <label for="newUsername" class="text-gray-600 text-xs lg:text-sm">Nom d'utilisateur:</label>
+                          <input type="text" id="newUsername" name="newUsername" [value]="user?.username" [(ngModel)]="newUsername"
+                              class="block w-full border-b-2 border-blue-500 text-gray-600 text-sm focus:outline-none">
+                      </div>
+
+                      <div class="pt-6">
+                          <label for="newFirstname" class="text-gray-600 text-xs lg:text-sm">Prénom:</label>
+                          <input type="text" id="newFirstname" name="newFirstname"  [value]="user?.firstname" [(ngModel)]="newFirstname"
+                              class="block w-full border-b-2 border-blue-500 text-gray-600 text-sm focus:outline-none">
+                      </div>
+
+                      <div class="pt-6">
+                          <label for="newLastname" class="text-gray-600 text-xs lg:text-sm">Nom de famille:</label>
+                          <input type="text" id="newLastname" name="newLastname"  [value]="user?.lastname" [(ngModel)]="newLastname"
+                              class="block w-full border-b-2 border-blue-500 text-gray-600 text-sm focus:outline-none">
+                      </div>
+                      <div class="pt-6">
+                        <label for="newEmail" class="text-gray-600 text-xs lg:text-sm">Email:</label>
+                        <input type="email" id="newEmail" name="newEmail"  [value]="user?.email" [(ngModel)]="newEmail"
+                            class="block w-full border-b-2 border-blue-500 text-gray-600 text-sm focus:outline-none">
+                    </div>
+
+                    <div class="pt-12 pb-8">
+                      <button type="button"
+                              class="bg-red-700 hover:bg-red-900 text-white font-bold py-2 px-4 rounded-full mr-4"
+                              (click)="SeDeconnecter()">Se deconnecter</button>
+                      <button type="button"
+                              class="bg-red-700 hover:bg-red-900 text-white font-bold py-2 px-4 rounded-full"
+                              (click)="updateProfile()">modifier profile</button>
+                    </div>
+                    <div *ngIf="successMessage" class="success-message flex items-center justify-center fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50">
+                      <div class="bg-green-500 text-white font-bold rounded-lg border shadow-lg p-5">
+                        {{ successMessage }}
+                      </div>
+                    </div>
+                  
+                  
+                  </form>
+
+              </div>
+          </div>
+      </div>
+
+      <script src="https://unpkg.com/popper.js@1/dist/umd/popper.min.js"></script>
+      <script src="https://unpkg.com/tippy.js@4"></script>
+      <script>
+          //Init tooltips
+          tippy('.link', {
+              placement: 'bottom'
+          })
+
+          //Toggle mode
+          const toggle = document.querySelector('.js-change-theme');
+          const body = document.querySelector('body');
+          const profile = document.getElementById('profile');
+
+          toggle.addEventListener('click', () => {
+
+              if (body.classList.contains('text-gray-900')) {
+                  toggle.innerHTML = "☀️";
+                  body.classList.remove('text-gray-900');
+                  body.classList.add('text-gray-100');
+                  profile.classList.remove('bg-white');
+                  profile.classList.add('bg-gray-900');
+              } else {
+                  toggle.innerHTML = "🌙";
+                  body.classList.remove('text-gray-100');
+                  body.classList.add('text-gray-900');
+                  profile.classList.remove('bg-gray-900');
+                  profile.classList.add('bg-white');
+              }
+          });
+
+      </script>
+  </body>
+</div>
+-->

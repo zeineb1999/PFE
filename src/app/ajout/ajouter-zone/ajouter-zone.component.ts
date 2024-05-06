@@ -13,6 +13,7 @@ export class AjouterZoneComponent implements OnInit {
   nomLocal?: string;
   typeLocal?: string;
   etageId?: number;
+  minTemperature?: number;
   etages: any[] = [];
   isLoggedIn: boolean;
   
@@ -35,11 +36,18 @@ export class AjouterZoneComponent implements OnInit {
 
   ajouterZone(): void {
     // Vérifiez si les valeurs sont définies avant de les passer à votre service
-    if (this.nomLocal && this.typeLocal && this.etageId) {
+    if (this.nomLocal && this.typeLocal && this.etageId && this.minTemperature) {
         // Appelez votre service pour ajouter une zone en utilisant les données du formulaire
         this.floorService.ajouterZone(this.nomLocal, this.typeLocal, this.etageId).subscribe(
             (response) => {
                 console.log('Zone ajoutée avec succès !');
+                const zoneId = response.id;
+                console.log('ID de la zone ajoutée :', zoneId);
+                this.floorService.genererDATA(zoneId,this.minTemperature!).subscribe(
+                    (response) => {
+                      
+                    }
+                )
                 // Réinitialisez les valeurs des champs après l'ajout de la zone si nécessaire
                 this.nomLocal = '';
                 this.typeLocal = '';

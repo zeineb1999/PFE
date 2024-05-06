@@ -20,11 +20,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { from } from 'rxjs';
-import { FaceSnapComponent } from './face-snap/face-snap.component';
-import { FaceSnapListComponent } from './face-snap-list/face-snap-list.component';
+
 import { HeaderComponent } from './header/header.component';
-import { LandingPageComponent } from './landing-page/landing-page.component';
-import { SingleFaceSnapComponent } from './single-face-snap/single-face-snap.component';
 import { FooterComponent } from './footer/footer.component';
 import { SideComponent } from './side/side.component';
 import { ForgetPassComponent } from './forget-pass/forget-pass.component';
@@ -38,8 +35,7 @@ import { ToutesZonesComponent } from './ajout/toutes-zones/toutes-zones.componen
 import { ZoneDetailsComponent } from './ajout/zone-details/zone-details.component';
 import { EquipementsComponent } from './ajout/equipements/equipements.component';
 import { AjoutEquipementSansZoneComponent } from './ajout/ajout-equipement-sans-zone/ajout-equipement-sans-zone.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { ThreejsSceneComponent } from './threejs-scene/threejs-scene.component';
+
 import { EquipementDetailsComponent } from './ajout/equipement-details/equipement-details.component';
 import { UpdateEquipementComponent } from './ajout/update-equipement/update-equipement.component';
 import { UpdateZoneComponent } from './ajout/update-zone/update-zone.component';
@@ -47,11 +43,6 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { AjouterZoneSansEtageComponent } from './ajout/ajouter-zone-sans-etage/ajouter-zone-sans-etage.component';
 import { UpdateEtageComponent } from './ajout/update-etage/update-etage.component';
 import { FacturesComponent } from './factures/factures.component';
-import { HopitalConfigComponent } from './hopital-config/hopital-config.component';
-//import { DefaultComponent } from './layouts/default/default.component';
-import { DefaultModule } from './layouts/default/default.module';
-import { GrapheComponent } from './graphe/graphe.component';
-
 
 
 import{MatDividerModule} from '@angular/material/divider'
@@ -64,9 +55,17 @@ import {MatListModule} from '@angular/material/list'
 import { RouterModule } from '@angular/router';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { ArchitectureComponent } from './architecture/architecture.component';
-import { EquipementsListComponent } from './graphe/equipements-list/equipements-list.component';
-import { ConsumptionEvolutionComponent } from './graphe/consumption-evolution/consumption-evolution.component';
-import { BuildingsConsumptionComponent } from './graphe/buildings-consumption/buildings-consumption.component';
+import { ChangerPasswordComponent } from './changer-password/changer-password.component';
+import { Dashboard2Component } from './dashboard2/dashboard2.component';
+import { ConsumptionEvolution2Component } from './dashboard2/consumption-evolution2/consumption-evolution2.component';
+import { EquipementsList2Component } from './dashboard2/equipements-list2/equipements-list2.component';
+import { BuildingsConsumption2Component } from './dashboard2/buildings-consumption2/buildings-consumption2.component';
+import { AcceuilComponent } from './acceuil/acceuil.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { LocalsListComponent } from './dashboard2/locals-list/locals-list.component';
+import { AlerteDetailsComponent } from './alerte-details/alerte-details.component';
+import { RedigerRapportComponent } from './rediger-rapport/rediger-rapport.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -75,11 +74,9 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    FaceSnapComponent,
-    FaceSnapListComponent,
+   
     HeaderComponent,
-    LandingPageComponent,
-    SingleFaceSnapComponent,
+   
     FooterComponent,
     SideComponent,
     ForgetPassComponent,
@@ -93,8 +90,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ZoneDetailsComponent,
     EquipementsComponent,
     AjoutEquipementSansZoneComponent,
-    //DashboardComponent,
-    ThreejsSceneComponent,
+   
     EquipementDetailsComponent,
     UpdateEquipementComponent,
     UpdateZoneComponent,
@@ -102,12 +98,21 @@ export function HttpLoaderFactory(http: HttpClient) {
     AjouterZoneSansEtageComponent,
     UpdateEtageComponent,
     FacturesComponent,
-    HopitalConfigComponent,
-    GrapheComponent,
+  
     ArchitectureComponent,
-    EquipementsListComponent,
-    ConsumptionEvolutionComponent,
-    BuildingsConsumptionComponent,
+    ChangerPasswordComponent,
+   
+    Dashboard2Component,
+    ConsumptionEvolution2Component,
+    EquipementsList2Component,
+    BuildingsConsumption2Component,
+    AcceuilComponent,
+    LocalsListComponent,
+    AlerteDetailsComponent,
+    RedigerRapportComponent,
+   
+  
+
    
    
     
@@ -115,6 +120,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   
   ],
   imports: [
+    
     MatDividerModule,
     MatToolbarModule,
     MatIconModule,
@@ -129,10 +135,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppRoutingModule,
     FormsModule,
     MatCardModule,
-    DefaultModule,
-
+  
+    MatPaginatorModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    
 
     TranslateModule.forRoot({
       loader: {
@@ -144,6 +151,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     
   ],
   providers: [
+    HttpClient,
     { provide: LOCALE_ID, useValue: 'fr-FR'}
   ],
   bootstrap: [AppComponent]

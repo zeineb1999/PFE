@@ -1,17 +1,22 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-sign',
   templateUrl: './sign.component.html',
   styleUrls: ['./sign.component.css']
+})
+@Injectable({
+  providedIn: 'root'
 })
 export class SignComponent {
 
   username?: string;
   password?: string;
   successMessage?: string;
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private http: HttpClient) { }
 
   sign() {
     if (this.username && this.password) {
@@ -27,4 +32,5 @@ export class SignComponent {
       });
     }
   }
+  
 }

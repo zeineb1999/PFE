@@ -1,88 +1,4 @@
-/*import { Component, OnInit } from '@angular/core';
-import {FloorService } from  '../../service/floor.service';
-interface Equipement {
-  nom?: string;
-  marque: string;
-  etat: string;
-  categorie: string;
-  type: string;
-  puissance: number;
-  maxConsommation: number;
-  minConsommation: number;
-  zoneId: number;
-}
-interface  Zone {
-  id: number;
-  nomLocal: string;
-}
-@Component({
-  selector: 'app-ajouter-equipement',
-  templateUrl: './ajouter-equipement.component.html',
-  styleUrls: ['./ajouter-equipement.component.css'],
-  providers: [FloorService]
-})
-export class AjouterEquipementComponent implements OnInit {
-  zones: Zone[] = [];
-  equipements: Equipement[] = [];
-  selectedEquipements: any;
-  selectedZones: any;
-  nom!: string;
-  marque!: string;
-  etat!: string;
-  categorie!: string;
-  type!: string;
-  puissance!: number;
-  maxConsommation!: number;
-  minConsommation!: number;
-  zoneId!: number;
-
-
-
-  ngOnInit() {
-   
-  }  ;
-  constructor(private floorService: FloorService) {
-    this.getZones();
-  }
-  getZones = () => {
-    this.floorService.getAllZones().subscribe(
-      (data: Zone[]) => { // Spécifiez le type de données comme Movie[]
-        this.zones = data;
-      },
-      error => {
-        console.log(error);
-      }
-    );
-  }
-
-  ajouterEquipement() {
-    const equipementData = {
-      nom: this.nom,
-      marque: this.marque,
-      etat: this.etat,
-      categorie: this.categorie,
-      type: this.type,
-      puissance: this.puissance,
-      maxConsommation: this.maxConsommation,
-      minConsommation: this.minConsommation,
-      zoneE: this.zoneId
-    };
-
-    this.floorService.addEquipement(equipementData).subscribe(
-    (data: Equipement) => { // Spécifiez le type de données comme Movie
-    console.log(data);
-    this.equipements.push(data); // Mettez à jour les propriétés du film sélectionné
-   
-  },
-  error => {
-    console.log(error);
-  }
-  );
-}
-
-}
-*/
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { FloorService } from '../../service/floor.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -113,7 +29,7 @@ export class AjouterEquipementComponent implements OnInit {
   selectedEquipements: any;
   selectedZones: any;
   nom!: string;
- 
+
   etat!: string;
   categorie!: string;
 
@@ -124,18 +40,36 @@ export class AjouterEquipementComponent implements OnInit {
 
   zoneRoomId!: any;
   isLoggedIn: boolean;
- 
+  localName: string ='';
+
   constructor(
     private floorService: FloorService,
     private router: Router, // Injecter Router
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private renderer: Renderer2,
+    private el: ElementRef
   ) { this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     this.getZones();
   }
 
   ngOnInit() {
     this.zoneRoomId = parseInt(this.route.snapshot.paramMap.get('zoneId') || '');
+
+    this.floorService.getOneZone(this.zoneRoomId).subscribe(
+      (data: any) => {
+        this.localName = data.nomLocal;
+        this.el.nativeElement.querySelector('#local-name').innerHTML = '<span class="inline-block bg-gradient-to-r from-blue-500 to-green-400 text-transparent bg-clip-text font-bold">'+this.localName+'</span>'
+      },
+      error => {
+        console.log(error);
+      }
+    );
+
   }
+
+  ngOnChanges() {
+  }
+
 
   getZones = () => {
     this.floorService.getAllZones().subscribe(
@@ -151,10 +85,8 @@ export class AjouterEquipementComponent implements OnInit {
   ajouterEquipement() {
     const equipementData = {
       nom: this.nom,
-    
-      etat: 'OFF', // Vous aviez initialement 'OFF', j'ai conservé cela
+      etat: 'OFF',
       categorie: this.categorie,
-    
       puissance: this.puissance,
       maxConsommation: this.maxConsommation,
       minConsommation: this.minConsommation,
@@ -165,11 +97,7 @@ export class AjouterEquipementComponent implements OnInit {
       (data: Equipement) => {
         console.log(data);
         this.equipements.push(data);
-        
-        // Redirection vers la page '/equipements' après l'ajout d'un équipement
         this.router.navigateByUrl(`/zone-details/${this.zoneRoomId}`);
-
-
       },
       error => {
         console.log(error);

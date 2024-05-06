@@ -1,0 +1,198 @@
+<app-header></app-header>
+<section class="p-12" *ngIf="thisAlerte">
+
+  <div class=" bg-white rounded-lg shadow xl:p-0 " style="width: 50%">
+    <div class="space-y-4 md:space-y-6 sm:p-8">
+      <div class="space-y-4 md:space-y-6">
+
+        <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">Informations sur l'alerte</h1>
+
+        <div class="flow-root mx-12">
+          <dl class="-my-3 divide-y divide-gray-100 text-sm">
+            <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+              <dt class="font-medium text-gray-900">N° de l'alerte</dt>
+              <dd class="font-medium text-gray-700 sm:col-span-2">{{ this.thisAlerte.id }}</dd>
+            </div>
+
+            <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+              <dt class="font-medium text-gray-900">Type</dt>
+              <dd class="font-medium text-gray-700 sm:col-span-2">{{ this.thisAlerte.type }}</dd>
+            </div>
+
+            <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+              <dt class="font-medium text-gray-900">Local</dt>
+              <dd class="font-medium text-gray-700 sm:col-span-2">
+                <div style="display: flex; align-items:center; justify-content: flex-start;" *ngIf="local">
+                  {{batiment}}<i class="fa-solid fa-chevron-right fa-sm mx-2"></i>
+                  Etage {{etage.id}} : {{etage.nomEtage}} <i class="fa-solid fa-chevron-right fa-sm mx-2"></i>
+                  {{local.typeLocal}} {{local.id}} : {{local.nomLocal}}
+                </div>
+              </dd>
+            </div>
+
+
+            <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+              <dt class="font-medium text-gray-900">Texte</dt>
+              <dd class="font-medium text-gray-700 sm:col-span-2">{{ this.thisAlerte.text }}</dd>
+            </div>
+
+
+          </dl>
+        </div>
+      </div>
+
+      <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">Rédiger le rapport</h1>
+
+      <div class="">
+        <section class="py-8"  id="causesSection">
+          <label for="username" class="block mb-2 text-sm font-medium text-gray-900 " style="font-size: medium;">Expliquer la/les cause(s) de
+            l'alerte</label>
+
+          <div *ngFor="let cause of causes; let i = index">
+            <label for="" class="block mb-2 text-sm font-medium text-gray-900 ">Cause {{ i + 1 }}</label>
+            <input type="text" [(ngModel)]="causesM[i]" placeholder="Cause {{ i + 1 }}"
+              class="my-2 bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 -700">
+          </div>
+          <button class="bg-blue-500 hover:bg-blue-700 text-white py-1 px-3 text-sm px-4 rounded" (click)="ajouterCause()">Ajouter</button>
+        </section>
+
+        <section class="py-8"  id="causesSection">
+          <label for="username" class="block mb-2 text-sm font-medium text-gray-900 " style="font-size: medium;">Quels équipements du local sont endommagé ?</label>
+
+          <div *ngFor="let endommage of endommages; let m = index">
+            <select name="equipementsDuLocal" id="equipementsDuLocal" [(ngModel)]="endommagesM[m]"
+              class="my-2 bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 -700">
+              <ng-container *ngFor="let equip of equipementsLocal">
+                <option *ngIf="endommagesM.includes(equip.id.toString())" [value]="equip.id" disabled
+                  class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 w-full p-2">
+                  {{equip.id}} | {{equip.nom}}
+                </option>
+                <option *ngIf="!endommagesM.includes(equip.id.toString())" [value]="equip.id"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 w-full p-2">
+                  {{equip.id}} | {{equip.nom}}
+                </option>
+              </ng-container>
+            </select>
+          </div>
+          <button class="bg-blue-500 hover:bg-blue-700 text-white py-1 px-3 text-sm px-4 rounded" (click)="ajouterEndommage()">Ajouter</button>
+        </section>
+
+        <section class="py-8" id="solutionsSection">
+          <label for="" class="block mb-2 text-sm font-medium text-gray-900 " style="font-size: medium;">Proposer vous une/des solution(s) pour cette panne ? </label>
+
+          <div *ngFor="let solution of solutions; let j = index">
+            <label for="" class="block mb-2 text-sm font-medium text-gray-900 ">Solution {{ j + 1 }}</label>
+            <input type="text" [(ngModel)]="solutionsM[j]" placeholder="Solution {{ j + 1 }}"
+              class="my-2 bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 -700">
+          </div>
+          <button class="bg-blue-500 hover:bg-blue-700 text-white py-1 px-3 text-sm px-4 rounded" (click)="ajouterSolution()">Ajouter</button>
+        </section>
+
+        <section class="py-8"  id="risquesSection">
+          <label for="" class="block mb-2 text-sm font-medium text-gray-900 " style="font-size: medium;">Cette panne pourrait-elle entraîner d'autres risques ?</label>
+
+          <div *ngFor="let risque of risques; let k = index">
+            <label for="" class="block mb-2 text-sm font-medium text-gray-900 ">Risque {{ k + 1 }}</label>
+            <input type="text" [(ngModel)]="risquesM[k]" placeholder="Risque {{ k + 1 }}"
+              class="my-2 bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 -700">
+          </div>
+          <button class="bg-blue-500 hover:bg-blue-700 text-white py-1 px-3 text-sm px-4 rounded" (click)="ajouterRisque()">Ajouter</button>
+        </section>
+
+        <section class="py-8"  id="nvxquipementsSection">
+          <label for="" class="block mb-2 text-sm font-medium text-gray-900 " style="font-size: medium;">Avez-vous besoins de nouveaux équipements, matériels, pièces ... ? <span class="text-gray-500 text-sm font-normal">Veuillez expliquer la nécessité de tout élément saisi</span></label>
+
+          <div *ngFor="let equipement of equipements; let l = index">
+            <label for="" class="block mb-2 text-sm font-medium text-gray-900 ">Element {{ l + 1 }}</label>
+            <input type="text" [(ngModel)]="equipementsM[l].equipement" placeholder="Element {{ l + 1 }}"
+              class="my-2 bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 -700"
+            >
+            <input type="text" [(ngModel)]="equipementsM[l].necessite" placeholder="Nécessité de l'élément {{l + 1 }}"
+              class="my-2 bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 -700">
+          </div>
+          <button class="bg-blue-500 hover:bg-blue-700 text-white py-1 px-3 text-sm px-4 rounded" (click)="ajouterEquipement()">Ajouter</button>
+        </section>
+
+        <section class="py-8" id="nvxquipementsSection">
+          <label for="" class="block mb-2 text-sm font-medium text-gray-900 " style="font-size: medium;">Avez-vous d'autres informations à ajouter ?</label>
+          <div *ngFor="let equipement of equipements; let l = index">
+            <textarea name="autre" [(ngModel)]="autre" id=""></textarea>
+          </div>
+          <button class="bg-blue-500 hover:bg-blue-700 text-white py-1 px-3 text-sm px-4 rounded"
+            (click)="ajouterEquipement()">Ajouter</button>
+        </section>
+
+      </div>
+
+      <button class="bg-blue-500 hover:bg-blue-700 text-white py-1 px-3 text-sm px-4 rounded" (click)="enregistrerRapport()">Enregistrer et envoyer le rapport</button>
+      <!-- <div>
+        <label for="password" class="block mb-2 text-sm font-medium text-gray-900 ">Password</label>
+        <input type="password" [(ngModel)]="password" placeholder="password" value="mehdi" type="password"
+          class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5"
+          required="">
+      </div>
+
+        <button (click)=""
+          class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
+          connecter
+        </button>
+        <div *ngIf="successMessage"
+          class="success-message flex items-center justify-center fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50">
+          <div class="bg-green-500 text-white font-bold rounded-lg border shadow-lg p-5">
+            {{ successMessage }}
+          </div>
+        </div>
+        <p class="text-sm font-light text-gray-500 ">Mot de passe oublié ? <a
+            class="font-medium text-blue-600 hover:underline" routerLink="/forgetPassword">changer mot de passe</a>
+        </p>
+        <p class="text-sm font-light text-gray-500 ">Vous n avez pas de compte? <a
+            class="font-medium text-blue-600 hover:underline" routerLink="/signup">Creer un compte</a>
+        </p>
+      </div>-->
+    </div>
+  </div>
+
+
+</section>
+
+
+
+
+
+<!-- En cas Dark mode -->
+<!--
+<section class="flex flex-col items-center pt-6">
+
+  <div
+    class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+    <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+      <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">Se connecter
+
+      </h1>
+      <div class="space-y-4 md:space-y-6">
+        <div>
+          <label for="username" class="block mb-2 text-sm font-medium text-gray-900 ">Username</label>
+          <input   type="text" [(ngModel)]="username" placeholder="username"  class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
+        </div>
+
+        <div>
+          <label for="password" class="block mb-2 text-sm font-medium text-gray-900 ">Password</label>
+          <input type="password" [(ngModel)]="password" placeholder="password" type="password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
+        </div>
+
+        <button  (click)="sign()" class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">connecter</button>
+        <div *ngIf="successMessage" class="success-message flex items-center justify-center fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50">
+          <div class="bg-green-500 text-white font-bold rounded-lg border shadow-lg p-5">
+            {{ successMessage }}
+          </div>
+        </div>
+        <p class="text-sm font-light text-gray-500 dark:text-gray-400">Mot de passe oublié ? <a
+          class="font-medium text-blue-600 hover:underline dark:text-blue-500" routerLink="/forgetPassword">changer mot de passe</a>
+        </p>
+        <p class="text-sm font-light text-gray-500 dark:text-gray-400">Vous n avez pas de compte? <a
+          class="font-medium text-blue-600 hover:underline dark:text-blue-500" routerLink="/signup">Creer un compte</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section> -->

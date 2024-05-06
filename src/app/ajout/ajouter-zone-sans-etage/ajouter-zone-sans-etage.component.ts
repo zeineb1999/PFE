@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FloorService } from '../../service/floor.service';
 import { ActivatedRoute, Router } from '@angular/router';
 interface Zone {
-
+  id: number;
   nomLocal: string;
   typeLocal: string;
   surface: number;
@@ -54,6 +54,7 @@ export class AjouterZoneSansEtageComponent implements OnInit {
   }
   ajouterZone(): void {
     const zoneData: Zone = {
+      id: 0,
       nomLocal: this.nomLocal || '',
       typeLocal: this.typeLocal || '',
       surface: this.surface || 0,
@@ -80,6 +81,12 @@ export class AjouterZoneSansEtageComponent implements OnInit {
             this.floorService.addZone(zoneData).subscribe(
               (data: Zone) => {
                 console.log(data);
+                const zoneId = data.id;
+                this.floorService.genererDATA(zoneId,this.temperature!).subscribe(
+                  (response) => {
+                    
+                  }
+              )
                 this.zones.push(data);
                 // Redirection vers la page '/toutesZones' après l'ajout d'une zone
                 this.router.navigateByUrl(`/toutesZones`);

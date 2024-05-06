@@ -2,12 +2,14 @@
 <app-header></app-header>
 <section class="bg-gray-100 bg-no-repeat bg-cover" style="background-image: url('assets/Medical-Devices1.jpg');">
   <!--style="background-image: url('assets/Medical-Devices.jpg');"-->
+
   <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
 
     <div class="w-full flex justify-center">
       <div class="relative inline-block mb-12 text-center">
         <span class="text-2xl md:text-2xl font-bold">
-          L'efficacité des soins commence par le bon équipement !
+          {{'ajoutC1.title1' | translate }} 
+      
         </span>
         <span class="mt-4 absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-blue-400 to-green-500 rounded-full"></span>
       </div>
@@ -16,19 +18,19 @@
       <div class="rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12 m-auto w-3/5">
 
         <div class="w-full mb-8 flex flex-col">
-            <h1 class="w-full text-center md:text-2xl">Rajouter un local dans votre hopital</h1>
+            <h1 class="w-full text-center md:text-2xl"> {{'ajoutC1.title15' | translate }} </h1>
             <h1 class="text-center text-2xl md:text-3xl font-bold ">
-              <span class="inline-block bg-gradient-to-r from-blue-500 to-green-400 text-transparent bg-clip-text">local</span>
+              <span class="inline-block bg-gradient-to-r from-blue-500 to-green-400 text-transparent bg-clip-text">{{'ajoutC1.title11' | translate }}</span>
             </h1>
         </div>
 
         <form action="#" class="space-y-4">
           <div>
-            <label class="sr-only" for="nom">Nom local  </label>
+            <label class="sr-only" for="nom">{{'ajoutC1.title3' | translate }} {{'ajoutC1.title11' | translate }}  </label>
             <input
               [(ngModel)]="nomLocal" name="nomLocal"
               class="w-full rounded-lg border-blue-500 p-3 text-sm"
-              placeholder="Nom"
+              placeholder="{{'ajoutC1.title3' | translate }}"
               type="text"
               id="nom"
             />
@@ -36,11 +38,11 @@
 
           <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
-              <label class="sr-only" for="typeLocal">Type Local</label>
+              <label class="sr-only" for="typeLocal">{{'ajoutC1.title7' | translate }} {{'ajoutC1.title11' | translate }}</label>
               <input
                 [(ngModel)]="typeLocal"
                 class="w-full rounded-lg border-gray-200 p-3 text-sm"
-                placeholder="typeLocal"
+                placeholder="{{'ajoutC1.title7' | translate }}{{'ajoutC1.title11' | translate }}"
                 type="text"
                 id="typeLocal"
                 name="typeLocal"
@@ -48,9 +50,23 @@
             </div>
           </div>
 
-          
+          <div class="flex w-72 flex-col gap-6">
+            <div class="relative h-11 w-full min-w-[200px]">
+              <input
+                class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-blue-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                [(ngModel)]="minTemperature"
+                placeholder=""
+                type="number"
+                id="temp"
+                name="temp"
+              />
+              <label class="text-gray-400 after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-blue-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-blue-500 peer-focus:after:scale-x-100 peer-focus:after:border-blue-500 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                {{'ajoutC1.title16' | translate }}
+              </label>
+            </div>
+          </div>
           <div class="relative">
-            <label for="etage">Étage:</label>
+            <label for="etage">{{'ajoutC1.title17' | translate }}:</label>
             <select [(ngModel)]="etageId" name="etageId" id="etage" required
                     class="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
               <option *ngFor="let etage of etages" [value]="etage.id">{{ etage.id }}</option>
@@ -67,7 +83,7 @@
               class="inline-block w-full rounded-lg bg-blue-500 px-5 py-3 font-medium text-white sm:w-auto"
               (click)="ajouterZone()"
             >
-            Ajouter
+            {{'ajoutC1.title12' | translate }}
             </button>
           </div>
         </form>
@@ -77,4 +93,5 @@
   </div>
 </section>
 </div>
+
 

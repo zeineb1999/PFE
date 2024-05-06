@@ -4,32 +4,32 @@
   <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
     <div class="rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12 m-auto w-3/5">
       <div class="w-full mb-8 flex flex-col">
-        <h1 class="w-full text-center md:text-2xl">Modifier un local </h1>
+        <h1 class="w-full text-center md:text-2xl">{{'ajoutC1.title61'|translate}}</h1>
         <h1 class="text-center text-2xl md:text-3xl font-bold">
           <span class="inline-block bg-gradient-to-r from-blue-500 to-green-400 text-transparent bg-clip-text">local {{zoneId}}</span>
         </h1>
       </div>
       <form (submit)="updateZone()" class="space-y-4">
         <div>
-          <label class="sr-only" for="nomLocal">Nom local</label>
-          <input [(ngModel)]="zone.nomLocal" name="nomLocal" class="w-full rounded-lg border-blue-500 p-3 text-sm" placeholder="nomLocal" type="text" id="nomLocal" />
+          <label class="sr-only" for="nomLocal">{{'ajoutC1.title3'|translate}} {{'ajoutC1.title11'|translate}}</label>
+          <input [(ngModel)]="zone.nomLocal" name="nomLocal" class="w-full rounded-lg border-blue-500 p-3 text-sm" placeholder="{{'ajoutC1.title3'|translate}}{{'ajoutC1.title11'|translate}}" type="text" id="nomLocal" />
         </div>
         <div>
-          <label class="sr-only" for="typeLocal">Type local</label>
-          <input [(ngModel)]="zone.typeLocal" name="typeLocal" class="w-full rounded-lg border-blue-500 p-3 text-sm" placeholder="typeLocal" type="text" id="typeLocal" />
+          <label class="sr-only" for="typeLocal">{{'ajoutC1.title7'|translate}}{{'ajoutC1.title11'|translate}}</label>
+          <input [(ngModel)]="zone.typeLocal" name="typeLocal" class="w-full rounded-lg border-blue-500 p-3 text-sm" placeholder="{{'ajoutC1.title7'|translate}}{{'ajoutC1.title11'|translate}}" type="text" id="typeLocal" />
         </div>
         
         
        
 
         <div>
-          <label class="sr-only" for="zone.etageZ">Zone </label>
+          <label class="sr-only" for="zone.etageZ">{{'ajoutC1.title11'|translate}}</label>
           <select [(ngModel)]="zone.etageZ" name="etageZ" class="w-full rounded-lg border-blue-500 p-3 text-sm" id="etageZ">
             <option *ngFor="let etage of etages" [value]="etage.id">{{ etage.id }}</option>
           </select>
         </div>
         <div class="mt-4">
-          <button type="submit" class="inline-block w-full rounded-lg bg-blue-500 px-5 py-3 font-medium text-white sm:w-auto">Modifier</button>
+          <button type="submit" class="inline-block w-full rounded-lg bg-blue-500 px-5 py-3 font-medium text-white sm:w-auto">{{'ajoutC1.title38'|translate}}</button>
         </div>
         <div *ngIf="successMessage" class="success-message flex items-center justify-center fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50">
             <div class="bg-green-500 text-white font-bold rounded-lg border shadow-lg p-5">

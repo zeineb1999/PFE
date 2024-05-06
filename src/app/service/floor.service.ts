@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable , interval } from 'rxjs';
+import { Observable , interval,of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { catchError } from 'rxjs/operators';
 import {  forkJoin } from 'rxjs';
@@ -149,14 +149,14 @@ export class FloorService {
     const batimentData = {
       nomBatiment: nomBatiment,
       typeBatiment: typeBatiment
-    
+
     };
     return this.http.post(this.baseurl + '/batiment/', batimentData);
   }
   getBatimentId(nomBatiment: string): Observable<any> {
     return this.http.get<any>(`${this.baseurl}/batiment-id/${nomBatiment}/`);
   }
- 
+
   private handleError(error: any): Observable<any> {
     console.error('An error occurred:', error);
     throw error;
@@ -165,7 +165,7 @@ export class FloorService {
   addFloor(surface: number) {
     return this.http.post(this.baseurl + '/etage/', { surface },{headers: this.httpHeaders});
   }
- 
+
 
   getAllZones() : Observable<any>{
     return this.http.get(this.baseurl + '/zones/',
@@ -177,7 +177,7 @@ export class FloorService {
     return this.http.post(this.baseurl + '/equipement/', body,{headers: this.httpHeaders});
   }
 
-  addZone(zone:{  nomLocal: string, typeLocal: string,surface: number,	 etageZ: number }) : Observable<any>{
+  addZone(zone:{ id: number, nomLocal: string, typeLocal: string,surface: number,	 etageZ: number }) : Observable<any>{
     const body = {  nomLocal: zone.nomLocal,typeLocal: zone.typeLocal,surface: zone.surface,etageZ: zone.etageZ}
     return this.http.post(this.baseurl + '/zones/', body,{headers: this.httpHeaders});
   }
@@ -185,20 +185,24 @@ export class FloorService {
   getOneZone(id: number) : Observable<any>{
     return this.http.get(this.baseurl + '/zones/'+ id+'/' ,
     {headers: this.httpHeaders});
-
   }
+
+  getAlerte(id: number) : Observable<any>{
+    return this.http.get(this.baseurl + '/alerte/'+ id+'/' ,
+    {headers: this.httpHeaders});
+  }
+
   getOneEtage(nomEtage: string) : Observable<any>{
-   
     return this.http.get<any>(`${this.baseurl}/etage-id/${nomEtage}/`);
   }
- 
 
   getZoneDetails(zoneId: number): Observable<any> {
     return this.http.get(this.baseurl + '/zones/'+ zoneId+'/' ,
     {headers: this.httpHeaders});
+  }
 
 
-}
+
 getEquipementDetails(equipementId: number): Observable<any> {
   return this.http.get(this.baseurl + '/equipement/'+ equipementId+'/' ,
   {headers: this.httpHeaders});
@@ -234,6 +238,10 @@ getAllEquipements() : Observable<any>{
   return this.http.get(this.baseurl + '/equipement/',
    {headers: this.httpHeaders});
 }
+getAllAlertes() : Observable<any>{
+  return this.http.get(this.baseurl + '/alerte/',
+   {headers: this.httpHeaders});
+}
 
 deleteEquipement(equipementId: number): Observable<any> {
   return this.http.delete(`${this.baseurl}/equipement/${equipementId}`, { headers: this.httpHeaders })
@@ -241,14 +249,20 @@ deleteEquipement(equipementId: number): Observable<any> {
       catchError(this.handleError)
     );
 }
+deleteBatiment(equipementId: number): Observable<any> {
+  return this.http.delete(`${this.baseurl}/batiment/${equipementId}`, { headers: this.httpHeaders })
+    .pipe(
+      catchError(this.handleError)
+    );
+}
 deleteZone(zoneId: number): Observable<any> {
-  return this.http.delete(`${this.baseurl}/zones/${zoneId}`, { headers: this.httpHeaders })
+  return this.http.delete(`${this.baseurl}/zones/${zoneId}/`, { headers: this.httpHeaders })
     .pipe(
       catchError(this.handleError)
     );
 }
 deleteEtage(etageId: number): Observable<any> {
-  return this.http.delete(`${this.baseurl}/etage/${etageId}`, { headers: this.httpHeaders })
+  return this.http.delete(`${this.baseurl}/etage/${etageId}/`, { headers: this.httpHeaders })
     .pipe(
       catchError(this.handleError)
     );
@@ -325,8 +339,19 @@ getExcelData(): Observable<any> {
     const url = 'http://127.0.0.1:8000/api/batiment_consommation_totale/';
     return this.http.get<any>(url);
   }
+
+  getHopitalConsommationParMois(): Observable<any> {
+    const url = 'http://127.0.0.1:8000/api/hopital_consommation_par_mois';
+    return this.http.get<any>(url);
+  }
+
   // Chercher la consommation par période:
   // par equipement:
+  getAnEquipementConsommation(equipementId: number, dateDebut: string, dateFin: string): Observable<any> {
+    const url =  `${this.baseurl}/equipement-consommation-p/${equipementId}/?dateDebut=${dateDebut}&dateFin=${dateFin} `;
+    return this.http.get<any>(url);
+  }
+
   getConsommationEquipementParPeriode(dateDebut: string, dateFin: string): Observable<any> {
     const url =  `${this.baseurl}/equipement-consommation-p/?dateDebut=${dateDebut}&dateFin=${dateFin} `;
     return this.http.get<any>(url);
@@ -336,6 +361,123 @@ getExcelData(): Observable<any> {
     const url = ` ${this.baseurl}/zone-consommation-p/?dateDebut=${dateDebut}&dateFin=${dateFin} `;
     return this.http.get<any>(url);
   }
-}
+  // par etage:
+  getConsommationEtageParPeriode(batimentId: number, dateDebut: string, dateFin: string): Observable<any> {
+    const url = ` ${this.baseurl}/etage-consommation-p/${batimentId}/?dateDebut=${dateDebut}&dateFin=${dateFin} `;
+    return this.http.get<any>(url);
+  }
+  // par batiment:
+  getConsommationBatimentParPeriode(dateDebut: string, dateFin: string): Observable<any> {
+    const url = ` ${this.baseurl}/batiment-consommation-p?dateDebut=${dateDebut}&dateFin=${dateFin} `;
+    return this.http.get<any>(url);
+  }
 
+  getHopitalConsommationPendantMois(dateDebut: string, dateFin: string): Observable<any> {
+    const url = ` ${this.baseurl}/hopital_consommation_pendant_mois?dateDebut=${dateDebut}&dateFin=${dateFin} `;
+    return this.http.get<any>(url);
+  }
 
+  sendCode(email:string,code: number): Observable<any> {
+    return this.http.post<any>('http://127.0.0.1:8000/api/modificationProfile/', { email ,code});
+  }
+
+  genererDATA(id:number, minT:number): Observable<any> {
+    return this.http.post<any>('http://127.0.0.1:8000/api/genererDATA/', { id ,minT});
+
+  }
+  rechercher_donnees(date: string, nom_fichier: number): Observable<any> {
+    const options = {
+      params: {
+        date: date, // Ajoutez date_heure à vos paramètres
+        nom_fichier: nom_fichier.toString() // Convertissez nom_fichier en chaîne et ajoutez-le à vos paramètres (to string())
+      }
+    };
+    return this.http.get<any>('http://127.0.0.1:8000/api/rechercher_donnees/', options);
+  }
+
+  getBatimentsList() {
+    //return this.http.get<any>(`http://127.0.0.1:8000/api/batimentsList/?date=${date}`);
+    return this.http.get<any>('http://127.0.0.1:8000/api/batimentsList/');
+  }
+
+  recupererDonnees( nom_fichier: number,date: string): Observable<any> {
+    const options = {
+      params: {
+        date: date, // Ajoutez date_heure à vos paramètres
+        nom_fichier: nom_fichier.toString() // Convertissez nom_fichier en chaîne et ajoutez-le à vos paramètres (to string())
+      }
+    };
+    return this.http.get<any>('http://127.0.0.1:8000/api/recuperer/', options);
+  }
+
+  avg_TH_par_heure( nom_fichier: number,date: string): Observable<any> {
+    const options = {
+      params: {
+        date: date, // Ajoutez date_heure à vos paramètres
+        nom_fichier: nom_fichier.toString() // Convertissez nom_fichier en chaîne et ajoutez-le à vos paramètres (to string())
+      }
+    };
+    return this.http.get<any>('http://127.0.0.1:8000/api/avg_TH_par_heure/', options);
+  }
+
+  addAlerte( localId:number,type:string , dateAlerte: Date, text: string, valeur: number) : Observable<any>{
+    const body = {  localId: localId,type: type, dateAlerte: dateAlerte, text: text, valeur: valeur}
+    //console.log(body)
+    return this.http.post(this.baseurl + '/alerte/', body,{headers: this.httpHeaders});
+  }
+  getAlertesById(id: number) : Observable<any>{
+    const url = ` ${this.baseurl}/alerteById?id=${id} `;
+    return this.http.get<any>(url);
+  } 
+  getAlertesSansId(): Observable<any>{
+    const url = 'http://127.0.0.1:8000/api/alerteSansId ';
+    return this.http.get<any>(url);
+  }
+  addUserAlerte(idAlerte:number,idUser:number) : Observable<any>{
+  
+    return this.http.post('http://127.0.0.1:8000/api/addUserAlerte', {idAlerte, idUser});
+    
+  }
+  
+  setAlerteNotifie(alerteId: number, alerteData:any): Observable<any> {
+    const url = `${this.baseurl}/alerte/${alerteId}/`;
+    return this.http.put(url, alerteData, { headers: this.httpHeaders })
+      .pipe(
+        catchError(this.handleError)
+      );
+    }
+    setAlerteNotifieZeineb(alerteId: number,): Observable<any> {
+
+      return this.http.post('http://127.0.0.1:8000/api/notifierAlerte', {alerteId });
+      
+    }
+    set(alerteId: number): Observable<any> {
+      const t="khra";
+      // Retourne un Observable contenant la valeur "khra"
+      return of (t);
+    }
+    get_alerte_non_notifie(userID: number) {
+
+      const url = ` ${this.baseurl}/get_alerte_non_notifie?userID=${userID} `;
+      return this.http.get<any>(url);
+    }
+    addRapport( alerte: number, redacteur:number , causes: string, solutions: string, risques: string, equipementsDemandes: string, equipementsNecessites: string) : Observable<any>{
+      const rapport = {
+          alerte: alerte,
+          redacteur:redacteur ,
+          causes: causes,
+          solutions: solutions,
+          risques: risques,
+          equipementsDemandes: equipementsDemandes,
+          equipementsNecessites: equipementsNecessites
+      }
+      //console.log(body)
+      return this.http.post(this.baseurl + '/rapport/', rapport,{headers: this.httpHeaders});
+    }
+  
+    addRapportEquipementEndommage(rapport: number, equipement: number) {
+      const data = {rapport: rapport, equipement: equipement}
+      return this.http.post(this.baseurl + '/RapportEquipementEndommage/', rapport,{headers: this.httpHeaders});
+    }
+  
+  }
