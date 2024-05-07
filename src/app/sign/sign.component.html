@@ -1,36 +1,83 @@
+<app-header></app-header>
+<section id="accueil" class="relative bg-[url('assets/acc-bg.jpg')] bg-cover bg-center bg-no-repeat">
+  <div class="absolute inset-0 bg-gradient-to-r from-white/95 to-white/25"></div>
 
-  <section class="flex flex-col items-center pt-6">
-
-    <div
-      class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-      <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-        <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">{{ "sign.title1" | translate}}
-          
-        </h1>
-        <div class="space-y-4 md:space-y-6">
-          <div>
-            <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ "sign.title2" | translate}}</label>
-            <input   type="text" [(ngModel)]="username" placeholder="{{ 'sign.title2'| translate}}"  class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
-          </div>
-    
-          <div>
-            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ "sign.title3" | translate}}</label>
-            <input type="password" [(ngModel)]="password" placeholder="{{ 'sign.title3' | translate}}" type="password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
+  <section class="relative flex items-center justify-center h-screen">
+      <div class="w-full max-w-lg bg-white rounded-lg shadow dark:border dark:border-gray-700">
+          <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+            <div class="flex items-center justify-center">
+              <h1 class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-6 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">{{ "sign.title4" | translate}}</h1>
           </div>
           
-          <button  (click)="sign()" class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">{{ "sign.title4" | translate}}</button>
-          <div *ngIf="successMessage" class="success-message flex items-center justify-center fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50">
-            <div class="bg-green-500 text-white font-bold rounded-lg border shadow-lg p-5">
-              {{ successMessage }}
-            </div>
-          </div>
-          <p class="text-sm font-light text-gray-500 dark:text-gray-400">{{ "sign.title5" | translate}} <a
-            class="font-medium text-blue-600 hover:underline dark:text-blue-500" routerLink="/forgetPassword">{{ "sign.title6" | translate}}</a>
-          </p>
-          <p class="text-sm font-light text-gray-500 dark:text-gray-400">{{ "sign.title7" | translate}} <a
-            class="font-medium text-blue-600 hover:underline dark:text-blue-500" routerLink="/signup">{{ "sign.title8" | translate}}</a>
-          </p>
+              <div class="space-y-4 md:space-y-6">
+                  <div>
+                      <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ "sign.title2" | translate}}</label>
+                      <input type="text" [(ngModel)]="username" placeholder="{{ 'sign.title2'| translate}}"  class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
+                  </div>
+
+                  <div>
+                      <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ "sign.title3" | translate}}</label>
+                      <input type="password" [(ngModel)]="password" placeholder="{{ 'sign.title3' | translate}}" type="password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
+                  </div>
+                 
+      <div class="flex items-center justify-center"> <!-- Alignement horizontal et vertical -->
+        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Vous êtes:</label>
+      </div>
+
+      <!-- Radio buttons -->
+      <div class="flex flex-wrap justify-center"> <!-- Alignement horizontal -->
+        <!-- Première option -->
+        <div class="flex items-center me-4 mb-4">
+          <input id="inline-radio-1" type="radio" value="administrateur" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+          <label for="inline-radio-1" class="ms-2 text-xs font-medium text-gray-900 dark:text-gray-300">Administrateur</label>
+        </div>
+
+        <!-- Deuxième option -->
+        <div class="flex items-center me-10 mb-4">
+          <input id="inline-radio-2" type="radio" value="moyens_generaux" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+          <label for="inline-radio-2" class="ms-2 text-xs font-medium text-gray-900 dark:text-gray-300">Moyens généraux</label>
+        </div>
+
+        <!-- Troisième option -->
+        <div class="flex items-center me-4 mb-4">
+          <input checked id="inline-checked-radio-1" type="radio" value="responsable_maintenance" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+          <label for="inline-checked-radio-1" class="ms-2 text-xs font-medium text-gray-900 dark:text-gray-300">Responsable de maintenance</label>
+        </div>
+
+        <!-- Quatrième option -->
+        <div class="flex items-center me-10 mb-4">
+          <input id="inline-radio-3" type="radio" value="responsable_hopital" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+          <label for="inline-radio-3" class="ms-2 text-xs font-medium text-gray-900 dark:text-gray-300">Responsable de l'hôpital</label>
         </div>
       </div>
-    </div>
+
+                  
+                
+                
+                
+                
+
+                  <button  (click)="sign()" class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">{{ "sign.title1" | translate}}</button>
+
+                  <div *ngIf="successMessage" class="success-message flex items-center justify-center fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50">
+                      <div class="bg-green-500 text-white font-bold rounded-lg border shadow-lg p-5">
+                          {{ successMessage }}
+                      </div>
+                  </div>
+                  <div class="flex justify-between">
+                    <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+                      <span>{{ "sign.title5" | translate}} ?</span> <br>
+                      <a class="font-small text-blue-600 hover:underline dark:text-blue-500" routerLink="/forgetPassword">{{ "sign.title6" | translate}}</a>
+                    </p>
+                  
+                    <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+                      <span>{{ "sign.title7" | translate}}</span> <br>
+                      <a class="font-small text-blue-600 hover:underline dark:text-blue-500" routerLink="/signup">{{ "sign.title8" | translate}}</a>
+                    </p>
+                  </div>
+                  
+       </div>
+          </div>
+      </div>
   </section>
+</section>

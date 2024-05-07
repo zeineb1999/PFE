@@ -16,6 +16,9 @@ export class SignComponent {
   username?: string;
   password?: string;
   successMessage?: string;
+  selectedRole?: string;
+
+  roles = ['Responsable de maintenance', 'Moyens génraux', 'Administrateur', 'Responsable de l\'hopital'];
   constructor(private authService: AuthService, private router: Router, private http: HttpClient) { }
 
   sign() {
@@ -32,5 +35,13 @@ export class SignComponent {
       });
     }
   }
-  
+  selectRole(role: string) {
+    this.selectedRole = role;
+}
+isPasswordVisible: boolean = false;
+
+togglePasswordVisibility(): void {
+  this.isPasswordVisible = !this.isPasswordVisible;
+}
+
 }

@@ -43,6 +43,7 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { AjouterZoneSansEtageComponent } from './ajout/ajouter-zone-sans-etage/ajouter-zone-sans-etage.component';
 import { UpdateEtageComponent } from './ajout/update-etage/update-etage.component';
 import { FacturesComponent } from './factures/factures.component';
+//import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 import{MatDividerModule} from '@angular/material/divider'
@@ -120,7 +121,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   
   ],
   imports: [
-    
+    //FontAwesomeModule,
     MatDividerModule,
     MatToolbarModule,
     MatIconModule,
