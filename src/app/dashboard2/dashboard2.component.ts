@@ -1,6 +1,7 @@
-import { Component, ElementRef, Renderer2, Input } from '@angular/core';
+import { Component, ElementRef, Renderer2, Input, OnDestroy } from '@angular/core';
 import { FloorService } from '../service/floor.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 interface Equipement {
   id: number;
@@ -23,6 +24,7 @@ interface Equipement {
   styleUrls: ['./dashboard2.component.css']
 })
 export class Dashboard2Component {
+  private equipementsSubscription: Subscription | undefined;
 
     isLoggedIn: boolean;
     equipements: any;
@@ -58,7 +60,7 @@ export class Dashboard2Component {
 
   ngOnInit() {
 
-    this.floorService.get_alerte_non_notifie(this.roleId).subscribe((alertes: any) => {
+    this.equipementsSubscription = this.floorService.get_alerte_non_notifie(this.roleId).subscribe((alertes: any) => {
       console.log('alertes: ', alertes)
       this.alertes = alertes
 
@@ -83,6 +85,14 @@ export class Dashboard2Component {
       });
     })
       this.LoadEquipements()
+  }
+  ngOnDestroy() {
+    // Si un abonnement est défini, le désabonner pour éviter les fuites de mémoire
+    if (this.equipementsSubscription) {
+      this.equipementsSubscription.unsubscribe();
+    }
+    this.floorService.stopDjangoMethod();
+    
   }
 
     ngOnChanges() {

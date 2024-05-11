@@ -45,10 +45,11 @@ export class AlerteDetailsComponent {
   etage: any;
   page: string = '';
   alerteMText: string='';
-  
+
   @Output() alerteChangeA = new EventEmitter<AlertData>();
   batiment: any;
- 
+  rapport: any;
+
   emitAlert(localId: number, nomLocal: string, type: string, nowSlash: any, alerteId: number, userID: number) {
     let notifie = false;
     let vu = false;
@@ -61,20 +62,30 @@ export class AlerteDetailsComponent {
 
   ngOnInit() {
     this.roleUser=localStorage.getItem('role');
-   
+
     //window.location.reload();
-    
+
     this.alerteId = parseInt(this.route.snapshot.paramMap.get('alerteId') || '');
 
     this.floorService.getAlerte(this.alerteId).subscribe(
       ((alerte: any) =>{
         this.thisAlerte = alerte
         this.thisAlerte.vu = true
+
+        this.floorService.getRapportsByAlerteId(this.thisAlerte.id).subscribe((rapports: any) => {
+          this.rapport = rapports
+          console.log('rap: ', rapports)
+        })
+        
         this.floorService.getZoneDetails(this.thisAlerte.localId).subscribe((thisLocal: any) => {
-          this.alerteMText = 'Vous avez une tâche de maintenance dans ' + thisLocal.nomLocal;
+          this.local = thisLocal
+          console.log('rrrrrr', thisLocal)
           this.floorService.getEtageById(thisLocal.etageZ).subscribe((etage: any) => {
+            console.log('etage', etage)
+            this.etage = etage
             this.floorService.getBatimentById(etage.batimentId).subscribe((batiment: any) => {
               this.batiment = batiment;
+              console.log('bat: ', batiment)
             })
           })
         })
@@ -114,7 +125,7 @@ export class AlerteDetailsComponent {
     if (this.Rid) {
       const idUser = this.Rid;
       console.log('************id User ', idUser);
-/* 
+/*
       let now =new Date()
       this.floorService.addAlerte(1 ,'maintenance', now, this.alerteMText, 0).subscribe(
         (alerte: any) => {

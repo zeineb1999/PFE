@@ -44,6 +44,7 @@ import { AjouterZoneSansEtageComponent } from './ajout/ajouter-zone-sans-etage/a
 import { UpdateEtageComponent } from './ajout/update-etage/update-etage.component';
 import { FacturesComponent } from './factures/factures.component';
 //import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgApexchartsModule } from "ng-apexcharts";
 
 
 import{MatDividerModule} from '@angular/material/divider'
@@ -67,7 +68,12 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { LocalsListComponent } from './dashboard2/locals-list/locals-list.component';
 import { AlerteDetailsComponent } from './alerte-details/alerte-details.component';
 import { RedigerRapportComponent } from './rediger-rapport/rediger-rapport.component';
-
+import { RapportComponent } from './rapport/rapport.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { UtilisateursComponent } from './utilisateurs/utilisateurs.component';
+import { AjouterBatimentComponent } from './ajout/ajouter-batiment/ajouter-batiment.component';
+import { RapportDetailsComponent } from './rapport-details/rapport-details.component';
+import { BarChartComponent } from './dashboard2/bar-chart/bar-chart.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -75,7 +81,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-   
+    DashboardComponent,
     HeaderComponent,
    
     FooterComponent,
@@ -111,6 +117,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     LocalsListComponent,
     AlerteDetailsComponent,
     RedigerRapportComponent,
+    RapportComponent,
+    UtilisateursComponent,
+    AjouterBatimentComponent,
+    RapportDetailsComponent,
+    BarChartComponent,
    
   
 
@@ -123,6 +134,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   imports: [
     //FontAwesomeModule,
     MatDividerModule,
+    NgxPaginationModule,
+    
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
@@ -136,7 +149,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppRoutingModule,
     FormsModule,
     MatCardModule,
-  
+    NgApexchartsModule,
     MatPaginatorModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,

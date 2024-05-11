@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FloorService } from 'src/app/service/floor.service';
 import { switchMap } from 'rxjs/operators';
+import * as Highcharts from 'highcharts';
 
 interface Zone {
   id: number;
@@ -12,13 +13,12 @@ interface Zone {
 interface Equipement {
     id: number;
     nom: string;
-    marque: string;
+  
     etat: string;
     categorie: string;
     type: string;
     puissance: number;
-    maxConsommation: number;
-    minConsommation: number;
+  
     zoneE: number;
   }
 
@@ -32,39 +32,81 @@ export class ZoneDetailsComponent implements OnInit {
   zoneId!: number;
   zoneDetails: Zone | undefined;
   equipements: Equipement[] = [];
+  equipementsLocals: Equipement[] = [];
   selectedEquipement: Equipement | undefined;
   equipementActif: boolean = false;
   isLoggedIn: boolean;
   batiment: string = 'a';
+  temperature: any;
+  humidite: any;
   currentEquipement: Equipement = {
     id: 0,
     nom: '',
-    marque: '',
+   
     etat: '',
     categorie: '',
     type: '',
     puissance: 0,
-    maxConsommation: 0,
-    minConsommation: 0,
     zoneE: 1,
   };
+  equipementsFiltre: Equipement[] = []; // Variable pour stocker les equipements filtreés dans equipementsFiltre
+  // Array pour stocker les équipements
+  categories: string[] = ['CVC','Médical',' Électromenager', 'Éclairage','Autre']; // Array pour stocker les catégories uniques
+  etats: string[] = ['ON', 'OFF']; // Array pour stocker les états uniques
+  types: string[] = ['Critique','normal']; // Array pour stocker les types uniques
+
+  categorieFiltre: string = ''; // Propriété pour stocker la valeur du filtre de catégorie sélectionné
+  etatFiltre: string = ''; // Propriété pour stocker la valeur du filtre d'état sélectionné
+  typeFiltre: string = ''; // Propriété pour stocker la valeur du filtre de type sélectionné
 
   constructor(private route: ActivatedRoute, private router: Router, private floorService: FloorService) {this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true'; }
 
   ngOnInit(): void {
+    this.zoneId = parseInt(this.route.snapshot.paramMap.get('zoneId') || '');
+  
     this.loadDetails();
+    this.fetchNewValues();
+   
 
+// Appeler la fonction toutes les minutes pour récupérer de nouvelles valeurs
+    setInterval(() => {
+      this.fetchNewValues();
+    }, 60000); // 60000 millisecondes = 1 minute
+    
+    
+  }
+
+  fetchNewValues(): void {
+    const dateISO = new Date().toISOString();
+    this.floorService.avg_TH_par_instant(this.zoneId, this.dateFormatter(dateISO)).subscribe(
+      (response: any) => {
+        this.temperature = response.T.toFixed(1);
+        this.humidite = response.H.toFixed(1);
+    
+      },
+      (error: any) => {
+        console.error('Erreur lors de la récupération des données : ', error);
+      }
+    );
   }
 
   redirectToAjouterEquipement(): void {
     // Redirigez vers le composant d'ajout d'équipement en passant l'ID de la zone dans l'URL
     this.router.navigate(['/ajouterEquipement', this.zoneId]);
   }
-
+  dateFormatter(dateISO: any){
+    // Formater la date selon le format requis
+    return dateISO.substring(0, 4) + '-' +
+    dateISO.substring(5, 7) + '-' +
+    dateISO.substring(8, 10)  + ' ' +
+    dateISO.substring(11, 13) + ':' +
+    dateISO.substring(14, 16) + ':00';
+  }
   loadDetails(): void {
     this.floorService.getAllEquipements().subscribe(
       (data: Equipement[]) => {
         this.equipements = data;
+       
       },
       (error) => {
         console.log(error);
@@ -102,7 +144,8 @@ export class ZoneDetailsComponent implements OnInit {
 
     this.floorService.getEquipementsByZone(this.zoneId).subscribe(
       (data: Equipement[]) => {
-        this.equipements = data;
+        this.equipementsLocals = data;
+        this.equipementsFiltre = data;
       },
       (error) => {
         console.error('Une erreur s\'est produite lors du chargement des équipements de la zone :', error);
@@ -110,8 +153,96 @@ export class ZoneDetailsComponent implements OnInit {
     );
 
   }
-
+ /*  filtrerEquipements() {
+    this.equipementsFiltre = [];
+    console.log("Filtre Type : ", this.typeFiltre, " - Categorie : ", this.categorieFiltre, " - Etat : ", this.etatFiltre);
   
+    this.equipementsLocals.forEach(equipement => {
+      console.log("Filtre Type : ", this.typeFiltre, " - Categorie : ", this.categorieFiltre, " - Etat : ", this.etatFiltre);
+      console.log(equipement);
+    
+      if(this.typeFiltre == '' && this.categorieFiltre == '' && this.etatFiltre == '') {
+        console.log('0 0 0');
+      }else
+      if(this.typeFiltre != '' && this.categorieFiltre != '' && this.etatFiltre != '') {
+        if (equipement.categorie == this.typeFiltre && equipement.type == this.categorieFiltre && equipement.etat == this.etatFiltre) {
+          this.equipementsFiltre.push(equipement);
+          console.log('1 1 1');
+        }
+        else {
+          console.log("aucun ",equipement);
+        }
+        
+      }else
+      if(this.typeFiltre == '' && this.categorieFiltre != '' && this.etatFiltre != '') {
+        if (equipement.type == this.categorieFiltre && equipement.etat == this.etatFiltre) {
+          this.equipementsFiltre.push(equipement);
+          console.log('0 1 1');
+        }
+      }else
+      if(this.typeFiltre != '' && this.categorieFiltre == '' && this.etatFiltre != '') {
+        if (equipement.categorie == this.typeFiltre && equipement.etat == this.etatFiltre) {
+          this.equipementsFiltre.push(equipement);
+          console.log('1 0 1');
+        }
+        
+      }else
+      if(this.typeFiltre != '' && this.categorieFiltre != '' && this.etatFiltre == '') {
+        if (equipement.categorie == this.typeFiltre && equipement.type == this.categorieFiltre) {
+          this.equipementsFiltre.push(equipement);
+          console.log('1 1 0');
+        }
+      }else
+       if(this.typeFiltre != '' && this.categorieFiltre == '' && this.etatFiltre == '') {
+        if (equipement.categorie == this.typeFiltre) {
+          this.equipementsFiltre.push(equipement);
+          console.log('1 0 0');
+        }
+      }else
+      if(this.typeFiltre == '' && this.categorieFiltre != '' && this.etatFiltre == '') {
+        if (equipement.type == this.categorieFiltre) {
+          this.equipementsFiltre.push(equipement);
+          console.log('0 1 0');
+        }
+      }else
+      if(this.typeFiltre == '' && this.categorieFiltre == '' && this.etatFiltre != '') {
+        if (equipement.etat == this.etatFiltre) {
+          this.equipementsFiltre.push(equipement);
+          console.log('0 0 1');
+        }
+      }
+      
+
+    });
+  
+    console.log("Filtre : ", this.equipementsFiltre);
+  } */
+  
+  filtrerEquipements() {
+    // Vérifier si aucun filtre n'est sélectionné
+    if (this.typeFiltre === '' && this.categorieFiltre === '' && this.etatFiltre === '') {
+        // Si aucun filtre n'est sélectionné, afficher tous les équipements
+        this.equipementsFiltre = this.equipementsLocals.slice();
+    } else {
+        // Si au moins un filtre est sélectionné, appliquer les filtres
+        this.equipementsFiltre = this.equipementsLocals.filter(equipement => {
+            // Vérifier si le filtre de type est défini et si l'équipement correspond
+            const typeCondition = this.typeFiltre === '' || equipement.categorie === this.typeFiltre;
+            // Vérifier si le filtre de catégorie est défini et si l'équipement correspond
+            const categorieCondition = this.categorieFiltre === '' || equipement.type === this.categorieFiltre;
+            // Vérifier si le filtre d'état est défini et si l'équipement correspond
+            const etatCondition = this.etatFiltre === '' || equipement.etat === this.etatFiltre;
+            
+            // Retourner true si toutes les conditions sont remplies, sinon false
+            return typeCondition && categorieCondition && etatCondition;
+        });
+    }
+  
+    console.log("Filtre : ", this.equipementsFiltre);
+}
+
+
+
 
 
   equipementsClicked(equipement: Equipement): void {

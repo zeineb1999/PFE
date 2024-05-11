@@ -30,10 +30,11 @@ export class BuildingsConsumption2Component {
   @Input() equipementsParBatiment: any[] = [];
 
   ngOnInit() {
-
+    let m = [{ name: 'aa', y: 123 }, { name: 'aa', y: 125 }, { name: 'aa', y: 734 }, { name: 'aa', y: 524 }]
+    this.insertBuildingsPieChart(m)
   }
   ngOnChanges() {
-    this.LoadData()
+    //this.LoadData()  actiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiive
   }
 
   buildingsLoading: boolean = true;

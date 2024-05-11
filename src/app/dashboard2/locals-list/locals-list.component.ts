@@ -1,6 +1,7 @@
-import { Component, OnInit, AfterViewInit, ElementRef, Renderer2, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef, Renderer2, Output, EventEmitter, OnDestroy } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import { FloorService } from '../../service/floor.service';
+import { Subscription } from 'rxjs';
 
 import { Router } from '@angular/router';
 
@@ -38,6 +39,7 @@ interface AlertData {
 
 
 export class LocalsListComponent {
+
   Highcharts= Highcharts;
   isLoggedIn: boolean;
   temperature: any;
@@ -46,8 +48,14 @@ export class LocalsListComponent {
   alerte: any;
   batimentsLoading: Boolean= true;
   localsT: number[] = []
+  localsT1: any[] = [];
+  localsT2: any[] = [];
   localsH: number[] = []
-
+  localsH1: any[] = [];
+  localsH2: any[] = [];
+  selectedFilter: string = 'actuel';
+  private intervalId: any;
+  private subscription: Subscription | undefined;
   @Output() alerteChange = new EventEmitter<AlertData>();
 
   emitAlert(localId: number, nomLocal: string, type: string, nowSlash: any, alerteId: number, userID: number) {
@@ -60,24 +68,70 @@ export class LocalsListComponent {
   constructor(private floorService: FloorService, private router: Router, private renderer: Renderer2, private el: ElementRef) {
     this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
   }
-
   ngOnInit(): void {
+    this.activeMethode();
+    window.addEventListener("load", function(event) {
+      const dropdownToggle = document.querySelector('[data-dropdown-toggle="dropdown"]');
+      if (dropdownToggle instanceof HTMLElement) {
+        dropdownToggle.click();
+      }
+    });
+    this.batimentsLoading  =true;
+    const parentElement = this.el.nativeElement.querySelector('#container');
+    this.recupererDonnees();
+    this.intervalId = setInterval(() => {
+      this.recupererDonnees();
+    }, 60000);
 
+   
+  }
+  
+  activeMethode(): void {
+    this.floorService.startDjangoMethod().subscribe(
+      () => {
+        console.log('La méthode dans Django a été lancée avec succès.');
+      }
+    )
+  }
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+    console.log('rah n3ytou La méthode dans Django ');
+    this.floorService.stopDjangoMethod().subscribe(
+      () => {
+        console.log('******La méthode dans Django a été arrêtée avec succès.');
+      },
+      (error) => {
+        console.error('------------------Une erreur s\'est produite lors de l\'arrêt de la méthode dans Django : ', error);
+      }
+    );
+    clearInterval(this.intervalId);
+    
+  }
+  recupererDonneesMois(): void {
+     
     this.batimentsLoading  =true;
     const parentElement = this.el.nativeElement.querySelector('#container');
 
     let dateISO = new Date().toISOString();
-    let nowSlash = new Date();
+     let nowSlash = new Date();
+   
+   
 
-
-    this.floorService.getBatimentsList().subscribe(
+    this.subscription = this.floorService.getBatimentsList().subscribe(
       (batiments: any) => {
         this.batiments = batiments;
         this.localsT=[]
+       
+       
         this.localsH=[]
+      
         batiments.forEach((batiment: any) => {
           batiment.etages.forEach((etage: any) => {
             etage.zones.forEach((local: any) => {
+             
+            
               this.floorService.avg_TH_par_heure(local.id,this.dateFormatter(dateISO)).subscribe(
                 (response: any) => {
                   nowSlash = new Date();
@@ -95,7 +149,114 @@ export class LocalsListComponent {
                   }
                 );
 
-              setInterval(() => {
+         
+            }
+          );
+
+          });
+        });
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des batiments : ', error);
+      }
+    );
+    
+  }
+
+  recupererDonneesJour(): void {
+     
+    this.batimentsLoading  =true;
+    const parentElement = this.el.nativeElement.querySelector('#container');
+
+    let dateISO = new Date().toISOString();
+    let nowSlash = new Date();
+   
+   
+
+    this.subscription = this.floorService.getBatimentsList().subscribe(
+      (batiments: any) => {
+        this.batiments = batiments;
+        this.localsT1=[]
+        this.localsH1=[]
+      
+        batiments.forEach((batiment: any) => {
+          batiment.etages.forEach((etage: any) => {
+            etage.zones.forEach((local: any) => {
+              this.floorService.avg_TH_par_jour(local.id,this.dateFormatter(dateISO)).subscribe(
+                (response: any) => {
+                  nowSlash = new Date();
+                  this.localsT1[local.id-1] = (response.T.toFixed(1))
+                  this.localsH1[local.id-1] = (response.H.toFixed(1))
+                }
+              );
+            
+            }
+          );
+
+          });
+        });
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des batiments : ', error);
+      }
+    );
+    
+  }
+  recupererDonnees(): void {
+   
+    this.batimentsLoading  =true;
+    const parentElement = this.el.nativeElement.querySelector('#container');
+
+    let dateISO = new Date().toISOString();
+     let nowSlash = new Date();
+   
+   
+
+    this.subscription = this.floorService.getBatimentsList().subscribe(
+      (batiments: any) => {
+        this.batiments = batiments;
+        this.localsT=[]
+       
+        this.localsT1=[]
+        this.localsT2=[]
+        this.localsH=[]
+        this.localsH1=[]
+        this.localsH2=[]
+        batiments.forEach((batiment: any) => {
+          batiment.etages.forEach((etage: any) => {
+            etage.zones.forEach((local: any) => {
+              this.floorService.avg_TH_par_jour(local.id,this.dateFormatter(dateISO)).subscribe(
+                (response: any) => {
+                  nowSlash = new Date();
+                  this.localsT1[local.id-1] = (response.T.toFixed(1))
+                  this.localsH1[local.id-1] = (response.H.toFixed(1))
+                }
+              );
+              this.floorService.avg_TH_par_instant(local.id,this.dateFormatter(dateISO)).subscribe(
+                (response: any) => {
+                  nowSlash = new Date();
+                  this.localsT2[local.id-1] = (response.T.toFixed(1))
+                  this.localsH2[local.id-1] = (response.H.toFixed(1))
+                }
+              );
+              this.floorService.avg_TH_par_heure(local.id,this.dateFormatter(dateISO)).subscribe(
+                (response: any) => {
+                  nowSlash = new Date();
+                  this.localsT[local.id-1] = (response.T.toFixed(1))
+                  this.localsH[local.id-1] = (response.H.toFixed(1))
+                  if (dateISO.substring(14, 16) == '00') {
+                    console.log('rahi 00 neb3at les alertes')
+                    this.verifierSiAlerte(local, response, nowSlash)
+                  } else {
+                    console.log('maneb3atch les alertes')
+                  }
+                  },
+                  (error) => {
+                    console.error('Erreur lors de la récupération des données : ', error);
+                  }
+                );
+
+              this.intervalId = setInterval(() => {
                 dateISO = new Date().toISOString();
                 if(dateISO.substring(14, 16)=='00') {
                   console.log('rani n3aweeeeeeeeeed')
@@ -112,7 +273,7 @@ export class LocalsListComponent {
                       }
                     );
                   })
-                  setInterval(() => {
+                  this.intervalId =setInterval(() => {
                     dateISO = new Date().toISOString();
                     console.log('rani n3aweeeeeeeeeed')
 
@@ -132,7 +293,8 @@ export class LocalsListComponent {
                 }
               }, 60000)
 
-            });
+            }
+          );
 
           });
         });
@@ -144,7 +306,70 @@ export class LocalsListComponent {
 
 
   }
+ 
+ /* recupererDonnees(): void {
+    
+  this.batimentsLoading  =true;
+  const parentElement = this.el.nativeElement.querySelector('#container');
 
+  let dateISO = new Date().toISOString();
+   let nowSlash = new Date();
+ 
+ 
+
+  this.subscription = this.floorService.getBatimentsList().subscribe(
+    (batiments: any) => {
+      this.batiments = batiments;
+      this.localsT=[]
+     
+      this.localsT1=[]
+      this.localsT2=[]
+      this.localsH=[]
+      this.localsH1=[]
+      this.localsH2=[]
+      batiments.forEach((batiment: any) => {
+        batiment.etages.forEach((etage: any) => {
+          etage.zones.forEach((local: any) => {
+           
+            this.floorService.avg_TH_par_instant(local.id,this.dateFormatter(dateISO)).subscribe(
+              (response: any) => {
+                nowSlash = new Date();
+                this.localsT2[local.id-1] = (response.T.toFixed(1))
+                this.localsH2[local.id-1] = (response.H.toFixed(1))
+              }
+            );
+           
+          }
+        );
+
+        });
+      });
+    },
+    (error) => {
+      console.error('Erreur lors de la récupération des batiments : ', error);
+    }
+  );
+ } */
+  selectFilter(event: Event): void {
+    const target = event.target as HTMLSelectElement;
+    this.selectedFilter = target.value;
+    console.log(this.selectedFilter);
+  }
+
+ 
+  traiterMoyenneParJour(): void {
+    // Mettez ici la logique pour traiter la moyenne par jour
+  }
+  
+  traiterMoyenneParSemaine(): void {
+    // Mettez ici la logique pour traiter la moyenne par semaine
+  }
+  
+  traiterDonneesActuelles(): void {
+    // Mettez ici la logique pour traiter les données actuelles
+  }
+  
+  
   verifierSiAlerte(local: any, response: any, nowSlash: any) {
 
     let text = ''
@@ -282,6 +507,9 @@ export class LocalsListComponent {
     dateISO.substring(8, 10)  + ' ' +
     dateISO.substring(11, 13) + ':' +
     dateISO.substring(14, 16) + ':00';
+  }
+  redirectToLocalDetails(localId: number) {
+    this.router.navigate(['/zone-details', localId]);
   }
 
 }

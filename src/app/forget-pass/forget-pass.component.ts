@@ -60,6 +60,6 @@ export class ForgetPassComponent implements OnInit {
       });
     }
   }
-
+  
   ngOnInit(): void {}
 }

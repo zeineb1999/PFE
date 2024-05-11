@@ -19,13 +19,13 @@
             <h1 class="w-full text-center md:text-2xl"></h1>
             <h1 class="text-center text-xl md:text-xl font-bold ">
               <!--<span class="inline-block bg-gradient-to-r from-blue-500 to-green-400 text-transparent bg-clip-text">Rajouter un local à l'étage {{ this.etageZ}}</span>-->
-              <span class="inline-block text-black"> {{'ajoutC1.title19' | translate}} {{ this.etageZ}}</span>
+              <span class="inline-block text-black"> {{'ajoutC1.title19' | translate}} </span>
             </h1>
         </div>
 
         <form action="#" class="space-y-4">
 
-          <div class="flex w-72 flex-col gap-6">
+       <!--    <div class="flex w-72 flex-col gap-6">
             <div class="relative h-11 w-full min-w-[200px]">
               <input
                 class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-blue-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
@@ -39,7 +39,7 @@
               </label>
             </div>
           </div>
-
+ -->
 
           <div class="flex w-72 flex-col gap-6">
             <div class="relative h-11 w-full min-w-[200px]">
@@ -72,7 +72,7 @@
             </div>
           </div>
 
-          <div class="flex w-72 flex-col gap-6">
+      <!--     <div class="flex w-72 flex-col gap-6">
             <div class="relative h-11 w-full min-w-[200px]">
               <input
                 class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-blue-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
@@ -86,7 +86,7 @@
                 {{'ajoutC1.title23' | translate}}
               </label>
             </div>
-          </div>
+          </div> -->
           
           <div *ngIf="surfaceAlert" class="success-message flex items-center justify-center fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50">
             <div class="bg-red-500 text-white font-bold rounded-lg border shadow-lg p-5">
@@ -99,14 +99,59 @@
             <div class="relative h-11 w-full min-w-[200px]">
               <input
                 class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-blue-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
-                [(ngModel)]="temperature"
+                [(ngModel)]="temperatureMin"
                 placeholder=""
                 type="number"
-                id="temp"
-                name="temp"
+                id="tempMin"
+                name="tempMin"
               />
               <label class="text-gray-400 after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-blue-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-blue-500 peer-focus:after:scale-x-100 peer-focus:after:border-blue-500 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
                 {{'ajoutC1.title25' | translate}}
+              </label>
+            </div>
+          </div>
+          <div class="flex w-72 flex-col gap-6">
+            <div class="relative h-11 w-full min-w-[200px]">
+              <input
+                class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-blue-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                [(ngModel)]="temperatureMax"
+                placeholder=""
+                type="number"
+                id="tempMax"
+                name="tempMax"
+              />
+              <label class="text-gray-400 after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-blue-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-blue-500 peer-focus:after:scale-x-100 peer-focus:after:border-blue-500 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                {{'ajoutC1.title251' | translate}}
+              </label>
+            </div>
+          </div>
+          <div class="flex w-72 flex-col gap-6">
+            <div class="relative h-11 w-full min-w-[200px]">
+              <input
+                class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-blue-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                [(ngModel)]="humiditeMax"
+                placeholder=""
+                type="number"
+                id="humiditeMax"
+                name="humiditeMax"
+              />
+              <label class="text-gray-400 after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-blue-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-blue-500 peer-focus:after:scale-x-100 peer-focus:after:border-blue-500 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                {{'ajoutC1.title252' | translate}}
+              </label>
+            </div>
+          </div>
+          <div class="flex w-72 flex-col gap-6">
+            <div class="relative h-11 w-full min-w-[200px]">
+              <input
+                class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-blue-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                [(ngModel)]="humiditeMin"
+                placeholder=""
+                type="number"
+                id="humiditeMin"
+                name="humiditeMin"
+              />
+              <label class="text-gray-400 after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-blue-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-blue-500 peer-focus:after:scale-x-100 peer-focus:after:border-blue-500 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                {{'ajoutC1.title253' | translate}}
               </label>
             </div>
           </div>

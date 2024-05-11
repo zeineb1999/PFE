@@ -83,6 +83,126 @@
       <div class="text-5xl text-gray-200 py-4 cons-totale-val flex justify-center">{{this.consommation_annuelle_totale.toFixed(2)}} kWh</div>
     </div>
   </section>
+  <div *ngIf="rapports.length > 0" class="overflow-hidden shadow-md md:rounded-lg">
+    <table class="table min-w-full">
+        <thead>
+            <tr>
+                <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 ">
+                    <div class="flex items-center gap-x-2">
+<!--                           <input type="checkbox" class="text-blue-500 border-gray-300 rounded cursor-pointer">-->
+                      <span>{{'ajoutC1.title3'|translate}}</span>
+                    </div>
+                </th>
+
+                <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
+                  <div class="flex items-center gap-x-2">
+                      <span>{{'ajoutC1.title29'|translate}}</span>
+                  </div>
+                </th>
+                <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
+                  <div class="flex items-center gap-x-2">
+                    <span>{{'ajoutC1.title7'|translate}}</span>
+                  </div>
+              </th>
+                <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
+                    <div class="flex items-center gap-x-2">
+                       <!--  <span>{{'ajoutC1.title7'|translate}}</span> -->
+                       <span>Catégorie</span>
+                    </div>
+                </th>
+                
+                <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">
+                    <div class="flex items-center gap-x-2">
+                        <span>{{'ajoutC1.title8'|translate}}</span>
+                    </div>
+                </th>
+              <!--   <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">
+                  <div class="flex items-center gap-x-2">
+                      <span>{{'Filtrer par :'|translate}}</span>
+              
+                    
+                      <select [(ngModel)]="typeFiltre" (change)="filtrerEquipements()">
+                          <option value="">{{'Type'|translate}}</option>
+                          <option *ngFor="let type of types" [value]="">{{ type }}</option>
+                      </select>
+              
+                    
+                      <select [(ngModel)]="categorieFiltre" (change)="filtrerEquipements()">
+                          <option value="">{{'Catégorie'|translate}}</option>
+                          <option *ngFor="let categorie of categories" [value]="">{{ categorie }}</option>
+                      </select>
+              
+                 
+                      <select [(ngModel)]="etatFiltre" (change)="filtrerEquipements()">
+                          <option value="">{{'État'|translate}}</option>
+                          <option *ngFor="let etat of etats" [value]="">{{ etat }}</option>
+                      </select>
+                  </div>
+              </th> -->
+
+             <!--    <th scope="col" class="relative py-3.5 px-4">
+                    <span class="sr-only">{{'ajoutC1.title38'|translate}}</span>
+                </th>
+
+                <th scope="col" class="relative py-3.5 px-4">
+                  <span class="sr-only">{{'ajoutC1.title43'|translate}}</span>
+                </th> -->
+
+                <th scope="col" class="relative py-3.5 px-4">
+                  <span class="sr-only">{{'ajoutC1.title44'|translate}}</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody class="bg-white">
+          <span *ngIf="rapports.length === 0">Aucun rapport trouvé.</span>
+          <tr *ngFor="let equipement of rapports" class="even:bg-gray-50 w-full">
+
+            <td class="px-4 py-4 text-sm font-medium text-gray-700" style="width: 35%;">
+              <div class="inline-flex items-center gap-x-3">
+                <!-- <input type="checkbox" class="text-blue-500 border-gray-300 rounded cursor-pointer"> -->
+                  <span>{{ equipement.alerte }}</span>
+              </div>
+            </td>
+            <td class="px-4 py-4 text-sm font-medium text-gray-700" style="width: 35%;">
+              <div class="inline-flex items-center gap-x-3">
+                <!-- <input type="checkbox" class="text-blue-500 border-gray-300 rounded cursor-pointer"> -->
+                  <span>{{ equipement.redacteur }}</span>
+              </div>
+            </td>
+          
+            <td class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right">
+              <div class="inline-flex items-center gap-x-3">
+                  {{equipement.solutions}}
+              </div>
+            </td>
+            <td class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right">
+              <div class="inline-flex items-center gap-x-3">
+                  {{equipement.dateRapport}}
+              </div>
+            </td>
+
+            <td class="px-12 py-3.5  text-sm font-medium text-gray-700 text-left rtl:text-right">
+              <div class="inline-flex items-center gap-x-3">
+                  {{equipement.risque}} 
+              </div>
+            </td>
+
+            <td class="row">
+             <!--  <span class="text-xs cursor-pointer mx-4" style="color: #3b72f6;" (click)="updateEquipement(equipement.id)">{{'ajoutC1.title38'|translate}}
+                <i class="fa-solid fa-pen fa-xs ml-1"></i>
+              </span>
+              <span class="text-xs cursor-pointer mx-4" style="color: #e30000;" (click)="deleteEquipement(equipement.id)">{{'ajoutC1.title43'|translate}}
+                <i class="fa-solid fa-trash fa-xs ml-1"></i>
+              </span> -->
+              <span class=" cursor-pointer text-xs mx-4" style="color: #6b7280;" (click) = "redirectToRapportDetails(equipement.id)">{{'ajoutC1.title44'|translate}}
+                <i class="fa-solid fa-bars fa-ws ml-1"></i>
+              </span>
+            </td>
+          </tr>
+         
+        </tbody>
+    </table>
+</div>
 
 
 </div>

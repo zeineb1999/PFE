@@ -15,10 +15,19 @@
                       <input type="text" [(ngModel)]="username" placeholder="{{ 'sign.title2'| translate}}"  class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
                   </div>
 
-                  <div>
-                      <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ "sign.title3" | translate}}</label>
-                      <input type="password" [(ngModel)]="password" placeholder="{{ 'sign.title3' | translate}}" type="password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
-                  </div>
+                  <div class="py-2" x-data="{ show: true }">
+                    <span class="px-1 text-sm text-gray-600">Password</span>
+                    <div class="relative">
+                        <input  [(ngModel)] = "password" placeholder="mot de passe" [type]="show ? 'password' : 'text'"
+                               class="text-md block px-3 py-2 rounded-lg w-full bg-white border-2 border-gray-300 placeholder-gray-600 shadow-md
+                                            focus:placeholder-gray-500 focus:bg-white focus:border-gray-600 focus:outline-none">
+                                            <button class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5" (click)="showPassword()">
+                                              <i class="fa fa-eye" aria-hidden="true" *ngIf="!show"></i>
+                                              <i class="fa fa-eye-slash" aria-hidden="true" *ngIf="show"></i>
+                                            </button>
+                       
+                    </div>
+                </div>
                  
       <div class="flex items-center justify-center"> <!-- Alignement horizontal et vertical -->
         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Vous êtes:</label>
@@ -28,25 +37,25 @@
       <div class="flex flex-wrap justify-center"> <!-- Alignement horizontal -->
         <!-- Première option -->
         <div class="flex items-center me-4 mb-4">
-          <input id="inline-radio-1" type="radio" value="administrateur" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+          <input id="inline-radio-1" type="radio" value="admin" [(ngModel)]="roleEntree" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
           <label for="inline-radio-1" class="ms-2 text-xs font-medium text-gray-900 dark:text-gray-300">Administrateur</label>
         </div>
 
         <!-- Deuxième option -->
         <div class="flex items-center me-10 mb-4">
-          <input id="inline-radio-2" type="radio" value="moyens_generaux" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+          <input id="inline-radio-2" type="radio" value="Moyen generaux" name="inline-radio-group" [(ngModel)]="roleEntree" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
           <label for="inline-radio-2" class="ms-2 text-xs font-medium text-gray-900 dark:text-gray-300">Moyens généraux</label>
         </div>
 
         <!-- Troisième option -->
         <div class="flex items-center me-4 mb-4">
-          <input checked id="inline-checked-radio-1" type="radio" value="responsable_maintenance" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+          <input checked id="inline-checked-radio-1" type="radio" value="Responsable de maintenance" [(ngModel)]="roleEntree" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
           <label for="inline-checked-radio-1" class="ms-2 text-xs font-medium text-gray-900 dark:text-gray-300">Responsable de maintenance</label>
         </div>
 
         <!-- Quatrième option -->
         <div class="flex items-center me-10 mb-4">
-          <input id="inline-radio-3" type="radio" value="responsable_hopital" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+          <input id="inline-radio-3" type="radio" value="Responsable de l'hopital" name="inline-radio-group" [(ngModel)]="roleEntree" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
           <label for="inline-radio-3" class="ms-2 text-xs font-medium text-gray-900 dark:text-gray-300">Responsable de l'hôpital</label>
         </div>
       </div>
@@ -64,6 +73,11 @@
                           {{ successMessage }}
                       </div>
                   </div>
+                  <div *ngIf="errorMessage" class="success-message flex items-center justify-center fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50">
+                    <div class="bg-red-500 text-white font-bold rounded-lg border shadow-lg p-5">
+                        {{ errorMessage }}
+                    </div>
+                </div>
                   <div class="flex justify-between">
                     <p class="text-sm font-light text-gray-500 dark:text-gray-400">
                       <span>{{ "sign.title5" | translate}} ?</span> <br>

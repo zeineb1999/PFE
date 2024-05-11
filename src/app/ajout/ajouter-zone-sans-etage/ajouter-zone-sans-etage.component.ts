@@ -7,6 +7,10 @@ interface Zone {
   nomLocal: string;
   typeLocal: string;
   surface: number;
+  minT: number;
+  maxT: number;
+  minH: number;
+  maxH: number;
   etageZ: number;
 }
 
@@ -25,7 +29,10 @@ export class AjouterZoneSansEtageComponent implements OnInit {
   typeLocal?: string;
   etageId: number = 0;
   etages: any[] = [];
-  temperature?: number;
+  temperatureMin?: number;
+  temperatureMax?: number;
+  humiditeMin?: number;
+  humiditeMax?: number;
   surface?: number;
   hauteur?: number;
   isLoggedIn: boolean;
@@ -57,6 +64,10 @@ export class AjouterZoneSansEtageComponent implements OnInit {
       id: 0,
       nomLocal: this.nomLocal || '',
       typeLocal: this.typeLocal || '',
+      minT: this.temperatureMin || 0,
+      maxT: this.temperatureMax || 0,
+      minH: this.humiditeMin || 0,
+      maxH: this.humiditeMax || 0,
       surface: this.surface || 0,
       etageZ: this.etageZ || 0 // Assurez-vous que la valeur par défaut est correcte
     };
@@ -64,11 +75,28 @@ export class AjouterZoneSansEtageComponent implements OnInit {
   
     // Vérifiez si les valeurs sont définies avant d'appeler le service
     if (zoneData.nomLocal && zoneData.typeLocal && zoneData.etageZ) {
+      this.floorService.addZone(zoneData).subscribe(
+        (data: Zone) => {
+          console.log(data);
+          const zoneId = data.id;
+          this.floorService.genererDATA(zoneId,this.temperatureMin!).subscribe(
+            (response) => {
+              
+            }
+        )
+          this.zones.push(data);
+          // Redirection vers la page '/toutesZones' après l'ajout d'une zone
+          this.router.navigateByUrl(`/toutesZones`);
+        },
+        error => {
+          console.log(error);
+        }
+      );
       // Calculer la somme des surfaces des zones existantes pour l'étage
-      const surfaceTotaleEtage = this.etages.find(etage => etage.id === this.etageZ)?.surface || 0;
+        /* const surfaceTotaleEtage = this.etages.find(etage => etage.id === this.etageZ)?.surface || 0;
       console.log(surfaceTotaleEtage);
       console.log(this.etageId);
-      this.floorService.getZonesForEtage(this.etageId).subscribe(
+    this.floorService.getZonesForEtage(this.etageId).subscribe(
         (data: Zone[]) => {
           this.zonesSurface = data;
           let totalSurface = 0; // Initialisez totalSurface à zéro
@@ -82,7 +110,7 @@ export class AjouterZoneSansEtageComponent implements OnInit {
               (data: Zone) => {
                 console.log(data);
                 const zoneId = data.id;
-                this.floorService.genererDATA(zoneId,this.temperature!).subscribe(
+                this.floorService.genererDATA(zoneId,this.temperatureMin!).subscribe(
                   (response) => {
                     
                   }
@@ -102,7 +130,7 @@ export class AjouterZoneSansEtageComponent implements OnInit {
       }, 1000);
           }
         }
-      );
+      ); */
     } else {
       console.log("Veuillez remplir tous les champs.");
     }

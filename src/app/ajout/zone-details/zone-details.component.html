@@ -1,7 +1,7 @@
 <div *ngIf="isLoggedIn">
   <app-header></app-header>
   
-  
+ 
   <div *ngIf="zoneDetails">
     <div class="w-full flex justify-center">
       <div class="relative inline-block my-12 text-center">
@@ -11,8 +11,24 @@
         <span class="mt-6 absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-blue-400 to-green-500 rounded-full"></span>
       </div>
     </div>
-  
-    <div class="flow-root mx-12">
+    <div class="grid grid-cols-2 gap-4">
+      <div class="p-4 bg-cover bg-center relative flex items-center justify-center ml-40 mr-2" style="width: 70%; height: 100px; background-size: cover; background-image: url('../../assets/TemperatureBlue.jpg');border-radius: 10px;">
+        <!-- Texte à écrire sur l'image -->
+        <h3 class="text-sm tracking-wider text-black">Température</h3>
+        <br>
+        <p class="text-3xl text-black">{{ temperature }} °C</p>
+      </div>
+    
+      <div class="p-4 bg-cover bg-center relative flex items-center justify-center ml-2 mr-4" style=" width: 70%; height: 100px; background-size: cover; background-image: url('../../assets/TemperatureBlue.jpg');border-radius: 10px;">
+        <!-- Texte à écrire sur l'image -->
+        <h3 class="text-sm tracking-wider text-black">Humidité </h3>
+        <br>
+        <p class="text-3xl text-black">{{ humidite }} %</p>
+      </div>
+    </div>
+    
+    
+    <div class="flow-root mx-12 my-12">
       <dl class="-my-3 divide-y divide-gray-100 text-sm">
         <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
           <dt class="font-medium text-gray-900">{{'ajoutC1.title63'|translate}}</dt>
@@ -81,38 +97,54 @@
                           <span>{{'ajoutC1.title29'|translate}}</span>
                       </div>
                     </th>
-  
+                    <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
+                      <div class="flex items-center gap-x-2">
+                        <span>{{'ajoutC1.title7'|translate}}</span>
+                      </div>
+                  </th>
                     <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
                         <div class="flex items-center gap-x-2">
-                            <span>{{'ajoutC1.title7'|translate}}</span>
+                           <!--  <span>{{'ajoutC1.title7'|translate}}</span> -->
+                           <span>Catégorie</span>
                         </div>
                     </th>
-  
+                    
                     <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">
                         <div class="flex items-center gap-x-2">
                             <span>{{'ajoutC1.title8'|translate}}</span>
                         </div>
                     </th>
-  <!--
-                    <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
+                    <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">
                       <div class="flex items-center gap-x-2">
-                          <span>Consommation maximale</span>
+                          <span>{{'Filtrer par :'|translate}}</span>
+                  
+                          <!-- Menu déroulant pour le type -->
+                          <select [(ngModel)]="typeFiltre" (change)="filtrerEquipements()">
+                              <option value="">{{'Type'|translate}}</option>
+                              <option *ngFor="let type of types" [value]="">{{ type }}</option>
+                          </select>
+                  
+                          <!-- Menu déroulant pour la catégorie -->
+                          <select [(ngModel)]="categorieFiltre" (change)="filtrerEquipements()">
+                              <option value="">{{'Catégorie'|translate}}</option>
+                              <option *ngFor="let categorie of categories" [value]="">{{ categorie }}</option>
+                          </select>
+                  
+                          <!-- Menu déroulant pour l'état -->
+                          <select [(ngModel)]="etatFiltre" (change)="filtrerEquipements()">
+                              <option value="">{{'État'|translate}}</option>
+                              <option *ngFor="let etat of etats" [value]="">{{ etat }}</option>
+                          </select>
                       </div>
-                    </th>
-  
-                    <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
-                      <div class="flex items-center gap-x-2">
-                          <span>Consommation minimale</span>
-                      </div>
-                    </th>
-  -->
-                    <th scope="col" class="relative py-3.5 px-4">
+                  </th>
+
+                 <!--    <th scope="col" class="relative py-3.5 px-4">
                         <span class="sr-only">{{'ajoutC1.title38'|translate}}</span>
                     </th>
   
                     <th scope="col" class="relative py-3.5 px-4">
                       <span class="sr-only">{{'ajoutC1.title43'|translate}}</span>
-                    </th>
+                    </th> -->
   
                     <th scope="col" class="relative py-3.5 px-4">
                       <span class="sr-only">{{'ajoutC1.title44'|translate}}</span>
@@ -120,8 +152,9 @@
                 </tr>
             </thead>
             <tbody class="bg-white">
-              <tr *ngFor="let equipement of equipements" class="even:bg-gray-50 w-full">
-  
+              <span *ngIf="equipementsFiltre.length === 0">Aucun équipement trouvé.</span>
+              <tr *ngFor="let equipement of equipementsFiltre" class="even:bg-gray-50 w-full">
+
                 <td class="px-4 py-4 text-sm font-medium text-gray-700" style="width: 35%;">
                   <div class="inline-flex items-center gap-x-3">
                     <!-- <input type="checkbox" class="text-blue-500 border-gray-300 rounded cursor-pointer"> -->
@@ -137,7 +170,11 @@
   
                   </div>
                 </td>
-  
+                <td class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right">
+                  <div class="inline-flex items-center gap-x-3">
+                      {{equipement.categorie}}
+                  </div>
+                </td>
                 <td class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right">
                   <div class="inline-flex items-center gap-x-3">
                       {{equipement.type}}
@@ -151,18 +188,18 @@
                 </td>
   
                 <td class="row">
-                  <span class="text-xs cursor-pointer mx-4" style="color: #3b72f6;" (click)="updateEquipement(equipement.id)">{{'ajoutC1.title38'|translate}}
+                 <!--  <span class="text-xs cursor-pointer mx-4" style="color: #3b72f6;" (click)="updateEquipement(equipement.id)">{{'ajoutC1.title38'|translate}}
                     <i class="fa-solid fa-pen fa-xs ml-1"></i>
                   </span>
                   <span class="text-xs cursor-pointer mx-4" style="color: #e30000;" (click)="deleteEquipement(equipement.id)">{{'ajoutC1.title43'|translate}}
                     <i class="fa-solid fa-trash fa-xs ml-1"></i>
-                  </span>
+                  </span> -->
                   <span class=" cursor-pointer text-xs mx-4" style="color: #6b7280;" (click) = "redirectToEquipementDetails(equipement.id)">{{'ajoutC1.title44'|translate}}
                     <i class="fa-solid fa-bars fa-ws ml-1"></i>
                   </span>
                 </td>
               </tr>
-  
+             
             </tbody>
         </table>
     </div>

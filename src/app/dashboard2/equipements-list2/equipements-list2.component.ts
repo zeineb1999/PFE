@@ -1,9 +1,9 @@
-import { Component, OnInit, AfterViewInit, ElementRef, Renderer2, Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef, Renderer2, Input, OnDestroy } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import HC_exporting from 'highcharts/modules/exporting';
 import HC_networkgraph from 'highcharts/modules/networkgraph';
 import { FloorService } from '../../service/floor.service';
-import { forkJoin, of } from 'rxjs';
+import { forkJoin, interval, of } from 'rxjs';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { waitForAsync } from '@angular/core/testing';
@@ -48,7 +48,7 @@ export class EquipementsList2Component {
   isLoggedIn: boolean;
   EquipementsLoading: Boolean = true;
   EquipementAChercher :string|undefined;
-
+  intervalId: any;
   @Input() equipements: any[] = [];
   @Input() dateDebut: string = '';
   @Input() heureDebut: string = '';
@@ -71,9 +71,12 @@ export class EquipementsList2Component {
   }
 
   ngOnInit(): void {
-    setInterval(() => {
+    this.intervalId = setInterval(() => {
         this.getConsommation(); // Appel de la méthode
     }, 60000); // Interval de 60 secondes
+  }
+  OnDestroy() {
+    clearInterval(this.intervalId);
   }
 
   getConsommation(){

@@ -89,10 +89,12 @@ export class RedigerRapportComponent {
   equipementsM: EquipementNecessite[] = [{equipement: '', necessite:''}]
   nbEquipements: any;
   equipementsLocal: any;
-
+  equipementSelect: any;
   autre: string='';
-
-  constructor(private authService: AuthService,private route: ActivatedRoute, private router: Router, private floorService: FloorService, private renderer: Renderer2, private el: ElementRef) {this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true'; }
+  userID: number = 0;
+  constructor(private authService: AuthService,private route: ActivatedRoute, private router: Router, private floorService: FloorService, private renderer: Renderer2, private el: ElementRef) {this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    this.userID = parseInt(localStorage.getItem('id') || '');
+   }
 
   ngOnInit() {
 
@@ -173,38 +175,57 @@ export class RedigerRapportComponent {
 
   enregistrerRapport() {
     let saveCauses = ''
+    let i=0
     this.causesM.forEach((element: string) => {
-      saveCauses = saveCauses +'|'+element
+      if (i == 0) {
+        saveCauses=element
+        i++
+      } else {
+        saveCauses = saveCauses + '|' + element
+      }
     });
 
+    let j=0
     let saveSolutions = ''
     this.solutionsM.forEach((element: string) => {
-      saveSolutions = saveSolutions + '|' + element
+      if (j == 0) {
+        saveSolutions = element
+        j++
+      } else {
+        saveSolutions = saveSolutions + '|' + element
+      }
     });
 
+    let k=0
     let saveRisques = ''
     this.risquesM.forEach((element: string) => {
-      saveRisques = saveRisques + '|' + element
+      if (k == 0) {
+        saveRisques = element
+        k++
+      } else {
+        saveRisques = saveRisques + '|' + element
+      }
     });
 
+    let l=0
     let saveEquipements = ''
     let saveNecessite = ''
     this.equipementsM.forEach((element: any) => {
-      saveEquipements = saveEquipements + '|' + element.equipement
-      saveNecessite = saveNecessite + '|' + element.necessite
+      if (l == 0) {
+        saveEquipements = element.equipement
+        saveNecessite = element.necessite
+        l++
+      } else {
+        saveEquipements = saveEquipements + '|' + element.equipement
+        saveNecessite = saveNecessite + '|' + element.necessite
+      }
     });
-
-    this.floorService.addRapport(this.thisAlerte.id, 1, saveCauses, saveSolutions, saveRisques, saveEquipements, saveNecessite).subscribe((rapport: any) => {
+    let now=new Date();
+    console.log('now: ', now)
+    console.log('equipe',this.equipementSelect)  
+    this.floorService.addRapport(this.thisAlerte.id, this.userID, saveCauses, saveSolutions, saveRisques, saveEquipements, saveNecessite,this.equipementSelect,now).subscribe((rapport: any) => {
       console.log('rapport enregistré: ', rapport)
-      this.endommagesM.forEach(element => {
-        this.floorService.addRapportEquipementEndommage(rapport.id, parseInt(element)).subscribe((rapportEquip: any) => {
-          console.log('rapportEquipement enregistré: ', rapportEquip)
-        })
-      });
+      
     })
-
-
   }
-
-
 }

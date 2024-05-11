@@ -65,6 +65,12 @@ export class FloorService {
         catchError(this.handleError)
       );
   }
+  getAllRapports(): Observable<any> {
+    return this.http.get(`${this.baseurl}/rapport/`, { headers: this.httpHeaders })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
 
   getAllEtagesETZones(): Observable<any[]> {
     let data1$ = this.http.get<any[]>(this.baseurl + '/etage/', { headers: this.httpHeaders });
@@ -162,23 +168,32 @@ export class FloorService {
     throw error;
   }
 
-  addFloor(surface: number) {
-    return this.http.post(this.baseurl + '/etage/', { surface },{headers: this.httpHeaders});
+  addFloor(etage:{ nomEtage: string, batimentId: number }) : Observable<any>{
+    const body = {  nomEtage: etage.nomEtage,batimentId: etage.batimentId}
+    return this.http.post(this.baseurl + '/etage/', body,{headers: this.httpHeaders});
   }
-
-
+  addBatiment(batiment:{ nomBatiment: string, typeBatiment: string }) : Observable<any>{
+    const body = {  nomBatiment: batiment.nomBatiment,typeBatiment: batiment.typeBatiment}
+    return this.http.post(this.baseurl + '/batiment/', body,{headers: this.httpHeaders});
+  }
   getAllZones() : Observable<any>{
     return this.http.get(this.baseurl + '/zones/',
      {headers: this.httpHeaders});
   }
-
+  getRapportsByAlerteId(alerteId: number): Observable<any> {
+    return this.http.get<any>(this.baseurl + '/rapportByAlerte/'+ alerteId ,
+      {headers: this.httpHeaders});
+  }
   addEquipement(equipement:{  nom: string,  etat: string, categorie: string, puissance: number, maxConsommation: number, minConsommation: number, zoneE: number }) : Observable<any>{
     const body = {  nom: equipement.nom,  etat: equipement.etat, categorie: equipement.categorie, puissance: equipement.puissance, maxConsommation: equipement.maxConsommation, minConsommation: equipement.minConsommation, zoneE: equipement.zoneE}
     return this.http.post(this.baseurl + '/equipement/', body,{headers: this.httpHeaders});
   }
-
-  addZone(zone:{ id: number, nomLocal: string, typeLocal: string,surface: number,	 etageZ: number }) : Observable<any>{
-    const body = {  nomLocal: zone.nomLocal,typeLocal: zone.typeLocal,surface: zone.surface,etageZ: zone.etageZ}
+  getInitialData() : Observable<any>{
+    return this.http.get(this.baseurl + '/initialData/',
+     {headers: this.httpHeaders});
+  }
+  addZone(zone:{ id: number, nomLocal: string, typeLocal: string,surface: number,	minT: number, maxT: number, minH: number, maxH: number, etageZ: number }) : Observable<any>{
+    const body = {  nomLocal: zone.nomLocal,typeLocal: zone.typeLocal,surface: zone.surface,minT: zone.minT, maxT: zone.maxT, minH: zone.minH, maxH: zone.maxH,etageZ: zone.etageZ}
     return this.http.post(this.baseurl + '/zones/', body,{headers: this.httpHeaders});
   }
 
@@ -212,7 +227,10 @@ getZonesForEtage(etageId: number): Observable<any> {
   return this.http.get<any>(this.baseurl + '/etage/'+ etageId+'/zones/' ,
     {headers: this.httpHeaders});
 }
-
+getRapportsByEquipementId(equipementId: number): Observable<any> {
+  return this.http.get<any>(this.baseurl + '/rapportByEquipement/'+ equipementId ,
+    {headers: this.httpHeaders});
+}
 getEtagesByBatiments(batimentId: any): Observable<any> {
   return this.http.get<any>(this.baseurl + '/batiment/'+ batimentId+'/etages/' ,
     {headers: this.httpHeaders});
@@ -419,7 +437,24 @@ getExcelData(): Observable<any> {
     };
     return this.http.get<any>('http://127.0.0.1:8000/api/avg_TH_par_heure/', options);
   }
-
+  avg_TH_par_jour( nom_fichier: number,date: string): Observable<any> {
+    const options = {
+      params: {
+        date: date, // Ajoutez date_heure à vos paramètres
+        nom_fichier: nom_fichier.toString() // Convertissez nom_fichier en chaîne et ajoutez-le à vos paramètres (to string())
+      }
+    };
+    return this.http.get<any>('http://127.0.0.1:8000/api/avg_TH_par_jour/', options);
+  }
+  avg_TH_par_instant( nom_fichier: number,date: string): Observable<any> {
+    const options = {
+      params: {
+        date: date, // Ajoutez date_heure à vos paramètres
+        nom_fichier: nom_fichier.toString() // Convertissez nom_fichier en chaîne et ajoutez-le à vos paramètres (to string())
+      }
+    };
+    return this.http.get<any>('http://127.0.0.1:8000/api/avg_TH_par_instant/', options);
+  }
   addAlerte( localId:number,type:string , dateAlerte: Date, text: string, valeur: number) : Observable<any>{
     const body = {  localId: localId,type: type, dateAlerte: dateAlerte, text: text, valeur: valeur}
     //console.log(body)
@@ -461,7 +496,7 @@ getExcelData(): Observable<any> {
       const url = ` ${this.baseurl}/get_alerte_non_notifie?userID=${userID} `;
       return this.http.get<any>(url);
     }
-    addRapport( alerte: number, redacteur:number , causes: string, solutions: string, risques: string, equipementsDemandes: string, equipementsNecessites: string) : Observable<any>{
+    addRapport( alerte: number, redacteur:number , causes: string, solutions: string, risques: string, equipementsDemandes: string, equipementsNecessites: string,equipement: number, date: Date) : Observable<any>{
       const rapport = {
           alerte: alerte,
           redacteur:redacteur ,
@@ -469,9 +504,14 @@ getExcelData(): Observable<any> {
           solutions: solutions,
           risques: risques,
           equipementsDemandes: equipementsDemandes,
-          equipementsNecessites: equipementsNecessites
+          equipementsNecessites: equipementsNecessites,
+          equipement: equipement,
+          vu: false,
+          notifie : false,
+          dateRapport: date
+         
       }
-      //console.log(body)
+      console.log(rapport)
       return this.http.post(this.baseurl + '/rapport/', rapport,{headers: this.httpHeaders});
     }
   
@@ -479,5 +519,11 @@ getExcelData(): Observable<any> {
       const data = {rapport: rapport, equipement: equipement}
       return this.http.post(this.baseurl + '/RapportEquipementEndommage/', rapport,{headers: this.httpHeaders});
     }
-  
+    stopDjangoMethod(): Observable<any> {
+      return this.http.get<any>('http://127.0.0.1:8000/api/stop-method/ ', {});
+    }
+    startDjangoMethod(): Observable<any> {
+      return this.http.get<any>('http://127.0.0.1:8000/api/start-method/ ', {});
+    }
+    
   }

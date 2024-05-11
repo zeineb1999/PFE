@@ -19,11 +19,18 @@ export class ConsumptionEvolution2Component {
   chartOptions: any;
   constructor(private floorService: FloorService){ }
   ngOnInit() {
-    this.LoadEquipementsParMois()
+    let consom:any [] = [{mois: 1, consommation: 16798943.227777813},
+      {mois: 2, consommation: 15578770.548611129},
+      {mois: 3, consommation: 16577564.177083328},
+      {mois: 4, consommation: 16354767.313888894},
+      {mois: 5, consommation: 14534320.397167528}
+    ]
+    this.insertChart(consom);
+    //this.LoadEquipementsParMois()
     //console.log('Equipements:', this.equipements);
   }
   ngOnChanges() {
-    this.LoadEquipementsParMois()
+    //this.LoadEquipementsParMois()
     //console.log('Equipements:', this.equipements);
   }
 
@@ -35,15 +42,17 @@ export class ConsumptionEvolution2Component {
 
     let consommations_mois: any[] = []
     mois.forEach(this_mois => {
-      if(parseInt(this_mois) <= new Date().getMonth()) {
+      if (parseInt(this_mois) <= new Date().getMonth() + 1) {
+        console.log('mois: ',new Date().getMonth())
         let dateDebut = '2024-'+this_mois+'-01 00:00:00'
         let dateFin = '2024-'+this_mois+'-'+derniers_jours_de_mois[parseInt(this_mois)-1]+' 00:00:00'
         console.log('********************* ', dateDebut, ' -> ', dateFin)
         this.floorService.getHopitalConsommationPendantMois(dateDebut, dateFin)
-        .subscribe((data: number) =>{
-          consommations_mois.push({mois: parseInt(mois2[parseInt(this_mois)-1]), consommation: data})
+        .subscribe((data: number) => {
+          consommations_mois.push({ mois: parseInt(mois2[parseInt(this_mois) - 1]), consommation: data })
+          console.log('consommations_mois', consommations_mois)
           console.log('rrrrrrrr', new Date().getMonth())
-          if (consommations_mois.length == new Date().getMonth()) {
+          if (consommations_mois.length == new Date().getMonth()+1) {
             // Trier la liste par mois
             consommations_mois.sort(this.comparerMois);
           //console.log(consommations_mois);
@@ -69,8 +78,6 @@ export class ConsumptionEvolution2Component {
           align: 'left'
       },
       subtitle: {
-          text: document.ontouchstart === undefined ?
-              'Selectionner une partie pour appliquer un Zoon-in' : 'Pinch the chart to zoom in',
           align: 'left'
       },
       xAxis: {

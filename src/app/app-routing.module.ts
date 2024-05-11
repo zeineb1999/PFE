@@ -26,19 +26,24 @@ import { Dashboard2Component } from './dashboard2/dashboard2.component';
 import { AcceuilComponent } from './acceuil/acceuil.component';
 import { AlerteDetailsComponent } from './alerte-details/alerte-details.component';
 import { RedigerRapportComponent } from './rediger-rapport/rediger-rapport.component';
+import { RapportComponent } from './rapport/rapport.component';
+import { UtilisateursComponent } from './utilisateurs/utilisateurs.component';
+import { AjouterBatimentComponent } from './ajout/ajouter-batiment/ajouter-batiment.component';
+import { RapportDetailsComponent } from './rapport-details/rapport-details.component';
 const routes: Routes = [
   
   
  
   {path: '', component:AcceuilComponent },
- 
+  {path:'ajouterBatiment',component:AjouterBatimentComponent},
+  {path:'utilisateurs',component:UtilisateursComponent},
   {path: 'rediger-rapport/:alerteId', component: RedigerRapportComponent },
   {path : 'forgetPassword',component:ForgetPassComponent},
   {path : 'signup',component:LoginComponent},
   //{path : 'signup/login',component:SignComponent},
   {path : 'login',component:SignComponent},
   {path:'profile',component:ProfileComponent},
-  {path:'ajouterEtage',component:AjouterEtageComponent},
+  {path:'ajouterEtage/:batimentId',component:AjouterEtageComponent},
   {path:'ajouterZone',component:AjouterZoneComponent},
   {path:'ajouterZone/:etageId',component:AjouterZoneSansEtageComponent},
   {path:'ajouterEquipement/:zoneId',component:AjouterEquipementComponent},
@@ -57,7 +62,8 @@ const routes: Routes = [
   { path: 'dashboard2', component: Dashboard2Component },
   { path: 'acceuil', component: AcceuilComponent },
   {path: 'alerte-details/:alerteId', component: AlerteDetailsComponent },
-  
+  {path: 'rapport', component: RapportComponent },
+  {path: 'rapport-details/:alerteId', component: RapportDetailsComponent },
 ];
 
 @NgModule({

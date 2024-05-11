@@ -24,7 +24,7 @@
         </div>
 
         <form action="#" class="space-y-4">
-          <div>
+         <!--  <div>
             <label class="sr-only" for="floorSurface">  {{'ajoutC1.title14' | translate }} 
             </label>
             <input
@@ -34,8 +34,18 @@
               type="text"
               id="floorSurface"
             />
+          </div> -->
+          <div>
+            <label class="sr-only" for="floorName">  {{'ajoutC1.title14' | translate }} 
+            </label>
+            <input
+              [(ngModel)]="floorName" name="floorName"
+              class="w-full rounded-lg border-blue-500 p-3 text-sm"
+              placeholder=" {{'ajoutC1.title14' | translate }}"
+              type="text"
+              id="floorName"
+            />
           </div>
-
          
       
       

@@ -31,12 +31,13 @@ export class EquipementDetailsComponent implements OnInit {
   Highcharts = Highcharts;
   consommation_annuelle_totale: number = 0;
   equipementInfos: any;
-
+  rapports: any[] = [];
   constructor(private route: ActivatedRoute, private router: Router, private floorService: FloorService) {  this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true'; }
 
   ngOnInit(): void {
     this.loadDetails();
     this.LoadEquipementsParMois();
+    this.loadRapports();
   }
 
   loadDetails (){
@@ -52,6 +53,14 @@ export class EquipementDetailsComponent implements OnInit {
         console.error('Une erreur s\'est produite lors de la récupération des détails de la zone :', error);
       }
     );
+  }
+  loadRapports(){
+    this.equipementId = parseInt(this.route.snapshot.paramMap.get('equipementId') || '');
+
+    this.floorService.getRapportsByEquipementId(this.equipementId).subscribe(Response => {
+      this.rapports = Response; console.log('--------------------------------rapports',this.rapports)
+    })
+   
   }
 
   LoadEquipementsParMois(){
@@ -70,9 +79,9 @@ export class EquipementDetailsComponent implements OnInit {
         this.floorService.getAnEquipementConsommation(this.equipementId, dateDebut, dateFin)
         .subscribe((data: any) =>{
           this.equipementInfos = data;
-          console.log(noms_mois[parseInt(this_mois)-1], ' equipementInfos : ', data)
+          //console.log(noms_mois[parseInt(this_mois)-1], ' equipementInfos : ', data)
           consommations_mois.push({nom: noms_mois[parseInt(this_mois)-1], y: data.consommation_kW})
-          console.log('consommations_mois: ', consommations_mois)
+          //console.log('consommations_mois: ', consommations_mois)
           this.consommation_annuelle_totale += data.consommation_kW;
   
           if(consommations_mois.length == new Date().getMonth() + 1){
@@ -100,7 +109,7 @@ export class EquipementDetailsComponent implements OnInit {
     let j = 0;
     while(newTab.length < new Date().getMonth() + 1) {
       month_data = consommations_mois.find(mois => mois.nom === noms_mois[j]);
-      console.log('moissssss: ', month_data)
+      //console.log('moissssss: ', month_data)
       if(prec==0 || j==0){
         diff.push(0)
       } else {
@@ -152,7 +161,7 @@ export class EquipementDetailsComponent implements OnInit {
               formatter: (function() {
 
                 return function() {
-                  console.log('this : ', this.y?.toFixed(2))
+                  //console.log('this : ', this.y?.toFixed(2))
                   if (this.y) {
                     i++; // Incrémenter i à chaque fois que la fonction est appelée
                     if(diff[i]){
@@ -186,7 +195,7 @@ export class EquipementDetailsComponent implements OnInit {
                 mouseOver: function() {
                   let afficheur= document.getElementById('afficheur-consommation')
                   if(afficheur){
-                    console.log(this.category)
+                    //console.log(this.category)
                     afficheur.innerHTML = '<div class="text-5xl text-gray-200 text-bold py-2 cons-totale-titre  flex justify-center"  *ngIf="equipementDetails">'+this.category+'</div>'+
                     '<div class="text-5xl text-gray-200 py-4 cons-totale-val  flex justify-center">'+this.y?.toFixed(2)+' kWh</div>'+
                     '<style>'+
@@ -199,7 +208,7 @@ export class EquipementDetailsComponent implements OnInit {
                 mouseOut: function() {
                   let afficheur= document.getElementById('afficheur-consommation')
                   if(afficheur){
-                    console.log(this.category)
+                    //console.log(this.category)
                     afficheur.innerHTML = '<div class="text-5xl text-gray-200 text-bold py-2 cons-totale-titre  flex justify-center"  *ngIf="equipementDetails">Total</div>'+
                     '<div class="text-5xl text-gray-200 py-4 cons-totale-val  flex justify-center">'+consommation_annuelle_totale?.toFixed(2)+' kWh</div>'+
                     '<style>'+
@@ -226,5 +235,8 @@ export class EquipementDetailsComponent implements OnInit {
 
   redirectToModifierEquipement(){
     this.router.navigate(['/updateEquipement', this.equipementId]);
+  }
+  redirectToRapportDetails(id: number) {
+    
   }
 }

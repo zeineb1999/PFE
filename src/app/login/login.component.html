@@ -8,6 +8,15 @@
         <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">{{'sign.title8' | translate}}</h1>
         <div class="space-y-4 md:space-y-6">
           <div>
+            <label for="role" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Role</label>
+            <select [(ngModel)]="role" id="role" name="role" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                <option value="Moyen generaux">Moyen Generaux</option>
+                <option value="Responsable de maintenance">Responsable de maintenance</option>
+                <option value="Responsable de l'hopital">Responsable de l'hopital</option>
+                <!-- Ajoutez d'autres options selon vos besoins -->
+            </select>
+        </div>
+          <div>
             <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{'login.title1' | translate}}</label>
             <input  [(ngModel)] = "register.username" placeholder="{{'login.title1' | translate}} " class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
           </div>
@@ -19,28 +28,83 @@
             <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{'login.title3' | translate}}</label>
             <input  [(ngModel)] = "register.last_name" placeholder="{{'login.title3' | translate}} " class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
           </div>
-          <div>
+         <!--  <div>
             <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{'login.title4' | translate}}</label>
             <input  [(ngModel)] = "register.password" placeholder="{{'login.title4' | translate}} " type="password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
+          </div> -->
+          <div class="py-2" x-data="{ show: true }">
+            <span class="px-1 text-sm text-gray-600">Password</span>
+            <div class="relative">
+                <input  [(ngModel)] = "register.password" placeholder="mot de passe" [type]="show ? 'password' : 'text'"
+                       class="text-md block px-3 py-2 rounded-lg w-full bg-white border-2 border-gray-300 placeholder-gray-600 shadow-md
+                                    focus:placeholder-gray-500 focus:bg-white focus:border-gray-600 focus:outline-none">
+                                    <button class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5" (click)="showPassword()">
+                                      <i class="fa fa-eye" aria-hidden="true" *ngIf="!show"></i>
+                                      <i class="fa fa-eye-slash" aria-hidden="true" *ngIf="show"></i>
+                                    </button>
+               
+            </div>
+        </div>
+        
+          
+          <div>
+            <label for="password2" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">confirmer {{'login.title4' | translate}}</label>
+            <input  [(ngModel)] = "password2" placeholder="confirmer mot de passe " type="password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
           </div>
           <div>
             <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{'login.title5' | translate}}</label>
             <input  [(ngModel)] = "register.email" placeholder="{{'login.title5' | translate}} " class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
           </div>
-          <div>
+        <!--   <div>
             <label for="role" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{'login.title6' | translate}}</label>
             <select [(ngModel)]="role" id="role" name="role" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                 <option value="Moyen generaux">{{'login.title7' | translate}}</option>
                 <option value="Responsable de maintenance">{{'login.title8' | translate}}</option>
                 <option value="Responsable de l'hopital">{{'login.title9' | translate}}</option>
-                <!-- Ajoutez d'autres options selon vos besoins -->
+              
             </select>
-        </div>
+           </div>
+        -->
+                  
+  <!--       <div class="flex items-center justify-center"> 
+          <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Vous êtes:</label>
+      </div>
+      
+  
+      <div class="flex flex-wrap justify-center"> 
+        
+          <div class="flex items-center me-4 mb-4">
+              <input id="inline-radio-1" type="radio" [(ngModel)]="role" value="administrateur" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+              <label for="inline-radio-1" class="ms-2 text-xs font-medium text-gray-900 dark:text-gray-300">Administrateur</label>
+          </div>
+      
+        
+          <div class="flex items-center me-10 mb-4">
+              <input id="inline-radio-2" type="radio" [(ngModel)]="role" value="moyens_generaux" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+              <label for="inline-radio-2" class="ms-2 text-xs font-medium text-gray-900 dark:text-gray-300">Moyens généraux</label>
+          </div>
+      
+      
+          <div class="flex items-center me-4 mb-4">
+              <input id="inline-checked-radio-1" type="radio" [(ngModel)]="role" value="responsable_maintenance" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+              <label for="inline-checked-radio-1" class="ms-2 text-xs font-medium text-gray-900 dark:text-gray-300">Responsable de maintenance</label>
+          </div>
+      
+       
+          <div class="flex items-center me-10 mb-4">
+              <input id="inline-radio-3" type="radio" [(ngModel)]="role" value="responsable_hopital" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+              <label for="inline-radio-3" class="ms-2 text-xs font-medium text-gray-900 dark:text-gray-300">Responsable de l'hôpital</label>
+          </div>
+      </div> -->
+      
+                
+                
+             
         
           <button (click)="registerUser()" class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" routerLink="/signup">Register User</button>
-          <p class="text-sm font-light text-gray-500 dark:text-gray-400">{{'login.title10' | translate}} <a
-              class="font-medium text-blue-600 hover:underline dark:text-blue-500" routerLink="/">{{'login.title11' | translate}}</a>
-          </p>
+         <!--  <p class="text-sm font-light text-gray-500 dark:text-gray-400">{{'login.title10' | translate}} <a
+              class="font-medium text-blue-600 hover:underline dark:text-blue-500" routerLink="/login">{{'login.title11' | translate}}</a>
+          </p> -->
         </div>
       </div>
     </div>

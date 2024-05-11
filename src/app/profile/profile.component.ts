@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { FloorService } from '../service/floor.service';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+  @ViewChild('passwordInput', { static: true }) passwordInput!: ElementRef;
+
   user: any;
   alertes: any[] = [];
+  rapports: any[] = [];
   utilisateurs: any[] = [];
   batiments: any[] = [];
   equipements: any[] = [];
@@ -32,9 +35,12 @@ export class ProfileComponent implements OnInit {
   demandeCodeEmail: boolean = false;
   roles: string[] = [];
 
-  constructor(private authService: AuthService, private floorService : FloorService) {this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true'; }
+  constructor(private authService: AuthService, private router: Router, private floorService : FloorService) {this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true'; }
 
   ngOnInit(): void {
+    this.floorService.getAllRapports().subscribe(rapports => {
+      this.rapports = rapports;
+    })
     this.authService.getAllusers().subscribe(users => {
       this.utilisateurs = users;
       console.log(this.utilisateurs);
@@ -72,7 +78,14 @@ export class ProfileComponent implements OnInit {
 
   this.getRoles();
   }
-  
+  addUser() {
+    this.router.navigate(['/signup']);
+    
+  }
+  togglePasswordVisibility() {
+    const passwordInputType = this.passwordInput.nativeElement.type;
+    this.passwordInput.nativeElement.type = passwordInputType === '{{user.password}}' ? 'text' : 'password';
+  }
   getRoles(): void {
     this.utilisateurs.forEach(utilisateur => {
       this.authService.getRole(utilisateur.id).subscribe(response => {
@@ -198,6 +211,10 @@ export class ProfileComponent implements OnInit {
     
     this.demandeModificationEmail = true;
     
+  }
+  modifierPassword() {
+
+    this.router.navigate(['/forgetPassword']);
   }
   generateRandomCode(): number {
     const min = 100000; // Le plus petit nombre à 6 chiffres

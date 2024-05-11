@@ -26,9 +26,11 @@ export class LoginComponent implements OnInit{
     last_name:'',
     first_name:'',
     password: '',
+
     email: ''
   };
   role: string=''
+  password2: string = '';
   ngOnInit(){
     this.role='';
     this.register ={
@@ -42,21 +44,33 @@ export class LoginComponent implements OnInit{
   
     
   }
+  show: boolean = true;
+
+  showPassword() {
+    this.show = !this.show;
+  }
+
   registerUser() {
-    this.userService.registerNewUser(this.register).subscribe(
-      response => {
-        const userId = response.id;
-        console.log('User ID:', userId);
-        this.userService.registerNewRole(userId, this.role).subscribe(
-          response => {
-            
-          }
-        )
-        alert('User '+ this.register.username+ ' Has been created ');
-        this.router.navigateByUrl('/login')
-      },
-      error =>   console.log( 'error',error)
-    );
+    if(this.password2 == this.register.password){
+      this.userService.registerNewUser(this.register).subscribe(
+        response => {
+          const userId = response.id;
+          console.log('User ID:', userId);
+          this.userService.registerNewRole(userId, this.role).subscribe(
+            response => {
+              
+            }
+          )
+          alert('User '+ this.register.username+ ' Has been created ');
+          this.router.navigateByUrl('/utilisateurs')
+          //this.router.navigateByUrl('/login')
+        },
+        error =>   console.log( 'error',error)
+      );
+    }
+    else{
+      alert('Password does not match');
+    }
   
 
   }

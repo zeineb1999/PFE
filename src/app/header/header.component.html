@@ -1,11 +1,7 @@
-
-<nav x-data="{ isOpen: false }" class="relative bg-white shadow" style="color: #18577a; font-weight: 500; ">
+<nav x-data="{ isOpen: false }" class="relative bg-white shadow p-2" style="color: #18577a; font-weight: 500;">
   <div class="container px-6 mx-auto">
       <div class="lg:flex lg:items-center lg:justify-between">
           <div class="flex items-center justify-between">
-              <span class="grid h-10 w-32 place-content-center rounded-lg bg-gray-100 text-xs text-gray-600">
-                <i class="fa-solid fa-hospital"></i>
-              </span>
 
               <!-- Mobile menu button -->
               <div class="flex lg:hidden">
@@ -19,70 +15,34 @@
                     </svg>
                 </button>
               </div>
-              <div class="flex flex-col -mx-6 lg:flex-row lg:items-center lg:mx-8">
-                <a href="#"
-                  class="py-2 mx-3 mt-2 transition-colors duration-300 transform lg:mt-0 " routerLink="/accueil"
-                >
-                  <div class=" px-4 py-2"
-                  [ngStyle]="{
-                    'background-color': getCurrentPage()=='accueil' || getCurrentSection()=='#accueil' ? '#18577a' : 'white',
-                    'color': getCurrentPage()=='accueil' || getCurrentSection()=='#accueil' ? 'white' : '#18577a',
 
-                  }" style="border-radius: 5px;">{{ 'header.acceuil' | translate }}</div>
-                </a>
-
-                <a href="accueil/#infos"
-                  class=" py-2 mx-3 mt-2 transition-colors duration-300 transform lg:mt-0 "
-                >
-                  <div class="px-4 py-2"
-                  [ngStyle]="{
-                    'background-color': getCurrentSection()=='#infos' ? '#18577a' : 'white',
-                    'color': getCurrentSection()=='#infos' ? 'white' : '#18577a',
-                  }" style="border-radius: 5px;">Infos</div>
-                </a>
-                <div *ngIf="isLoggedIn !== undefined && isLoggedIn">
-                <a href="#"
-                class="py-2 mx-3 mt-2 transition-colors duration-300 transform lg:mt-0 " routerLink="/dashboard2"
-              >
-                <div class=" px-4 py-2"
-                [ngStyle]="{
-                  'background-color': getCurrentPage()=='dashboard2' ? '#2563eb' : 'white',
-                  'color': getCurrentPage()=='dashboard2' ? 'white' : '#2563eb',
-                }" style="border-radius: 5px;">{{ 'header.titlefour' | translate }}</div>
-              </a>
-              
-                </div>
-                <div *ngIf="isLoggedIn !== undefined && isLoggedIn">
-                  <a href="#"
-                  class="py-2 mx-3 mt-2 transition-colors duration-300 transform lg:mt-0 " routerLink="/toutesZones"
-                >
-                  <div class=" px-4 py-2"
-                  [ngStyle]="{
-                    'background-color': getCurrentPage()=='dashboard2' ? '#2563eb' : 'white',
-                    'color': getCurrentPage()=='dashboard2' ? 'white' : '#2563eb',
-                  }" style="border-radius: 5px;">architecture</div>
-                </a>
-                </div>
-                <div *ngIf="isLoggedIn !== undefined && isLoggedIn">
-                  <a href="#"
-                  class="py-2 mx-3 mt-2 transition-colors duration-300 transform lg:mt-0 " routerLink="/equipements"
-                >
-                  <div class=" px-4 py-2"
-                  [ngStyle]="{
-                    'background-color': getCurrentPage()=='dashboard2' ? '#2563eb' : 'white',
-                    'color': getCurrentPage()=='dashboard2' ? 'white' : '#2563eb',
-                  }" style="border-radius: 5px;">Équipements</div>
-                </a></div>
-               <!--  <div class="bg-[#f8c625] h-2 w-6"></div>
-                <div class="bg-[#c5215b] h-2 w-6"></div>
-                <div class="bg-[#00acde] h-2 w-6"></div> -->
-              </div>
               <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                 <select class="form-select"  id="" (change)="ChangeLang($event)"  >
                   <option [selected]="lang==='fr'" value="fr">{{'language.french' | translate}} </option>
                   <option [selected]="lang==='en'" value="en">{{'language.english' | translate}}</option>
                 </select>
+              </li> -->
+              <li class="flex flex-row justify-center">
+
+                <div class="flex flex-row items-center right-1 ">
+                  <button (click)="ChangeLang('en')"
+                    class="flex p-2 flex-row items-center border rounded border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:bg-gray-200 focus:outline-none focus:shadow-sm">
+                    <!-- <span class="text-md">En</span> -->
+                    <span class="">
+                      <img src="../../assets/uk.png" class="w-5 h-5 p-0.2" />
+                    </span>
+                  </button>
+
+                  <button (click)="ChangeLang('fr')"
+                    class="flex p-2 flex-row items-center border rounded border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:bg-gray-200 focus:outline-none focus:shadow-sm">
+                    <!-- <span class="text-md">Fr</span> -->
+                    <span class="">
+                      <img src="../../assets/fr.png"class="w-5 h-5 p-0.2" />
+                    </span>
+                  </button>
+                </div>
+
               </li>
               </ul>
               <!--<h1>{{ 'header.title' | translate }}</h1>
@@ -92,8 +52,63 @@
                 <button (click)="switchLanguage('en')">{{ 'language.english' | translate }}</button>
               </div>-->
           </div>
+          <div *ngIf="isLoggedIn == undefined" class="flex items-center justify-end">
+            <!-- Votre logo d'université ici -->
+            <img src="../../assets/usthb.png" alt="Logo de l'université" style="width: 50px; height: 45px;">
+          </div>
+          <div *ngIf="isLoggedIn !== undefined && isLoggedIn && this.role!='admin'">
+            <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
+              <div x-cloak :class="[isOpenRapport ? 'translate-x-0 opacity-100 ' : 'opacity-0 -translate-x-full']" class="absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center">
+  
+  
+                  <div class="flex items-center justify-center-4 lg:mt-0 gap-2">
+  
+                    <div class="relative">
+                      <div class="inline-flex items-center overflow-hidden rounded-md border bg-white">
+  
+                        <button (click)="open_closeRapport()" class="h-full p-2 text-gray-600 hover:bg-gray-50 hover:text-gray-700">
+                          <i class="fa-solid fa-envelope fa-xl"></i>
+                          <span class="nbRapports">{{rapportNew}}</span>
+                        </button>
+                      </div>
+  
+                      <div style="display: none;" id="rapports"
+                        class="absolute end-0 z-10 mt-2 w-56 rounded-md border border-gray-100 bg-white shadow-lg overflow-y-auto custom-scrollbar" role="menu">
+                        <div class="w-full">
+                          <a href="/rapport-details/{{alerte.alerte}}" *ngFor="let alerte of rapports" class="" role="menuitem">
+                            <div *ngIf="alerte.vu" class="bg-white block px-4 py-4 text-sm text-[#18577ac9] hover:bg-[#18577a24] hover:text-[#18577a] border border-b-[#18577a24] flex justify-between items-start">
+                             Vous avez un rapport
+                           
+                            
+                              <div class="ml-4" 
+                                style="display: flex;flex-direction: column;align-items: normal;height: unset;">
+                                <span style="font-size: smaller; margin-bottom: 30%;display: flex;justify-content: end;">12:30</span>
+                                <span style="color: #c5215b; font-size: larger;"> Wh</span>
+                              </div>
+                            </div>
+                            <div *ngIf="!alerte.vu" class=" bg-[#18577a17] block px-4 py-4 text-sm text-[#18577ac9] hover:bg-[#18577a24] hover:text-[#18577a] border border-transparent border-b-[#18577a24] flex justify-between items-start">
+                              vous avez un nouveau rapport
+                             
+                           
+                              <div class="ml-4"
+                                style="display: flex;flex-direction: column;align-items: normal;height: unset;">
+                                <span style="font-size: smaller; margin-bottom: 30%;display: flex;justify-content: end;">12:30</span>
+                                <span style="color: #c5215b; font-size: larger;"> Wh</span>
+                              </div>
+                            </div>
+                          </a>
+  
+                        </div>
+                      </div>
+                    </div>
+  
+                   
+                  </div>
+  
+              </div>
+            </div>
 
-          <div *ngIf="isLoggedIn !== undefined && isLoggedIn">
+        
           <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
             <div x-cloak :class="[isOpen ? 'translate-x-0 opacity-100 ' : 'opacity-0 -translate-x-full']" class="absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center">
 
@@ -105,15 +120,14 @@
 
                       <button (click)="open_close()" class="h-full p-2 text-gray-600 hover:bg-gray-50 hover:text-gray-700">
                         <i class="fa-regular fa-bell fa-xl"></i>
-                        <!-- <span class="nbNotifs">12</span> -->
+                        <span class="nbNotifs">{{alertesNew}}</span>
                       </button>
                     </div>
 
                     <div style="display: none;" id="notifs"
                       class="absolute end-0 z-10 mt-2 w-56 rounded-md border border-gray-100 bg-white shadow-lg overflow-y-auto custom-scrollbar" role="menu">
                       <div class="w-full">
-                        <a href="/alerte-details/{{alerte.id}}" *ngFor="let alerte of alertes" class=""
-                        role="menuitem">
+                        <a href="/alerte-details/{{alerte.id}}" *ngFor="let alerte of alertes" class="" role="menuitem">
                           <div *ngIf="alerte.vu" class="bg-white block px-4 py-4 text-sm text-[#18577ac9] hover:bg-[#18577a24] hover:text-[#18577a] border border-b-[#18577a24] flex justify-between items-start">
                             {{alerte.text}}
                             <div class="ml-4" *ngIf="alerte.type=='temperature'" style="display: flex;flex-direction: column;align-items: normal;height: unset;">
@@ -165,12 +179,8 @@
                     </div>
                   </div>
 
-                  <button type="button" class="flex items-center focus:outline-none border border-0 rounded-full " aria-label="toggle profile dropdown">
-                      <div class="w-10 h-10 p-2">
-                          <img src="./assets/utilisateur.png" class="object-cover w-full h-full" alt="avatar" routerLink="/profile">
-                      </div>
-                  </button>
-                </div>
+                 
+                
 
             </div>
           </div>

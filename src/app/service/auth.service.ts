@@ -11,13 +11,17 @@ export class AuthService {
   login(username: string, password: string) : Observable<any>{
     return this.http.post<any>('http://127.0.0.1:8000/api/api/token/', { username, password });
   }
+  getId(username: string) : Observable<any>{
+    const url = `http://127.0.0.1:8000/api/getId/${username}`;
+    return this.http.get<any>(url);
+  }
   logout() {
     // Supprimez le token JWT stocké côté client
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('role');
     localStorage.removeItem('token');
     localStorage.removeItem('id');
-    this.router.navigate(['/login']);
+    this.router.navigate(['/acceuil']);
   }
 
   getToken() {
