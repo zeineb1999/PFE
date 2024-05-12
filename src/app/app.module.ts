@@ -74,6 +74,10 @@ import { UtilisateursComponent } from './utilisateurs/utilisateurs.component';
 import { AjouterBatimentComponent } from './ajout/ajouter-batiment/ajouter-batiment.component';
 import { RapportDetailsComponent } from './rapport-details/rapport-details.component';
 import { BarChartComponent } from './dashboard2/bar-chart/bar-chart.component';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+
+const config: SocketIoConfig = { url: 'http://localhost:8000', options: {} };
+
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -83,6 +87,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppComponent,
     DashboardComponent,
     HeaderComponent,
+    
    
     FooterComponent,
     SideComponent,
@@ -153,6 +158,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatPaginatorModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    SocketIoModule.forRoot(config),
     
 
     TranslateModule.forRoot({

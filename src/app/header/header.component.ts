@@ -1,13 +1,20 @@
-import { Component, ElementRef,OnDestroy, Renderer2, Input, OnInit } from '@angular/core';
+import { Component, ElementRef,OnDestroy, Renderer2, Input, OnInit,Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { FloorService } from '../service/floor.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ColorString } from 'highcharts/highcharts.src';
 import {Subscription,interval} from 'rxjs';
+import { WebSocketService } from '../service/web-socket.service';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
+})
+
+
+@Injectable({
+  providedIn: 'root'
 })
 export class HeaderComponent implements OnInit {
   lang: string = '';
@@ -24,6 +31,7 @@ export class HeaderComponent implements OnInit {
   alertesNew: any;
   rapportNew: any;
   rapports: any;
+  message: string = '';
   alerteSubscription: Subscription | undefined;
   rapportSubscription: Subscription | undefined;
   onAlertChange(local: string, temperature: number, nowSlash: ColorString) {
@@ -32,13 +40,20 @@ export class HeaderComponent implements OnInit {
 
   AlerteMessage: string = '';
 
-  constructor(private floorService: FloorService, private router: Router,private translate: TranslateService, private renderer: Renderer2, private el: ElementRef) {
+  constructor(private webSocketService: WebSocketService,private floorService: FloorService, private router: Router,private translate: TranslateService, private renderer: Renderer2, private el: ElementRef) {
     this.isLoggedIn = localStorage.getItem('isLoggedIn')
   }
 
   currentSection: string = '';
-
+  sendMessage() {
+    this.webSocketService.sendMessage(this.message);
+    this.message = '';
+  }
   ngOnInit() {
+    this.webSocketService.getMessage().subscribe((message:any) => {
+      console.log('New message received: ', message);
+    });
+    
     
     this.user = localStorage.getItem('id');
     this.role = localStorage.getItem('role');
