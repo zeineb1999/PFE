@@ -1,3 +1,6 @@
+
+
+
 <div class="flex h-screen flex-col justify-between border-e bg-white">
   <div class="px-4 py-6">
     <span class="grid h-10 w-32 place-content-center rounded-lg bg-gray-100 text-xs text-gray-600">
@@ -7,8 +10,8 @@
     <ul class="mt-6 space-y-1">
       <li >
         <a href="#" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700" routerLink="/" [ngStyle]="{
-            'color': getCurrentPage()=='' || getCurrentSection()=='#' ? 'white' : '' ,
-            'background-image':getCurrentPage()=='' || getCurrentSection()=='' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%)' :'none'
+            'color': getCurrentPage()=='' || url=='http://localhost:4200/' ? 'white' : '' ,
+            'background-image':getCurrentPage()=='' || url=='http://localhost:4200/' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%)' :'none'
           }" style="background-color: white;">
           {{ 'header.acceuil' | translate }}
         </a>

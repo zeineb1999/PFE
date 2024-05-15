@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit {
   demandeCodeEmail: boolean = false;
   roles: string[] = [];
 
-  constructor(private authService: AuthService, private router: Router, private floorService : FloorService) {this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true'; }
+  constructor(private authService: AuthService, private router: Router, private floorService : FloorService) {this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true'; }
 
   ngOnInit(): void {
     this.floorService.getAllRapports().subscribe(rapports => {
@@ -69,8 +69,8 @@ export class DashboardComponent implements OnInit {
         this.authService.getRole(this.user.id).subscribe(response => {
           this.userRole=response;
           this.role = this.userRole.role;
-          localStorage.setItem('role', this.role);
-          localStorage.setItem('id', this.user.id);
+          sessionStorage.setItem('role', this.role);
+          sessionStorage.setItem('id', this.user.id);
         }) 
       }
   });
@@ -129,7 +129,7 @@ export class DashboardComponent implements OnInit {
       .subscribe(response => {
         this.successMessage = 'Modification effectuée !';
         setTimeout(() => {
-          localStorage.setItem('isLoggedIn', 'true');
+          sessionStorage.setItem('isLoggedIn', 'true');
           this.successMessage = ''; // Effacer le message après quelques secondes
          }, 1000); 
          });

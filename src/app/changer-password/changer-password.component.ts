@@ -65,7 +65,7 @@ export class ChangerPasswordComponent  implements OnInit {
 
   ngOnInit(): void {
     
-    const storedEmail = localStorage.getItem('verificationEmail');
+    const storedEmail = sessionStorage.getItem('verificationEmail');
     if (storedEmail) {
       this.emailValide = storedEmail;
     }

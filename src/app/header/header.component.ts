@@ -26,8 +26,10 @@ export class HeaderComponent implements OnInit {
   openRapport: Boolean = false
   alertes: any;
   isLoggedIn: any;
+  webSocket: any[] = []; 
   user: any;
   role: any;
+  AlerteId: any;
   alertesNew: any;
   rapportNew: any;
   rapports: any;
@@ -39,27 +41,104 @@ export class HeaderComponent implements OnInit {
   }
 
   AlerteMessage: string = '';
+  AlerteMessageUser: string = '';
 
-  constructor(private webSocketService: WebSocketService,private floorService: FloorService, private router: Router,private translate: TranslateService, private renderer: Renderer2, private el: ElementRef) {
-    this.isLoggedIn = localStorage.getItem('isLoggedIn')
+  constructor(private wsService: WebSocketService,private floorService: FloorService, private router: Router,private translate: TranslateService, private renderer: Renderer2, private el: ElementRef) {
+    this.isLoggedIn = sessionStorage.getItem('isLoggedIn')
   }
 
   currentSection: string = '';
-  sendMessage() {
-    this.webSocketService.sendMessage(this.message);
-    this.message = '';
-  }
+ 
   ngOnInit() {
-    this.webSocketService.getMessage().subscribe((message:any) => {
-      console.log('New message received: ', message);
-    });
+    this.user = sessionStorage.getItem('id');
+    this.role = sessionStorage.getItem('role');
+    this.isLoggedIn = sessionStorage.getItem('isLoggedIn')
+    this.lang = sessionStorage.getItem('lang') || 'fr';
+    if(this.role === 'Responsable de maintenance' || this.role === 'responsable de maintenance') {
+      this.floorService.getAlertesById(this.user).subscribe(
+        (data) => {
+          console.log('cas maintenance : ')
+          this.alertes = data;
+          this.alertesNew = 0;
+          this.trieralertes(this.alertes);
+          
+        }
+      )
+    } 
+    
+    if(this.role === 'Admin' || this.role === 'Moyen generaux' || this.role === 'moyen generaux') {
+      this.floorService.getAlertesSansId().subscribe((alertes: any) => {
+        console.log('cas contraire : ')
+        console.log('alertes : ', alertes)
+        this.alertes = alertes;
+        this.alertesNew = 0;
+        this.trieralertes(this.alertes);
+      });
+    }
+    const roomName = 'notification_test';
+    if(this.role === 'Moyen generaux' || this.role === 'moyen generaux') {
+    this.wsService.connect(roomName).subscribe(
+      (message) => {
+        console.log('Received message:', message);
+        this.webSocket.unshift(message.message);
+        if(this.role === 'Moyen generaux' || this.role === 'moyen generaux') {
+
+          if(message && message.message){
+            const{id} = message.message;
+            this.AlerteId = id;
+            console.log('id ----------->', id)
+            const { text, localId, type } = message.message; // Récupérez les propriétés nécessaires du message
+            this.AlerteMessage = `vous avez une alerte au Local ${localId}: ${text} type: ${type}`;
+            console.log('les alertes  avanr push-------------->', this.alertes)
+            this.alertes.push(message.message);
+            console.log('les alertes  apres push-------------->', this.alertes)
+            console.log('rrrrrrrrrr ', this.AlerteMessage)
+    
+            setTimeout(() => {
+              this.AlerteMessage = '';
+          }, 5000);
+          }
+        }
+      },
+      (error) => {
+        console.error('WebSocket error:', error);
+      },
+      () => {
+        console.log('WebSocket connection closed');
+      }
+    );
+    }
+    if(this.role === 'Responsable de maintenance' || this.role === 'responsable de maintenance') {
+    this.wsService.connectUser().subscribe((messageUser: any) => {
+      
+      console.log('Received messageUSER :', messageUser);
+        this.webSocket.unshift(messageUser.message);
+        if(this.role === 'Responsable de maintenance' || this.role === 'responsable de maintenance') {
+          if(messageUser && messageUser.message){
+            const{id} = messageUser.message;
+            this.AlerteId = id;
+            console.log('id ----------->', id)
+            const { text, localId, type } = messageUser.message; // Récupérez les propriétés nécessaires du message
+            this.AlerteMessageUser = `vous avez une alerte pour faire un rapport`;
+            //this.alertes.push(this.AlerteMessage);
+            console.log('rrrrrrrrrr ', this.AlerteMessageUser)
+    
+            setTimeout(() => {
+              this.AlerteMessageUser = '';
+          }, 5000);
+          }
+        }
+    })
+    }
+    /* this.webSocketService.getMessages().subscribe((message: string) => {
+      console.log('Message from Django:', message);
+      // Traitez le message ici (par exemple, affichez-le dans une alerte)
+    }); */
     
     
-    this.user = localStorage.getItem('id');
-    this.role = localStorage.getItem('role');
-    this.isLoggedIn = localStorage.getItem('isLoggedIn')
-    this.lang = localStorage.getItem('lang') || 'fr';
-    if(this.isLoggedIn === 'true') {
+    
+   
+     /*if(this.isLoggedIn === 'true') {
       this.rapportSubscription = interval(1000).subscribe(() => {
         
         if (this.role === 'Moyen generaux' || this.role === 'moyen generaux') {
@@ -95,8 +174,11 @@ export class HeaderComponent implements OnInit {
         
 
       });
-    }
+    } */
   }
+ /*  sendMessage() {
+    this.webSocketService.sendMessage('Hello from Angular!');
+  } */
   trieralertes(alertes: any) {
     //console.log("alertes ",this.alertes)
       this.alertes.forEach((alerte: any) => {
@@ -106,6 +188,12 @@ export class HeaderComponent implements OnInit {
         }
       })
   }
+  redirectToAlerteDetails(alerteId: number) {
+    this.AlerteMessage = '';
+    console.log('alerteId', alerteId)
+    this.router.navigate(['/alerte-details/', alerteId]);
+  }
+  
   trierrapports(rapports: any) {
     //console.log("alertes ",this.alertes)
       this.rapports.forEach((rapport: any) => {
@@ -186,7 +274,7 @@ export class HeaderComponent implements OnInit {
   }
   ChangeLang(lang:string){
     const selectedLanguage= lang;
-    localStorage.setItem('lang', selectedLanguage);
+    sessionStorage.setItem('lang', selectedLanguage);
 
     this.translate.use(selectedLanguage);
   }

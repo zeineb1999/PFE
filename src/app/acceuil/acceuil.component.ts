@@ -23,10 +23,10 @@ export class AcceuilComponent {
     if (this.username && this.password) {
       this.authService.login(this.username, this.password).subscribe(response => {
         console.log(response)
-        localStorage.setItem('token', response.access);
+        sessionStorage.setItem('token', response.access);
         this.successMessage = 'Connexion réussie !';
         setTimeout(() => {
-          localStorage.setItem('isLoggedIn', 'true');
+          sessionStorage.setItem('isLoggedIn', 'true');
           this.successMessage = ''; // Effacer le message après quelques secondes
           this.router.navigate(['/profile']); // Redirigez l'utilisateur vers la page de tableau de bord après la connexion réussie
         }, 1000); // 3000 millisecondes = 3 secondes

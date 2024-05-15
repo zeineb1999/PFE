@@ -48,7 +48,7 @@ export class AjouterEquipementComponent implements OnInit {
     private route: ActivatedRoute,
     private renderer: Renderer2,
     private el: ElementRef
-  ) { this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+  ) { this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
     this.getZones();
   }
 

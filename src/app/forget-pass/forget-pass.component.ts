@@ -35,8 +35,8 @@ export class ForgetPassComponent implements OnInit {
         this.successMessage = 'Email envoyé verifier votre boite email  !';
         setTimeout(() => {
           if (this.code && this.email) {
-            localStorage.setItem('verificationCode', this.code.toString());
-            localStorage.setItem('verificationEmail', this.email.toString());
+            sessionStorage.setItem('verificationCode', this.code.toString());
+            sessionStorage.setItem('verificationEmail', this.email.toString());
           
           }
           this.successMessage = ''; // Effacer le message après quelques secondes

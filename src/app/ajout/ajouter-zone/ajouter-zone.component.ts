@@ -18,7 +18,7 @@ export class AjouterZoneComponent implements OnInit {
   isLoggedIn: boolean;
   
   constructor(private floorService:FloorService,private route: ActivatedRoute, private router: Router) {
-   this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+   this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
   
    }
 

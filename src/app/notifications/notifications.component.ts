@@ -15,9 +15,9 @@ export class NotificationsComponent implements OnInit {
   isLoggedIn: boolean;
   roleUser: any;
   idUser: any;
-  constructor(private floorService: FloorService) { this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-    this.roleUser=localStorage.getItem('role');
-    this.idUser=localStorage.getItem('id');
+  constructor(private floorService: FloorService) { this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+    this.roleUser=sessionStorage.getItem('role');
+    this.idUser=sessionStorage.getItem('id');
    }
 
   ngOnInit(): void {

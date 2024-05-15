@@ -46,7 +46,7 @@ export class AjoutEquipementSansZoneComponent implements OnInit {
    
   }  ;
   constructor(private floorService: FloorService, private router: Router, // Injecter Router
-  private route: ActivatedRoute) {this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+  private route: ActivatedRoute) {this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
     this.getZones();
   }
   getZones = () => {

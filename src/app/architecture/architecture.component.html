@@ -1,603 +1,561 @@
-<app-header></app-header>
-<div class="h-3/4">
-
-    <div class="w-1/2 mx-auto mt-7 mb-4">
-      <div class="overflow-hidden rounded-full bg-gray-200">
-        <div class="h-2 {{width}} transition-all duration-500 rounded-full bg-blue-500"></div>
-      </div>
-  
-      <ol class="mt-4 grid grid-cols-4 text-sm font-medium text-gray-500">
-        <li class="flex items-center justify-start {{color[0]}} sm:gap-1.5">
-          <span class="hidden sm:inline">{{'ajoutC1.title63' | translate }}</span>
-  
-          <svg
-            class="h-6 w-6 sm:h-5 sm:w-5"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"
-            />
-          </svg>
-        </li>
-  
-        <li class="flex items-center justify-center {{color[1]}} sm:gap-1.5">
-          <span class="hidden sm:inline">{{'ajoutC1.title41' | translate }}</span>
-  
-          <svg
-            class="h-6 w-6 sm:h-5 sm:w-5"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"
-            />
-          </svg>
-        </li>
-  
-        <li class="flex items-center justify-end {{color[2]}} sm:gap-1.5">
-          <span class="hidden sm:inline">{{'ajoutC1.title42' | translate }}</span>
-  
-          <svg
-            class="h-6 w-6 sm:h-5 sm:w-5"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"
-            />
-          </svg>
-        </li>
-        <li class="flex items-center justify-end {{color[3]}} sm:gap-1.5">
-          <span class="hidden sm:inline">{{'ajoutC1.title65' | translate }}</span>
-  
-          <svg
-            class="h-6 w-6 sm:h-5 sm:w-5"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
-            />
-          </svg>
-        </li>
-       
-      </ol>
-    </div>
+<div class="w-full flex justify-start text-2xl font-medium text-gray-700 mx-8 mt-4 mb-6">
+  Réinitialiser l'architecture de l'hopital
   </div>
-
-  <section class="max-w-4xl mb-28 p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
-    <ng-container *ngIf="step==0">
-      <h2 class="text-lg mb-5 font-semibold text-gray-700 capitalize dark:text-white">{{'architecture.title1' | translate }} </h2>
   
-      <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-        <ng-container *ngFor="let champ of champsTitle">
-          <div *ngIf="champ === 'Nombre de Batiments'">
-            <div class="flex justify-between">
-              <label class="text-gray-700 dark:text-gray-200" for="">{{ champ }}</label>
-            </div>
-            <input [(ngModel)]="nombreBatiments" required type="number" (change)="generateBuildingNames()" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
+  <div class="bg-white shadow-md rounded-lg mx-auto overflow-y-auto custom-scrollbar my-4 p-8" style="width: 95%">
+  <div class="flow-root">
+    <dl class="-my-3 divide-y divide-gray-100 text-sm">
+      <div class="h-3/4">
+        <!--Barre de progression-->
+        <div class="w-full mx-auto mt-7 mb-4">
+          <div class="overflow-hidden rounded-full bg-gray-200">
+            <div class="h-2 {{width}} transition-all duration-500 rounded-full bg-blue-500"></div>
           </div>
-        </ng-container>
+  
+          <ol class="mt-4 grid grid-cols-4 text-sm font-medium text-gray-500">
+            <!--Batiments-->
+            <li class="flex items-center justify-start {{color[0]}} sm:gap-1.5">
+              <span class="hidden sm:inline">{{'ajoutC1.batiment' | translate }}</span>
+  
+              <svg class="h-6 w-6 sm:h-5 sm:w-5" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2" />
+              </svg>
+            </li>
+  
+            <!--Etages-->
+            <li class="flex items-center justify-center {{color[1]}} sm:gap-1.5">
+              <span class="hidden sm:inline">{{'ajoutC1.title41' | translate }}</span>
+  
+              <svg class="h-6 w-6 sm:h-5 sm:w-5" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2" />
+              </svg>
+            </li>
+  
+            <!--Locaux-->
+            <li class="flex items-center justify-end {{color[2]}} sm:gap-1.5">
+              <span class="hidden sm:inline">{{'ajoutC1.title42' | translate }}</span>
+  
+              <svg class="h-6 w-6 sm:h-5 sm:w-5" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2" />
+              </svg>
+            </li>
+  
+            <!--Equipements-->
+            <li class="flex items-center justify-end {{color[3]}} sm:gap-1.5">
+              <span class="hidden sm:inline">{{'ajoutC1.title65' | translate }}</span>
+  
+              <svg class="h-6 w-6 sm:h-5 sm:w-5" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+              </svg>
+            </li>
+          </ol>
+        </div>
       </div>
   
-      <ng-container *ngIf="nombreBatiments > 0">
-        <div class="grid grid-cols-1 gap-6 mt-4">
-          <ng-container *ngFor="let i of [].constructor(nombreBatiments); let index = index">
-            <div>
-              <label class="text-gray-700 dark:text-gray-200" for="">{{'ajoutC1.title3' | translate }}{{'ajoutC1.title63' | translate }} {{ index + 1 }}</label>
-              <input [(ngModel)]="nomsBatiments[index]" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring sm:w-full">
-    
-              <label *ngIf="typesBatiments[index] !== 'Autre'" class="text-gray-700 dark:text-gray-200" for="">{{'ajoutC1.title7' | translate }}{{'ajoutC1.title63' | translate }}{{ index + 1 }}</label>
-              <select *ngIf="typesBatiments[index] !== 'Autre'" [(ngModel)]="typesBatiments[index]" (change)="categorieChangeBatiment(index)">
-                <option *ngFor="let categorie of categoriesLocaux">{{ categorie }}</option>
-              </select>  
-              <br><br>
-              <div *ngIf="typesBatiments[index] === 'Autre'">
+      <section class="mb-28 mx-auto ">
+        <ng-container *ngIf="step==0">
+          <h2 class="text-lg mb-5 font-semibold text-gray-700 capitalize dark:text-white">
+            {{'architecture.ajouterBatiment' | translate}} </h2>
+  
+          <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+            <ng-container *ngFor="let champ of champsTitle">
+              <div *ngIf="champ === 'Combiens de batiments voulez-vous insérer ?'">
                 <div class="flex justify-between">
-                  <label class="text-gray-700 dark:text-gray-200" for="">{{'ajoutC1.title7' | translate }}{{'ajoutC1.title63' | translate }} {{ index + 1 }}</label>
+                  <label class="block mb-2 text-sm font-medium text-gray-900 " style="font-size: medium;">
+                    {{ champ }}</label>
                 </div>
-                <input [(ngModel)]="typeBatiment[index]" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
+                <input *ngIf="nombreBatiments >= 1" [(ngModel)]="nombreBatiments" required type="number"
+                  (change)="generateBuildingNames()"
+                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring">
+                <input *ngIf="nombreBatiments < 1" [(ngModel)]="nombreBatiments" required type="number"
+                  (change)="generateBuildingNames()"
+                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md border-red-400 ring-red-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
               </div>
-              <button 
-                (click)="ajouterNew(nomsBatiments[index],typeBatiment[index]||typesBatiments[index] , index)" 
-                [class.enfonce]="boutonsAjouterEnfonce[index]"
-                class="px-5 mx-2 my-2 text-white transition-colors duration-300 transform bg-blue-400 rounded-md disabled:bg-gray-300 hover:bg-blue-300 focus:outline-none whitespace-nowrap">
-                {{'architecture.title2' | translate }}
-              </button>
+            </ng-container>
+          </div>
+  
+          <ng-container *ngIf="nombreBatiments > 0">
+            <div class="grid grid-cols-1 gap-6 mt-4">
+              <ng-container *ngFor="let i of [].constructor(nombreBatiments); let index = index">
+                <div>
+                  <!--Batiment1-->
+                  <div class="block mb-2 text-sm font-medium text-gray-900 " style="font-size: medium;">
+                    {{'ajoutC1.batiment' | translate }} {{ index + 1 }}</div>
+  
+                  <div class="flex w-full gap-6">
+                    <!--Name input-->
+                    <div class="flex gap-10 items-center my-2">
+                      <label class="block text-sm font-medium text-gray-900 "
+                        style="font-size: small;">{{'ajoutC1.nom' | translate }}</label>
+                      <input [(ngModel)]="nomsBatiments[index]" type="text"
+                        class="block px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring">
+                    </div>
+  
+                    <!--Type input-->
+                    <div class="flex gap-10 items-center my-2">
+                      <label class="block text-sm font-medium text-gray-900 " style="font-size: small;"
+                        for="">{{'ajoutC1.type' | translate }}</label>
+                      <select *ngIf="typesBatiments[index] !== 'Autre'" [(ngModel)]="typesBatiments[index]"
+                        (change)="categorieChangeBatiment(index)"
+                        class="block px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring">
+                        <option *ngFor="let categorie of categoriesLocaux">{{ categorie }}</option>
+                      </select>
+  
+                      <input *ngIf="typesBatiments[index] === 'Autre'" [(ngModel)]="typeBatiment[index]"
+                        type="text"
+                        class="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
+                    </div>
+  
+                    <button
+                      *ngIf="typesBatiments[index] && nomsBatiments[index] && typesBatiments[index].length > 0 && nomsBatiments[index].length > 0"
+                      (click)="ajouterNew(nomsBatiments[index],typeBatiment[index]||typesBatiments[index] , index)"
+                      [class.enfonce]="boutonsAjouterEnfonce[index]"
+                      class="px-5 mx-2 my-2 font-medium text-white transition-colors duration-300 transform bg-[#3b82f6] rounded-md disabled:bg-gray-300 hover:bg-blue-300 focus:outline-none whitespace-nowrap">
+                      {{'architecture.ajouter' | translate }}
+                    </button>
+                  </div>
+  
+                </div>
+              </ng-container>
+  
+            </div>
+  
+  
+          </ng-container>
+  
+          <!-- icones ajoutés -->
+          <ng-container *ngIf="tousLesNomsBatiments.length > 0">
+            <div class="flex flex-wrap lg:w-4/5 sm:mx-auto sm:mb-2 -mx-2 p-4">
+              <div *ngFor="let nom of tousLesNomsBatiments" class="p-6 sm:w-1/2 w-full">
+                <div class="bg-gray-100 rounded flex p-4 h-full items-center">
+                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                    stroke-width="3" class="text-indigo-500 w-6 h-6 flex-shrink-0 mr-4" viewBox="0 0 24 24">
+                    <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
+                    <path d="M22 4L12 14.01l-3-3"></path>
+                  </svg>
+                  <span class="font-normal">
+                    {{'ajoutC1.batiment' | translate}}
+                    <span class="font-medium">{{ nom }}</span>
+                    {{'ajoutC1.ajoutee' | translate}}
+                  </span>
+                </div>
+              </div>
             </div>
           </ng-container>
-          
-        </div>
   
-        <div class="flex justify-end mt-10">
-          <button (click)="saveAndAddBuildings()" class="px-8 text-white transition-colors duration-300 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Suivant</button>
-        </div>
-      </ng-container>
-  
-      <ng-container *ngIf="tousLesNomsBatiments.length > 0">
-        <div class="flex flex-wrap lg:w-4/5 sm:mx-auto sm:mb-2 -mx-2 p-4">
-          <div *ngFor="let nom of tousLesNomsBatiments" class="p-6 sm:w-1/2 w-full">
-            <div class="bg-gray-100 rounded flex p-4 h-full items-center">
-              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
-                class="text-indigo-500 w-6 h-6 flex-shrink-0 mr-4" viewBox="0 0 24 24">
-                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
-                <path d="M22 4L12 14.01l-3-3"></path>
-              </svg>
-              <span class="font-medium">{{ nom }}</span>
-            </div>
+          <!--Button suivant-->
+          <div *ngIf="tousLesBatiments.length > 0" class="flex justify-end mt-10">
+            <button (click)="saveAndAddBuildings()"
+              class="px-6 py-2 text-white transition-colors duration-300 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+              style="color: white; background-image: linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%);">
+              {{'ajoutC1.suivant' | translate}}
+            </button>
           </div>
-        </div>
-      </ng-container>
-      {{'architecture.title3'|translate}}
-     </ng-container>
+          <div *ngIf="tousLesBatiments.length == 0" class="flex justify-end mt-10">
+            <button disabled (click)="saveAndAddBuildings()"
+              class="disabled px-6 py-2 text-white transition-colors duration-300 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+              style="color: white; background-image: linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%); opacity: 50%">
+              {{'ajoutC1.suivant' | translate}}
+            </button>
+          </div>
+        </ng-container>
   
   
-    <ng-container *ngIf="step == 1">
-      <h2 class="text-lg mb-5 font-semibold text-gray-700 capitalize dark:text-white">Les étages</h2>
-      
-      <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-        <div *ngIf="indiceBatimentCourant < tousLesBatiments.length">
-          <div>
-            <div class="flex justify-between">
-              <label class="text-gray-700 dark:text-gray-200" for="">Nombre d'étages pour {{ tousLesNomsBatiments[indiceBatimentCourant] }}</label>
-            </div>
-            <input [(ngModel)]="nombreEtages" required type="number" (change)="generateBuildingNames()" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
-            
-            <ng-container *ngFor="let i of [].constructor(nombreEtages); let index = index">
+        <ng-container *ngIf="step == 1">
+          <h2 class="text-lg mb-5 font-semibold text-gray-700 capitalize dark:text-white">
+            {{'architecture.ajouterEtages' | translate}}
+          </h2>
+  
+          <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+            <div *ngIf="indiceBatimentCourant < tousLesBatiments.length">
               <div>
                 <div class="flex justify-between">
-                  <label class="text-gray-700 dark:text-gray-200" for="">Nom Etage {{ index + 1 }}</label>
+                  <label class="block mb-2 text-sm font-medium text-gray-900 " style="font-size: medium;">
+                    Saisir le nombre d'étages dans le batiment {{ tousLesNomsBatiments[indiceBatimentCourant] }}
+                  </label>
                 </div>
-                <input [(ngModel)]="nomsEtages[index]" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
-                <button 
-                  (click)="ajouterNewEtage(nomsEtages[index],tousLesTypesBatiments[indiceBatimentCourant] ,tousLesBatiments[indiceBatimentCourant], index)" 
-                  [class.enfonce]="boutonsAjouterEtageEnfonce[index]"
-                  class="px-5 mx-2 my-2 text-white transition-colors duration-300 transform bg-blue-400 rounded-md disabled:bg-gray-300 hover:bg-blue-300 focus:outline-none whitespace-nowrap">
-                  {{'architecture.title4'|translate}}
-                </button>
+  
+                <input *ngIf="nombreEtages >= 1" [(ngModel)]="nombreEtages" required type="number"
+                  (change)="generateBuildingNames()"
+                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring">
+                <input *ngIf="nombreEtages < 1" [(ngModel)]="nombreEtages" required type="number"
+                  (change)="generateBuildingNames()"
+                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md border-red-400 ring-red-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
+  
+                <div class="grid grid-cols-1 gap-6 mt-4">
+                  <ng-container *ngFor="let i of [].constructor(nombreEtages); let index = index">
+                    <div>
+                      <div class="block mb-2 text-sm font-medium text-gray-900 " style="font-size: medium;">
+                        {{'ajoutC1.etage' | translate}} {{ index + 1 }}
+                      </div>
+                      <!--nom etage-->
+                      <div class="flex w-full gap-6">
+                        <div class="flex gap-10 items-center my-2">
+                          <label class="block text-sm font-medium text-gray-900 "
+                            style="font-size: small;">{{'ajoutC1.nom' | translate}}</label>
+                          <input [(ngModel)]="nomsEtages[index]" type="text"
+                            class="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring">
+                        </div>
+  
+                        <button *ngIf="nomsEtages[index] && nomsEtages[index].length > 0"
+                          (click)="ajouterNewEtage(nomsEtages[index],tousLesTypesBatiments[indiceBatimentCourant] ,tousLesBatiments[indiceBatimentCourant], index)"
+                          [class.enfonce]="boutonsAjouterEtageEnfonce[index]"
+                          class="px-5 mx-2 my-2 font-medium text-white transition-colors duration-300 transform bg-[#3b82f6] rounded-md disabled:bg-gray-300 hover:bg-blue-300 focus:outline-none whitespace-nowrap">
+                          {{'architecture.ajouter' | translate }}
+                        </button>
+                      </div>
+  
+                    </div>
+                    <button *ngIf="indiceBatimentCourant < nombreBatiments-1"
+                      (click)="prochainBatiment(tousLesBatiments[indiceBatimentCourant])"
+                      class="px-5 py-2 text-white transition-colors duration-300 transform bg-blue-400 rounded-md disabled:bg-gray-300 hover:bg-blue-300 focus:outline-none whitespace-nowrap">
+                      {{'architecture.prochainBatiment' | translate }}
+                    </button>
+                  </ng-container>
+                </div>
+  
+  
               </div>
-            </ng-container>
-            
-            
-            <button *ngIf="indiceZoneCourant === nombreZones" (click)="prochainBatiment(tousLesBatiments[indiceBatimentCourant])" class="px-5 mx-2 my-2 text-white transition-colors duration-300 transform bg-blue-400 rounded-md disabled:bg-gray-300 hover:bg-blue-300 focus:outline-none whitespace-nowrap">Prochain bâtiment</button>
+            </div>
+  
           </div>
-        </div>
-        
-      </div>
-      
-    
-      <ng-container *ngIf="tousLesNomsEtages.length > 0">
-        <div class="flex flex-wrap lg:w-4/5 sm:mx-auto sm:mb-2 -mx-2 p-4">
-          <div *ngFor="let nom of tousLesNomsEtages" class="p-6 sm:w-1/2 w-full">
-            <div class="bg-gray-100 rounded flex p-4 h-full items-center">
-              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
-                class="text-indigo-500 w-6 h-6 flex-shrink-0 mr-4" viewBox="0 0 24 24">
-                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
-                <path d="M22 4L12 14.01l-3-3"></path>
-              </svg>
-              <span class="font-medium">{{ nom }}</span>
+  
+  
+          <ng-container *ngIf="tousLesNomsEtages.length > 0">
+            <div class="flex flex-wrap lg:w-4/5 sm:mx-auto sm:mb-2 -mx-2 p-4">
+              <div *ngFor="let nom of tousLesNomsEtages" class="p-6 sm:w-1/2 w-full">
+                <div class="bg-gray-100 rounded flex p-4 h-full items-center">
+                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                    stroke-width="3" class="text-indigo-500 w-6 h-6 flex-shrink-0 mr-4" viewBox="0 0 24 24">
+                    <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
+                    <path d="M22 4L12 14.01l-3-3"></path>
+                  </svg>
+                  <span class="font-medium">{{ nom }}</span>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+  
+          <div class="flex justify-between mt-10">
+            <!--Button precedant-->
+            <div class="flex justify-start mt-10">
+              <button (click)="previousStep()"
+                class="px-6 py-2 font-medium transition-colors duration-300 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+                style="color: transparent; background-image: linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%);  background-clip: text; border: 1px solid #5b20e2;">
+                <span>
+                  <i class="fa-solid fa-chevron-left fa-sm mr-2"></i>
+                  {{'architecture.precedent' | translate}}
+                </span>
+              </button>
+            </div>
+            <!--Button suivant-->
+            <div *ngIf="tousLesNomsEtages.length == nombreEtages" class="flex justify-end mt-10">
+              <button (click)="nextStep()"
+                class="px-6 py-2 text-white transition-colors duration-300 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+                style="color: white; background-image: linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%);">
+                {{'ajoutC1.suivant' | translate}}
+              </button>
+            </div>
+            <div *ngIf="tousLesNomsEtages.length < nombreEtages" class="flex justify-end mt-10">
+              <button disabled (click)="nextStep()"
+                class="disabled px-6 py-2 text-white transition-colors duration-300 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+                style="color: white; background-image: linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%); opacity: 50%">
+                {{'ajoutC1.suivant' | translate}}
+              </button>
             </div>
           </div>
-        </div>
-      </ng-container>
-      {{'architecture.title3'|translate}}
-      <div class="flex justify-between mt-10">
-        <button (click)="previousStep()" class="px-2 mx-3 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"> {{'architecture.title5'|translate}}</button>
-        <button (click)="nextStep()" class="px-8 text-white transition-colors duration-300 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">{{'architecture.title6'|translate}}</button>
-      </div>
-    </ng-container>
-    
-    
-    <ng-container *ngIf="step == 2">
-      <h2 class="text-lg mb-5 font-semibold text-gray-700 capitalize dark:text-white">{{'architecture.title7'|translate}}</h2>
-      
-      <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-        <div *ngIf="indiceEtage2Courant < tousLesEtagesSansException.length">
-          <div>
-            <div class="flex justify-between">
-              <label class="text-gray-700 dark:text-gray-200" for="">{{'architecture.title8'|translate}} {{ tousLesNomsEtagesSansException[indiceEtage2Courant] }}</label>
-            </div>
-            <input [(ngModel)]="nombreZones" required type="number" (change)="generateBuildingNames()" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
-            <ng-container *ngFor="let i of [].constructor(nombreZones); let index = index">
-              <label class="text-gray-700 dark:text-gray-200" for="">{{tousLesTypesEtages[indiceEtage2Courant]}}</label>
+        </ng-container>
+  
+  
+        <ng-container *ngIf="step == 2">
+          <h2 class="text-lg mb-5 font-semibold text-gray-700 capitalize dark:text-white">
+            {{'architecture.ajouterLocaux'|translate}}
+          </h2>
+  
+          <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+            <div *ngIf="indiceEtage2Courant < tousLesEtagesSansException.length">
               <div>
-                
-                <br><br>
-                <label *ngIf="typeLocalSelectionne[index] !== 'Autre'" class="text-gray-700 dark:text-gray-200" for="">{{'ajoutC1.title7'|translate}} {{'ajoutC1.title11'|translate}}</label>
-                <select *ngIf="typeLocalSelectionne[index] !== 'Autre'"  [(ngModel)]="typeLocalSelectionne[index]">
-               
-                  <option *ngFor="let typeLocal of categoriesAvecTypesLocaux[tousLesTypesBatiments[indiceEtage2Courant]]">{{ typeLocal }}</option>
-                </select>
-                <br><br>
-                <div *ngIf="typeLocalSelectionne[index] === 'Autre'|| !categoriesAvecTypesLocaux[tousLesTypesBatiments[indiceEtage2Courant]]">
+  
+                <div>
                   <div class="flex justify-between">
-                    <label class="text-gray-700 dark:text-gray-200" for="">{{'ajoutC1.title3'|translate}} {{'ajoutC1.title11'|translate}} {{ index + 1 }}</label>
+                    <label class="block mb-2 text-sm font-medium text-gray-900 " style="font-size: medium;">
+                      {{'architecture.nombreLocaux'|translate}} {{
+                      tousLesNomsEtagesSansException[indiceEtage2Courant] }}
+                    </label>
                   </div>
-                  <input [(ngModel)]="nomsZones[index]" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
+                  <input *ngIf="nombreZones >= 1" [(ngModel)]="nombreZones" required type="number"
+                    (change)="generateBuildingNames()"
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring">
+                  <input *ngIf="nombreZones < 1" [(ngModel)]="nombreZones" required type="number"
+                    (change)="generateBuildingNames()"
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md border-red-400 ring-red-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
+  
+                  <div class="grid grid-cols-1 gap-6 mt-4">
+                    <ng-container *ngFor="let i of [].constructor(nombreZones); let index = index">
+                      <label class="block mb-2 text-sm font-medium text-gray-900 " style="font-size: medium;">
+                        {{tousLesTypesEtages[indiceEtage2Courant]}}
+                      </label>
+  
+  
+                      <div>
+                        <div class="block mb-2 text-sm font-medium text-gray-900 " style="font-size: medium;">
+                          Local {{ index + 1 }}
+                        </div>
+                        <div>
+                          <!-- Type local -->
+                          <div class="flex w-full gap-6">
+                            <div class="flex gap-10 items-center my-2">
+                              <div *ngIf="typeLocalSelectionne[index] !== 'Autre'">
+                                <div class="flex justify-between items-center gap-10">
+                                  <label class="block text-sm font-medium text-gray-900 "
+                                    style="font-size: medium;">
+                                    {{'ajoutC1.type'|translate}}
+                                  </label>
+                                  <select *ngIf="typeLocalSelectionne[index] !== 'Autre'"
+                                    [(ngModel)]="typeLocalSelectionne[index]"
+                                    class="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring">
+                                    <option
+                                      *ngFor="let typeLocal of categoriesAvecTypesLocaux[tousLesTypesBatiments[indiceEtage2Courant]]">
+                                      {{ typeLocal }}
+                                    </option>
+                                  </select>
+                                </div>
+                              </div>
+  
+                              <div
+                                *ngIf="typeLocalSelectionne[index] === 'Autre'|| !categoriesAvecTypesLocaux[tousLesTypesBatiments[indiceEtage2Courant]]">
+                                <div class="flex justify-between items-center gap-10">
+                                  <label class="block text-sm font-medium text-gray-900 "
+                                    style="font-size: medium;">
+                                    {{'ajoutC1.nom'|translate}}
+                                  </label>
+                                  <input [(ngModel)]="nomsZones[index]" type="text"
+                                    class="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring">
+                                </div>
+                              </div>
+                            </div>
+  
+                            <button *ngIf="(nomsZones[index]) || (typeLocalSelectionne[index])"
+                              (click)="ajouterNewZone( nomsZones[index] || typeLocalSelectionne[index] , tousLesEtagesSansException[indiceEtage2Courant], index)"
+                              [class.enfonce]="boutonsAjouterLocalEnfonce[index]"
+                              class="px-5 mx-2 my-2 font-medium text-white transition-colors duration-300 transform bg-[#3b82f6] rounded-md disabled:bg-gray-300 hover:bg-blue-300 focus:outline-none whitespace-nowrap">
+                              {{'architecture.ajouter' | translate }}
+                            </button>
+                          </div>
+  
+                        </div>
+  
+                      </div>
+                    </ng-container>
+                  </div>
+  
                 </div>
-                <button 
-                  (click)="ajouterNewZone( nomsZones[index] || typeLocalSelectionne[index] , tousLesEtagesSansException[indiceEtage2Courant], index)" 
-                  [class.enfonce]="boutonsAjouterLocalEnfonce[index]" 
-                  class="px-5 mx-2 my-2  text-white transition-colors duration-300 transform bg-blue-400 rounded-md disabled:bg-gray-300   hover:bg-blue-300 focus:outline-none whitespace-nowrap">
-                  {{'architecture.title9'|translate}}
+  
+  
+  
+                <!-- <div class="flex justify-between">
+                  <label class="block mb-2 text-sm font-medium text-gray-900 "
+                    style="font-size: medium;">{{'architecture.title8'|translate}} {{
+                    tousLesNomsEtagesSansException[indiceEtage2Courant] }}</label>
+                </div>
+                <input [(ngModel)]="nombreZones" required type="number" (change)="generateBuildingNames()"
+                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"> -->
+  
+  
+  
+  
+                <button *ngIf="indiceEtage2Courant < nombreEtages-1"
+                  (click)="prochainEtage(tousLesEtagesSansException[indiceEtage2Courant])"
+                  class="px-5 py-2 text-white transition-colors duration-300 transform bg-blue-400 rounded-md disabled:bg-gray-300 hover:bg-blue-300 focus:outline-none whitespace-nowrap">
+                  >
+                  {{'architecture.etageSuivant'|translate}}
                 </button>
               </div>
-            </ng-container>
-            
-            
-            
-            <button (click)="prochainEtage(tousLesEtagesSansException[indiceEtage2Courant])" class="px-5 mx-2 my-2  text-white transition-colors duration-300 transform bg-blue-400 rounded-md disabled:bg-gray-300   hover:bg-blue-300 focus:outline-none whitespace-nowrap">{{'architecture.title10'|translate}} {{'ajoutC1.title17'|translate}}</button>
+            </div>
+  
           </div>
-        </div>
-        
-      </div>
-      <ng-container *ngIf="tousLesNomsLocaux.length > 0">
-        <div class="flex flex-wrap lg:w-4/5 sm:mx-auto sm:mb-2 -mx-2 p-4">
-          <div *ngFor="let nom of tousLesNomsLocaux" class="p-6 sm:w-1/2 w-full">
-            <div class="bg-gray-100 rounded flex p-4 h-full items-center">
-              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
-                class="text-indigo-500 w-6 h-6 flex-shrink-0 mr-4" viewBox="0 0 24 24">
-                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
-                <path d="M22 4L12 14.01l-3-3"></path>
-              </svg>
-              <span class="font-medium">{{ nom }}</span>
+          <ng-container *ngIf="tousLesNomsLocaux.length > 0">
+            <div class="flex flex-wrap lg:w-4/5 sm:mx-auto sm:mb-2 -mx-2 p-4">
+              <div *ngFor="let nom of tousLesNomsLocaux" class="p-6 sm:w-1/2 w-full">
+                <div class="bg-gray-100 rounded flex p-4 h-full items-center">
+                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                    stroke-width="3" class="text-indigo-500 w-6 h-6 flex-shrink-0 mr-4" viewBox="0 0 24 24">
+                    <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
+                    <path d="M22 4L12 14.01l-3-3"></path>
+                  </svg>
+                  <span class="font-medium">{{ nom }}</span>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+  
+          <div class="flex justify-between mt-10">
+            <!--Button precedant-->
+            <div class="flex justify-start mt-10">
+              <button (click)="previousStep()"
+                class="px-6 py-2 font-medium transition-colors duration-300 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+                style="color: transparent; background-image: linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%);  background-clip: text; border: 1px solid #5b20e2;">
+                <span>
+                  <i class="fa-solid fa-chevron-left fa-sm mr-2"></i>
+                  {{'architecture.precedent' | translate}}
+                </span>
+              </button>
+            </div>
+            <!--Button suivant-->
+            <div *ngIf="tousLesNomsLocaux.length == nombreZones" class="flex justify-end mt-10">
+              <button (click)="nextStep()"
+                class="px-6 py-2 text-white transition-colors duration-300 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+                style="color: white; background-image: linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%);">
+                {{'ajoutC1.suivant' | translate}}
+              </button>
+            </div>
+            <div *ngIf="tousLesNomsLocaux.length < nombreZones" class="flex justify-end mt-10">
+              <button disabled (click)="nextStep()"
+                class="disabled px-6 py-2 text-white transition-colors duration-300 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+                style="color: white; background-image: linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%); opacity: 50%">
+                {{'ajoutC1.suivant' | translate}}
+              </button>
             </div>
           </div>
-        </div>
-      </ng-container>
-      {{'architecture.title3'|translate}}
-      <div class="flex justify-between mt-10">
-       
-        <button (click)="previousStep()" class="px-2 mx-3 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">{{'architecture.title5'|translate}}</button>
-        <button (click)="nextStep()" class="px-8 text-white transition-colors duration-300 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">{{'architecture.title6'|translate}}</button>
-      </div>
-    </ng-container>
-    
-    
-    <ng-container *ngIf="step == 3">
-      <h2 class="text-lg mb-5 font-semibold text-gray-700 capitalize dark:text-white">{{'architecture.title11'|translate}}</h2>
-      
-      <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-        <div *ngIf="indiceEtage3Courant < tousLesZonesSansException.length">
-          <div>
-            <div class="flex justify-between">
-              <label class="text-gray-700 dark:text-gray-200" for="">{{'architecture.title12'|translate}} {{ tousLesNomsZonesSansException[indiceEtage3Courant] }}</label>
-            </div>
-
-            <input [(ngModel)]="nombreEquipements" required type="number" (change)="generateBuildingNames()" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
-            
-            <ng-container *ngFor="let i of [].constructor(nombreEquipements); let index = index">
+        </ng-container>
+  
+  
+        <ng-container *ngIf="step == 3">
+          <h2 class="text-lg mb-5 font-semibold text-gray-700 capitalize dark:text-white">
+            {{'architecture.ajouterEquipements'|translate}}
+          </h2>
+  
+          <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+            <div *ngIf="indiceEtage3Courant < tousLesZonesSansException.length">
               <div>
-                <br><br>
-                <label class="text-gray-700 dark:text-gray-200" for="">{{'ajoutC1.title5'|translate}}</label>
-                <select [(ngModel)]="categoriesEquipements[index]" (change)="categorieChangeEquipement(index)">
-                  <option *ngFor="let categorie of categoriesEquipements">{{ categorie }}</option>
-                </select>  
-                <br><br>
-                <label class="text-gray-700 dark:text-gray-200" for="">{{'ajoutC1.title7'|translate}} {{'ajoutC1.title60'|translate}}</label>
-                <select *ngIf="categoriesEquipements[index] !== 'Autre'" [(ngModel)]="typeEquipementSelectionne[index]">
-               
-                  <option *ngFor="let typeLocal of categoriesAvecTypesEquipements[categoriesEquipements[index]]">{{ typeLocal }}</option>
-                </select>
-
-                <div *ngIf="categoriesEquipements[index] === 'Autre'">
-                  <br><br>
                 <div class="flex justify-between">
-                  <label class="text-gray-700 dark:text-gray-200" for="">{{'ajoutC1.title3'|translate}} {{'ajoutC1.title60'|translate}} {{ index + 1 }}</label>
+                  <label class="block mb-2 text-sm font-medium text-gray-900 "
+                    style="font-size: medium;">{{'architecture.title12'|translate}} {{
+                    tousLesNomsZonesSansException[indiceEtage3Courant] }}
+                  </label>
                 </div>
-                
-                <input [(ngModel)]="nomsEquipements[index ]" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
+  
+                <input *ngIf="nombreEquipements >= 1" [(ngModel)]="nombreEquipements" required type="number" (change)="generateBuildingNames()"
+                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-400
+                  focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
+                >
+                <input *ngIf="nombreEquipements < 1" [(ngModel)]="nombreEquipements" required type="number"
+                  (change)="generateBuildingNames()"
+                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md border-red-400 ring-red-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                >
+                <div class="grid grid-cols-1 gap-6 mt-4">
+                  <ng-container *ngFor="let i of [].constructor(nombreEquipements); let index = index">
+                    <div>
+                      <div class="block mb-2 text-sm font-medium text-gray-900 " style="font-size: medium;">
+                        {{'ajoutC1.title60'|translate}} {{ index + 1 }}
+                      </div>
+  
+                      <div class="flex w-full gap-6">
+  
+                        <div class="flex gap-10 items-center my-2">
+                          <label class="block mb-2 text-sm font-medium text-gray-900 "
+                            style="font-size: medium;">{{'ajoutC1.Category'|translate}}</label>
+                          <select [(ngModel)]="categoriesEquipements[index]"
+                            (change)="categorieChangeEquipement(index)">
+                            <option *ngFor="let categorie of categoriesEquipements">{{ categorie }}</option>
+                          </select>
+                        </div>
+  
+                        <div class="flex gap-10 items-center my-2">
+                          <label class="block mb-2 text-sm font-medium text-gray-900 " style="font-size: medium;">
+                            {{'ajoutC1.type'|translate}}
+                          </label>
+                          <select *ngIf="categoriesEquipements[index] !== 'Autre'" [(ngModel)]="typeEquipementSelectionne[index]">
+                            <option *ngFor="let typeLocal of categoriesAvecTypesEquipements[categoriesEquipements[index]]">
+                              {{typeLocal }}
+                            </option>
+                          </select>
+                        </div>
+  
+                        <div class="flex gap-10 items-center my-2" *ngIf="categoriesEquipements[index] === 'Autre'">
+                          <label class="block mb-2 text-sm font-medium text-gray-900 " style="font-size: medium;">
+                            {{'ajoutC1.nom'|translate}}
+                          </label>
+                          <input [(ngModel)]="nomsEquipements[index]" type="text"
+                            class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
+                        </div>
+  
+                        <button *ngIf="(categoriesEquipements[index] || nomsEquipements[index]) && typeEquipementSelectionne[index]"
+                          (click)="ajouterNewEquipement(typeEquipementSelectionne[index] || nomsEquipements[index ],tousLesZonesSansException[indiceEtage3Courant],index)"
+                          [class.enfonce]="boutonsAjouterEquipementEnfonce[index]"
+                          class="px-5 mx-2 my-2 font-medium text-white transition-colors duration-300 transform bg-[#3b82f6] rounded-md disabled:bg-gray-300 hover:bg-blue-300 focus:outline-none whitespace-nowrap">
+                          {{'architecture.ajouter'|translate}}
+                        </button>
+  
+                      </div>
+  
+                    </div>
+                  </ng-container>
                 </div>
-                <button (click)="ajouterNewEquipement(typeEquipementSelectionne[index] || nomsEquipements[index ],tousLesZonesSansException[indiceEtage3Courant],index)" 
-                [class.enfonce]="boutonsAjouterEquipementEnfonce[index]" 
+  
+  
+                <button *ngIf="indiceEtage3Courant < nombreZones-1"
+                  (click)="prochainEquipement(tousLesZonesSansException[indiceEquipementCourant])"
                   class="px-5 mx-2 my-2  text-white transition-colors duration-300 transform bg-blue-400 rounded-md disabled:bg-gray-300   hover:bg-blue-300 focus:outline-none whitespace-nowrap">
-                  {{'architecture.title13'|translate}}
+                  {{'architecture.localSuivant'|translate}}
                 </button>
               </div>
-            </ng-container>
-            
-            <button (click)="prochainEquipement(tousLesZonesSansException[indiceEquipementCourant])" class="px-5 mx-2 my-2  text-white transition-colors duration-300 transform bg-blue-400 rounded-md disabled:bg-gray-300   hover:bg-blue-300 focus:outline-none whitespace-nowrap">prochain local</button>
+            </div>
+  
           </div>
-        </div>
-        
-      </div>
-      <ng-container *ngIf="tousLesNomsEquipements.length > 0">
-        <div class="flex flex-wrap lg:w-4/5 sm:mx-auto sm:mb-2 -mx-2 p-4">
-          <div *ngFor="let nom of tousLesNomsEquipements" class="p-6 sm:w-1/2 w-full">
-            <div class="bg-gray-100 rounded flex p-4 h-full items-center">
-              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
-                class="text-indigo-500 w-6 h-6 flex-shrink-0 mr-4" viewBox="0 0 24 24">
-                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
-                <path d="M22 4L12 14.01l-3-3"></path>
-              </svg>
-              <span class="font-medium">{{ nom }}</span>
+          <ng-container *ngIf="tousLesNomsEquipements.length > 0">
+            <div class="flex flex-wrap lg:w-4/5 sm:mx-auto sm:mb-2 -mx-2 p-4">
+              <div *ngFor="let nom of tousLesNomsEquipements" class="p-6 sm:w-1/2 w-full">
+                <div class="bg-gray-100 rounded flex p-4 h-full items-center">
+                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                    stroke-width="3" class="text-indigo-500 w-6 h-6 flex-shrink-0 mr-4" viewBox="0 0 24 24">
+                    <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
+                    <path d="M22 4L12 14.01l-3-3"></path>
+                  </svg>
+                  <span class="font-medium">{{ nom }}</span>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+  
+          <div class="flex justify-between mt-10">
+            <!--Button precedant-->
+            <div class="flex justify-start mt-10">
+              <button (click)="previousStep()"
+                class="px-6 py-2 font-medium transition-colors duration-300 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+                style="color: transparent; background-image: linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%);  background-clip: text; border: 1px solid #5b20e2;">
+                <span>
+                  <i class="fa-solid fa-chevron-left fa-sm mr-2"></i>
+                  {{'architecture.precedent' | translate}}
+                </span>
+              </button>
+            </div>
+            <!--Button suivant-->
+            <div *ngIf="tousLesNomsEquipements.length == nombreEquipements" class="flex justify-end mt-10">
+              <button (click)="stock()"
+                class="px-6 py-2 text-white transition-colors duration-300 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+                style="color: white; background-image: linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%);">
+                {{'architecture.save' | translate}}
+              </button>
+            </div>
+            <div *ngIf="tousLesNomsEquipements.length < nombreEquipements" class="flex justify-end mt-10">
+              <button disabled (click)="stock()"
+                class="disabled px-6 py-2 text-white transition-colors duration-300 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+                style="color: white; background-image: linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%); opacity: 50%">
+                {{'architecture.save' | translate}}
+              </button>
             </div>
           </div>
-        </div>
-      </ng-container>
-      {{'architecture.title14'|translate}}
-      <div class="flex justify-between mt-10">
-       
-        <button (click)="previousStep()" class="px-2 mx-3 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">{{'architecture.title5'|translate}}</button>
-        <button (click)="stock()" class="px-8 text-white transition-colors duration-300 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">{{'architecture.title6'|translate}}</button>
-      </div>
-    </ng-container>
-
-<!--<app-header></app-header>
-<div class="h-3/4">
-
-    <div class="w-1/2 mx-auto mt-7 mb-4">
-      <div class="overflow-hidden rounded-full bg-gray-200">
-        <div class="h-2 {{width}} transition-all duration-500 rounded-full bg-blue-500"></div>
-      </div>
-  
-      <ol class="mt-4 grid grid-cols-4 text-sm font-medium text-gray-500">
-        <li class="flex items-center justify-start {{color[0]}} sm:gap-1.5">
-          <span class="hidden sm:inline">Batiments</span>
-  
-          <svg
-            class="h-6 w-6 sm:h-5 sm:w-5"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"
-            />
-          </svg>
-        </li>
-  
-        <li class="flex items-center justify-center {{color[1]}} sm:gap-1.5">
-          <span class="hidden sm:inline">Etgaes</span>
-  
-          <svg
-            class="h-6 w-6 sm:h-5 sm:w-5"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"
-            />
-          </svg>
-        </li>
-  
-        <li class="flex items-center justify-end {{color[2]}} sm:gap-1.5">
-          <span class="hidden sm:inline">Locaux</span>
-  
-          <svg
-            class="h-6 w-6 sm:h-5 sm:w-5"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"
-            />
-          </svg>
-        </li>
-        <li class="flex items-center justify-end {{color[3]}} sm:gap-1.5">
-          <span class="hidden sm:inline">equipements</span>
-  
-          <svg
-            class="h-6 w-6 sm:h-5 sm:w-5"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
-            />
-          </svg>
-        </li>
-       
-      </ol>
-    </div>
+        </ng-container>
+      </section>
+    </dl>
   </div>
-
-<section class="max-w-4xl mb-28 p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
-  <ng-container *ngIf="step==0">
-    <h2 class="text-lg mb-5 font-semibold text-gray-700 capitalize dark:text-white">Les parametres de l'architecture </h2>
-
-    
-    <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-      <ng-container *ngFor="let champ of champsTitle">
-        <div *ngIf="champ === 'Nombre de Batiments'">
-          <div class="flex justify-between">
-            <label class="text-gray-700 dark:text-gray-200" for="">{{ champ }}</label>
-          </div>
-          <input [(ngModel)]="nombreBatiments" required type="number" (change)="generateBuildingNames()" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
-        </div>
-      </ng-container>
-      <ng-container *ngIf="indiceBatimentCourant < nombreBatiments">
-        <div>
-            <div class="flex justify-between">
-                <label class="text-gray-700 dark:text-gray-200" for="">Nom Batiment {{ indiceBatimentCourant + 1 }}</label>
-            </div>
-            <input [(ngModel)]="nomsBatiments[indiceBatimentCourant]" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring sm:w-full">
-            <button (click)="ajouterNew(nomsBatiments[indiceBatimentCourant])" class="px-5 mx-2 my-2 text-white transition-colors duration-300 transform bg-blue-400 rounded-md disabled:bg-gray-300 hover:bg-blue-300 focus:outline-none whitespace-nowrap">Ajouter un bâtiment</button>
-            
-        </div>
-      </ng-container>
-    
-    
-    </div>
-    
-    <ng-container *ngIf="tousLesNomsBatiments.length > 0">
-      <div class="flex flex-wrap lg:w-4/5 sm:mx-auto sm:mb-2 -mx-2 p-4">
-        <div *ngFor="let nom of tousLesNomsBatiments" class="p-6 sm:w-1/2 w-full">
-          <div class="bg-gray-100 rounded flex p-4 h-full items-center">
-            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
-              class="text-indigo-500 w-6 h-6 flex-shrink-0 mr-4" viewBox="0 0 24 24">
-              <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
-              <path d="M22 4L12 14.01l-3-3"></path>
-            </svg>
-            <span class="font-medium">{{ nom }}</span>
-          </div>
-        </div>
-      </div>
-    </ng-container>
-    Appuyer sur suivant pour passer a  la prochaine etape
-        
-        <div class="flex justify-end mt-10">
-          
-          <button (click)="saveAndAddBuildings()" class="px-8 text-white transition-colors duration-300 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Suivant</button>
-        </div>
-    </ng-container>
-
-    <ng-container *ngIf="step == 1">
-      <h2 class="text-lg mb-5 font-semibold text-gray-700 capitalize dark:text-white">Les etages</h2>
-      
-      <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-        <div *ngIf="indiceBatimentCourant < tousLesBatiments.length">
-          <div>
-            <div class="flex justify-between">
-              <label class="text-gray-700 dark:text-gray-200" for="">Nombre d'étages pour {{ tousLesNomsBatiments[indiceBatimentCourant] }}</label>
-            </div>
-            <input [(ngModel)]="nombreEtages" required type="number" (change)="generateBuildingNames()" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
-            
-            <ng-container *ngIf="indiceEtageCourant < nombreEtages">
-              <div>
-                <div class="flex justify-between">
-                  <label class="text-gray-700 dark:text-gray-200" for="">Nom Etage {{ indiceEtageCourant + 1 }}</label>
-                </div>
-                <input [(ngModel)]="nomsEtages[indiceEtageCourant]" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
-                <button (click)="ajouterNewEtage(nomsEtages[indiceEtageCourant],tousLesBatiments[indiceBatimentCourant])" class="px-5 mx-2 my-2 text-white transition-colors duration-300 transform bg-blue-400 rounded-md disabled:bg-gray-300   hover:bg-blue-300 focus:outline-none whitespace-nowrap">Ajouter l etage</button>
-              </div>
-            </ng-container>
-            
-            <button *ngIf="indiceZoneCourant === nombreZones" (click)="prochainBatiment(tousLesBatiments[indiceBatimentCourant])" class="px-5 mx-2 my-2 text-white transition-colors duration-300 transform bg-blue-400 rounded-md disabled:bg-gray-300   hover:bg-blue-300 focus:outline-none whitespace-nowrap">prochain batiment</button>
-          </div>
-        </div>
-        
-      </div>
-      Appuyer sur suivant pour passer a la prochaine etape
-      <div class="flex justify-between mt-10">
-        
-        <button (click)="previousStep()" class="px-2 mx-3 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">précédent</button>
-        <button (click)="nextStep()" class="px-8 text-white transition-colors duration-300 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Suivant</button>
-      </div>
-    </ng-container>
-    
-
-    <ng-container *ngIf="step == 2">
-      <h2 class="text-lg mb-5 font-semibold text-gray-700 capitalize dark:text-white">Les Locaux</h2>
-      
-      <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-        <div *ngIf="indiceEtage2Courant < tousLesEtagesSansException.length">
-          <div>
-            <div class="flex justify-between">
-              <label class="text-gray-700 dark:text-gray-200" for="">Nombre de locaux pour  {{ tousLesNomsEtagesSansException[indiceEtage2Courant] }}</label>
-            </div>
-            <input [(ngModel)]="nombreZones" required type="number" (change)="generateBuildingNames()" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
-            
-            <ng-container *ngIf="indiceZoneCourant < nombreZones">
-              <div>
-                <div class="flex justify-between">
-                  <label class="text-gray-700 dark:text-gray-200" for="">Nom Local {{ indiceZoneCourant + 1 }}</label>
-                </div>
-                <input [(ngModel)]="nomsZones[indiceZoneCourant]" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
-                <button (click)="ajouterNewZone(nomsZones[indiceZoneCourant],tousLesEtagesSansException[indiceEtage2Courant])" class="px-5 mx-2 my-2  text-white transition-colors duration-300 transform bg-blue-400 rounded-md disabled:bg-gray-300   hover:bg-blue-300 focus:outline-none whitespace-nowrap">Ajouter local</button>
-              </div>
-            </ng-container>
-            
-            <button (click)="prochainEtage(tousLesEtagesSansException[indiceZoneCourant])" class="px-5 mx-2 my-2  text-white transition-colors duration-300 transform bg-blue-400 rounded-md disabled:bg-gray-300   hover:bg-blue-300 focus:outline-none whitespace-nowrap">prochain etage</button>
-          </div>
-        </div>
-        
-      </div>
-      Appuyer sur suivant pour passer a la prochaine etape
-      <div class="flex justify-between mt-10">
-       
-        <button (click)="previousStep()" class="px-2 mx-3 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">précédent</button>
-        <button (click)="nextStep()" class="px-8 text-white transition-colors duration-300 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Suivant</button>
-      </div>
-    </ng-container>
-    <ng-container *ngIf="step == 3">
-      <h2 class="text-lg mb-5 font-semibold text-gray-700 capitalize dark:text-white">Les equipements</h2>
-      
-      <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-        <div *ngIf="indiceEtage3Courant < tousLesZonesSansException.length">
-          <div>
-            <div class="flex justify-between">
-              <label class="text-gray-700 dark:text-gray-200" for="">Nombre de equipement pour {{ tousLesNomsZonesSansException[indiceEtage3Courant] }}</label>
-            </div>
-
-            <input [(ngModel)]="nombreEquipements" required type="number" (change)="generateBuildingNames()" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
-            
-            <ng-container *ngIf="indiceEquipementCourant < nombreEquipements">
-              <div>
-                <div class="flex justify-between">
-                  <label class="text-gray-700 dark:text-gray-200" for="">Equipement {{ indiceZoneCourant + 1 }}</label>
-                </div>
-                <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-                  <div>
-                    <label for="categorie">Catégorie d'équipement :</label>
-                    <select id="categorie" [(ngModel)]="categorieSelectionnee" (change)="onCategorieChange()">
-                      <option *ngFor="let categorie of categories" [value]="categorie">{{ categorie }}</option>
-                    </select>
-                  </div>
-                  
-                  <div *ngIf="categorieSelectionnee">
-                    <label for="equipement">Équipement :</label>
-                    <select id="equipement" [(ngModel)]="equipementSelectionne" *ngIf="equipementsParCategorie[categorieSelectionnee]">
-                      <option *ngFor="let equipement of equipementsParCategorie[categorieSelectionnee]" [value]="equipement">{{ equipement }}</option>
-                    </select>
-                    <input *ngIf="!equipementsParCategorie[categorieSelectionnee]" type="text" [(ngModel)]="nouveauEquipement" placeholder="Nouvel équipement">
-                  </div>
-                </div>
-                <input [(ngModel)]="nomsEquipements[indiceEquipementCourant ]" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
-                <button (click)="ajouterNewEquipement(nomsEquipements[indiceEquipementCourant ],tousLesZonesSansException[indiceEtage3Courant])" class="px-5 mx-2 my-2 text-white transition-colors duration-300 transform bg-blue-400 rounded-md disabled:bg-gray-300   hover:bg-blue-300 focus:outline-none whitespace-nowrap">Ajouter l'équipement</button>
-              </div>
-            </ng-container>
-            
-            <button (click)="prochainEquipement(tousLesZonesSansException[indiceEquipementCourant])" class="px-5 mx-2 my-2  text-white transition-colors duration-300 transform bg-blue-400 rounded-md disabled:bg-gray-300   hover:bg-blue-300 focus:outline-none whitespace-nowrap">prochain local</button>
-          </div>
-        </div>
-        
-      </div>
-      pour finir appuyer sur Sauvegarder
-      <div class="flex justify-between mt-10">
-       
-        <button (click)="previousStep()" class="px-2 mx-3 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">précédent</button>
-        <button (click)="stock()" class="px-8 text-white transition-colors duration-300 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Sauvegarder</button>
-      </div>
-    </ng-container>
-  -->
+  </div>

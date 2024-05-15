@@ -75,6 +75,7 @@ import { AjouterBatimentComponent } from './ajout/ajouter-batiment/ajouter-batim
 import { RapportDetailsComponent } from './rapport-details/rapport-details.component';
 import { BarChartComponent } from './dashboard2/bar-chart/bar-chart.component';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { NgxGaugeModule } from 'ngx-gauge';
 
 const config: SocketIoConfig = { url: 'http://localhost:8000', options: {} };
 
@@ -140,7 +141,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     //FontAwesomeModule,
     MatDividerModule,
     NgxPaginationModule,
-    
+    NgxGaugeModule,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,

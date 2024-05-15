@@ -53,9 +53,9 @@ export class Dashboard2Component {
 
     AlerteMessage: string = '';
     constructor(private floorService: FloorService, private router: Router, private renderer: Renderer2, private el: ElementRef) {
-      this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-      this.roleUser=localStorage.getItem('role');
-      this.roleId=localStorage.getItem('id');
+      this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+      this.roleUser=sessionStorage.getItem('role');
+      this.roleId=sessionStorage.getItem('id');
     }
 
   ngOnInit() {
@@ -63,7 +63,7 @@ export class Dashboard2Component {
     this.equipementsSubscription = this.floorService.get_alerte_non_notifie(this.roleId).subscribe((alertes: any) => {
       console.log('alertes: ', alertes)
       this.alertes = alertes
-
+/* 
       alertes.forEach((alerte: any) => {
         this.AlerteId = alerte.id
         //console.log('local '+ alerte.localId+ ': ', alerte.nomLocal +' type: ',  alerte.type+' now: '+ alerte.nowSlash)
@@ -82,7 +82,7 @@ export class Dashboard2Component {
         }, 5000);
 
 
-      });
+      }); */
     })
       this.LoadEquipements()
   }

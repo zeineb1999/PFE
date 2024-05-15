@@ -2,7 +2,7 @@
   <div class="container px-6 mx-auto">
       <div class="lg:flex lg:items-center lg:justify-between">
           <div class="flex items-center justify-between">
-
+          
               <!-- Mobile menu button -->
               <div class="flex lg:hidden">
                 <button x-cloak  type="button" class="text-gray-500  hover:text-gray-600  focus:outline-none focus:text-gray-600 " aria-label="toggle menu">
@@ -57,7 +57,7 @@
             <img src="../../assets/usthb.png" alt="Logo de l'université" style="width: 50px; height: 45px;">
           </div>
           <div *ngIf="isLoggedIn !== undefined && isLoggedIn && this.role!='admin'">
-            <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
+            <!-- Mobile Menu open: "block", Menu closed: "hidden" --><!-- 
               <div x-cloak :class="[isOpenRapport ? 'translate-x-0 opacity-100 ' : 'opacity-0 -translate-x-full']" class="absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center">
   
   
@@ -105,8 +105,8 @@
                    
                   </div>
   
-              </div>
-            </div>
+              </div> -->
+           
 
         
           <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
@@ -130,48 +130,38 @@
                         <a href="/alerte-details/{{alerte.id}}" *ngFor="let alerte of alertes" class="" role="menuitem">
                           <div *ngIf="alerte.vu" class="bg-white block px-4 py-4 text-sm text-[#18577ac9] hover:bg-[#18577a24] hover:text-[#18577a] border border-b-[#18577a24] flex justify-between items-start">
                             {{alerte.text}}
-                            <div class="ml-4" *ngIf="alerte.type=='temperature'" style="display: flex;flex-direction: column;align-items: normal;height: unset;">
-                              <span style="font-size: smaller; margin-bottom: 30%;display: flex;justify-content: end;">12:30</span>
-                              <span style="color: #c5215b; font-size: larger;">{{alerte.valeur.toFixed(1)}} °C</span>
-                            </div>
-                            <div class="ml-4" *ngIf="alerte.type=='humidite'"
+                          
+                            
+                            <div class="ml-4" 
                               style="display: flex;flex-direction: column;align-items: normal;height: unset;">
                               <span style="font-size: smaller; margin-bottom: 30%;display: flex;justify-content: end;">12:30</span>
-                              <span style="color: #c5215b; font-size: larger;">{{alerte.valeur.toFixed(1)}} %</span>
+                              <span style="color: #c5215b; font-size: larger;">{{alerte.text}}</span>
+                              <span style="color: #c5215b; font-size: larger;">{{alerte.type}} </span>
+                              <span style="color: #c5215b; font-size: larger;">{{alerte.localId}} </span>
+                            
                             </div>
-                            <div class="ml-4" *ngIf="alerte.type=='maintenance'"
-                              style="display: flex;flex-direction: column;align-items: normal;height: unset;">
-                              <span style="font-size: smaller; margin-bottom: 30%;display: flex;justify-content: end;">12:30</span>
-                              <span style="color: #c5215b; font-size: larger;">{{alerte.valeur.toFixed(1)}}</span>
-                            </div>
-                            <div class="ml-4" *ngIf="alerte.type=='surConsommation'"
+                            <!-- <div class="ml-4" *ngIf="alerte.type=='surConsommation'"
                               style="display: flex;flex-direction: column;align-items: normal;height: unset;">
                               <span style="font-size: smaller; margin-bottom: 30%;display: flex;justify-content: end;">12:30</span>
                               <span style="color: #c5215b; font-size: larger;">{{alerte.valeur.toFixed(1)}} Wh</span>
-                            </div>
+                            </div> -->
                           </div>
                           <div *ngIf="!alerte.vu" class=" bg-[#18577a17] block px-4 py-4 text-sm text-[#18577ac9] hover:bg-[#18577a24] hover:text-[#18577a] border border-transparent border-b-[#18577a24] flex justify-between items-start">
                             {{alerte.text}}
-                            <div class="ml-4" *ngIf="alerte.type=='temperature'"
+                            <div class="ml-4"
                               style="display: flex;flex-direction: column;align-items: normal;height: unset;">
                               <span style="font-size: smaller; margin-bottom: 30%;display: flex;justify-content: end;">12:30</span>
-                              <span style="color: #c5215b; font-size: larger;">{{alerte.valeur.toFixed(1)}} °C</span>
+                              <span style="color: #c5215b; font-size: larger;">{{alerte.text}} </span>
+                              <span style="color: #c5215b; font-size: larger;">{{alerte.type}} </span>
+                              <span style="color: #c5215b; font-size: larger;">{{alerte.localId}} </span>
                             </div>
-                            <div class="ml-4" *ngIf="alerte.type=='humidite'"
-                              style="display: flex;flex-direction: column;align-items: normal;height: unset;">
-                              <span style="font-size: smaller; margin-bottom: 30%;display: flex;justify-content: end;">12:30</span>
-                              <span style="color: #c5215b; font-size: larger;">{{alerte.valeur.toFixed(1)}} %</span>
-                            </div>
-                            <div class="ml-4" *ngIf="alerte.type=='maintenance'"
-                              style="display: flex;flex-direction: column;align-items: normal;height: unset;">
-                              <span style="font-size: smaller; margin-bottom: 30%;display: flex;justify-content: end;">12:30</span>
-                              <span style="color: #c5215b; font-size: larger;">{{alerte.valeur.toFixed(1)}}</span>
-                            </div>
+                          
+                      <!-- 
                             <div class="ml-4" *ngIf="alerte.type=='surConsommation'"
                               style="display: flex;flex-direction: column;align-items: normal;height: unset;">
                               <span style="font-size: smaller; margin-bottom: 30%;display: flex;justify-content: end;">12:30</span>
                               <span style="color: #c5215b; font-size: larger;">{{alerte.valeur.toFixed(1)}} Wh</span>
-                            </div>
+                            </div> -->
                           </div>
                         </a>
 
@@ -184,6 +174,109 @@
 
             </div>
           </div>
+
       </div>
+  </div>
+  <div *ngIf="AlerteMessageUser" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="fixed inset-0"></div>
+  
+  
+    <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+      <div class="flex items-end justify-center p-4 text-center sm:p-0">
+        <div
+          class="relative transform overflow-hidden rounded-lg bg-red-300 text-left shadow-xl transition-all w-full max-w-lg">
+          <div class="bg-red-300 px-2 py-4">
+            <div class="flex gap-2">
+  
+              <span class="text-green-600 m-1">
+                <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                  aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                </svg>
+              </span>
+              <div class="flex-1">
+                <strong class="block font-medium text-gray-900"> Attention! </strong>
+  
+                <p class="mt-1 text-sm text-gray-700">{{AlerteMessageUser}}</p>
+  
+                <div class="mt-4 flex gap-2">
+                  <button (click)="redirectToAlerteDetails(this.AlerteId)"
+                    class="inline-flex items-center gap-2 rounded-lg bg-[#dc2626] px-4 py-2 text-white hover:bg-[#b61c1c]">
+                    <span class="text-sm"> Voir plus </span>
+  
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                      stroke="currentColor" class="h-4 w-4">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                    </svg>
+                  </button>
+  
+                  <!-- <button class="block rounded-lg px-4 py-2 text-gray-700 transition hover:bg-gray-50">
+                          <span class="text-sm elememm" (click)="alertHidden(this)">Masquer</span>
+                        </button> -->
+                </div>
+              </div>
+  
+  
+            </div>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  
+       </div>  
+       
+  <div *ngIf="AlerteMessage" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="fixed inset-0"></div>
+      
+      
+        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+          <div class="flex items-end justify-center p-4 text-center sm:p-0">
+            <div
+              class="relative transform overflow-hidden rounded-lg bg-red-300 text-left shadow-xl transition-all w-full max-w-lg">
+              <div class="bg-red-300 px-2 py-4">
+                <div class="flex gap-2">
+      
+                  <span class="text-green-600 m-1">
+                    <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                      aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                    </svg>
+                  </span>
+                  <div class="flex-1">
+                    <strong class="block font-medium text-gray-900"> Attention! </strong>
+      
+                    <p class="mt-1 text-sm text-gray-700">{{AlerteMessage}}</p>
+      
+                    <div class="mt-4 flex gap-2">
+                      <button (click)="redirectToAlerteDetails(this.AlerteId)"
+                        class="inline-flex items-center gap-2 rounded-lg bg-[#dc2626] px-4 py-2 text-white hover:bg-[#b61c1c]">
+                        <span class="text-sm"> Voir plus </span>
+      
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                          stroke="currentColor" class="h-4 w-4">
+                          <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                        </svg>
+                      </button>
+      
+                      <!-- <button class="block rounded-lg px-4 py-2 text-gray-700 transition hover:bg-gray-50">
+                              <span class="text-sm elememm" (click)="alertHidden(this)">Masquer</span>
+                            </button> -->
+                    </div>
+                  </div>
+      
+      
+                </div>
+              </div>
+      
+            </div>
+          </div>
+        </div>
+      
+           </div> 
   </div>
 </nav>

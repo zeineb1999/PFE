@@ -92,8 +92,8 @@ export class RedigerRapportComponent {
   equipementSelect: any;
   autre: string='';
   userID: number = 0;
-  constructor(private authService: AuthService,private route: ActivatedRoute, private router: Router, private floorService: FloorService, private renderer: Renderer2, private el: ElementRef) {this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-    this.userID = parseInt(localStorage.getItem('id') || '');
+  constructor(private authService: AuthService,private route: ActivatedRoute, private router: Router, private floorService: FloorService, private renderer: Renderer2, private el: ElementRef) {this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+    this.userID = parseInt(sessionStorage.getItem('id') || '');
    }
 
   ngOnInit() {

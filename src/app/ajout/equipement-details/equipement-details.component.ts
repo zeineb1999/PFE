@@ -32,7 +32,7 @@ export class EquipementDetailsComponent implements OnInit {
   consommation_annuelle_totale: number = 0;
   equipementInfos: any;
   rapports: any[] = [];
-  constructor(private route: ActivatedRoute, private router: Router, private floorService: FloorService) {  this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true'; }
+  constructor(private route: ActivatedRoute, private router: Router, private floorService: FloorService) {  this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true'; }
 
   ngOnInit(): void {
     this.loadDetails();

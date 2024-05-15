@@ -40,7 +40,7 @@ export class ToutesZonesComponent implements OnInit {
   data: any[]=[];
 
   constructor(private floorService: FloorService, private route: ActivatedRoute, private router: Router, private location: Location, private renderer: Renderer2, private el: ElementRef) {
-    this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
   }
 
   generateRandomColor(): string {
@@ -51,7 +51,7 @@ export class ToutesZonesComponent implements OnInit {
     return `rgb(${r}, ${g}, ${b})`;
  }
   ngOnInit(): void {
-   
+
   this.floorService.getAllBatiments().subscribe(batiments => {
     this.batiments = batiments;
     console.log(this.batiments)
@@ -64,7 +64,7 @@ export class ToutesZonesComponent implements OnInit {
     this.locals =locals;
     console.log(this.locals)
   });
-  
+
   treemap(Highcharts);
   treegraph(Highcharts);
 }
@@ -81,11 +81,11 @@ export class ToutesZonesComponent implements OnInit {
       //this.renderChart(this.data);
     })
   }
- 
+
   private renderChart(data: any[]): void {
     (Highcharts as any).chart({
       chart: {
-        renderTo: 's-container', 
+        renderTo: 's-container',
         type: 'treegraph',
         spacingBottom: 30,
         marginRight: 250,
@@ -200,7 +200,7 @@ export class ToutesZonesComponent implements OnInit {
   }
   redirectToAjouterBatiment(): void {
     this.router.navigate(['/ajouterBatiment']);
-    
+
   }
 
   updateEtage(etageId: number): void {

@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FloorService } from 'src/app/service/floor.service';
 import { switchMap } from 'rxjs/operators';
 import * as Highcharts from 'highcharts';
+import { NgxGaugeType } from 'ngx-gauge/gauge/gauge';
 
 interface Zone {
   id: number;
@@ -13,12 +14,12 @@ interface Zone {
 interface Equipement {
     id: number;
     nom: string;
-  
+
     etat: string;
     categorie: string;
     type: string;
     puissance: number;
-  
+
     zoneE: number;
   }
 
@@ -42,7 +43,7 @@ export class ZoneDetailsComponent implements OnInit {
   currentEquipement: Equipement = {
     id: 0,
     nom: '',
-   
+
     etat: '',
     categorie: '',
     type: '',
@@ -59,21 +60,36 @@ export class ZoneDetailsComponent implements OnInit {
   etatFiltre: string = ''; // Propriété pour stocker la valeur du filtre d'état sélectionné
   typeFiltre: string = ''; // Propriété pour stocker la valeur du filtre de type sélectionné
 
-  constructor(private route: ActivatedRoute, private router: Router, private floorService: FloorService) {this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true'; }
+  gaugeType: NgxGaugeType = "arch";
+  gaugeValue = 28.3;
+  gaugeLabel = "Speed";
+    gaugeAppendText = "km/hr";
+    
+  thresholdConfig = {
+      '0': {color: 'blue'},
+      '18': {color: 'green'},
+      '26': {color: 'red'}
+  };
+    
+  thresholdConfigH = {
+      '0': {color: 'green'},
+      '40': {color: 'red'}
+  };
+
+  constructor(private route: ActivatedRoute, private router: Router, private floorService: FloorService) {this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true'; }
 
   ngOnInit(): void {
     this.zoneId = parseInt(this.route.snapshot.paramMap.get('zoneId') || '');
-  
+
     this.loadDetails();
     this.fetchNewValues();
-   
 
-// Appeler la fonction toutes les minutes pour récupérer de nouvelles valeurs
+
     setInterval(() => {
       this.fetchNewValues();
     }, 60000); // 60000 millisecondes = 1 minute
-    
-    
+
+
   }
 
   fetchNewValues(): void {
@@ -82,7 +98,7 @@ export class ZoneDetailsComponent implements OnInit {
       (response: any) => {
         this.temperature = response.T.toFixed(1);
         this.humidite = response.H.toFixed(1);
-    
+
       },
       (error: any) => {
         console.error('Erreur lors de la récupération des données : ', error);
@@ -102,16 +118,18 @@ export class ZoneDetailsComponent implements OnInit {
     dateISO.substring(11, 13) + ':' +
     dateISO.substring(14, 16) + ':00';
   }
-  loadDetails(): void {
-    this.floorService.getAllEquipements().subscribe(
-      (data: Equipement[]) => {
-        this.equipements = data;
-       
-      },
-      (error) => {
-        console.log(error);
+    loadDetails(): void {
+      if (this.zoneDetails) {
+        this.floorService.getEquipementsByZone(this.zoneDetails.id).subscribe(
+          (data: any[]) => {
+            this.equipements = data;
+            console.log('dtaa: ', data)
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
       }
-    );
 
     // Récupérer le paramètre zoneId de l'URL
     this.zoneId = parseInt(this.route.snapshot.paramMap.get('zoneId') || '');
@@ -136,31 +154,33 @@ export class ZoneDetailsComponent implements OnInit {
             console.error('Une erreur s\'est produite lors de la récupération des détails de la zone :', error);
           }
         );
+        this.floorService.getEquipementsByZone(this.zoneDetails.id).subscribe(
+        (data: Equipement[]) => {
+          this.equipementsLocals = data;
+          this.equipementsFiltre = data;
+        },
+        (error) => {
+          console.error('Une erreur s\'est produite lors du chargement des équipements de la zone :', error);
+        }
+        );
+        
       },
+
       (error) => {
         console.error('Une erreur s\'est produite lors de la récupération des détails de la zone :', error);
       }
     );
 
-    this.floorService.getEquipementsByZone(this.zoneId).subscribe(
-      (data: Equipement[]) => {
-        this.equipementsLocals = data;
-        this.equipementsFiltre = data;
-      },
-      (error) => {
-        console.error('Une erreur s\'est produite lors du chargement des équipements de la zone :', error);
-      }
-    );
 
   }
  /*  filtrerEquipements() {
     this.equipementsFiltre = [];
     console.log("Filtre Type : ", this.typeFiltre, " - Categorie : ", this.categorieFiltre, " - Etat : ", this.etatFiltre);
-  
+
     this.equipementsLocals.forEach(equipement => {
       console.log("Filtre Type : ", this.typeFiltre, " - Categorie : ", this.categorieFiltre, " - Etat : ", this.etatFiltre);
       console.log(equipement);
-    
+
       if(this.typeFiltre == '' && this.categorieFiltre == '' && this.etatFiltre == '') {
         console.log('0 0 0');
       }else
@@ -172,7 +192,7 @@ export class ZoneDetailsComponent implements OnInit {
         else {
           console.log("aucun ",equipement);
         }
-        
+
       }else
       if(this.typeFiltre == '' && this.categorieFiltre != '' && this.etatFiltre != '') {
         if (equipement.type == this.categorieFiltre && equipement.etat == this.etatFiltre) {
@@ -185,7 +205,7 @@ export class ZoneDetailsComponent implements OnInit {
           this.equipementsFiltre.push(equipement);
           console.log('1 0 1');
         }
-        
+
       }else
       if(this.typeFiltre != '' && this.categorieFiltre != '' && this.etatFiltre == '') {
         if (equipement.categorie == this.typeFiltre && equipement.type == this.categorieFiltre) {
@@ -211,13 +231,13 @@ export class ZoneDetailsComponent implements OnInit {
           console.log('0 0 1');
         }
       }
-      
+
 
     });
-  
+
     console.log("Filtre : ", this.equipementsFiltre);
   } */
-  
+
   filtrerEquipements() {
     // Vérifier si aucun filtre n'est sélectionné
     if (this.typeFiltre === '' && this.categorieFiltre === '' && this.etatFiltre === '') {
@@ -232,12 +252,12 @@ export class ZoneDetailsComponent implements OnInit {
             const categorieCondition = this.categorieFiltre === '' || equipement.type === this.categorieFiltre;
             // Vérifier si le filtre d'état est défini et si l'équipement correspond
             const etatCondition = this.etatFiltre === '' || equipement.etat === this.etatFiltre;
-            
+
             // Retourner true si toutes les conditions sont remplies, sinon false
             return typeCondition && categorieCondition && etatCondition;
         });
     }
-  
+
     console.log("Filtre : ", this.equipementsFiltre);
 }
 

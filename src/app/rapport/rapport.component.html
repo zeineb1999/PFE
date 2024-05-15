@@ -1,14 +1,9 @@
 <div *ngIf="isLoggedIn">
-  <div class="flex w-full" style="justify-content: flex-end;">
-    <app-header class="fixed" style="width: 85%; z-index: 9999;"></app-header>
-  </div>
+
   
-  <div class="pt-12 pb-8">
-     
 
  <div class="flex bg-[#ebf2ff]">
-  <app-side class="fixed bg-white shadow-md" style="width: 15%"></app-side>
-
+ 
   <div class="flex w-full" style="justify-content: flex-end; padding-top: 7%;">
   
     <div class=""  style="width: 85%">
@@ -31,9 +26,25 @@
                                 <th class="text-left p-3 px-5">rédacteur</th>
                                 <th class="text-left p-3 px-5">date</th>
                                 <th class="text-left p-3 px-5">equipement</th>
+                                <th  class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">
+                                  <div class="flex items-center gap-x-2">
+                                      <span>{{'Filtrer par :'|translate}}</span>
+                              
+                                      <!-- Menu déroulant pour le lu non lu-->
+                                      <select [(ngModel)]="typeFiltre" (change)="filtrerEquipements()">
+                                          <option value="">{{'État'|translate}}</option>
+                                          <option *ngFor="let type of types" [value]="">{{ type }}</option>
+                                      </select>
+                              
+                                      
+                                  </div>
+                              </th>
                                 <th></th>
                             </tr>
-                            <tr *ngFor="let rapport of rapports" class="border-b hover:bg-orange-100">
+                          
+                            <span *ngIf="rapports.length === 0">Aucun équipement trouvé.</span>
+                            
+                            <tr *ngFor="let rapport of rapportsFiltre" class="border-b hover:bg-orange-100">
                             
                               <td class="p-3 px-5">
                                 <div class="bg-transparent border-b-2 border-gray-300 py-2">

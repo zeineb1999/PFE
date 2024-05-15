@@ -16,7 +16,7 @@ export class AjouterBatimentComponent implements OnInit {
   ngOnInit(): void {
       
   }
-  constructor(private floorService: FloorService,private route: ActivatedRoute, private router: Router) {  this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';}
+  constructor(private floorService: FloorService,private route: ActivatedRoute, private router: Router) {  this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';}
 
   ajouterEtage(): void {
     if (this.batimentName !== undefined && this.batimentType !== undefined) {

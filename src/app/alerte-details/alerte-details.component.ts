@@ -58,11 +58,11 @@ export class AlerteDetailsComponent {
     console.log('alerte envoyé: ', data)
   }
 
-  constructor(private authService: AuthService,private route: ActivatedRoute, private router: Router, private floorService: FloorService) {this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true'; }
+  constructor(private authService: AuthService,private route: ActivatedRoute, private router: Router, private floorService: FloorService) {this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true'; }
 
   ngOnInit() {
-    this.roleUser=localStorage.getItem('role');
-
+    this.roleUser=sessionStorage.getItem('role');
+    console.log('roleUser:---------> ', this.roleUser)
     //window.location.reload();
 
     this.alerteId = parseInt(this.route.snapshot.paramMap.get('alerteId') || '');

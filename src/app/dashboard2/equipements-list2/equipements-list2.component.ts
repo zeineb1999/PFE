@@ -42,7 +42,7 @@ interface BatimentType {
 })
 export class EquipementsList2Component {
   constructor(private floorService: FloorService, private router: Router, private renderer: Renderer2, private el: ElementRef) {
-    this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
   }
 
   isLoggedIn: boolean;

@@ -16,10 +16,10 @@ export class RapportDetailsComponent {
   equipement: any;
   page: string = '';
 
-    constructor(private authService: AuthService,private route: ActivatedRoute, private router: Router, private floorService: FloorService) {this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true'; }
+    constructor(private authService: AuthService,private route: ActivatedRoute, private router: Router, private floorService: FloorService) {this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true'; }
 
   ngOnInit() {
-    this.roleUser=localStorage.getItem('role');
+    this.roleUser=sessionStorage.getItem('role');
     this.alerteId = parseInt(this.route.snapshot.paramMap.get('alerteId') || '');
     console.log('alerteid: ', this.alerteId)
 

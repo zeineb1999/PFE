@@ -17,25 +17,25 @@ export class AuthService {
   }
   logout() {
     // Supprimez le token JWT stocké côté client
-    localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('role');
-    localStorage.removeItem('token');
-    localStorage.removeItem('id');
+    sessionStorage.removeItem('isLoggedIn');
+    sessionStorage.removeItem('role');
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('id');
     this.router.navigate(['/acceuil']);
   }
 
   getToken() {
     // Récupérez le token JWT stocké côté client
-    return localStorage.getItem('token');
+    return sessionStorage.getItem('token');
   }
 
   getProfile() {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<any>('http://127.0.0.1:8000/api/profile/', { headers });
   }
   getAllusers() {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<any>('http://127.0.0.1:8000/api/Allusers/', { headers });
   }
@@ -49,12 +49,12 @@ export class AuthService {
 
   }
   deleteUser(id: number): Observable<any> {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.delete<any>(`http://127.0.0.1:8000/api/deleteUser/${id}`, { headers });
   }
   updateUserProfile(newUsername: string, newFirstname: string, newLastname: string,newEmail:string) {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     const body = { username: newUsername, firstname: newFirstname, lastname: newLastname, email:newEmail };
     return this.http.put<any>('http://127.0.0.1:8000/api/profile/', body, { headers });

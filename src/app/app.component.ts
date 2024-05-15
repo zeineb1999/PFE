@@ -27,6 +27,7 @@ export class AppComponent implements OnInit{
 
   selectedMovies :any  ;
   title = 'Frontend';
+  afficherSide: Boolean = false;
 
 
 
@@ -37,7 +38,11 @@ export class AppComponent implements OnInit{
     password: '',
     email: ''
   };
-  ngOnInit(){
+  ngOnInit() {
+    var url = window.location.href;
+    var pageName = url.substring(url.lastIndexOf('/') + 1);
+    console.log(url, ": La page actuelle est : " + pageName);
+    this.afficherSide = url!='http://localhost:4200/' && pageName != 'signup' && pageName != 'login' && pageName != '' && pageName != 'accueil'
     this.register ={
       username : '',
       last_name:'',
@@ -62,7 +67,7 @@ export class AppComponent implements OnInit{
 
   constructor(private userService: UserService, private api: ApiService, private translateService: TranslateService) {
     this.translateService.setDefaultLang('fr');
-    this.translateService.use(localStorage.getItem('lang') || 'fr');
+    this.translateService.use(sessionStorage.getItem('lang') || 'fr');
   }
 
 }

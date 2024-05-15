@@ -22,7 +22,7 @@ export class AjouterEtageComponent implements OnInit {
     this.batimentId = parseInt(this.route.snapshot.paramMap.get('batimentId') || '');
     
   }
-  constructor(private floorService: FloorService,private route: ActivatedRoute, private router: Router) {  this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';}
+  constructor(private floorService: FloorService,private route: ActivatedRoute, private router: Router) {  this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';}
 
   ajouterEtage(): void {
     if (this.floorName !== undefined && this.batimentId !== undefined) {

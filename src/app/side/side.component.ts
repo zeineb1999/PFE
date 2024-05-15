@@ -1,3 +1,5 @@
+
+
 import { Component, ElementRef, Renderer2, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FloorService } from '../service/floor.service';
@@ -23,6 +25,7 @@ export class SideComponent {
   isLoggedIn: any;
   user: any;
   role: any;
+  url: string='';
   onAlertChange(local: string, temperature: number, nowSlash: ColorString) {
     console.log(`Alert received: Local: ${local}, Temperature: ${temperature}, Now: ${nowSlash}`);
   }
@@ -30,18 +33,20 @@ export class SideComponent {
   AlerteMessage: string = '';
 
   constructor(private authService: AuthService,private floorService: FloorService, private router: Router,private translate: TranslateService, private renderer: Renderer2, private el: ElementRef) {
-    this.isLoggedIn = localStorage.getItem('isLoggedIn');
+    this.isLoggedIn = sessionStorage.getItem('isLoggedIn');
   
   }
 
   currentSection: string = '';
 
   ngOnInit() {
+    this.url = window.location.href;
+    console.log(this.url)
     this.user = localStorage.getItem('id');
     this.role = localStorage.getItem('role');
     this.isLoggedIn = localStorage.getItem('isLoggedIn')
     this.lang = localStorage.getItem('lang') || 'fr';
-    if(this.role =='responsable de maintenance' || this.role =='Responsable de maintenance'){
+   /*  if(this.role =='responsable de maintenance' || this.role =='Responsable de maintenance'){
       this.floorService.getAlertesById(this.user).subscribe((alertes: any) => {
         this.alertes = alertes
       })
@@ -50,7 +55,7 @@ export class SideComponent {
       this.floorService.getAlertesSansId().subscribe((alertes: any) => {
         this.alertes = alertes
       })
-    }
+    } */
   }
 
   getCurrentSection() {
@@ -102,7 +107,7 @@ export class SideComponent {
   }
   ChangeLang(lang:any){
     const selectedLanguage= lang.target.value;
-    localStorage.setItem('lang', selectedLanguage);
+    sessionStorage.setItem('lang', selectedLanguage);
 
     this.translate.use(selectedLanguage);
   }

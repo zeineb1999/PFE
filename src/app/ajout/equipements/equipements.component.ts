@@ -25,7 +25,7 @@ export class EquipementsComponent implements OnInit {
   selectedEquipement: Equipement | undefined;
   isLoggedIn: boolean;
 
-  constructor(private floorService: FloorService, private router: Router) {   this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';}
+  constructor(private floorService: FloorService, private router: Router) {   this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';}
 
   ngOnInit(): void {
     this.loadEquipements();

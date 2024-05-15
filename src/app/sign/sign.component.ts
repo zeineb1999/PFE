@@ -42,10 +42,10 @@ attemptLogin() {
     if (this.roleEntree == this.roleExact) {
         this.authService.login(this.username, this.password).subscribe(response => {
             console.log(response);
-            localStorage.setItem('token', response.access);
+            sessionStorage.setItem('token', response.access);
             this.successMessage = 'Connexion réussie !';
-            localStorage.setItem('isLoggedIn', 'true');
-            localStorage.setItem('role', this.roleEntree);
+            sessionStorage.setItem('isLoggedIn', 'true');
+            sessionStorage.setItem('role', this.roleEntree);
 
             // Redirigez l'utilisateur vers la page de tableau de bord après la connexion réussie
            

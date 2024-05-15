@@ -27,7 +27,7 @@ export class UpdateEtageComponent  {
     constructor(
       
     ){
-       this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+       this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
     }
 }
 /*

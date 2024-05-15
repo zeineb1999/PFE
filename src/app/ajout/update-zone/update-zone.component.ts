@@ -40,7 +40,7 @@ export class UpdateZoneComponent  implements OnInit {
       private floorService: FloorService,
       private router: Router,
       private route: ActivatedRoute
-    ) {this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';}
+    ) {this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';}
   
     ngOnInit() {
       this.route.paramMap.pipe(

@@ -4,6 +4,8 @@ import { FloorService } from '../../service/floor.service';
 import { Subscription } from 'rxjs';
 
 import { Router } from '@angular/router';
+import { WebSocketService } from '../../service/web-socket.service';
+
 
 interface Local {
   id: number;
@@ -50,6 +52,7 @@ export class LocalsListComponent {
   localsT: number[] = []
   localsT1: any[] = [];
   localsT2: any[] = [];
+  data: any[] = [];
   localsH: number[] = []
   localsH1: any[] = [];
   localsH2: any[] = [];
@@ -65,10 +68,17 @@ export class LocalsListComponent {
     this.alerteChange.emit(data);
   }
 
-  constructor(private floorService: FloorService, private router: Router, private renderer: Renderer2, private el: ElementRef) {
-    this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+  constructor(private wsService: WebSocketService,private floorService: FloorService, private router: Router, private renderer: Renderer2, private el: ElementRef) {
+    this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
   }
   ngOnInit(): void {
+   /*  this.wsService.connectMinute().subscribe(
+      (data: any) => {
+        this.data = data;
+        console.log('received table minute: ', data);
+        this.processData();
+      }
+    ); */
     this.activeMethode();
     window.addEventListener("load", function(event) {
       const dropdownToggle = document.querySelector('[data-dropdown-toggle="dropdown"]');
@@ -78,14 +88,31 @@ export class LocalsListComponent {
     });
     this.batimentsLoading  =true;
     const parentElement = this.el.nativeElement.querySelector('#container');
-    this.recupererDonnees();
+   /*  this.recupererDonnees();
     this.intervalId = setInterval(() => {
       this.recupererDonnees();
     }, 60000);
-
+ */
    
   }
+ 
+  processData(): void {
+    console.log('data: ', this.data);
+    this.data.forEach((local, index) => {
+      if (local !== "empty") {
+        console.log('local: ', local);
+        const localId = index;  // Utilise l'index directement, car il correspond à l'ID du local
+        this.localsT[localId] = local.T;
+        this.localsH[localId] = local.H;
+      }
+    });
+    console.log('localst: ', this.localsT);
+    console.log('localsh: ', this.localsH);
+    
+  }
   
+  
+
   activeMethode(): void {
     this.floorService.startDjangoMethod().subscribe(
       () => {
@@ -109,7 +136,7 @@ export class LocalsListComponent {
     clearInterval(this.intervalId);
     
   }
-  recupererDonneesMois(): void {
+  /* recupererDonneesMois(): void {
      
     this.batimentsLoading  =true;
     const parentElement = this.el.nativeElement.querySelector('#container');
@@ -161,9 +188,9 @@ export class LocalsListComponent {
       }
     );
     
-  }
+  } */
 
-  recupererDonneesJour(): void {
+ /*  recupererDonneesJour(): void {
      
     this.batimentsLoading  =true;
     const parentElement = this.el.nativeElement.querySelector('#container');
@@ -305,7 +332,7 @@ export class LocalsListComponent {
     );
 
 
-  }
+  } */
  
  /* recupererDonnees(): void {
     
@@ -556,7 +583,7 @@ export class LocalsListComponent {
   batimentsLoading: Boolean= true;
 
   constructor(private floorService: FloorService, private router: Router, private renderer: Renderer2, private el: ElementRef) {
-    this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
   }
 
   ngOnInit(): void {

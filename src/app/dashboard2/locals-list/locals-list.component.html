@@ -24,7 +24,9 @@
                       <i class="fa-solid fa-building fa-lg mr-2 flex items-center text-gray-700"></i>
                       <span style="font-size: 17px; font-weight: bold; padding: 2% 2%;" class="">{{batiment.nomBatiment}}</span>
                     </div>
-      
+                    shhhhhhhhhh{{this.localsH}}
+                    <br>
+                    thhhhhhhhhhhh {{this.localsT}}
                     <div *ngFor="let etage of batiment.etages" class=" pl-4" style="font-size: 14px; font-weight: bold;">
                       <div class="flex gap-1 py-2">
                         <i class="fa-solid fa-stairs fa-lg mr-2 "></i>
@@ -36,9 +38,9 @@
                         <span class="flex gap-1 py-2" style="width: 50%;">
                   <span style="font-size: 11px;">{{local.nomLocal}}</span>
                         </span>
-                        <span *ngIf="localsT[local.id-1] !== null">{{localsT[local.id-1]}} °C</span>
+                       <!--  <span *ngIf="localsT[local.id-1] !== null">{{localsT[local.id-1]}} °C</span>
                         <span *ngIf="localsH[local.id-1] !== null">{{localsH[local.id-1]}} %</span>
-      
+       -->
                       </div>
       
                     </div>
@@ -46,6 +48,7 @@
                 </section>
       
               </div>
+              
               <div *ngIf="selectedFilter === 'moyenne par jour'">
               
                 <p>Contenu pour la moyenne par jour</p>

@@ -1,105 +1,70 @@
-
 <div *ngIf="page!='dashboard2'">
-<div class="flex w-full" style="justify-content: flex-end;">
-    <app-header class="fixed" style="width: 85%; z-index: 9999;"></app-header>
-  </div>
 
-  <div>
+  <div *ngIf="rapport" class="bg-[#ebf2ff] min-h-screen" style="padding-top: 7%;">
 
-    <div *ngIf="rapport" class="flex bg-[#ebf2ff] min-h-screen">
-      <app-side class="fixed bg-white shadow-md" style="width: 15%"></app-side>
 
-      <div class="flex w-full" style="justify-content: flex-end; padding-top: 7%;">
-        <div style="width: 85%">
+    <div class="w-full flex justify-start text-2xl font-medium text-gray-700 mx-8 mt-4 mb-6">
+      Rapport N° {{rapport.id}}
+    </div>
 
-          <div class="w-full flex justify-start text-2xl font-medium text-gray-700 mx-8 mt-4 mb-6">
-            Rapport N° {{rapport.id}}
+    <div class="bg-white shadow-md rounded-lg mx-auto overflow-y-auto custom-scrollbar my-4 p-8"
+      style="width: 95%">
+      <div class="flow-root">
+        <dl class="-my-3 divide-y divide-gray-100 text-sm">
+          <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+            <dt class="font-medium text-gray-900">Alerte consernée</dt>
+            <dd class="font-medium text-gray-700 sm:col-span-2">{{ this.rapport.alerte }}</dd>
           </div>
 
-          <div class="bg-white shadow-md rounded-lg mx-auto overflow-y-auto custom-scrollbar my-4 p-8"
-            style="width: 95%">
-            <div class="flow-root">
-              <dl class="-my-3 divide-y divide-gray-100 text-sm">
-                <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
-                  <dt class="font-medium text-gray-900">Alerte consernée</dt>
-                  <dd class="font-medium text-gray-700 sm:col-span-2">{{ this.rapport.alerte }}</dd>
-                </div>
+          <div class="py-3">
+            <dt class="font-medium text-gray-900">Causes de l'alerte</dt>
+            <li *ngFor="let cause of rapport.causes.split('|')" class="px-10 py-2 font-medium text-gray-700">
+              {{cause}}
+            </li>
+          </div>
 
-                <div class="py-3">
-                  <dt class="font-medium text-gray-900">Causes de l'alerte</dt>
-                  <li *ngFor="let cause of rapport.causes.split('|')" class="px-10 py-2 font-medium text-gray-700">
-                    {{cause}}
-                  </li>
-                </div>
+          <div class="py-3">
+            <dt class="font-medium text-gray-900">Solutions proposées par le responsables de maintenance</dt>
+            <li *ngFor="let solution of rapport.solutions.split('|')" class="px-10 py-2 font-medium text-gray-700">
+              {{solution}}
+            </li>
+          </div>
 
-                <div class="py-3">
-                  <dt class="font-medium text-gray-900">Solutions proposées par le responsables de maintenance</dt>
-                  <li *ngFor="let solution of rapport.solutions.split('|')" class="px-10 py-2 font-medium text-gray-700">
-                    {{solution}}
-                  </li>
-                </div>
+          <div class="py-3">
+            <dt class="font-medium text-gray-900">Risques</dt>
+            <li *ngFor="let risque of rapport.risques.split('|')" class="px-10 py-2 font-medium text-gray-700">
+              {{risque}}
+            </li>
+          </div>
 
-                <div class="py-3">
-                  <dt class="font-medium text-gray-900">Risques</dt>
-                  <li *ngFor="let risque of rapport.risques.split('|')" class="px-10 py-2 font-medium text-gray-700">
-                    {{risque}}
-                  </li>
-                </div>
+          <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+            <dt class="font-medium text-gray-900">Equipement endommagé</dt>
+            <dd class="font-medium text-gray-700 sm:col-span-2">
+              <a [routerLink]="'/equipement-details/'+ equipement.id" *ngIf="equipement" class="text-blue-700 hover:underline">
+                equipement n° {{this.equipement.id}} : {{this.equipement.nom}}
+              </a>
+            </dd>
+          </div>
 
-                <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
-                  <dt class="font-medium text-gray-900">Equipement endommagé</dt>
-                  <dd class="font-medium text-gray-700 sm:col-span-2">
-                    <a [routerLink]="'/equipement-details/'+ equipement.id" *ngIf="equipement" class="text-blue-700 hover:underline">
-                      equipement n° {{this.equipement.id}} : {{this.equipement.nom}}
-                    </a>
-                  </dd>
-                </div>
+          <div class="py-3">
+            <dt class="font-medium text-gray-900">Materiel nécessaire pour la maintenance</dt>
 
-                <div class="py-3">
-                  <dt class="font-medium text-gray-900">Materiel nécessaire pour la maintenance</dt>
-
-                  <div class="grid gap-1 py-3 sm:grid-cols-3 sm:gap-4 text-gray-600">
-                    <div class="sm:col-span-2 grid grid-cols-1 gap-1 py-2 sm:grid-cols-2 sm:gap-4 px-10 font-medium text-gray-700" style="border-bottom: 1px #dbdbdb solid;">
-                      <div class="font-medium text-gray-900">Materiel</div>
-                      <div class="font-medium text-gray-700">Necessité</div>
-                    </div>
-                    <div class="sm:col-span-2 grid grid-cols-1 gap-1 py-3 sm:grid-cols-2 sm:gap-4 px-10 py-2 font-medium text-gray-700" style="border-bottom: 1px #dbdbdb solid;" *ngFor="let equip of rapport.equipementsDemandes.split('|'); let i = index">
-                      <div class="font-medium text-gray-900" *ngIf="equip!=' ' && rapport.equipementsNecessites.split('|')[i]!=' '">{{equip}}</div>
-                      <div class="font-medium text-gray-700" *ngIf="equip!=' ' && rapport.equipementsNecessites.split('|')[i]!=' '">{{rapport.equipementsNecessites.split('|')[i]}}</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="py-3">
-                  <dt class="font-medium text-gray-900">Materiel nécessaire pour la maintenance</dt>
-                
-                  <table>
-                    <tr>
-                      <th class="font-medium text-gray-700">Materiel</th>
-                      <th class="font-medium text-gray-700">Necessité</th>
-                    </tr>
-                    <tr *ngFor="let equip of rapport.equipementsDemandes.split('|'); let i = index">
-                      <td>{{equip}}</td>
-                      <td>{{rapport.equipementsNecessites.split('|')[i]}}</td>
-                    </tr>
-                  </table>
-                  
-                </div>
-
-
-
-
-
-              </dl>
+            <div class="grid gap-1 py-3 sm:grid-cols-3 sm:gap-4 text-gray-600">
+              <div class="sm:col-span-2 grid grid-cols-1 gap-1 py-2 sm:grid-cols-2 sm:gap-4 px-10 font-medium text-gray-700" style="border-bottom: 1px #dbdbdb solid;">
+                <div class="font-medium text-gray-900">Materiel</div>
+                <div class="font-medium text-gray-700">Necessité</div>
+              </div>
+              <div class="sm:col-span-2 grid grid-cols-1 gap-1 py-3 sm:grid-cols-2 sm:gap-4 px-10 py-2 font-medium text-gray-700" style="border-bottom: 1px #dbdbdb solid;" *ngFor="let equip of rapport.equipementsDemandes.split('|'); let i = index">
+                <div class="font-medium text-gray-900" *ngIf="equip!=' ' && rapport.equipementsNecessites.split('|')[i]!=' '">{{equip}}</div>
+                <div class="font-medium text-gray-700" *ngIf="equip!=' ' && rapport.equipementsNecessites.split('|')[i]!=' '">{{rapport.equipementsNecessites.split('|')[i]}}</div>
+              </div>
             </div>
-
-
-
           </div>
 
-        </div>
-
+        </dl>
       </div>
+
+
 
     </div>
 

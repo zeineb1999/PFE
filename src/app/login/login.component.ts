@@ -76,7 +76,7 @@ export class LoginComponent implements OnInit{
   }
   constructor(private userService: UserService, private api: ApiService,private route: ActivatedRoute, private router: Router) {
     // Code du constructeur
-    this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
     
 
   }

@@ -42,7 +42,7 @@ export class AjouterZoneSansEtageComponent implements OnInit {
  
   constructor(private floorService:FloorService,private route: ActivatedRoute, private router: Router) {
     // Code du constructeur
-     this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+     this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
    }
 
    ngOnInit(): void {
