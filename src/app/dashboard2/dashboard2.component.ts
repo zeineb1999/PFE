@@ -2,6 +2,7 @@ import { Component, ElementRef, Renderer2, Input, OnDestroy } from '@angular/cor
 import { FloorService } from '../service/floor.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { WebSocketService } from 'src/app/service/web-socket.service';
 
 interface Equipement {
   id: number;
@@ -25,7 +26,7 @@ interface Equipement {
 })
 export class Dashboard2Component {
   private equipementsSubscription: Subscription | undefined;
-
+  private intervalId: any;
     isLoggedIn: boolean;
     equipements: any;
     equipementsParLocal: any;
@@ -42,28 +43,46 @@ export class Dashboard2Component {
     @Input() local: string ='';
     @Input() type: string='';
     @Input() nowSlash: string='';
+    zmer : any;
     AlerteId: any;
     roleUser: any;
     alertes: any[] = [];
     roleId: any;
-
+    sendData: any;
     onAlertChange(local: string, temperature: number, nowSlash: string) {
       console.log(`Alert received: Local: ${local}, Temperature: ${temperature}, Now: ${nowSlash}`);
     }
 
     AlerteMessage: string = '';
-    constructor(private floorService: FloorService, private router: Router, private renderer: Renderer2, private el: ElementRef) {
+    constructor(private wsService: WebSocketService,private floorService: FloorService, private router: Router, private renderer: Renderer2, private el: ElementRef) {
       this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
       this.roleUser=sessionStorage.getItem('role');
       this.roleId=sessionStorage.getItem('id');
     }
 
   ngOnInit() {
-
-    this.equipementsSubscription = this.floorService.get_alerte_non_notifie(this.roleId).subscribe((alertes: any) => {
+    /* this.wsService.connectequipement().subscribe(
+      (message) => {
+        console.log('Received message:', message);
+        this.sendData = message
+        
+      }) */
+      this.LoadEquipements()
+       this.floorService.getHopitalConsommationPendantMoisCritiqueETNormal().subscribe((data: any) => {
+        this.sendData = data;
+        console.log('sendData: ', this.sendData);
+      });
+  
+      this.intervalId = setInterval(() => {
+        this.floorService.getHopitalConsommationPendantMoisCritiqueETNormal().subscribe((data: any) => {
+          this.sendData = data;
+          console.log('sendData: ', this.sendData);
+        });
+      }, 60000); 
+    /* this.equipementsSubscription = this.floorService.get_alerte_non_notifie(this.roleId).subscribe((alertes: any) => {
       console.log('alertes: ', alertes)
       this.alertes = alertes
-/* 
+
       alertes.forEach((alerte: any) => {
         this.AlerteId = alerte.id
         //console.log('local '+ alerte.localId+ ': ', alerte.nomLocal +' type: ',  alerte.type+' now: '+ alerte.nowSlash)
@@ -82,9 +101,9 @@ export class Dashboard2Component {
         }, 5000);
 
 
-      }); */
-    })
-      this.LoadEquipements()
+      });
+    }) */
+      
   }
   ngOnDestroy() {
     // Si un abonnement est défini, le désabonner pour éviter les fuites de mémoire
@@ -92,7 +111,9 @@ export class Dashboard2Component {
       this.equipementsSubscription.unsubscribe();
     }
     this.floorService.stopDjangoMethod();
-    
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
   }
 
     ngOnChanges() {
@@ -101,6 +122,7 @@ export class Dashboard2Component {
 
     ngAfterViewInit() {
     }
+    
 
     LoadEquipements(){
       this.EquipementsLoading = true;
@@ -148,9 +170,10 @@ export class Dashboard2Component {
         let now : Date = new Date()
         let isoDateString = new Date(now.getTime() + (60 * 60 * 1000)).toISOString();
 
-
-        this.floorService.getConsommationEquipementParPeriode('2024-01-01 00:00:00', isoDateString.slice(0, 19).replace('T', ' ')).subscribe(
+        console.log('peeeriode: ', '2024-'+(new Date().getMonth()+1)+'-01 00:00:00',' -> ', isoDateString.slice(0, 19).replace('T', ' '))
+        this.floorService.getConsommationEquipementParPeriode('2024-'+(new Date().getMonth()+1)+'-01 00:00:00', isoDateString.slice(0, 19).replace('T', ' ')).subscribe(
           (data: any[]) => {
+            console.log('equips : ', data)
             this.EquipementsLoading = false;
             this.refreshButtonEnabled(true)
 
@@ -293,6 +316,6 @@ export class Dashboard2Component {
       console.log('alerteId', alerteId)
       this.router.navigate(['/alerte-details/', alerteId]);
     }
-    
-    
+
+
 }

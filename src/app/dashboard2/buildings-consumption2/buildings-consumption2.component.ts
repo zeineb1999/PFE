@@ -34,7 +34,7 @@ export class BuildingsConsumption2Component {
     this.insertBuildingsPieChart(m)
   }
   ngOnChanges() {
-    //this.LoadData()  actiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiive
+    this.LoadData()
   }
 
   buildingsLoading: boolean = true;

@@ -75,8 +75,8 @@ export class HeaderComponent implements OnInit {
         this.trieralertes(this.alertes);
       });
     }
-    const roomName = 'notification_test';
-    if(this.role === 'Moyen generaux' || this.role === 'moyen generaux') {
+   const roomName = 'notification_test';
+   /*  if(this.role === 'Moyen generaux' || this.role === 'moyen generaux') {
     this.wsService.connect(roomName).subscribe(
       (message) => {
         console.log('Received message:', message);
@@ -129,7 +129,7 @@ export class HeaderComponent implements OnInit {
           }
         }
     })
-    }
+    }  */
     /* this.webSocketService.getMessages().subscribe((message: string) => {
       console.log('Message from Django:', message);
       // Traitez le message ici (par exemple, affichez-le dans une alerte)

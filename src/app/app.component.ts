@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from './api.service';
 import { UserService } from './service/user.service';
-
+import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 // Définir une interface pour l'objet de film
 interface Movie {
@@ -39,11 +39,7 @@ export class AppComponent implements OnInit{
     email: ''
   };
   ngOnInit() {
-    var url = window.location.href;
-    var pageName = url.substring(url.lastIndexOf('/') + 1);
-    console.log(url, ": La page actuelle est : " + pageName);
-    this.afficherSide = url!='http://localhost:4200/' && pageName != 'signup' && pageName != 'login' && pageName != '' && pageName != 'accueil'
-    this.register ={
+     this.register ={
       username : '',
       last_name:'',
       first_name:'',
@@ -65,9 +61,19 @@ export class AppComponent implements OnInit{
 
   }
 
-  constructor(private userService: UserService, private api: ApiService, private translateService: TranslateService) {
+  constructor(private router: Router,private userService: UserService, private api: ApiService, private translateService: TranslateService) {
     this.translateService.setDefaultLang('fr');
     this.translateService.use(sessionStorage.getItem('lang') || 'fr');
+    this.router.events.subscribe((event) => {
+      if(event instanceof NavigationEnd) 
+        this.afficherSide = this.showSideBar(event.url)
+    })
+  }
+  showSideBar(url: string): boolean {
+    if (url.includes('login') || url.includes('signup') || url.includes('accueil') || url=='/')
+      return false
+    return true
+    
   }
 
 }

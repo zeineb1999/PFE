@@ -1,207 +1,231 @@
-<div *ngIf="!equipementDetails">
-  <p>  {{'ajoutC1.title27' | translate}} </p>
-</div>
+<div *ngIf="isLoggedIn">
 
-<div *ngIf="isLoggedIn" class="mx-6">
+  <div *ngIf="equipementDetails" class="bg-[#ebf2ff] min-h-screen" style="padding-top: 7%;">
 
+    <div class="w-full flex justify-start text-2xl font-medium text-gray-700 mx-8 mt-4 mb-6">
+      {{'ajoutC1.title60' | translate}} N° {{equipementDetails.id}} : {{equipementDetails.nom}}
+    </div>
 
-  <div *ngIf="equipementDetails">
-    <div class="w-full flex justify-center">
-      <div class="relative inline-block my-12 text-center">
-        <span class="text-2xl md:text-2xl font-bold">
-          {{'ajoutC1.title28' | translate}} {{equipementDetails.id}}
-        </span>
-        <span class="mt-6 absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-blue-400 to-green-500 rounded-full"></span>
+    <div class="bg-white shadow-md rounded-lg mx-auto overflow-y-auto custom-scrollbar my-4 p-8" style="width: 95%">
+      <div class="flow-root">
+        <div class="text-xl font-medium text-gray-900 mt-4 mb-8">Informations </div>
+        <dl class="-my-3 divide-y divide-gray-100 text-sm">
+          <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+            <dt class="font-medium text-gray-900">  {{'ajoutC1.nom' | translate}} </dt>
+            <dd class="font-medium text-gray-700 sm:col-span-2">{{ equipementDetails.nom }}</dd>
+          </div>
+
+          <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+            <dt class="font-medium text-gray-900">  {{'ajoutC1.title29' | translate}} </dt>
+            <dd class="font-medium m:col-span-2 text-gray-700 ">
+              <span *ngIf="equipementDetails.etat=='OFF'" class="px-3 py-1 text-xs text-red-600 bg-red-100 rounded-full"> {{'ajoutC1.title30' | translate}}</span>
+              <span *ngIf="equipementDetails.etat=='ON'" class="px-3 py-1 text-xs text-green-600 bg-green-100 rounded-full"> {{'ajoutC1.title31' | translate}}</span>
+            </dd>
+          </div>
+
+          <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+            <dt class="font-medium text-gray-900">{{'ajoutC1.title32' | translate}}</dt>
+            <dd class="font-medium m:col-span-2 text-gray-700 ">
+              <span *ngIf="equipementDetails.categorie!='normal'" class="">{{'ajoutC1.title34' | translate}}</span>
+              <span *ngIf="equipementDetails.categorie=='normal'" class="">{{'ajoutC1.title35' | translate}}</span>
+            </dd>
+          </div>
+
+          <div class="grid grid-cols-1 gap-1 py-4 sm:grid-cols-3 sm:gap-4">
+            <dt class="font-medium text-gray-900">{{'ajoutC1.title36' | translate}}</dt>
+            <dd class="font-medium m:col-span-2 text-gray-700 ">{{equipementDetails.puissance}} W</dd>
+          </div>
+
+          <div class="grid grid-cols-1 gap-1 py-4 sm:grid-cols-3 sm:gap-4">
+            <dt class="font-medium text-gray-900">{{'ajoutC1.title37' | translate}}</dt>
+            <dd class="font-medium col-span-2 text-gray-700 ">
+              <div style="display: flex; align-items:center; justify-content: flex-start;" *ngIf="equipementInfos">
+                <span>{{equipementInfos.batiment}}</span><i class="fa-solid fa-chevron-right fa-sm mx-2"></i>
+                <span>{{'ajoutC1.title17' | translate}} {{equipementInfos.numEtage}} : {{equipementInfos.nomEtage}} </span><i class="fa-solid fa-chevron-right fa-sm mx-2"></i>
+                <a href="" class="text-blue-600 hover:underline" [routerLink]="'/zone-details/'+equipementInfos.localId"><span>Local {{equipementInfos.localId}} : {{equipementInfos.nomLocal}} </span></a>
+              </div>
+            </dd>
+          </div>
+
+          <div class="grid grid-cols-1 gap-1 py-4 sm:grid-cols-3 sm:gap-4">
+            <dt class="font-medium text-gray-900"></dt>
+            <dd class="font-medium:col-span-2"></dd>
+          </div>
+
+        </dl>
       </div>
     </div>
 
-    <div class="flow-root m-6" *ngIf="equipementDetails">
-      <dl class="-my-3 divide-y divide-gray-100 text-sm">
-        <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
-          <dt class="font-medium text-gray-900">  {{'ajoutC1.title3' | translate}} </dt>
-          <dd class="font-medium text-gray-700 sm:col-span-2">{{ equipementDetails.nom }}</dd>
-        </div>
-
-        <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
-          <dt class="font-medium text-gray-900">  {{'ajoutC1.title29' | translate}} </dt>
-          <dd class="font-medium m:col-span-2 text-gray-700 ">
-            <span *ngIf="equipementDetails.etat=='OFF'" class="px-3 py-1 text-xs text-red-600 bg-red-100 rounded-full"> {{'ajoutC1.title30' | translate}}</span>
-            <span *ngIf="equipementDetails.etat=='ON'" class="px-3 py-1 text-xs text-green-600 bg-green-100 rounded-full"> {{'ajoutC1.title31' | translate}}</span>
-          </dd>
-        </div>
-
-        <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
-          <dt class="font-medium text-gray-900">{{'ajoutC1.title32' | translate}}</dt>
-          <dd class="font-medium m:col-span-2 text-gray-700 ">
-            <span *ngIf="equipementDetails.categorie!='normal'" class="">{{'ajoutC1.title34' | translate}}</span>
-            <span *ngIf="equipementDetails.categorie=='normal'" class="">{{'ajoutC1.title35' | translate}}</span>
-          </dd>
-        </div>
-
-        <div class="grid grid-cols-1 gap-1 py-4 sm:grid-cols-3 sm:gap-4">
-          <dt class="font-medium text-gray-900">{{'ajoutC1.title36' | translate}}</dt>
-          <dd class="font-medium m:col-span-2 text-gray-700 ">{{equipementDetails.puissance}} W</dd>
-        </div>
-
-        <div class="grid grid-cols-1 gap-1 py-4 sm:grid-cols-3 sm:gap-4">
-          <dt class="font-medium text-gray-900">{{'ajoutC1.title37' | translate}}</dt>
-          <dd class="font-medium col-span-2 text-gray-700 ">
-            <div style="display: flex; align-items:center; justify-content: flex-start;" *ngIf="equipementInfos">
-              <span>{{equipementInfos.batiment}}</span><i class="fa-solid fa-chevron-right fa-sm mx-2"></i>
-              <span>{{'ajoutC1.title17' | translate}} {{equipementInfos.numEtage}} : {{equipementInfos.nomEtage}} </span><i class="fa-solid fa-chevron-right fa-sm mx-2"></i>
-              <span>{{equipementInfos.typeLocal}} {{equipementInfos.localId}} : {{equipementInfos.nomLocal}} </span>
+    <div class="bg-white shadow-md rounded-lg mx-auto overflow-y-auto custom-scrollbar my-4 p-8" style="width: 95%">
+      <div class="flow-root">
+        <dl class="-my-3 divide-y divide-gray-100 text-sm">
+          <section class="container px-4 mx-auto flex items-center w-full">
+            <div id="columns-container" style="width: 60%"></div>
+            <div  id="afficheur-consommation" class="bg-[#ebf2ff] p-8 ml-16 flex justify-center items-center cons-totale shadow-md" style="width: 250px;">
+              <div class="text-5xl text-gray-200 text-bold py-2 cons-totale-titre flex justify-center "  *ngIf="equipementDetails">{{'ajoutC1.title39' | translate}} :</div>
+              <div class="text-5xl text-gray-200 py-4 cons-totale-val flex justify-center text-[#2caffe]">{{this.consommation_annuelle_totale.toFixed(2)}} kWh</div>
             </div>
-          </dd>
-        </div>
-
-        <div class="grid grid-cols-1 gap-1 py-4 sm:grid-cols-3 sm:gap-4">
-          <dt class="font-medium text-gray-900">
-            <button (click)="redirectToModifierEquipement()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-              {{'ajoutC1.title38' | translate}}
-            </button>
-
-          </dt>
-        </div>
-
-
-        <div class="grid grid-cols-1 gap-1 py-4 sm:grid-cols-3 sm:gap-4">
-          <dt class="font-medium text-gray-900"></dt>
-          <dd class="font-medium:col-span-2"></dd>
-        </div>
-
-      </dl>
+          </section>
+        </dl>
+      </div>
     </div>
-    <!-- Ajoutez d'autres détails de la zone ici selon vos besoins -->
+
+    <div class="bg-white shadow-md rounded-lg mx-auto overflow-y-auto custom-scrollbar my-4 p-8" style="width: 95%">
+      <div class="flow-root">
+        <div class="text-xl font-medium text-gray-900 mt-2 mb-8">Alertes </div>
+        <dl class="-my-3 divide-y divide-gray-100 text-sm">
+          <div class="overflow-hidden md:rounded-lg">
+            <!--Filters-->
+            <div>
+              <button class="rounded-full bg-gray-100 py-1 px-2 mr-2 font-medium shadow-none focus-shadow-md" style="font-size: 10px;"
+                (click)="addTypeFilter('')" [ngStyle]="{
+                'color': typeFilter=='' ? 'white' : '' ,
+                'background-image': typeFilter=='' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%)' :'none'
+              }">
+                Tous
+              </button>
+              <button class="rounded-full bg-gray-100 py-1 px-2 mr-2 font-medium shadow-none focus-shadow-md"
+                style="font-size: 10px;"
+                (click)="addTypeFilter('temperature')"
+                [ngStyle]="{
+                  'color': typeFilter=='temperature' ? 'white' : '' ,
+                  'background-image': typeFilter=='temperature' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%)' :'none'
+                }"
+              >
+                Alertes de température
+              </button>
+              <button class="rounded-full bg-gray-100 py-1 px-2 mr-2 font-medium shadow-none focus-shadow-md"
+                style="font-size: 10px;"
+                (click)="addTypeFilter('humidite')"
+                [ngStyle]="{
+                  'color': typeFilter=='humidite' ? 'white' : '' ,
+                  'background-image': typeFilter=='humidite' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%)' :'none'
+                }"
+              >
+                Alertes d'humidité
+              </button>
+              <button class="rounded-full bg-gray-100 py-1 px-2 mr-2 font-medium shadow-none focus-shadow-md"
+                style="font-size: 10px;"
+                (click)="addTypeFilter('surconsommation')"
+                [ngStyle]="{
+                  'color': typeFilter=='surconsommation' ? 'white' : '' ,
+                  'background-image': typeFilter=='surconsommation' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%)' :'none'
+                }"
+              >
+              Alertes de surconsommation
+            </button>
+            </div>
+            <!--Liste-->
+            <table class="table w-full"  *ngIf="alertes.length > 0">
+                <thead>
+                    <tr>
+                        <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 ">
+                          <div class="flex items-center gap-x-2">
+                            <span>#</span>
+                          </div>
+                        </th>
+
+                        <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 ">
+                            <div class="flex items-center gap-x-2">
+                              <span>{{'ajoutC1.type'|translate}}</span>
+                            </div>
+                        </th>
+
+                        <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
+                          <div class="flex items-center gap-x-2">
+                              <span>{{'ajoutC1.valeur'|translate}}</span>
+                          </div>
+                        </th>
+                        <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
+                          <div class="flex items-center gap-x-2">
+                            <span>Date</span>
+                          </div>
+                      </th>
+                        <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
+                            <div class="flex items-center gap-x-2">
+                               <span>Responsable</span>
+                            </div>
+                        </th>
+
+                        <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">
+                            <div class="flex items-center gap-x-2">
+                                <span>{{'ajoutC1.Rapport'|translate}}</span>
+                            </div>
+                        </th>
+
+                        <th scope="col" class="relative py-3.5 px-4">
+                          <span class="sr-only">Details</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white">
+                  <span *ngIf="alertes.length === 0">Aucune alerte pour cet quipement.</span>
+                  <tr *ngFor="let alerte of alertes" class="even:bg-gray-50 w-full">
+
+                    <td class="px-4 py-4 text-sm font-medium text-gray-700">
+                      <div class="inline-flex items-center gap-x-3">
+                        <!-- <input type="checkbox" class="text-blue-500 border-gray-300 rounded cursor-pointer"> -->
+                          <span>{{ alerte.id }}</span>
+                      </div>
+                    </td>
+                    <td class="px-4 py-4 text-sm font-medium text-gray-700"
+                    [ngStyle]="{
+                      'color': alerte.type === 'temperature' ? 'red' : (alerte.type === 'humidite' || alerte.type === 'humidite' ? 'blue' : (alerte.type === 'surconsommation' ? 'orange' : '' ))
+                    }">
+                      <div class="inline-flex items-center gap-x-3">
+                        <!-- <input type="checkbox" class="text-blue-500 border-gray-300 rounded cursor-pointer"> -->
+                          <span>{{ alerte.type }}</span>
+                      </div>
+                    </td>
+
+                    <td class="px-12 py-3.5 text-sm font-medium text-left rtl:text-right">
+                      <div class="inline-flex items-center gap-x-3">
+                          <span>{{alerte.valeur.toFixed(1)}}</span>
+                          <span *ngIf="alerte.type=='temperature'">°C</span>
+                          <span *ngIf="alerte.type=='humidite'">%</span>
+                          <span *ngIf="alerte.type=='surconsommation'">kWh</span>
+
+                      </div>
+                    </td>
+                    <td class="px-12 py-3.5 text-sm font-medium text-left rtl:text-right">
+                      <div class="inline-flex items-center gap-x-3">
+                          {{alerte.dateAlerte}}
+                      </div>
+                    </td>
+
+                    <td class="px-12 py-3.5  text-sm font-medium text-gray-700 text-left rtl:text-right">
+                      <div class="inline-flex items-center gap-x-3" *ngIf="alerte.user">
+                          {{alerte.user.last_name}} {{alerte.user.first_name}}
+                      </div>
+                    </td>
+
+                    <td class="px-12 py-3.5  text-sm font-medium text-gray-700 text-left rtl:text-right" >
+                      <div class="inline-flex items-center gap-x-3">
+                        <span *ngIf="alerte.rapport" class="hover:underline text-blue-600 cursor-pointer"><a href="" [routerLink]="'/rapport-details/'+alerte.id">Rapport {{alerte.rapport.id}}</a></span>
+                        <span *ngIf="!alerte.rapport" class="text-gray-500 ">Aucun</span>
+                      </div>
+                    </td>
+
+                    <td class="row">
+                      <span class=" cursor-pointer text-xs mx-4" style="color: #6b7280;" [routerLink]="'/alerte-details/'+alerte.id">
+                        <i class="fa-solid fa-bars fa-lg ml-1 cursor-pointer"></i>
+                      </span>
+                    </td>
+                  </tr>
+
+                </tbody>
+            </table>
+            <div class="w-full text-center p-10 font-medium text-lg text-gray-500" *ngIf="alertes.length == 0">
+              Aucune alerte
+            </div>
+          </div>
+        </dl>
+      </div>
+    </div>
+
   </div>
 
 
-  <section class="container px-4 mx-auto flex items-center w-full">
-    <div id="columns-container" style="width: 60%" class=" shadow-xl"></div>
-    <div  id="afficheur-consommation" class="p-8 ml-16 flex justify-center items-center cons-totale shadow-md" style="width: 250px;">
-      <div class="text-5xl text-gray-200 text-bold py-2 cons-totale-titre  flex justify-center"  *ngIf="equipementDetails">{{'ajoutC1.title39' | translate}} :</div>
-      <div class="text-5xl text-gray-200 py-4 cons-totale-val flex justify-center">{{this.consommation_annuelle_totale.toFixed(2)}} kWh</div>
-    </div>
-  </section>
-  <div *ngIf="rapports.length > 0" class="overflow-hidden shadow-md md:rounded-lg">
-    <table class="table min-w-full">
-        <thead>
-            <tr>
-                <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 ">
-                    <div class="flex items-center gap-x-2">
-<!--                           <input type="checkbox" class="text-blue-500 border-gray-300 rounded cursor-pointer">-->
-                      <span>{{'ajoutC1.title3'|translate}}</span>
-                    </div>
-                </th>
-
-                <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
-                  <div class="flex items-center gap-x-2">
-                      <span>{{'ajoutC1.title29'|translate}}</span>
-                  </div>
-                </th>
-                <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
-                  <div class="flex items-center gap-x-2">
-                    <span>{{'ajoutC1.title7'|translate}}</span>
-                  </div>
-              </th>
-                <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
-                    <div class="flex items-center gap-x-2">
-                       <!--  <span>{{'ajoutC1.title7'|translate}}</span> -->
-                       <span>Catégorie</span>
-                    </div>
-                </th>
-                
-                <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">
-                    <div class="flex items-center gap-x-2">
-                        <span>{{'ajoutC1.title8'|translate}}</span>
-                    </div>
-                </th>
-              <!--   <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">
-                  <div class="flex items-center gap-x-2">
-                      <span>{{'Filtrer par :'|translate}}</span>
-              
-                    
-                      <select [(ngModel)]="typeFiltre" (change)="filtrerEquipements()">
-                          <option value="">{{'Type'|translate}}</option>
-                          <option *ngFor="let type of types" [value]="">{{ type }}</option>
-                      </select>
-              
-                    
-                      <select [(ngModel)]="categorieFiltre" (change)="filtrerEquipements()">
-                          <option value="">{{'Catégorie'|translate}}</option>
-                          <option *ngFor="let categorie of categories" [value]="">{{ categorie }}</option>
-                      </select>
-              
-                 
-                      <select [(ngModel)]="etatFiltre" (change)="filtrerEquipements()">
-                          <option value="">{{'État'|translate}}</option>
-                          <option *ngFor="let etat of etats" [value]="">{{ etat }}</option>
-                      </select>
-                  </div>
-              </th> -->
-
-             <!--    <th scope="col" class="relative py-3.5 px-4">
-                    <span class="sr-only">{{'ajoutC1.title38'|translate}}</span>
-                </th>
-
-                <th scope="col" class="relative py-3.5 px-4">
-                  <span class="sr-only">{{'ajoutC1.title43'|translate}}</span>
-                </th> -->
-
-                <th scope="col" class="relative py-3.5 px-4">
-                  <span class="sr-only">{{'ajoutC1.title44'|translate}}</span>
-                </th>
-            </tr>
-        </thead>
-        <tbody class="bg-white">
-          <span *ngIf="rapports.length === 0">Aucun rapport trouvé.</span>
-          <tr *ngFor="let equipement of rapports" class="even:bg-gray-50 w-full">
-
-            <td class="px-4 py-4 text-sm font-medium text-gray-700" style="width: 35%;">
-              <div class="inline-flex items-center gap-x-3">
-                <!-- <input type="checkbox" class="text-blue-500 border-gray-300 rounded cursor-pointer"> -->
-                  <span>{{ equipement.alerte }}</span>
-              </div>
-            </td>
-            <td class="px-4 py-4 text-sm font-medium text-gray-700" style="width: 35%;">
-              <div class="inline-flex items-center gap-x-3">
-                <!-- <input type="checkbox" class="text-blue-500 border-gray-300 rounded cursor-pointer"> -->
-                  <span>{{ equipement.redacteur }}</span>
-              </div>
-            </td>
-          
-            <td class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right">
-              <div class="inline-flex items-center gap-x-3">
-                  {{equipement.solutions}}
-              </div>
-            </td>
-            <td class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right">
-              <div class="inline-flex items-center gap-x-3">
-                  {{equipement.dateRapport}}
-              </div>
-            </td>
-
-            <td class="px-12 py-3.5  text-sm font-medium text-gray-700 text-left rtl:text-right">
-              <div class="inline-flex items-center gap-x-3">
-                  {{equipement.risque}} 
-              </div>
-            </td>
-
-            <td class="row">
-             <!--  <span class="text-xs cursor-pointer mx-4" style="color: #3b72f6;" (click)="updateEquipement(equipement.id)">{{'ajoutC1.title38'|translate}}
-                <i class="fa-solid fa-pen fa-xs ml-1"></i>
-              </span>
-              <span class="text-xs cursor-pointer mx-4" style="color: #e30000;" (click)="deleteEquipement(equipement.id)">{{'ajoutC1.title43'|translate}}
-                <i class="fa-solid fa-trash fa-xs ml-1"></i>
-              </span> -->
-              <span class=" cursor-pointer text-xs mx-4" style="color: #6b7280;" (click) = "redirectToRapportDetails(equipement.id)">{{'ajoutC1.title44'|translate}}
-                <i class="fa-solid fa-bars fa-ws ml-1"></i>
-              </span>
-            </td>
-          </tr>
-         
-        </tbody>
-    </table>
-</div>
 
 
 </div>

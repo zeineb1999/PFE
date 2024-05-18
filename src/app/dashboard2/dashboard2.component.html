@@ -59,20 +59,21 @@
 
 
     </div>
-    <app-consumption-evolution2></app-consumption-evolution2>
-
+     <app-consumption-evolution2 [total]="sendData"></app-consumption-evolution2> 
+    <app-bar-chart [message]="sendData"></app-bar-chart>
     <div class="flex w-full">
-      <app-buildings-consumption2 [equipementsParBatiment]="equipementsParBatiment"
-        style="width: 70%"></app-buildings-consumption2>
-      <app-locals-list (alerteChange)="handleAlerteChange($event)" class="max-h-full" style="width: 30%"></app-locals-list>
-      <!--   <app-alerte-details (alerteChangeA)="handleAlerteChange($event)"></app-alerte-details>
+       
+     <app-buildings-consumption2 [equipementsParBatiment]="equipementsParBatiment"
+        style="width: 70%"></app-buildings-consumption2> 
+     <!--  <app-locals-list (alerteChange)="handleAlerteChange($event)" class="max-h-full" style="width: 30%"></app-locals-list>
+     -->  <!--   <app-alerte-details (alerteChangeA)="handleAlerteChange($event)"></app-alerte-details>
           -->
     </div>
     <div class="flex w-full">
       <app-equipements-list2 [equipements]="equipements" style="width: 100%"></app-equipements-list2>
 
     </div>
-    <app-bar-chart></app-bar-chart>
+    <!-- <app-bar-chart></app-bar-chart>  -->
     <div *ngIf="AlerteMessage" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
 <div class="fixed inset-0"></div>
 

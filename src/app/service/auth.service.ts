@@ -21,7 +21,7 @@ export class AuthService {
     sessionStorage.removeItem('role');
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('id');
-    this.router.navigate(['/acceuil']);
+    this.router.navigate(['/']);
   }
 
   getToken() {

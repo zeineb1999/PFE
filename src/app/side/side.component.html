@@ -27,9 +27,10 @@
         </a>
       </li>
       <li  *ngIf="this.role =='admin'">
+        heloooooo
         <a href="#" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700" routerLink="/dashboard" [ngStyle]="{
-            'color': getCurrentPage()=='dashboard2' || getCurrentSection()=='#dashboard2' ? 'white' : '' ,
-            'background-image':getCurrentPage()=='dashboard2' || getCurrentSection()=='dashboard2' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%)' :'none'
+            'color': getCurrentPage()=='dashboard' || getCurrentSection()=='#dashboard' ? 'white' : '' ,
+            'background-image':getCurrentPage()=='dashboard' || getCurrentSection()=='dashboard' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%)' :'none'
           }" style="background-color: white;">
           {{ 'header.titlefour' | translate }} 
         </a>

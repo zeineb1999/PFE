@@ -43,11 +43,11 @@ export class AjouterZoneComponent implements OnInit {
                 console.log('Zone ajoutée avec succès !');
                 const zoneId = response.id;
                 console.log('ID de la zone ajoutée :', zoneId);
-                this.floorService.genererDATA(zoneId,this.minTemperature!).subscribe(
+                /* this.floorService.genererDATA(zoneId,this.minTemperature!).subscribe(
                     (response) => {
                       
                     }
-                )
+                ) */
                 // Réinitialisez les valeurs des champs après l'ajout de la zone si nécessaire
                 this.nomLocal = '';
                 this.typeLocal = '';

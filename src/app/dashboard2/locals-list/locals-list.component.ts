@@ -76,9 +76,8 @@ export class LocalsListComponent {
       (data: any) => {
         this.data = data;
         console.log('received table minute: ', data);
-        this.processData();
-      }
-    ); */
+        this.processData();/* 
+    ); 
     this.activeMethode();
     window.addEventListener("load", function(event) {
       const dropdownToggle = document.querySelector('[data-dropdown-toggle="dropdown"]');

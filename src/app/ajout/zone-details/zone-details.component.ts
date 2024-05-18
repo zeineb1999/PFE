@@ -93,8 +93,20 @@ export class ZoneDetailsComponent implements OnInit {
   }
 
   fetchNewValues(): void {
-    const dateISO = new Date().toISOString();
-    this.floorService.avg_TH_par_instant(this.zoneId, this.dateFormatter(dateISO)).subscribe(
+    const maDate = new Date();
+    const annee = maDate.getUTCFullYear();
+    const mois = String(maDate.getUTCMonth() + 1).padStart(2, '0');
+    const jour = String(maDate.getUTCDate()).padStart(2, '0');
+    const heures = String(maDate.getUTCHours()+1).padStart(2, '0');
+    const minutes = String(maDate.getUTCMinutes()).padStart(2, '0');
+    const secondes = String(maDate.getUTCSeconds()).padStart(2, '0');
+    const millisecondes = String(maDate.getUTCMilliseconds()).padStart(3, '0');
+
+    const dateFormatee = `${annee}-${mois}-${jour}T${heures}:${minutes}:${secondes}.${millisecondes}Z`;
+
+    console.log(dateFormatee);
+
+    this.floorService.avg_TH_par_instant(this.zoneId, this.dateFormatter(dateFormatee)).subscribe(
       (response: any) => {
         this.temperature = response.T.toFixed(1);
         this.humidite = response.H.toFixed(1);

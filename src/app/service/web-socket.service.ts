@@ -6,7 +6,8 @@ import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 })
 export class WebSocketService {
   private socket$: WebSocketSubject<any> | null = null;
-
+  private socketequipement$: WebSocketSubject<any> | null = null;
+  private socketequipementSecond$: WebSocketSubject<any> | null = null;
   private socketUser$: WebSocketSubject<any> | null = null;
   private socketMinute$: WebSocketSubject<any> | null = null;
   constructor() { }
@@ -40,6 +41,16 @@ export class WebSocketService {
   } */
   
 
+  /* connectequipement(): WebSocketSubject<any> {
+    if (!this.socketequipement$ || this.socketequipement$.closed) {
+      this.socketequipement$ = webSocket({
+        url: `ws://localhost:8000/ws/equipement/`
+      });
+      console.log('Connected to WebSocket equipement');
+    }
+    return this.socketequipement$;
+    
+  } */
 
   close() {
     if (this.socket$) {

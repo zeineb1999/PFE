@@ -1,3 +1,4 @@
+import { AuthService } from './../../service/auth.service';
 
 
 import { Component, OnInit } from '@angular/core';
@@ -23,6 +24,7 @@ interface Equipement {
   styleUrls: ['./equipement-details.component.css']
 })
 export class EquipementDetailsComponent implements OnInit {
+
   equipementId!: number;
   equipementDetails: Equipement | undefined;
 
@@ -32,12 +34,14 @@ export class EquipementDetailsComponent implements OnInit {
   consommation_annuelle_totale: number = 0;
   equipementInfos: any;
   rapports: any[] = [];
-  constructor(private route: ActivatedRoute, private router: Router, private floorService: FloorService) {  this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true'; }
+  alertes: any[] = [];
+  typeFilter: string = '';
+  constructor(private route: ActivatedRoute, private router: Router, private authService: AuthService, private floorService: FloorService) {  this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true'; }
 
   ngOnInit(): void {
     this.loadDetails();
     this.LoadEquipementsParMois();
-    this.loadRapports();
+    this.loadAlertes();
   }
 
   loadDetails (){
@@ -54,13 +58,38 @@ export class EquipementDetailsComponent implements OnInit {
       }
     );
   }
-  loadRapports(){
+
+  loadAlertes() {
+    this.alertes = []
     this.equipementId = parseInt(this.route.snapshot.paramMap.get('equipementId') || '');
 
     this.floorService.getRapportsByEquipementId(this.equipementId).subscribe(Response => {
-      this.rapports = Response; console.log('--------------------------------rapports',this.rapports)
+      this.rapports = Response;
+      console.log('--------------------------------rapports', this.rapports)
+      Response.forEach((rapport: any) => {
+        this.floorService.getAlerte(rapport.alerte).subscribe((alerte: any) => {
+          console.log('cond: ', (alerte.type == this.typeFilter || this.typeFilter == ''),'al: ', alerte.type,'f ',  this.typeFilter)
+          if (alerte.type == this.typeFilter || this.typeFilter == '') {
+            alerte.dateAlerte = alerte.dateAlerte.split('T')[0].split('-')[2]+'/'+ alerte.dateAlerte.split('T')[0].split('-')[1] + '/' + alerte.dateAlerte.split('T')[0].split('-')[0] + ' '+ alerte.dateAlerte.split('T')[1].split(':')[0] + ':'+alerte.dateAlerte.split('T')[1].split(':')[1]
+            console.log(alerte)
+
+            this.authService.getAllusers().subscribe((users: any[]) => {
+              console.log(users)
+              alerte.user = users.find(user => user.id === alerte.userID);
+            })
+
+            this.floorService.getRapportsByAlerteId(alerte.id).subscribe((rapports: any[]) => {
+              alerte.rapport = rapport;
+              console.log('alerte; ',alerte)
+              this.alertes.push(alerte)
+            })
+          }
+        })
+      });
     })
-   
+
+
+
   }
 
   LoadEquipementsParMois(){
@@ -83,7 +112,7 @@ export class EquipementDetailsComponent implements OnInit {
           consommations_mois.push({nom: noms_mois[parseInt(this_mois)-1], y: data.consommation_kW})
           //console.log('consommations_mois: ', consommations_mois)
           this.consommation_annuelle_totale += data.consommation_kW;
-  
+
           if(consommations_mois.length == new Date().getMonth() + 1){
             // Trier la liste par mois
             consommations_mois.sort(this.comparerMois);
@@ -201,7 +230,7 @@ export class EquipementDetailsComponent implements OnInit {
                     '<style>'+
                     '.cons-totale {flex-direction: column;border: 2px #edf5f9 solid;border-radius: 10%;background-color: #edf5f9;}'+
                     '.cons-totale-titre {color: #424b5b;font-weight: bolder;font-size: large; width: 100%;}'+
-                    '.cons-totale-val {color: #25a335;font-weight: bolder;font-size: xx-large;width: 100%;}'+
+                    '.cons-totale-val {color: #2caffe;font-weight: bolder;font-size: xx-large;width: 100%;}'+
                     '</style>'
                   }
                 },
@@ -214,7 +243,7 @@ export class EquipementDetailsComponent implements OnInit {
                     '<style>'+
                     '.cons-totale {flex-direction: column;border: 2px #edf5f9 solid;border-radius: 10%;background-color: #edf5f9;}'+
                     '.cons-totale-titre {color: #424b5b;font-weight: bolder;font-size: large;width: 100%;}'+
-                    '.cons-totale-val {color: #25a335;font-weight: bolder;font-size: xx-large; width: 100%;}'+
+                    '.cons-totale-val {color: #2caffe;font-weight: bolder;font-size: xx-large; width: 100%;}'+
                     '</style>'
                   }
                 }
@@ -237,6 +266,11 @@ export class EquipementDetailsComponent implements OnInit {
     this.router.navigate(['/updateEquipement', this.equipementId]);
   }
   redirectToRapportDetails(id: number) {
-    
+
+  }
+
+  addTypeFilter(type: string) {
+    this.typeFilter = type;
+    this.loadAlertes()
   }
 }

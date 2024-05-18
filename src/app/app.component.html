@@ -1,41 +1,14 @@
-<div *ngIf="afficherSide">
-  <div class="flex w-full" style="justify-content: flex-end;">
-    <app-header class="fixed" style="width: 85%; z-index: 9999;"></app-header>
-  </div>
-  <div class="flex bg-[#ebf2ff] min-h-screen">
-    <app-side class="fixed bg-white shadow-md" style="width: 15%"></app-side>
+<div class="flex w-10/12 ml-auto">
+</div>
+<div class="flex w-full">
+  <app-side *ngIf="afficherSide" class="fixed bg-white shadow-md z-10 w-2/12" style="z-index: 9999;"></app-side>
 
-    <div class="flex w-full" style="justify-content: flex-end;">
-      <div style="width: 85%">
-        <div class="main-content flex flex-col justify-between min-h-screen">
-          <div class="page-content ">
-            <div class="container-fluid">
-              <router-outlet></router-outlet>
-            </div>
-          </div>
-
-          <app-footer></app-footer>
-        </div>
-      </div>
-    </div>
+  <div class="w-10/12 ml-auto" [ngClass]="{'w-full':!afficherSide}">
+    <app-header class="fixed w-10/12" [ngClass]="{'w-full':!afficherSide}" style="z-index: 9998;"></app-header>
+    <router-outlet class="w-full"></router-outlet>
   </div>
 </div>
 
-<div *ngIf="!afficherSide">
-  <div class="flex w-full " style="justify-content: flex-end;">
-    <app-header class="fixed" style="width: 100%; z-index: 9999;"></app-header>
-  </div>
-  <div class="flex bg-[#ebf2ff] min-h-screen">
-    <div style="width: 100%">
-      <div class="main-content flex flex-col justify-between">
-        <div class="page-content ">
-          <div class="container-fluid">
-            <router-outlet></router-outlet>
-          </div>
-        </div>
-
-        <app-footer></app-footer>
-      </div>
-    </div>
-  </div>
+<div>
+  <app-footer></app-footer>
 </div>

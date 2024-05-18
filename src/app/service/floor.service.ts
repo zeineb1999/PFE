@@ -394,13 +394,25 @@ getExcelData(): Observable<any> {
     const url = ` ${this.baseurl}/hopital_consommation_pendant_mois?dateDebut=${dateDebut}&dateFin=${dateFin} `;
     return this.http.get<any>(url);
   }
+  getHopitalConsommationPendantMoisNormal(dateDebut: string, dateFin: string): Observable<any> {
+    const url = ` ${this.baseurl}/hopital_consommation_pendant_mois_critique?dateDebut=${dateDebut}&dateFin=${dateFin} `;
+    return this.http.get<any>(url);
+  }
+  getHopitalConsommationPendantMoisCritique(dateDebut: string, dateFin: string): Observable<any> {
+    const url = ` ${this.baseurl}/hopital_consommation_pendant_mois_normal?dateDebut=${dateDebut}&dateFin=${dateFin} `;
+    return this.http.get<any>(url);
+  }
+  getHopitalConsommationPendantMoisCritiqueETNormal(): Observable<any> {
+    const url = ` ${this.baseurl}/hopital_consommation_pendant_mois_all`;
+    return this.http.get<any>(url);
+  }
 
   sendCode(email:string,code: number): Observable<any> {
     return this.http.post<any>('http://127.0.0.1:8000/api/modificationProfile/', { email ,code});
   }
 
-  genererDATA(id:number, minT:number): Observable<any> {
-    return this.http.post<any>('http://127.0.0.1:8000/api/genererDATA/', { id ,minT});
+  genererDATA(id:number, minT:number,maxT:number,minH:number,maxH:number): Observable<any> {
+    return this.http.post<any>('http://127.0.0.1:8000/api/genererDATA/', { id ,minT,maxT,minH,maxH});
 
   }
   rechercher_donnees(date: string, nom_fichier: number): Observable<any> {
@@ -525,5 +537,8 @@ getExcelData(): Observable<any> {
     startDjangoMethod(): Observable<any> {
       return this.http.get<any>('http://127.0.0.1:8000/api/start-method/ ', {});
     }
-    
+    getSauvegardeData(): Observable<any> {
+      return this.http.get<any>('http://127.0.0.1:8000/api/sauvegarde/ ');
+      
+    }
   }

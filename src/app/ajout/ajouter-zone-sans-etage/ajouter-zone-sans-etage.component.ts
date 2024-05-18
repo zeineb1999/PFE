@@ -1,4 +1,9 @@
 
+
+
+
+
+
 import { Component, OnInit } from '@angular/core';
 import { FloorService } from '../../service/floor.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -38,8 +43,9 @@ export class AjouterZoneSansEtageComponent implements OnInit {
   isLoggedIn: boolean;
   totalSurface: number = 0;
   surfaceAlert: boolean = false;
+  batiment: any;
 
- 
+
   constructor(private floorService:FloorService,private route: ActivatedRoute, private router: Router) {
     // Code du constructeur
      this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
@@ -48,10 +54,15 @@ export class AjouterZoneSansEtageComponent implements OnInit {
    ngOnInit(): void {
     this.etageZ = parseInt(this.route.snapshot.paramMap.get('etageId') || '');
     this.etageId = parseInt(this.route.snapshot.paramMap.get('etageId') || '');
-    this.loadEtages();
-    
+     this.loadEtages();
+     this.floorService.getEtageById(this.etageId).subscribe((etage: any) => {
+       this.floorService.getBatimentById(etage.batimentId).subscribe((batiment: any) => {
+        this.batiment = batiment
+      })
+    })
+
 }
-  
+
 
   loadEtages(): void {
     // Appelez votre service pour charger les étages depuis l'API Django
@@ -72,16 +83,16 @@ export class AjouterZoneSansEtageComponent implements OnInit {
       etageZ: this.etageZ || 0 // Assurez-vous que la valeur par défaut est correcte
     };
     this.loadEtages();
-  
+
     // Vérifiez si les valeurs sont définies avant d'appeler le service
     if (zoneData.nomLocal && zoneData.typeLocal && zoneData.etageZ) {
       this.floorService.addZone(zoneData).subscribe(
         (data: Zone) => {
           console.log(data);
           const zoneId = data.id;
-          this.floorService.genererDATA(zoneId,this.temperatureMin!).subscribe(
+          this.floorService.genererDATA(zoneId,this.temperatureMin!,this.temperatureMax!,this.humiditeMin!,this.humiditeMax!).subscribe(
             (response) => {
-              
+
             }
         )
           this.zones.push(data);
@@ -92,51 +103,12 @@ export class AjouterZoneSansEtageComponent implements OnInit {
           console.log(error);
         }
       );
-      // Calculer la somme des surfaces des zones existantes pour l'étage
-        /* const surfaceTotaleEtage = this.etages.find(etage => etage.id === this.etageZ)?.surface || 0;
-      console.log(surfaceTotaleEtage);
-      console.log(this.etageId);
-    this.floorService.getZonesForEtage(this.etageId).subscribe(
-        (data: Zone[]) => {
-          this.zonesSurface = data;
-          let totalSurface = 0; // Initialisez totalSurface à zéro
-          for (const zone of this.zonesSurface) {
-            totalSurface += zone.surface;
-          }
-          const surfacesRestantes = surfaceTotaleEtage - totalSurface;
-          // Vérifier si la surface de la zone à ajouter est inférieure ou égale au reste de la surface de l'étage
-          if (zoneData.surface <= surfacesRestantes) {
-            this.floorService.addZone(zoneData).subscribe(
-              (data: Zone) => {
-                console.log(data);
-                const zoneId = data.id;
-                this.floorService.genererDATA(zoneId,this.temperatureMin!).subscribe(
-                  (response) => {
-                    
-                  }
-              )
-                this.zones.push(data);
-                // Redirection vers la page '/toutesZones' après l'ajout d'une zone
-                this.router.navigateByUrl(`/toutesZones`);
-              },
-              error => {
-                console.log(error);
-              }
-            );
-          } else {
-            this.surfaceAlert = true;
-      setTimeout(() => {
-        this.surfaceAlert = false; // Réinitialisez la variable après une seconde
-      }, 1000);
-          }
-        }
-      ); */
     } else {
       console.log("Veuillez remplir tous les champs.");
     }
   }
 
-  
+
 
   goBack() {
     window.history.back();

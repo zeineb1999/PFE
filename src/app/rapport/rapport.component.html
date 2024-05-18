@@ -1,106 +1,238 @@
 <div *ngIf="isLoggedIn">
 
-  
+  <div class="bg-[#ebf2ff] min-h-screen" style="padding-top: 7%;">
 
- <div class="flex bg-[#ebf2ff]">
- 
-  <div class="flex w-full" style="justify-content: flex-end; padding-top: 7%;">
-  
-    <div class=""  style="width: 85%">
-   
-         
-            <div class="border-gray-200 border-dashed rounded-lg dark:border-gray-700 my-0 mx-8">
-             
-                <div class="flex items-center justify-center h-100 mb-4 rounded bg-gray-50 dark:bg-gray-800">
-                  <div class="w-full">
-                    <div class="p-4 items-center justify-between flex">
-                      <h1 class="text-3xl">Liste des rapports</h1>
-                     
-                      
-                    </div>
-                      <div class="px-3 py-4 flex justify-center">
-                      <table class="w-full text-md bg-white shadow-md rounded mb-4">
-                        <tbody>
-                            <tr class="border-b">
-                                <th class="text-left p-3 px-5">N alerte</th>
-                                <th class="text-left p-3 px-5">rédacteur</th>
-                                <th class="text-left p-3 px-5">date</th>
-                                <th class="text-left p-3 px-5">equipement</th>
-                                <th  class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">
-                                  <div class="flex items-center gap-x-2">
-                                      <span>{{'Filtrer par :'|translate}}</span>
-                              
-                                      <!-- Menu déroulant pour le lu non lu-->
-                                      <select [(ngModel)]="typeFiltre" (change)="filtrerEquipements()">
-                                          <option value="">{{'État'|translate}}</option>
-                                          <option *ngFor="let type of types" [value]="">{{ type }}</option>
-                                      </select>
-                              
-                                      
-                                  </div>
-                              </th>
-                                <th></th>
-                            </tr>
-                          
-                            <span *ngIf="rapports.length === 0">Aucun équipement trouvé.</span>
-                            
-                            <tr *ngFor="let rapport of rapportsFiltre" class="border-b hover:bg-orange-100">
-                            
-                              <td class="p-3 px-5">
-                                <div class="bg-transparent border-b-2 border-gray-300 py-2">
-                                  {{ rapport.alerte }}
-                              </div>
-                              
-                              </td>
-                              <td class="p-3 px-5">
-                                <div class="bg-transparent border-b-2 border-gray-300 py-2">
-                                  {{ rapport.redacteur }}
-                              </div>
-                              
-                              </td>
-                            
-                              <td class="p-3 px-5">
-                                <div class="bg-transparent border-b-2 border-gray-300 py-2">
-                                  {{ rapport.dateRapport }}
-                              </div>
-                              
-                            </td>
-                            <td class="p-3 px-5">
-                              <div class="bg-transparent border-b-2 border-gray-300 py-2">
-                                {{ rapport.equipement }}
-                            </div>
-                            </td>
-                              <td class="p-3 px-5 flex justify-end">
-                                  <button  (click)="goToRapportDetails(rapport)"  type="button"
-                                      class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">details</button>
-                              </td> 
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-                
-                
-             
-            </div>
-          
+    <div class="w-full flex justify-start text-2xl font-medium text-gray-700 mx-8 mt-4 mb-6">
+      Liste des alertes
     </div>
+
+    <div class="bg-white shadow-md rounded-lg mx-auto overflow-y-auto custom-scrollbar my-4 p-8" style="width: 95%">
+      <div class="flow-root">
+        <dl class="-my-3 divide-y divide-gray-100 text-sm">
+          <div class="overflow-hidden md:rounded-lg">
+            <div class="flex justify-between items-start">
+
+              <!--Filtres-->
+              <div>
+                <!-- types Filters-->
+                <div class="my-2">
+                  <button class="rounded-full bg-gray-100 py-1 px-2 mr-2 font-medium shadow-none focus-shadow-md"
+                    style="font-size: 10px;" (click)="addTypeFilter('')" [ngStyle]="{
+                              'color': typeFilter=='' ? 'white' : '' ,
+                              'background-image': typeFilter=='' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%)' :'none'
+                            }">
+                    Tous
+                  </button>
+                  <button class="rounded-full bg-gray-100 py-1 px-2 mr-2 font-medium shadow-none focus-shadow-md"
+                    style="font-size: 10px;" (click)="addTypeFilter('temperature')" [ngStyle]="{
+                                'color': typeFilter=='temperature' ? 'white' : '' ,
+                                'background-image': typeFilter=='temperature' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%)' :'none'
+                              }">
+                    Alertes de température
+                  </button>
+                  <button class="rounded-full bg-gray-100 py-1 px-2 mr-2 font-medium shadow-none focus-shadow-md"
+                    style="font-size: 10px;" (click)="addTypeFilter('humidite')" [ngStyle]="{
+                                'color': typeFilter=='humidite' ? 'white' : '' ,
+                                'background-image': typeFilter=='humidite' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%)' :'none'
+                              }">
+                    Alertes d'humidité
+                  </button>
+                  <button class="rounded-full bg-gray-100 py-1 px-2 mr-2 font-medium shadow-none focus-shadow-md"
+                    style="font-size: 10px;" (click)="addTypeFilter('surconsommation')" [ngStyle]="{
+                                'color': typeFilter=='surconsommation' ? 'white' : '' ,
+                                'background-image': typeFilter=='surconsommation' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%)' :'none'
+                              }">
+                    Alertes de surconsommation
+                  </button>
+                </div>
+
+                <!-- seen Filters-->
+                <div class="my-2">
+                  <button class="rounded-full bg-gray-100 py-1 px-2 mr-2 font-medium shadow-none focus-shadow-md" style="font-size: 10px;"
+                    (click)="addSeenFilter('')" [ngStyle]="{
+                      'color': seenFilter=='' ? 'white' : '' ,
+                      'background-image': seenFilter=='' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%)' :'none'
+                    }">
+                    Tous
+                  </button>
+                  <button class="rounded-full bg-gray-100 py-1 px-2 mr-2 font-medium shadow-none focus-shadow-md"
+                    style="font-size: 10px;" (click)="addSeenFilter('true')" [ngStyle]="{
+                      'color': seenFilter=='true' ? 'white' : '' ,
+                      'background-image': seenFilter=='true' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%)' :'none'
+                    }">
+                    Alertes vues
+                  </button>
+                  <button class="rounded-full bg-gray-100 py-1 px-2 mr-2 font-medium shadow-none focus-shadow-md"
+                    style="font-size: 10px;" (click)="addSeenFilter('false')" [ngStyle]="{
+                      'color': seenFilter=='false' ? 'white' : '' ,
+                      'background-image': seenFilter=='false' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%)' :'none'
+                    }">
+                    Alertes non vues
+                  </button>
+                </div>
+
+                <!-- periode Filters-->
+                <div class="my-2">
+                  <button class="rounded-full bg-gray-100 py-1 px-2 mr-2 font-medium shadow-none focus-shadow-md"
+                    style="font-size: 10px;" (click)="addPeriodeFilter('')" [ngStyle]="{
+                    'color': periodeFilter=='' ? 'white' : '' ,
+                    'background-image': periodeFilter=='' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%)' :'none'
+                  }">
+                    Tous
+                  </button>
+                  <button class="rounded-full bg-gray-100 py-1 px-2 mr-2 font-medium shadow-none focus-shadow-md"
+                    style="font-size: 10px;" (click)="addPeriodeFilter('mois')" [ngStyle]="{
+                    'color': periodeFilter=='mois' ? 'white' : '' ,
+                    'background-image': periodeFilter=='mois' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%)' :'none'
+                  }">
+                    Ce mois
+                  </button>
+                  <button class="rounded-full bg-gray-100 py-1 px-2 mr-2 font-medium shadow-none focus-shadow-md"
+                    style="font-size: 10px;" (click)="addPeriodeFilter('annee')" [ngStyle]="{
+                      'color': periodeFilter=='annee' ? 'white' : '' ,
+                      'background-image': periodeFilter=='annee' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%)' :'none'
+                    }">
+                    Cette année
+                  </button>
+                </div>
+
+              </div>
+
+              <!-- Barre de recherche -->
+              <div class="w-1/4">
+                <div class="flex items-center bg-gray-100 rounded-md w-full " style="height: fit-content">
+                  <div class="pl-2">
+                    <svg class="fill-current text-gray-500 w-6 h-6" viewBox="0 0 24 24">
+                      <path class="heroicon-ui"
+                        d="M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" />
+                    </svg>
+                  </div>
+                  <input class="w-full rounded-md bg-gray-100 text-gray-700 leading-tight focus:outline-none py-2 px-2" id="search"
+                    type="number" placeholder="Entrer le numéro de l'alerte" [(ngModel)]="alerteAChercher" (ngModelChange)="Chercher()">
+                </div>
+              </div>
+
+              <span class="px-2 py-1 text-blue-700 bg-[#ebf2ff] rounded-full" style="font-size: 10px">{{nbAlertes}} alertes</span>
+            </div>
+
+            <!--Liste-->
+            <table class="table w-full" *ngIf="alertes.length > 0">
+              <thead>
+                <tr>
+                  <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 ">
+                    <div class="flex items-center gap-x-2">
+                      <span>#</span>
+                    </div>
+                  </th>
+
+                  <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 ">
+                    <div class="flex items-center gap-x-2">
+                      <span>{{'ajoutC1.type'|translate}}</span>
+                    </div>
+                  </th>
+
+                  <th scope="col" class="text-sm font-normal text-left rtl:text-right text-gray-500">
+                    <div class="flex items-center gap-x-2">
+                      <span>{{'ajoutC1.valeur'|translate}}</span>
+                    </div>
+                  </th>
+                  <th scope="col" class="text-sm font-normal text-left rtl:text-right text-gray-500">
+                    <div class="flex items-center gap-x-2">
+                      <span>Date</span>
+                    </div>
+                  </th>
+                  <th scope="col" class="text-sm font-normal text-left rtl:text-right text-gray-500">
+                    <div class="flex items-center gap-x-2">
+                      <span>Responsable</span>
+                    </div>
+                  </th>
+
+                  <th scope="col" class="text-sm font-normal text-left rtl:text-right text-gray-500 ">
+                    <div class="flex items-center gap-x-2">
+                      <span>{{'ajoutC1.Rapport'|translate}}</span>
+                    </div>
+                  </th>
+
+                  <th scope="col" class="relative py-3.5 px-4">
+                    <span class="sr-only">Details</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="bg-white">
+                <span *ngIf="alertes.length === 0">Aucune alerte pour cet quipement.</span>
+                <tr *ngFor="let alerte of alertes" class="w-full" style="border-bottom: 1px solid #f3f4f6"
+                [ngStyle]="{'background-color': 'alerte.vu' ? 'white' : 'gray'}">
+
+                  <td class=" py-4 text-sm font-medium text-gray-700">
+                    <div class="inline-flex items-center gap-x-3">
+                      <!-- <input type="checkbox" class="text-blue-500 border-gray-300 rounded cursor-pointer"> -->
+                      <span>{{ alerte.id }}</span>
+                    </div>
+                  </td>
+                  <td class=" py-4 text-sm font-medium text-gray-700" [ngStyle]="{
+                                'color': alerte.type === 'temperature' ? 'red' : (alerte.type === 'humidite' || alerte.type === 'humidite' ? 'blue' : (alerte.type === 'surconsommation' ? 'orange' : '' ))
+                              }">
+                    <div class="inline-flex items-center gap-x-3">
+                      <!-- <input type="checkbox" class="text-blue-500 border-gray-300 rounded cursor-pointer"> -->
+                      <span>{{ alerte.type }}</span>
+                    </div>
+                  </td>
+
+                  <td class="py-4 text-sm font-medium text-left rtl:text-right">
+                    <div class="inline-flex items-center gap-x-3">
+                      <span>{{alerte.valeur.toFixed(1)}}</span>
+                      <span *ngIf="alerte.type=='temperature'">°C</span>
+                      <span *ngIf="alerte.type=='humidite'">%</span>
+                      <span *ngIf="alerte.type=='surconsommation'">kWh</span>
+
+                    </div>
+                  </td>
+                  <td class="py-4 text-sm font-medium text-left rtl:text-right">
+                    <div class="inline-flex items-center gap-x-3">
+                      {{alerte.dateAlerte}}
+                    </div>
+                  </td>
+
+                  <td class=" py-4 text-sm font-medium text-gray-700 text-left rtl:text-right">
+                    <div class="inline-flex items-center gap-x-3" *ngIf="alerte.user">
+                      {{alerte.user.last_name}} {{alerte.user.first_name}}
+                    </div>
+                  </td>
+
+                  <td class=" py-4 text-sm font-medium text-gray-700 text-left rtl:text-right">
+                    <div>
+                      <div *ngIf="alerte.rapports.length > 0" class="flex flex-col">
+                        <a href="" [routerLink]="'/rapport-details/'+alerte.id" *ngFor="let rapport of alerte.rapports" class="hover:underline text-blue-600 cursor-pointer">
+                          Rapport {{rapport.id}}
+                        </a>
+                      </div>
+                      <span *ngIf="alerte.rapports.length == 0" class="text-gray-500 ">Aucun</span>
+                    </div>
+                  </td>
+
+                  <td class="row">
+                    <span class=" cursor-pointer text-xs mx-4" style="color: #6b7280;"
+                      [routerLink]="'/alerte-details/'+alerte.id">
+                      <i class="fa-solid fa-bars fa-lg ml-1 cursor-pointer"></i>
+                    </span>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+            <div class="w-full text-center p-10 font-medium text-lg text-gray-500" *ngIf="alertes.length == 0">
+              Aucune alerte
+            </div>
+          </div>
+        </dl>
+      </div>
+
+    </div>
+
   </div>
 </div>
-</div>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-  
