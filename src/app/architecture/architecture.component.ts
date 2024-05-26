@@ -408,7 +408,7 @@ getCategorieTypesPairs(): { categorie: string, types: string[] }[] {
   idEtage:number=0;
   ajouterNewZone(nomBatiment: string,id:number,index:number) {
     //this.tousLesZonesSansException.push(nomBatiment);
-    this.floorService.ajouterZoneArchi(nomBatiment, id).subscribe(
+    /* this.floorService.ajouterZoneArchi(nomBatiment, id).subscribe(
       (response) => {
         const zoneId = response.id;
         console.log('ID de la zone ajoutée :', zoneId);
@@ -420,7 +420,7 @@ getCategorieTypesPairs(): { categorie: string, types: string[] }[] {
       (error) => {
         console.error('Erreur lors de l\'ajout de l\'étage :', error);
       }
-    );
+    ); */
 
     this.indiceZoneCourant++; // Incrémente l'index pour passer au bâtiment suivant
     this.boutonsAjouterLocalEnfonce[index] = true;
@@ -500,20 +500,9 @@ getCategorieTypesPairs(): { categorie: string, types: string[] }[] {
   onScroll(){
 
   }
-  selectEvent(user:any) {
-    var clientSelected=this.USERS.find(c=>c.id==user['id'])
-    this.champsClientValue["Name"]=clientSelected.Name
-    this.champsClientValue["Adresse"]=clientSelected.Adresse
-    this.champsClientValue["NRC"]=clientSelected.NRC
-    this.champsClientValue["NIF"]=clientSelected.NIF
-    this.champsClientValue["AI"]=clientSelected.AI
-    this.champsClientValue["NIC"]=clientSelected.NIC
-  }
+  
 
-  onChangeSearch(val: string) {
-    // fetch remote data from here
-    // And reassign the 'data' which is binded to 'data' property.
-  }
+  
 
 
 

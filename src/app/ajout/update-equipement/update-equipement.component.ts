@@ -6,13 +6,10 @@ import { switchMap } from 'rxjs/operators';
 interface Equipement {
   id: number;
   nom: string;
-
   etat: string;
   categorie: string;
-
   puissance: number;
-  maxConsommation: number;
-  minConsommation: number;
+  type: string;
   zoneE: number;
 }
 
@@ -32,13 +29,10 @@ export class UpdateEquipementComponent implements OnInit {
     equipement: Equipement = {
       id: 0,
       nom: '', // Assurez-vous d'initialiser nom avec une valeur par défaut
-    
       etat: '',
       categorie: '',
-    
+      type: '',
       puissance: 0,
-      maxConsommation: 0,
-      minConsommation: 0,
       zoneE: 0
     };
     equipementId: number = 0;
@@ -59,8 +53,9 @@ export class UpdateEquipementComponent implements OnInit {
           return this.floorService.getEquipementAModifier(this.equipementId);
         })
       ).subscribe(
-        (equipement: Equipement) => {
+        (equipement: any) => {
           this.equipement = equipement;
+          console.log(this.equipement)
         },
         error => {
           console.log(error);

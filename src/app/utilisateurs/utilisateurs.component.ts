@@ -14,9 +14,8 @@ export class UtilisateursComponent implements OnInit {
   user: any;
   alertes: any[] = [];
   rapports: any[] = [];
-  utilisateurs: any[] = [];
-  batiments: any[] = [];
-  equipements: any[] = [];
+  utilisateurs: any[] = [];quipements: any[] = [];
+  actions: any[] = [];
   etages: any[] = [];
   userRole: any;
   newUsername: string = '';
@@ -39,6 +38,9 @@ export class UtilisateursComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router, private floorService : FloorService) {this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true'; }
 
   ngOnInit(): void {
+    this.floorService.getAllHistoriqueUsers().subscribe(users => {
+      this.actions=users;
+    })
     this.floorService.getAllRapports().subscribe(rapports => {
       this.rapports = rapports;
     })
@@ -46,14 +48,7 @@ export class UtilisateursComponent implements OnInit {
       this.utilisateurs = users;
       console.log(this.utilisateurs);
     })
-    this.floorService.getAllBatiments().subscribe(batiments => {
-      this.batiments = batiments;
-      console.log(this.batiments);
-    })
-    this.floorService.getAllEquipements().subscribe(equipements => {
-      this.equipements = equipements;
-      console.log(this.equipements);
-    })
+  
     this.floorService.getAllAlertes().subscribe(alertes=> {
       this.alertes = alertes;
       
@@ -79,6 +74,15 @@ export class UtilisateursComponent implements OnInit {
 
   this.getRoles();
   }
+  dateFormate(dateString: string): string {
+    const date = new Date(dateString);
+    return date.toLocaleDateString(); // Formate la date selon les paramètres régionaux
+  }
+
+  timeFormate(dateString: string): string {
+    const date = new Date(dateString);
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); // Formate l'heure selon les paramètres régionaux
+  }
   addUser() {
     this.router.navigate(['/signup']);
     
@@ -91,7 +95,7 @@ export class UtilisateursComponent implements OnInit {
       });
     });
   }
-  deleteUser(id: number) {
+/*   deleteUser(id: number) {
     this.authService.deleteUser(id).subscribe(() => {
       window.location.reload();
   });
@@ -105,7 +109,7 @@ export class UtilisateursComponent implements OnInit {
     this.floorService.deleteEquipement(id).subscribe(() => {
       window.location.reload();
   });
-  }
+  } */
   updateProfile() {
     if( !this.newFirstname)
     {

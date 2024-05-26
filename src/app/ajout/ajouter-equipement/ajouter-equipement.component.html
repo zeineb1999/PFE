@@ -1,111 +1,67 @@
-<div *ngIf="isLoggedIn" id="page">
-  <div >
-  
-    <section class="bg-gray-100 bg-no-repeat bg-cover" style="background-image: url('assets/Medical-Devices1.jpg');">
-      <!--style="background-image: url('assets/Medical-Devices.jpg');"-->
-      <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+<div *ngIf="isLoggedIn">
+  <div class="bg-[#ebf2ff] min-h-screen" style="padding-top: 7%;">
+    <div class="w-full flex justify-start text-2xl font-medium text-gray-700 mx-8 mt-4 mb-6">
+      Ajouter un Ã©quipement dans <a [routerLink]="'/zone-details/'+localId" class="hover:underline font-bold ml-2">{{localName}}</a>
+    </div>
 
-        <div class="w-full flex justify-center">
-          <div class="relative inline-block mb-12 text-center">
-            <span class="text-2xl md:text-2xl font-bold">
-              {{'ajoutC1.title1' | translate }}   </span>
-            <span class="mt-4 absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-blue-400 to-green-500 rounded-full"></span>
-          </div>
-        </div>
+    <div class="bg-white shadow-md rounded-lg mx-auto overflow-y-auto custom-scrollbar my-4 p-8" style="width: 95%">
+      <div class="flow-root">
+        <dl class="-my-3 divide-y divide-gray-100 text-sm">
 
-          <div class="rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12 m-auto w-3/5">
-
-            <div class="w-full mb-8 flex flex-col">
-                <h1 class="w-full text-center md:text-2xl font-bold">{{'ajoutC1.title2' | translate }} </h1>
-                <h1 class="text-center text-2xl md:text-3xl font-bold " id="local-name">
-
-                </h1>
+          <form action="#" class="space-y-4" style="width: 60%;">
+            <div class="flex w-full">
+              <div class="w-full">
+                <label for="" class="block mb-2 text-sm font-medium text-gray-900 ">{{'ajoutC1.nom' |
+                  translate}}</label>
+                <input [(ngModel)]="nom" placeholder="{{'ajoutC1.nom' | translate }}" type="text" id="nom" name="nom"
+                  class="my-2 bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 -700 hover:shadow-md">
+              </div>
             </div>
 
-            <form action="#" class="space-y-4">
-              <div>
-                <label class="sr-only" for="nom">{{'ajoutC1.title3' | translate }}  </label>
-                <input
-                  [(ngModel)]="nom" name="nom"
-                  class="w-full rounded-lg border-blue-500 p-3 text-sm"
-                  placeholder=" {{'ajoutC1.title3' | translate }}"
-                  type="text"
-                  id="nom"
-                />
+            <div>
+              <label for="" class="block mb-2 text-sm font-medium text-gray-900 ">{{'ajoutC1.criticite' |
+                translate}}</label>
+              <div class="flex gap-2 items-center font-medium my-3 ml-8">
+                <input type="radio" name="categorie" id="" value="critique" [(ngModel)]="categorie"
+                  class="hover:shadow-md">
+                <label for="">Oui</label>
               </div>
-
-
-
-              <div>
-                <label class="sr-only" for="categorie">{{'ajoutC1.title5' | translate }}  </label>
-                <input
-                  [(ngModel)]="categorie"
-                  class="w-full rounded-lg border-gray-200 p-3 text-sm"
-                  placeholder=" {{'ajoutC1.title5' | translate }}"
-                  type="text"
-                  id="categorie"
-                  name="categorie"
-                />
+              <div class="flex gap-2 items-center font-medium my-3 ml-8">
+                <input type="radio" name="categorie" id="" value="normal" [(ngModel)]="categorie"
+                  class="hover:shadow-md">
+                <label for="">Non</label>
               </div>
+            </div>
 
-
-              <div>
-                <label class="sr-only" for="puissance">{{'ajoutC1.title8' | translate }}  </label>
-                <input
-                  [(ngModel)]="puissance"
-                  class="w-full rounded-lg border-gray-200 p-3 text-sm"
-                  placeholder=" {{'ajoutC1.title8' | translate }}"
-                  type="number"
-                  id="puissance"
-                  name="puissance"
-                />
+            <div class="flex w-full">
+              <div class="w-full">
+                <label for="" class="block mb-2 text-sm font-medium text-gray-900 ">{{'ajoutC1.puissance' |
+                  translate}}</label>
+                <input [(ngModel)]="puissance" placeholder="{{'ajoutC1.puissance' | translate }}" type="number"
+                  id="puissance" name="puissance"
+                  class="my-2 bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 -700 hover:shadow-md">
               </div>
+            </div>
 
-              <div>
-                <label class="sr-only" for="maxConsommation">{{'ajoutC1.title9' | translate }} </label>
-                <input
-                  [(ngModel)]="maxConsommation"
-                  class="w-full rounded-lg border-gray-200 p-3 text-sm"
-                  placeholder=" {{'ajoutC1.title9' | translate }}"
-                  type="number"
-                  id="maxConsommation"
-                  name="maxConsommation"
-                />
-              </div>
+            <div class="mt-4 flex justify-between">
+              <button type="button" (click)="goBack()"
+                class="hover:shadow-lg font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 "
+                style="color: transparent; background-image: linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%);  background-clip: text; border: 1px solid #5b20e2;">
+                <i class="fa-solid fa-chevron-left mr-2"></i>
+                <span> {{'ajoutC1.title26' | translate}}</span>
+              </button>
+              <button type="submit" (click)="ajouterEquipement()"
+                class="text-white border border-blue-500 bg-blue-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                style="color: white; background-image: linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%);">
+                {{'ajoutC1.title12' | translate}}
+              </button>
+            </div>
 
-              <div>
-                <label class="sr-only" for="minConsommation">{{'ajoutC1.title10' | translate }}  </label>
-                <input
-                  [(ngModel)]="minConsommation"
-                  class="w-full rounded-lg border-gray-200 p-3 text-sm"
-                  placeholder=" {{'ajoutC1.title10' | translate }}"
-                  type="number"
-                  id="minConsommation"
-                  name="minConsommation"
-                />
-              </div>
+          </form>
 
 
-
-              <!--<label>Zone:</label>
-              <select [(ngModel)]="zoneId" name="zoneId">
-                  <option *ngFor="let zone of zones" [value]="zone.id">{{ zone.nomLocal }}</option>
-              </select><br>-->
-
-              <div class="mt-4">
-                <button
-                  type="submit"
-                  class="inline-block w-full rounded-lg bg-blue-500 px-5 py-3 font-medium text-white sm:w-auto"
-                  (click)="ajouterEquipement()"
-                >
-                {{'ajoutC1.title12' | translate }} 
-                </button>
-              </div>
-            </form>
-          </div>
-
-
+        </dl>
       </div>
-    </section>
+    </div>
   </div>
 </div>

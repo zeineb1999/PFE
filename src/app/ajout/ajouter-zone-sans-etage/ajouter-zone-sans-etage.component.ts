@@ -1,9 +1,5 @@
 
 
-
-
-
-
 import { Component, OnInit } from '@angular/core';
 import { FloorService } from '../../service/floor.service';
 import { ActivatedRoute, Router } from '@angular/router';

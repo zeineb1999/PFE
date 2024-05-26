@@ -38,9 +38,10 @@ export class ToutesZonesComponent implements OnInit {
   isLoggedIn: boolean;
   structure: string = 'table';
   data: any[]=[];
-
+  role:any;
   constructor(private floorService: FloorService, private route: ActivatedRoute, private router: Router, private location: Location, private renderer: Renderer2, private el: ElementRef) {
     this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+    console.log(this.isLoggedIn)
   }
 
   generateRandomColor(): string {
@@ -51,6 +52,7 @@ export class ToutesZonesComponent implements OnInit {
     return `rgb(${r}, ${g}, ${b})`;
  }
   ngOnInit(): void {
+  this.role = sessionStorage.getItem('role');
 
   this.floorService.getAllBatiments().subscribe(batiments => {
     this.batiments = batiments;
@@ -68,6 +70,69 @@ export class ToutesZonesComponent implements OnInit {
   treemap(Highcharts);
   treegraph(Highcharts);
 }
+handleToggleChange(event: Event, batimentId: number): void {
+  const inputElement = event.target as HTMLInputElement;
+  const isActive = inputElement.checked;
+
+  // Trouver le bâtiment correspondant et mettre à jour son statut
+  const batiment = this.batiments.find(b => b.id === batimentId);
+  if (batiment) {
+    batiment.active = isActive;
+  }
+
+  if (isActive) {
+    this.handleToggleOn(batimentId);
+  } else {
+    this.handleToggleOff(batimentId);
+  }
+}
+
+handleToggleOn(batimentId: number): void {
+      const maDate = new Date();
+      const annee = maDate.getUTCFullYear();
+      const mois = String(maDate.getUTCMonth() + 1).padStart(2, '0');
+      const jour = String(maDate.getUTCDate()).padStart(2, '0');
+      let heures=''
+      if (maDate.getUTCHours() < 23) {
+      heures = String(maDate.getUTCHours()+1).padStart(2, '0');
+      } else {
+      heures = '00'.padStart(2, '0');
+      }
+      
+      const minutes = String(maDate.getUTCMinutes()).padStart(2, '0');
+      const secondes = String(maDate.getUTCSeconds()).padStart(2, '0');
+      const millisecondes = String(maDate.getUTCMilliseconds()).padStart(3, '0');
+      
+      const dateFormatee = `${annee}-${mois}-${jour} ${heures}:${minutes}:${secondes}`;
+  console.log(`Toggle is ON for batiment ID: ${batimentId}`);
+  this.floorService.ActiverBatiment(batimentId,dateFormatee).subscribe({})
+  // Appeler la méthode pour l'état ON
+  // Par exemple : appeler une fonction ou envoyer une requête HTTP avec l'ID du bâtiment
+}
+
+handleToggleOff(batimentId: number): void {
+  const maDate = new Date();
+  const annee = maDate.getUTCFullYear();
+  const mois = String(maDate.getUTCMonth() + 1).padStart(2, '0');
+  const jour = String(maDate.getUTCDate()).padStart(2, '0');
+  let heures=''
+  if (maDate.getUTCHours() < 23) {
+  heures = String(maDate.getUTCHours()+1).padStart(2, '0');
+  } else {
+  heures = '00'.padStart(2, '0');
+  }
+  
+  const minutes = String(maDate.getUTCMinutes()).padStart(2, '0');
+  const secondes = String(maDate.getUTCSeconds()).padStart(2, '0');
+  const millisecondes = String(maDate.getUTCMilliseconds()).padStart(3, '0');
+  
+  const dateFormatee = `${annee}-${mois}-${jour} ${heures}:${minutes}:${secondes}`;
+  console.log(`Toggle is OFF for batiment ID: ${batimentId}`);
+  this.floorService.DesactiverBatiment(batimentId,dateFormatee).subscribe({})
+  // Appeler la méthode pour l'état OFF
+  // Par exemple : appeler une fonction ou envoyer une requête HTTP avec l'ID du bâtiment
+}
+
 
   ngAfterViewInit(){
     this.floorService.getAllEtagesETZonesArchi().subscribe((data: any[]) => {

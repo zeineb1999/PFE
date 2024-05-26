@@ -15,7 +15,7 @@ export class WebSocketService {
   connect(roomName: string): WebSocketSubject<any> {
     if (!this.socket$ || this.socket$.closed) {
       this.socket$ = webSocket({
-        url: `ws://localhost:8000/ws/chat/notification_test/`
+        url: `ws://localhost:8001/ws/chat/notification_test/`
       });
       console.log('Connected to WebSocket server');
     }
@@ -24,13 +24,13 @@ export class WebSocketService {
   connectUser(): WebSocketSubject<any> {
     if (!this.socketUser$ || this.socketUser$.closed) {
       this.socketUser$ = webSocket({
-        url: `ws://localhost:8000/ws/user-id-change/`
+        url: `ws://localhost:8001/ws/user-id-change/`
       });
       console.log('Connected to WebSocket user');
     }
     return this.socketUser$;
   }
- /*  connectMinute(): WebSocketSubject<any> {
+  connectMinute(): WebSocketSubject<any> {
     if (!this.socketMinute$ || this.socketMinute$.closed) {
       this.socketMinute$ = webSocket({
         url: `ws://localhost:8000/ws/dataminute/`
@@ -38,7 +38,7 @@ export class WebSocketService {
       console.log('Connected to WebSocket minute');
     }
     return this.socketMinute$;
-  } */
+  } 
   
 
   /* connectequipement(): WebSocketSubject<any> {
@@ -57,7 +57,12 @@ export class WebSocketService {
       this.socket$.complete();
       console.log('Disconnected from WebSocket server');
     }
+    if(this.socketUser$) {
+      this.socketUser$.complete();
+      console.log('Disconnected from WebSocket user');
+    }
   }
+
 }
 
 /* import { Injectable } from '@angular/core';

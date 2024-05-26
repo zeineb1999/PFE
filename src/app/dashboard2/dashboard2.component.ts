@@ -27,6 +27,8 @@ interface Equipement {
 export class Dashboard2Component {
   private equipementsSubscription: Subscription | undefined;
   private intervalId: any;
+  private clear1:Subscription | undefined;
+  private clear2:Subscription | undefined;
     isLoggedIn: boolean;
     equipements: any;
     equipementsParLocal: any;
@@ -114,6 +116,12 @@ export class Dashboard2Component {
     if (this.intervalId) {
       clearInterval(this.intervalId);
     }
+    if (this.clear1) {
+      this.clear1.unsubscribe();
+    }
+    if (this.clear2) {
+      this.clear2.unsubscribe();
+    }
   }
 
     ngOnChanges() {
@@ -150,7 +158,7 @@ export class Dashboard2Component {
           this.hideAllAlerts()
 
           // Charger les équipements :
-          this.floorService.getConsommationEquipementParPeriode(dateHeureDebut, dateHeureFin).subscribe(
+          this.clear1=this.floorService.getConsommationEquipementParPeriode(dateHeureDebut, dateHeureFin).subscribe(
             (data: any[]) => {
               this.EquipementsLoading = false;
               this.refreshButtonEnabled(true)   // Réactiver le boutton refresh:
@@ -171,7 +179,7 @@ export class Dashboard2Component {
         let isoDateString = new Date(now.getTime() + (60 * 60 * 1000)).toISOString();
 
         console.log('peeeriode: ', '2024-'+(new Date().getMonth()+1)+'-01 00:00:00',' -> ', isoDateString.slice(0, 19).replace('T', ' '))
-        this.floorService.getConsommationEquipementParPeriode('2024-'+(new Date().getMonth()+1)+'-01 00:00:00', isoDateString.slice(0, 19).replace('T', ' ')).subscribe(
+        this.clear2=this.floorService.getConsommationEquipementParPeriode('2024-'+(new Date().getMonth()+1)+'-01 00:00:00', isoDateString.slice(0, 19).replace('T', ' ')).subscribe(
           (data: any[]) => {
             console.log('equips : ', data)
             this.EquipementsLoading = false;

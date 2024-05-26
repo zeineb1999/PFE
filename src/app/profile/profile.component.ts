@@ -93,7 +93,7 @@ export class ProfileComponent implements OnInit {
       });
     });
   }
-  deleteUser(id: number) {
+ /*  deleteUser(id: number) {
     this.authService.deleteUser(id).subscribe(() => {
       window.location.reload();
   });
@@ -107,7 +107,7 @@ export class ProfileComponent implements OnInit {
     this.floorService.deleteEquipement(id).subscribe(() => {
       window.location.reload();
   });
-  }
+  } */
   updateProfile() {
     if( !this.newFirstname)
     {
@@ -150,6 +150,7 @@ export class ProfileComponent implements OnInit {
   confirmerModifierUsername() {
     this.authService.updateUserProfile(this.newUsername, this.user.firstname, this.user.lastname,this.user.email)
       .subscribe(response => {
+      this.floorService.setHistorique(this.user.id,this.user.firstname,this.newUsername,"changement de nom d'utilisateur").subscribe(()=>{});
        
       window.location.reload();
     },
@@ -177,6 +178,8 @@ export class ProfileComponent implements OnInit {
   confirmerModifierLastname() {
     this.authService.updateUserProfile(this.user.username, this.user.firstname, this.newLastname,this.user.email)
       .subscribe(response => {
+        this.floorService.setHistorique(this.user.id,this.user.firstname,this.newLastname,"changement de last name").subscribe(()=>{});
+    
        
       window.location.reload();
     });
@@ -196,6 +199,8 @@ export class ProfileComponent implements OnInit {
   confirmerModifierFirstname() {
     this.authService.updateUserProfile(this.user.username, this.newFirstname, this.user.lastname,this.user.email)
       .subscribe(response => {
+        this.floorService.setHistorique(this.user.id,this.user.firstname,this.newFirstname,"changement de fist name").subscribe(()=>{});
+    
        
       window.location.reload();
     });
@@ -240,6 +245,9 @@ export class ProfileComponent implements OnInit {
     if(this.code==this.codeValide){
     this.authService.updateUserProfile(this.user.username, this.user.firstname, this.user.lastname,this.newEmail)
       .subscribe(response => {
+        this.floorService.setHistorique(this.user.id,this.user.firstname,this.newEmail,"changement d'email").subscribe(()=>{});
+    
+      
        
       window.location.reload();
     });

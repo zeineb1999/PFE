@@ -17,9 +17,13 @@ export class AjouterEtageComponent implements OnInit {
   floorName?: string;
   isLoggedIn: boolean;
   batimentId?: number = 0;
+  batiment: any;
  
   ngOnInit(): void {
     this.batimentId = parseInt(this.route.snapshot.paramMap.get('batimentId') || '');
+    this.floorService.getBatimentById(this.batimentId).subscribe((bat: any) => {
+      this.batiment = bat
+    })
     
   }
   constructor(private floorService: FloorService,private route: ActivatedRoute, private router: Router) {  this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';}
@@ -42,6 +46,9 @@ export class AjouterEtageComponent implements OnInit {
       // Gérer le cas où this.floorName est undefined, par exemple afficher un message d'erreur à l'utilisateur
     }
   }
+
+  goBack() {
+    window.history.back();
+  }
   
 }
-

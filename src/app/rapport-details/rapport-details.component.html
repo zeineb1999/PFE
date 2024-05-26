@@ -1,5 +1,5 @@
 <div *ngIf="page!='dashboard2'">
-
+  <app-header></app-header>
   <div *ngIf="rapport" class="bg-[#ebf2ff] min-h-screen" style="padding-top: 7%;">
 
 
@@ -45,8 +45,7 @@
               </a>
             </dd>
           </div>
-
-          <div class="py-3">
+                <div class="py-3">
             <dt class="font-medium text-gray-900">Materiel nécessaire pour la maintenance</dt>
 
             <div class="grid gap-1 py-3 sm:grid-cols-3 sm:gap-4 text-gray-600">
@@ -61,12 +60,53 @@
             </div>
           </div>
 
+
         </dl>
+        <div *ngIf="rapport.decision">
+            <dt class="font-medium text-gray-900">Decision prise</dt> <dd class="font-medium text-gray-700 sm:col-span-2">{{rapport.decision}}</dd></div>
+    
       </div>
 
+      
+      <div *ngIf="rapport.decision==undefined && this.roleUser!='Responsable de maintenance'" class="space-y-4 p-10 flex flex-col items-center">
+        <h2 class="text-center text-sm uppercase text-gray-600">Décision à prendre à propos de l'équipement</h2>
+        
+        <div *ngIf="!decisionValidated">
+          <div class="relative flex items-center justify-center rounded-full bg-gray-50 px-4 py-3 font-medium text-gray-700">
+            <input class="peer hidden" type="radio" name="frameworkB" id="frameworkB1" [(ngModel)]="selectedOption" value="arret" />
+            <label class="peer-checked:border-orange-600 peer-checked:bg-orange-200 absolute top-0 h-full w-full cursor-pointer rounded-full border" for="frameworkB1"> </label>
+            <div class="peer-checked:border-transparent peer-checked:bg-orange-600 peer-checked:ring-2 absolute left-4 h-5 w-5 rounded-full border-2 border-gray-300 bg-gray-200 ring-orange-600 ring-offset-2"></div>
+            <span class="pointer-events-none z-10 ml-8">Mettre en arrêt</span>
+          </div>
+      
+          <div class="relative flex items-center justify-center rounded-full bg-gray-50 px-4 py-3 font-medium text-gray-700">
+            <input class="peer hidden" type="radio" name="frameworkB" id="frameworkB2" [(ngModel)]="selectedOption" value="reparer" />
+            <label class="peer-checked:border-sky-500 peer-checked:bg-sky-200 absolute top-0 h-full w-full cursor-pointer rounded-full border" for="frameworkB2"> </label>
+            <div class="peer-checked:border-transparent peer-checked:bg-sky-500 peer-checked:ring-2 absolute left-4 h-5 w-5 rounded-full border-2 border-gray-300 bg-gray-200 ring-sky-500 ring-offset-2"></div>
+            <span class="pointer-events-none z-10">Réparer l'équipement</span>
+          </div>
+      
+          <div class="relative flex items-center justify-center rounded-full bg-gray-50 px-6 py-3 font-medium text-gray-700">
+            <input class="peer hidden" type="radio" name="frameworkB" id="frameworkB3" [(ngModel)]="selectedOption" value="remplacer" />
+            <label class="peer-checked:border-emerald-400 peer-checked:bg-emerald-200 absolute top-0 h-full w-full cursor-pointer rounded-full border" for="frameworkB3"> </label>
+            <div class="peer-checked:border-transparent peer-checked:bg-emerald-400 peer-checked:ring-2 absolute left-4 h-5 w-5 rounded-full border-2 border-gray-300 bg-gray-200 ring-emerald-400 ring-offset-2"></div>
+            <span class="pointer-events-none z-10 ml-8">Remplacer par un autre équipement</span>
+          </div>
+      
+          <button class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="validateChoice()">Valider le choix</button>
+        </div>
+      
+        <div *ngIf="decisionValidated" class="text-lg font-semibold text-blue-600">
+          Décision précise : {{ selectedOption === 'arret' ? 'Mettre en arrêt' : selectedOption === 'reparer' ? 'Réparer l\'équipement' : 'Remplacer par un autre équipement' }}
+        </div>
+      </div>
+      
+      
+      
+</div>
 
 
     </div>
 
   </div>
-</div>
+

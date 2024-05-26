@@ -18,7 +18,7 @@ export class AjouterBatimentComponent implements OnInit {
   }
   constructor(private floorService: FloorService,private route: ActivatedRoute, private router: Router) {  this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';}
 
-  ajouterEtage(): void {
+  ajouterBatiment(): void {
     if (this.batimentName !== undefined && this.batimentType !== undefined) {
       const etageData = {
         nomBatiment: this.batimentName,
@@ -36,7 +36,10 @@ export class AjouterBatimentComponent implements OnInit {
       // Gérer le cas où this.floorName est undefined, par exemple afficher un message d'erreur à l'utilisateur
     }
   }
+
+  goBack() {
+    window.history.back();
+  }
   
 }
-
 

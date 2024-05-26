@@ -225,7 +225,7 @@ export class RedigerRapportComponent {
     console.log('equipe',this.equipementSelect)  
     this.floorService.addRapport(this.thisAlerte.id, this.userID, saveCauses, saveSolutions, saveRisques, saveEquipements, saveNecessite,this.equipementSelect,now).subscribe((rapport: any) => {
       console.log('rapport enregistré: ', rapport)
-      
+      this.router.navigate(['/rapport']);
     })
   }
 }

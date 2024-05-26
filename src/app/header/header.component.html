@@ -52,7 +52,7 @@
                 <button (click)="switchLanguage('en')">{{ 'language.english' | translate }}</button>
               </div>-->
           </div>
-          <div *ngIf="isLoggedIn == undefined" class="flex items-center justify-end">
+          <div *ngIf="this.role==='admin'||isLoggedIn == undefined" class="flex items-center justify-end">
             <!-- Votre logo d'université ici -->
             <img src="../../assets/usthb.png" alt="Logo de l'université" style="width: 50px; height: 45px;">
           </div>

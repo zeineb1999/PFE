@@ -1,213 +1,297 @@
-<div *ngIf="isLoggedIn">
-  <div *ngIf="zoneDetails" class="bg-[#ebf2ff] min-h-screen" style="padding-top: 7%;">
+<div class="bg-[#ebf2ff] min-h-screen">
+  <div *ngIf="isLoggedIn" >
+    <app-header></app-header>
+    <div *ngIf="zoneDetails" class="bg-[#ebf2ff] min-h-screen pb-6" style="padding-top: 7%;">
 
-    <div class="w-full flex justify-start text-2xl font-medium text-gray-700 mx-8 mt-4 mb-6">
-      Local N° {{zoneDetails.id}} : {{zoneDetails.nomLocal}}
-    </div>
+      <div class="w-full flex justify-start text-2xl font-medium text-gray-700 mx-8 mt-4 mb-6">
+        Local N° {{zoneDetails.id}} : {{zoneDetails.nomLocal}}
+      </div>
 
-    
-
-    <div class="bg-white shadow-md rounded-lg mx-auto overflow-y-auto custom-scrollbar my-4 p-8" style="width: 95%">
-      <div class="flow-root">
-        <dl class="-my-3 divide-y divide-gray-100 text-sm">
-          <div class="flex justify-between mx-12">
-            <ngx-gauge [thresholds]="thresholdConfig" [type]="gaugeType" [value]="temperature" [label]="gaugeLabel"
-              [append]="gaugeAppendText" [min]="0" [max]="50" [thick]="10" [label]="'Temperature'" [append]="'°C'">
-            </ngx-gauge>
-            
-            <ngx-gauge [thresholds]="thresholdConfigH" [type]="gaugeType" [value]="humidite" [label]="gaugeLabel"
-              [append]="gaugeAppendText" [min]="0" [max]="100" [thick]="10" [label]="'Humidité'" [append]="'%'">
-            </ngx-gauge>
-            <!-- <div class="p-4 bg-cover bg-center relative flex items-center justify-center ml-40 mr-2" style="width: 70%; height: 100px; background-size: cover; background-image: url('../../assets/TemperatureBlue.jpg');border-radius: 10px;">
-              
-              <h3 class="text-sm tracking-wider text-black">Température</h3>
-              <br>
-              <p class="text-3xl text-black">{{ temperature }} °C</p>
+      <div class="bg-white shadow-md rounded-lg mx-auto my-4 p-8" style="width: 95%">
+        <div class="flow-root">
+          <dl class="-my-3 divide-y divide-gray-100 text-sm">
+            <div class="w-full flex justify-start text-2xl font-medium text-gray-700 mt-4">
+              Informations
             </div>
-
-            <div class="p-4 bg-cover bg-center relative flex items-center justify-center ml-2 mr-4" style=" width: 70%; height: 100px; background-size: cover; background-image: url('../../assets/TemperatureBlue.jpg');border-radius: 10px;">
-              
-              <h3 class="text-sm tracking-wider text-black">Humidité </h3>
-              <br>
-              <p class="text-3xl text-black">{{ humidite }} %</p>
-            </div> -->
-          </div>
-
-          <div class="flow-root mx-12 my-12">
-            <dl class=" divide-y divide-gray-100 text-sm">
-              <div class="grid grid-cols-1 gap-1 py-4 sm:grid-cols-3 sm:gap-4">
-                <dt class="font-medium text-gray-900">{{'ajoutC1.nom'|translate}}</dt>
-                <dd class="font-medium :col-span-2">{{ zoneDetails.nomLocal }}</dd>
-              </div>
-
-              <div class="grid grid-cols-1 gap-1 py-4 sm:grid-cols-3 sm:gap-4">
-                <dt class="font-medium text-gray-900">{{'ajoutC1.type'|translate}}</dt>
-                <dd class="font-medium:col-span-2">{{ zoneDetails.typeLocal }}</dd>
-              </div>
-
-              <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
-                <dt class="font-medium text-gray-900">{{'ajoutC1.batiment'|translate}}</dt>
-                <dd class="font-medium text-gray-700 sm:col-span-2">{{ this.batiment }}</dd>
-              </div>
-
-              <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
-                <dt class="font-medium text-gray-900">{{'ajoutC1.title17'|translate}}</dt>
-                <dd class="font-medium m:col-span-2">{{ zoneDetails.etageZ }}</dd>
-              </div>
-
-              <div class="grid grid-cols-1 gap-1 py-4 sm:grid-cols-3 sm:gap-4">
-                <dt class="font-medium text-gray-900">{{'ajoutC1.title64'|translate}}</dt>
-                <dd class="font-medium m:col-span-2">{{ zoneDetails.id }}</dd>
-              </div>
-
-              <div class="grid grid-cols-1 gap-1 py-4 sm:grid-cols-3 sm:gap-4 ">
-                <dt class="flex items-center">
-                  <span class="font-medium text-gray-900 text-lg">{{'ajoutC1.title65'|translate}}</span>
-                  <span class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full ml-4">{{ equipements.length }} {{'ajoutC1.title65'|translate}}</span>
-                </dt>
+      
+            <div class="flow-root my-6">
+              <dl class=" divide-y divide-gray-100 text-sm">
+                <div class="grid grid-cols-1 gap-1 py-4 sm:grid-cols-3 sm:gap-4">
+                  <dt class="font-medium text-gray-900">{{'ajoutC1.nom'|translate}}</dt>
+                  <dd class="font-medium :col-span-2">{{ zoneDetails.nomLocal }}</dd>
+                </div>
+      
+                <div class="grid grid-cols-1 gap-1 py-4 sm:grid-cols-3 sm:gap-4">
+                  <dt class="font-medium text-gray-900">{{'ajoutC1.type'|translate}}</dt>
+                  <dd class="font-medium:col-span-2">{{ zoneDetails.typeLocal }}</dd>
+                </div>
+      
+                <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+                  <dt class="font-medium text-gray-900">{{'ajoutC1.batiment'|translate}}</dt>
+                  <dd class="font-medium text-gray-700 sm:col-span-2">{{ this.batiment }}</dd>
+                </div>
+      
+                <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+                  <dt class="font-medium text-gray-900">{{'ajoutC1.title17'|translate}}</dt>
+                  <dd class="font-medium m:col-span-2">{{ zoneDetails.etageZ }}</dd>
+                </div>
+      
+                <div class="grid grid-cols-1 gap-1 py-4 sm:grid-cols-3 sm:gap-4">
+                  <dt class="font-medium text-gray-900">{{'ajoutC1.title64'|translate}}</dt>
+                  <dd class="font-medium m:col-span-2">{{ zoneDetails.id }}</dd>
+                </div>
+      
+                <div class="grid grid-cols-1 gap-1 py-4 sm:grid-cols-3 sm:gap-4 ">
+                  <dt class="flex items-center">
+                    <span class="font-medium text-gray-900 text-lg">{{'ajoutC1.title65'|translate}}</span>
+                    <span class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full ml-4"
+                      *ngIf="equipementsLocals[0]=='rien' || equipementsLocals.length==0">
+                      0 {{'ajoutC1.title65'|translate}}</span>
+                    <span class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full ml-4"
+                      *ngIf="equipementsLocals.length>0 && equipementsLocals[0]!='rien'">{{ equipementsLocals.length }}
+                      {{'ajoutC1.title65'|translate}}</span>
+                  </dt>
                   <dd class="font-medium:col-span-2">
-                    <button (click)="redirectToAjouterEquipement()" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">
+                    <button (click)="redirectToAjouterEquipement()"
+                      class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">
                       {{'ajoutC1.title45'|translate}}
                     </button>
                   </dd>
+      
+                </div>
+              </dl>
+            </div>
+          </dl>
+        </div>
+      </div>
 
+      <div class="bg-white shadow-md rounded-lg mx-auto my-2 p-4" style="width: 95%">
+        <div class="flow-root">
+          <dl class="-my-3 divide-y divide-gray-100 text-sm">
+            <div class="w-full flex justify-start text-2xl font-medium text-gray-700 mt-4">
+              Température / Humidité
+            </div>
+
+            <div class="flex justify-between items-center mx-12" style="height: 300px;">
+              <ngx-gauge [markers]="markers" [thresholds]="thresholdConfig" [type]="'semi'" [cap]="'round'" [value]="temperature" [label]="gaugeLabel"
+                [append]="gaugeAppendText" [min]="0" [max]="50" [thick]="14" [foregroundColor]="'rgba(0, 180, 166, 1)'" [label]="'Temperature'" [append]="'°C'" [size]="200">
+              </ngx-gauge>
+
+              <ngx-gauge [thresholds]="thresholdConfigH" [type]="'semi'" [value]="humidite" [label]="gaugeLabel"
+                [append]="gaugeAppendText" [min]="0" [max]="100" [thick]="10" [label]="'Humidité'" [append]="'%'">
+              </ngx-gauge>
+
+              <!-- <ngx-gauge  type="arch" [thick]="10" [value]="68.2" cap="butt" label="Revenue" append="%"
+                [markers]="markerConfig">
+              </ngx-gauge>
+
+              <mwl-gauge [max]="50" [dialStartAngle]="180" [dialEndAngle]="0" [value]="90" [animated]="true"
+                [animationDuration]="1">
+              </mwl-gauge> -->
+
+            </div>
+
+          </dl>
+        </div>
+
+      </div>
+
+      
+      
+
+      
+      <div class="bg-white shadow-md rounded-lg mx-auto mt-4 p-8" style="width: 95%">
+        <div class="flow-root">
+          <dl class="-my-3 divide-y divide-gray-100 text-sm">
+            <div class="w-full flex justify-between items-center mt-4">
+              <div>
+                <span class="text-2xl font-medium text-gray-700">Equipements</span>
+                <span class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full ml-4"
+                  style="height: fit-content;"
+                  *ngIf="equipementsLocals[0]=='rien' || equipementsLocals.length==0">
+                  0 {{'ajoutC1.title65'|translate}}</span>
+                <span class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full ml-4"
+                  style="height: fit-content;"
+                  *ngIf="equipementsLocals.length>0 && equipementsLocals[0]!='rien'">{{ equipementsLocals.length }}
+                  {{'ajoutC1.title65'|translate}}</span>
               </div>
-            </dl>
-          </div>
 
-            <section class="mx-auto my-6">
+              <button (click)="redirectToAjouterEquipement()" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">
+                {{'ajoutC1.title45'|translate}}
+              </button>
+            </div>
+            <section class="flow-root my-6">
 
-              <div *ngIf="equipementsLocals.length == 0">
-                <div class="mx-auto py-12 w-fit-content text-gray-700 font-medium text-md" style="width: fit-content">{{'ajoutC1.title66'|translate}}</div>
-              </div>
+              <div  class="shadow-md md:rounded-lg">
+                <!--Filtres-->
+                <div  scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 shadow-sm md:rounded-lg">
+                  <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-filter fa-lg mr-6" style="color: #6b7280"></i>
+  
+                    <!-- Menu déroulant pour le type -->
+                    <select [(ngModel)]="typeFiltre" (change)="filtrerEquipements()" class="w-1/5 bg-gray-100 p-1 rounded-md">
+                      <option value="">{{'Criticité'|translate}}</option>
+                      <option [value]="">Equipements critiques</option>
+                      <option [value]="">Equipements non critiques</option>
+                    </select>
+  
+                    <!-- Menu déroulant pour la catégorie -->
+                    <select [(ngModel)]="categorieFiltre" (change)="filtrerEquipements()" class="w-1/5 bg-gray-100 p-1 rounded-md">
+                      <option value="">{{'Catégorie'|translate}}</option>
+                      <option *ngFor="let categorie of categories" [value]="">{{ categorie }}</option>
+                    </select>
+  
+                    <!-- Menu déroulant pour l'état -->
+                    <select [(ngModel)]="etatFiltre" (change)="filtrerEquipements()" class="w-1/5 bg-gray-100 p-1 rounded-md">
+                      <option value="">{{'État'|translate}}</option>
+                      <option *ngFor="let etat of etats" [value]="">{{ etat }}</option>
+                    </select>
+                  </div>
+                </div>
 
-              <div *ngIf="equipementsLocals.length > 0" class="overflow-hidden shadow-md md:rounded-lg">
-                <table class="table min-w-full">
-                  <tr>
-                    <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 ">
+                <div class="table min-w-full">
+                  <!--table head-->
+                  <div class="w-full flex justify-between">
+                    <div scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 " style="width: 20%;">
                       <div class="flex items-center gap-x-2">
                         <!--                           <input type="checkbox" class="text-blue-500 border-gray-300 rounded cursor-pointer">-->
-                        <span>{{'ajoutC1.title3' | translate}}</span>
+                        <span>{{'ajoutC1.nom' | translate}}</span>
                       </div>
-                    </th>
+                    </div>
 
-                    <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
+                    <div scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500" style="width: 10%;">
                       <div class="flex items-center gap-x-2">
                         <span>{{'ajoutC1.title29' | translate}}</span>
                       </div>
-                    </th>
+                    </div>
 
-                    <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
+                    <div scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500" style="width: 25%;">
                       <div class="flex items-center gap-x-2">
                         <!--  <span>{{'ajoutC1.title7'|translate}}</span> -->
                         <span>Catégorie</span>
                       </div>
-                    </th>
+                    </div>
 
-                    <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">
+                    <div scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 " style="width: 20%;">
                       <div class="flex items-center gap-x-2">
                         <span>{{'ajoutC1.puissance'|translate}}</span>
                       </div>
-                    </th>
+                    </div>
 
-                    <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">
-                      <div class="flex items-center gap-x-2">
-                        <span>{{'Filtrer par :'|translate}}</span>
 
-                        <!-- Menu déroulant pour le type -->
-                        <select [(ngModel)]="typeFiltre" (change)="filtrerEquipements()">
-                          <option value="">{{'Type'|translate}}</option>
-                          <option *ngFor="let type of types" [value]="">{{ type }}</option>
-                        </select>
 
-                        <!-- Menu déroulant pour la catégorie -->
-                        <select [(ngModel)]="categorieFiltre" (change)="filtrerEquipements()">
-                          <option value="">{{'Catégorie'|translate}}</option>
-                          <option *ngFor="let categorie of categories" [value]="">{{ categorie }}</option>
-                        </select>
-
-                        <!-- Menu déroulant pour l'état -->
-                        <select [(ngModel)]="etatFiltre" (change)="filtrerEquipements()">
-                          <option value="">{{'État'|translate}}</option>
-                          <option *ngFor="let etat of etats" [value]="">{{ etat }}</option>
-                        </select>
-                      </div>
-                    </th>
-
-                    <!--    <th scope="col" class="relative py-3.5 px-4">
+                    <!--    <div scope="col" class="relative py-3.5 px-4">
                                   <span class="sr-only">{{'ajoutC1.title38'|translate}}</span>
-                              </th>
+                              </div>
 
-                              <th scope="col" class="relative py-3.5 px-4">
+                              <div scope="col" class="relative py-3.5 px-4">
                                 <span class="sr-only">{{'ajoutC1.title43'|translate}}</span>
-                              </th> -->
+                              </div> -->
 
-                    <th scope="col" class="relative py-3.5 px-4">
+                    <div scope="col" class="relative py-3.5 px-4">
                       <span class="sr-only">{{'ajoutC1.title44'|translate}}</span>
-                    </th>
-                  </tr>
-                    <span *ngIf="equipementsFiltre.length === 0">Aucun équipement trouvé.</span>
-                    <tr *ngFor="let equipement of equipementsFiltre" class="even:bg-gray-50 w-full">
+                    </div>
+                  </div>
 
-                      <td class="px-4 py-4 text-sm font-medium text-gray-700" style="width: 35%;">
+                  <!--table body-->
+                  <div *ngIf="equipementsLocals.length > 0 && equipementsLocals[0] != 'rien'" class="w-full">
+                    <div *ngFor="let equipement of equipementsFiltre" class="even:bg-gray-50 w-full flex justify-between">
+  
+                      <td class="px-4 py-4 text-sm font-medium text-gray-700" style="width: 20%;">
                         <div class="inline-flex items-center gap-x-3">
                           <!-- <input type="checkbox" class="text-blue-500 border-gray-300 rounded cursor-pointer"> -->
                           <span>{{ equipement.nom }}</span>
                         </div>
                       </td>
-
+  
                       <td class="px-4 py-4 text-sm font-medium text-gray-700" style="width: 10%;">
                         <div class="inline-flex items-center gap-x-3">
-                          <span *ngIf="equipement.etat=='OFF'" class="px-3 py-1 text-xs text-green-600 bg-red-100 rounded-full"><i
-                              class="fa-solid fa-power-off" style="color: #a30000;"></i></span>
-                          <span *ngIf="equipement.etat=='ON'" class="px-3 py-1 text-xs text-green-600 bg-green-100 rounded-full"><i
-                              class="fa-solid fa-power-off" style="color: #006226;"></i></span>
-                          <span *ngIf="equipement.categorie!='normal'"
-                            class="px-3 py-1 text-xs text-green-600 bg-red-100 rounded-full"><i
-                              class="fa-solid fa-triangle-exclamation" style="color: #a30000;"></i></span>
+                          <div class="group flex relative">
+                            <span *ngIf="equipement.etat=='OFF'" class="px-3 py-1 text-xs text-green-600 bg-red-100 rounded-full"><i
+                                class="fa-solid fa-power-off" style="color: #a30000;"></i></span>
+                            <span class="group-hover:opacity-100 transition-opacity bg-gray-100 px-1 text-xs text-gray-700 rounded-md absolute left-1/2 
+                              -translate-x-1/2 translate-y-full opacity-0 m-1 p-1 mx-auto">
+                              Off
+                            </span>
+                          </div>
+                          <div class="group flex relative">
+                            <span *ngIf="equipement.etat=='ON'" class="px-3 py-1 text-xs text-green-600 bg-green-100 rounded-full"><i
+                                class="fa-solid fa-power-off" style="color: #006226;"></i>
+                            </span>
+                            <span class="group-hover:opacity-100 transition-opacity bg-gray-100 px-1 text-xs text-gray-700 rounded-md absolute left-1/2 
+                              -translate-x-1/2 translate-y-full opacity-0 m-1 p-1 mx-auto">
+                              On
+                            </span>
 
+                          </div>
+                          <div class="group flex relative">
+                            <span class="group-hover:opacity-100 transition-opacity bg-gray-100 px-1 text-xs text-gray-700 rounded-md absolute left-1/2 
+                              -translate-x-1/2 translate-y-full opacity-0 m-1 p-1 mx-auto">
+                              Critique
+                            </span>
+                            <span *ngIf="equipement.categorie!='normal'"
+                              class="px-3 py-1 text-xs text-green-600 bg-red-100 rounded-full">
+                              <i class="fa-solid fa-triangle-exclamation" style="color: #a30000;"></i>
+                            </span>
+                          </div>
+  
                         </div>
                       </td>
-
-                      <td class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right">
+  
+                      <td class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right" style="width: 25%;">
                         <div class="inline-flex items-center gap-x-3">
                           {{equipement.type}}
                         </div>
                       </td>
-
-                      <td class="px-12 py-3.5  text-sm font-medium text-gray-700 text-left rtl:text-right">
+  
+                      <td class="px-12 py-3.5  text-sm font-medium text-gray-700 text-left rtl:text-right" style="width: 20%;">
                         <div class="inline-flex items-center gap-x-3">
                           {{equipement.puissance}} W
                         </div>
                       </td>
-
-                      <td class="px-12 py-3.5 text-sm font-medium text-gray-700 text-right">
-                        <!--  <span class="text-xs cursor-pointer mx-4" style="color: #3b72f6;" (click)="updateEquipement(equipement.id)">{{'ajoutC1.title38'|translate}}
-                                <i class="fa-solid fa-pen fa-xs ml-1"></i>
-                              </span>
-                              <span class="text-xs cursor-pointer mx-4" style="color: #e30000;" (click)="deleteEquipement(equipement.id)">{{'ajoutC1.title43'|translate}}
-                                <i class="fa-solid fa-trash fa-xs ml-1"></i>
-                              </span> -->
+  
+                      <td class="px-12 py-3.5 text-sm font-medium text-gray-700 text-right flex items-center justify-end" style="width: 20%;">
+                        <!-- <span class="text-xs cursor-pointer mx-4" style="color: #3b72f6;" (click)="updateEquipement(equipement.id)">{{'ajoutC1.title38'|translate}}
+                          <i class="fa-solid fa-pen fa-xs ml-1"></i>
+                        </span>
+                        <span class="text-xs cursor-pointer mx-4" style="color: #e30000;" (click)="deleteEquipement(equipement.id)">{{'ajoutC1.title43'|translate}}
+                          <i class="fa-solid fa-trash fa-xs ml-1"></i>
+                        </span> -->
                         <span class=" cursor-pointer text-xs mx-4" style="color: #6b7280;"
-                          (click)="redirectToEquipementDetails(equipement.id)">{{'ajoutC1.title44'|translate}}
-                          <i class="fa-solid fa-bars fa-ws ml-1"></i>
+                          (click)="redirectToEquipementDetails(equipement.id)">
+                          <i class="fa-solid fa-bars fa-xl ml-1"></i>
                         </span>
                       </td>
-                    </tr>
+                    </div>
+                  </div>
 
-                </table>
+                  <div *ngIf="equipementsLocals[0] == 'rien' " class="w-full flex justify-center items-center" style="min-height: 200px">
+                    <!--Spinner-->
+                    <div role="status">
+                      <svg aria-hidden="true" class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+                        viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                          fill="currentColor" />
+                        <path
+                          d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                          fill="currentFill" />
+                      </svg>
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  
+                  </div>
+                    
+
+                </div>
               </div>
 
             </section>
 
-        </dl>
+          </dl>
+        </div>
       </div>
-
+    </div>
   </div>
 
-
-
-
-
-
-  </div>
+</div>

@@ -12,8 +12,7 @@ export interface Equipement {
   etat: string;
   categorie: string;
   puissance: number;
-  maxConsommation: number;
-  minConsommation: number;
+  type: string;
   zoneE: number;
 }
 export interface Zone {
@@ -38,11 +37,16 @@ export class FloorService {
     };
     return this.http.post(this.baseurl + '/etage/', etageData);
   }
-  ajouterZoneArchi(nomLocal: string, etageZ: number): Observable<any> {
+  ajouterZoneArchi(nomLocal: string, etageZ: number,maxT: number, minT: number,maxH: number, minH: number): Observable<any> {
     const etageData = {
       nomLocal:nomLocal,
+      maxT:maxT,
+      minT:minT,
+      maxH:maxH,
+      minH:minH,
       etageZ:etageZ
     };
+    console.log("zone ajoutéeeeeeeeee ",etageData)
     return this.http.post(this.baseurl + '/zones/', etageData);
   }
   ajouterEquipementArchi(nom: string, zoneE: number): Observable<any> {
@@ -184,9 +188,16 @@ export class FloorService {
     return this.http.get<any>(this.baseurl + '/rapportByAlerte/'+ alerteId ,
       {headers: this.httpHeaders});
   }
-  addEquipement(equipement:{  nom: string,  etat: string, categorie: string, puissance: number, maxConsommation: number, minConsommation: number, zoneE: number }) : Observable<any>{
-    const body = {  nom: equipement.nom,  etat: equipement.etat, categorie: equipement.categorie, puissance: equipement.puissance, maxConsommation: equipement.maxConsommation, minConsommation: equipement.minConsommation, zoneE: equipement.zoneE}
+  addEquipement(equipement:{  nom: string,  etat: string, categorie: string, puissance: number, zoneE: number }) : Observable<any>{
+    const body = {  nom: equipement.nom,  etat: equipement.etat, categorie: equipement.categorie, puissance: equipement.puissance, zoneE: equipement.zoneE}
+    console.log("body: ",body)
     return this.http.post(this.baseurl + '/equipement/', body,{headers: this.httpHeaders});
+  }
+  createEquipementArchive(nom: string,categorie: string, puissance: number, zoneE: number):Observable<any>{
+    const body = {  nom: nom,  categorie: categorie, puissance: puissance, zoneE: zoneE}
+    console.log("body: ",body)
+    return this.http.post(this.baseurl + '/equipementarchive/', body,{headers: this.httpHeaders});
+
   }
   getInitialData() : Observable<any>{
     return this.http.get(this.baseurl + '/initialData/',
@@ -475,17 +486,17 @@ getExcelData(): Observable<any> {
   getAlertesById(id: number) : Observable<any>{
     const url = ` ${this.baseurl}/alerteById?id=${id} `;
     return this.http.get<any>(url);
-  } 
+  }
   getAlertesSansId(): Observable<any>{
     const url = 'http://127.0.0.1:8000/api/alerteSansId ';
     return this.http.get<any>(url);
   }
   addUserAlerte(idAlerte:number,idUser:number) : Observable<any>{
-  
+
     return this.http.post('http://127.0.0.1:8000/api/addUserAlerte', {idAlerte, idUser});
-    
+
   }
-  
+
   setAlerteNotifie(alerteId: number, alerteData:any): Observable<any> {
     const url = `${this.baseurl}/alerte/${alerteId}/`;
     return this.http.put(url, alerteData, { headers: this.httpHeaders })
@@ -496,7 +507,7 @@ getExcelData(): Observable<any> {
     setAlerteNotifieZeineb(alerteId: number,): Observable<any> {
 
       return this.http.post('http://127.0.0.1:8000/api/notifierAlerte', {alerteId });
-      
+
     }
     set(alerteId: number): Observable<any> {
       const t="khra";
@@ -521,12 +532,12 @@ getExcelData(): Observable<any> {
           vu: false,
           notifie : false,
           dateRapport: date
-         
+
       }
       console.log(rapport)
       return this.http.post(this.baseurl + '/rapport/', rapport,{headers: this.httpHeaders});
     }
-  
+
     addRapportEquipementEndommage(rapport: number, equipement: number) {
       const data = {rapport: rapport, equipement: equipement}
       return this.http.post(this.baseurl + '/RapportEquipementEndommage/', rapport,{headers: this.httpHeaders});
@@ -539,6 +550,87 @@ getExcelData(): Observable<any> {
     }
     getSauvegardeData(): Observable<any> {
       return this.http.get<any>('http://127.0.0.1:8000/api/sauvegarde/ ');
-      
+
+  }
+
+  addDecision(id: number,decision: string): Observable<any> {
+    const data = {id: id,decision: decision }
+    return this.http.post(this.baseurl + '/decision/', data);
+  }
+
+    createHistorique(rapport: any,decision: string,equipement:any,equipementDest:any): Observable<any> {
+      /* const maDate = new Date();
+      const annee = maDate.getUTCFullYear();
+      const mois = String(maDate.getUTCMonth() + 1).padStart(2, '0');
+      const jour = String(maDate.getUTCDate()).padStart(2, '0');
+      const heures = String(maDate.getUTCHours()+1).padStart(2, '0');
+      const minutes = String(maDate.getUTCMinutes()).padStart(2, '0');
+      const secondes = String(maDate.getUTCSeconds()).padStart(2, '0');
+      const millisecondes = String(maDate.getUTCMilliseconds()).padStart(3, '0');
+      const date = ${annee}-${mois}-${jour}T${heures}:${minutes}:${secondes}.${millisecondes}; */
+      const data = {
+        rapport: rapport.id,
+        decision: decision,
+        equipement:equipement.id
+      };
+      console.log(data)
+      return this.http.post(this.baseurl + '/historique/', data,{headers: this.httpHeaders});
     }
+    createHistoriqueRemplacement(rapport: any,decision: string,equipement:any,equipementDest:any): Observable<any> {
+      /* const maDate = new Date();
+      const annee = maDate.getUTCFullYear();
+      const mois = String(maDate.getUTCMonth() + 1).padStart(2, '0');
+      const jour = String(maDate.getUTCDate()).padStart(2, '0');
+      const heures = String(maDate.getUTCHours()+1).padStart(2, '0');
+      const minutes = String(maDate.getUTCMinutes()).padStart(2, '0');
+      const secondes = String(maDate.getUTCSeconds()).padStart(2, '0');
+      const millisecondes = String(maDate.getUTCMilliseconds()).padStart(3, '0');
+      const date = ${annee}-${mois}-${jour}T${heures}:${minutes}:${secondes}.${millisecondes}; */
+      const data = {
+        rapport: rapport,
+        decision: decision,
+        equipement:equipement,
+        equipementDest:equipementDest
+      };
+      console.log(data)
+      return this.http.post(this.baseurl + '/historique/', data,{headers: this.httpHeaders});
+    }
+    getPeriodeParEquipement(equipement_id: number, date: string): Observable<any> {
+      const url =  `${this.baseurl}/equipement/${equipement_id}/periodes?date=${date}`;
+      return this.http.get<any>(url);
+    }
+    generatePeriode(equipement_id: number): Observable<any> {
+      return this.http.post<any>('http://127.0.0.1:8000/api/genererPeriode/', { equipement_id});
+  
+    }
+    setHistorique(id:number,firstname:string,change:string,action:string):  Observable<any> {
+      const data = {
+        numero: id,
+        firstname: firstname,
+        change: change,
+        action: action
+      }
+      return this.http.post(this.baseurl + '/historiqueUser/',data,{headers: this.httpHeaders});
+    }
+    getAllHistoriqueUsers(): Observable<any> {
+      return this.http.get<any>(this.baseurl + '/historiqueUser/');
+    }
+    ActiverBatiment(batimentId :number,date:string):Observable<any>{
+      const data = {
+        batimentId,
+        date
+
+      }
+      return this.http.post(this.baseurl + '/activerBatiment/',data,{headers: this.httpHeaders});
+
+    }
+    DesactiverBatiment(batimentId :number,date:string):Observable<any>{
+      const data = {
+        batimentId,
+        date
+      }
+      return this.http.post(this.baseurl + '/desactiverBatiment/',data,{headers: this.httpHeaders});
+
+    }
+    
   }

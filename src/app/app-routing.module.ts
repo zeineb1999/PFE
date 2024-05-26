@@ -30,6 +30,8 @@ import { RapportComponent } from './rapport/rapport.component';
 import { UtilisateursComponent } from './utilisateurs/utilisateurs.component';
 import { AjouterBatimentComponent } from './ajout/ajouter-batiment/ajouter-batiment.component';
 import { RapportDetailsComponent } from './rapport-details/rapport-details.component';
+import { ArchiComponent } from './archi/archi.component';
+import { AjouterEquipementRemplacementComponent } from './ajout/ajouter-equipement-remplacement/ajouter-equipement-remplacement.component';
 const routes: Routes = [
   
   
@@ -58,12 +60,14 @@ const routes: Routes = [
   {path: 'notifications', component: NotificationsComponent },
   {path: 'factures', component: FacturesComponent },
   {path: 'architecture', component: ArchitectureComponent}, 
+  {path: 'archi', component: ArchiComponent},
   { path: 'changerPassword/:uidb64/:token', component: ChangerPasswordComponent },
   { path: 'dashboard2', component: Dashboard2Component },
   { path: 'acceuil', component: AcceuilComponent },
   {path: 'alerte-details/:alerteId', component: AlerteDetailsComponent },
   {path: 'rapport', component: RapportComponent },
   {path: 'rapport-details/:alerteId', component: RapportDetailsComponent },
+  { path: 'ajouterEquipementRemplacement/:zoneId/:id/:rapport', component: AjouterEquipementRemplacementComponent },
 ];
 
 @NgModule({

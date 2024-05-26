@@ -18,9 +18,11 @@ export class AuthService {
   logout() {
     // Supprimez le token JWT stocké côté client
     sessionStorage.removeItem('isLoggedIn');
+    localStorage.clear();
     sessionStorage.removeItem('role');
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('id');
+    sessionStorage.clear();
     this.router.navigate(['/']);
   }
 

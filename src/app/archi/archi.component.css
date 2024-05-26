@@ -1,0 +1,13 @@
+.hidden {
+    display: none;
+  }
+  
+  .step-btn {
+    cursor: pointer;
+  }
+  .enfonce {
+    /* Ajoutez ici vos styles pour le bouton enfoncé */
+    background-color: gray; /* Par exemple */
+    pointer-events: none; /* Empêche le clic sur le bouton */
+    opacity: 0.5; /* Réduit l'opacité pour indiquer qu'il est désactivé */
+  }

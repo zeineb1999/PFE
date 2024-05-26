@@ -42,10 +42,10 @@ export class SideComponent {
   ngOnInit() {
     this.url = window.location.href;
     console.log(this.url)
-    this.user = localStorage.getItem('id');
-    this.role = localStorage.getItem('role');
-    this.isLoggedIn = localStorage.getItem('isLoggedIn')
-    this.lang = localStorage.getItem('lang') || 'fr';
+    this.user = sessionStorage.getItem('id');
+    this.role = sessionStorage.getItem('role');
+    this.isLoggedIn = sessionStorage.getItem('isLoggedIn')
+    this.lang = sessionStorage.getItem('lang') || 'fr';
    /*  if(this.role =='responsable de maintenance' || this.role =='Responsable de maintenance'){
       this.floorService.getAlertesById(this.user).subscribe((alertes: any) => {
         this.alertes = alertes

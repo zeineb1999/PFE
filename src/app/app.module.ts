@@ -76,6 +76,8 @@ import { RapportDetailsComponent } from './rapport-details/rapport-details.compo
 import { BarChartComponent } from './dashboard2/bar-chart/bar-chart.component';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { NgxGaugeModule } from 'ngx-gauge';
+import { ArchiComponent } from './archi/archi.component';
+import { AjouterEquipementRemplacementComponent } from './ajout/ajouter-equipement-remplacement/ajouter-equipement-remplacement.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:8000', options: {} };
 
@@ -128,6 +130,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AjouterBatimentComponent,
     RapportDetailsComponent,
     BarChartComponent,
+    ArchiComponent,
+    AjouterEquipementRemplacementComponent,
    
   
 

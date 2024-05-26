@@ -1,5 +1,5 @@
 <div>
-
+  <app-header></app-header>
   <div *ngIf="thisAlerte" class="bg-[#ebf2ff] min-h-screen" style="padding-top: 7%;">
 
 
@@ -28,30 +28,17 @@
                 style="color: white; background-image: linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%);">Ajouter</button>
             </section>
 
+            
             <section class="py-8" id="causesSection">
-              <label for="username" class="block mb-2 text-sm font-medium text-gray-900 " style="font-size: medium;">Quels
-                équipements du local sont endommagé ?</label>
-
-              <div *ngFor="let endommage of endommages; let m = index">
-                <select name="equipementsDuLocal" id="equipementsDuLocal" [(ngModel)]="endommagesM[m]" style="width: 60%"
-                  class="hover:shadow-md my-2 bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 -700">
-                  <ng-container *ngFor="let equip of equipementsLocal">
-                    <option *ngIf="endommagesM.includes(equip.id.toString())" [value]="equip.id" disabled
-                      class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 w-full p-2">
-                      {{equip.id}} | {{equip.nom}}
-                    </option>
-                    <option *ngIf="!endommagesM.includes(equip.id.toString())" [value]="equip.id"
-                      class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 w-full p-2">
-                      {{equip.id}} | {{equip.nom}}
-                    </option>
-                  </ng-container>
-                </select>
-              </div>
-              <button class="bg-blue-500 hover:bg-blue-700 text-white py-1 px-3 text-sm px-4 rounded font-medium hover:shadow-xl"
-                (click)="ajouterEndommage()"
-                style="color: white; background-image: linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%);">Ajouter</button>
-            </section>
-
+              <label for="username" class="block mb-2 text-sm font-medium text-gray-900 " style="font-size: medium;">Quel équipement du local est endommagé ?</label>
+             
+              <select name="equipement" id="equipement" [(ngModel)]="equipementSelect"
+              class="my-2 bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 -700">
+              <option *ngFor="let endommage of equipementsLocal" value="{{ endommage.id }}" >
+                {{ endommage.nom }}
+              </option>
+            </select>
+                 </section>
             <section class="py-8" id="solutionsSection">
               <label for="" class="block mb-2 text-sm font-medium text-gray-900 " style="font-size: medium;">Proposer vous une/des
                 solution(s) pour cette panne ? </label>

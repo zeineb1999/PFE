@@ -26,19 +26,18 @@
             <label class="sr-only" for="categorie">{{'ajoutC1.title5'|translate}} </label>
             <input [(ngModel)]="equipement.categorie" name="categorie" class="w-full rounded-lg border-blue-500 p-3 text-sm" placeholder="{{'ajoutC1.title5'|translate}}" type="text" id="categorie" />
           </div>
+
+          <div>
+            <label class="sr-only" for="type">Type</label>
+            <input [(ngModel)]="equipement.type" name="type" class="w-full rounded-lg border-blue-500 p-3 text-sm"
+              placeholder="Type" type="text" id="type" />
+          </div>
         
           <div>
             <label class="sr-only" for="puissance">{{'ajoutC1.title36'|translate}} </label>
             <input [(ngModel)]="equipement.puissance" name="puissance" class="w-full rounded-lg border-blue-500 p-3 text-sm" placeholder="{{'ajoutC1.title36'|translate}}" type="number" id="puissance" />
           </div>
-          <div>
-            <label class="sr-only" for="maxConsommation">{{'ajoutC1.title9'|translate}} </label>
-            <input [(ngModel)]="equipement.maxConsommation" name="maxConsommation" class="w-full rounded-lg border-blue-500 p-3 text-sm" placeholder="{{'ajoutC1.title9'|translate}}" type="number" id="maxConsommation" />
-          </div>
-          <div>
-            <label class="sr-only" for="minConsommation">{{'ajoutC1.title10'|translate}} </label>
-            <input [(ngModel)]="equipement.minConsommation" name="minConsommation" class="w-full rounded-lg border-blue-500 p-3 text-sm" placeholder="{{'ajoutC1.title10'|translate}}" type="number" id="minConsommation" />
-          </div>
+
           <div>
             <label class="sr-only" for="equipement.zoneE">{{'ajoutC1.title11'|translate}} </label>
             <select [(ngModel)]="equipement.zoneE" name="zoneId" class="w-full rounded-lg border-blue-500 p-3 text-sm" id="zoneE">

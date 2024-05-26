@@ -18,12 +18,12 @@ interface Zone {
 }
 
 @Component({
-  selector: 'app-ajouter-equipement',
-  templateUrl: './ajouter-equipement.component.html',
-  styleUrls: ['./ajouter-equipement.component.css'],
+  selector: 'app-ajouter-equipement-remplacement',
+  templateUrl: './ajouter-equipement-remplacement.component.html',
+  styleUrls: ['./ajouter-equipement-remplacement.component.css'],
   providers: [FloorService]
 })
-export class AjouterEquipementComponent implements OnInit {
+export class AjouterEquipementRemplacementComponent implements OnInit {
   zones: Zone[] = [];
   equipements: Equipement[] = [];
   selectedEquipements: any;
@@ -37,12 +37,12 @@ export class AjouterEquipementComponent implements OnInit {
   maxConsommation!: number;
   minConsommation!: number;
   zoneId!: number;
-
+  equipementIdRemplacant!:number;
   zoneRoomId!: any;
   isLoggedIn: boolean;
   localName: string ='';
   localId: any;
-
+  rapport!:number;
   constructor(
     private floorService: FloorService,
     private router: Router, // Injecter Router
@@ -55,7 +55,8 @@ export class AjouterEquipementComponent implements OnInit {
 
   ngOnInit() {
     this.zoneRoomId = parseInt(this.route.snapshot.paramMap.get('zoneId') || '');
-
+    this.equipementIdRemplacant = parseInt(this.route.snapshot.paramMap.get('id') || '')
+    this.rapport=parseInt(this.route.snapshot.paramMap.get('rapport') || '')
     this.floorService.getOneZone(this.zoneRoomId).subscribe(
       (data: any) => {
         this.localName = data.nomLocal;
@@ -97,6 +98,17 @@ export class AjouterEquipementComponent implements OnInit {
     this.floorService.addEquipement(equipementData).subscribe(
       (data: any) => {
         const equipementId = data.id;
+        console.log("donnes histo  rapport",this.rapport,"equi remp",this.equipementIdRemplacant,equipementId);
+        this.floorService.createHistoriqueRemplacement(this.rapport, "remplacer",this.equipementIdRemplacant,equipementId).subscribe(
+          (data: any) => {
+            console.log("done ",data);
+
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+    
         this.floorService.generatePeriode(equipementId).subscribe(
           (data: any) => {
            

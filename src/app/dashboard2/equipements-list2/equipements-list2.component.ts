@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
+import{Subscription} from 'rxjs';
 
 interface Local {
   id: number;
@@ -48,7 +49,8 @@ export class EquipementsList2Component {
   isLoggedIn: boolean;
   EquipementsLoading: Boolean = true;
   EquipementAChercher :string|undefined;
-
+  private equipementsSubscription: Subscription | undefined;
+  private equipementsSubscription2: Subscription | undefined;
   @Input() equipements: any[] = [];
   @Input() dateDebut: string = '';
   @Input() heureDebut: string = '';
@@ -69,7 +71,14 @@ export class EquipementsList2Component {
     }
 
   }
-
+  ngOnDestroy(): void {
+    if (this.equipementsSubscription) {
+      this.equipementsSubscription.unsubscribe();
+    }
+    if (this.equipementsSubscription2) {
+      this.equipementsSubscription2.unsubscribe();
+    }
+  }
   ngOnInit(): void {
     setInterval(() => {
         this.getConsommation(); // Appel de la méthode
@@ -87,7 +96,7 @@ export class EquipementsList2Component {
       if(this.heureFin) {dateHeureFin = this.dateFin+' '+this.heureFin+':0'}
       else { this.el.nativeElement.querySelector('#heureFin').value = '00:00:00' }
 
-      this.floorService.getConsommationEquipementParPeriode(dateHeureDebut, dateHeureFin).subscribe(
+      this.equipementsSubscription = this.floorService.getConsommationEquipementParPeriode(dateHeureDebut, dateHeureFin).subscribe(
         (data: any[]) =>{
           this.equipements = data
         })
@@ -97,7 +106,7 @@ export class EquipementsList2Component {
       let isoDateString = new Date(now.getTime() + (60 * 60 * 1000)).toISOString();
 
         console.log('peeeriode: ', '2024-'+(new Date().getMonth()+1)+'-01 00:00:00',' -> ', isoDateString.slice(0, 19).replace('T', ' '))
-        this.floorService.getConsommationEquipementParPeriode('2024-'+(new Date().getMonth()+1)+'-01 00:00:00', isoDateString.slice(0, 19).replace('T', ' ')).subscribe(        (data: any[]) =>{
+        this.equipementsSubscription2 = this.floorService.getConsommationEquipementParPeriode('2024-'+(new Date().getMonth()+1)+'-01 00:00:00', isoDateString.slice(0, 19).replace('T', ' ')).subscribe(        (data: any[]) =>{
           console.log('dataaa : ', data)
           this.equipements = data
         })
