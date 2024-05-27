@@ -632,5 +632,88 @@ getExcelData(): Observable<any> {
       return this.http.post(this.baseurl + '/desactiverBatiment/',data,{headers: this.httpHeaders});
 
     }
+    ActiverEtage(batimentId :number,date:string):Observable<any>{
+      const data = {
+        batimentId,
+        date
+
+      }
+      return this.http.post(this.baseurl + '/activerEtage/',data,{headers: this.httpHeaders});
+
+    }
+    DesactiverEtage(batimentId :number,date:string):Observable<any>{
+      const data = {
+        batimentId,
+        date
+      }
+      return this.http.post(this.baseurl + '/desactiverEtage/',data,{headers: this.httpHeaders});
+
+    }
+    ActiverZone(batimentId :number,date:string):Observable<any>{
+      const data = {
+        batimentId,
+        date
+
+      }
+      return this.http.post(this.baseurl + '/activerZone/',data,{headers: this.httpHeaders});
+
+    }
+    DesactiverZone(batimentId :number,date:string):Observable<any>{
+      const data = {
+        batimentId,
+        date
+      }
+      return this.http.post(this.baseurl + '/desactiverZone/',data,{headers: this.httpHeaders});
+
+    }
+    HistoriqueBatiment(option:string,batimentId:number,dateFormatee:string,userId:number,raison:string):Observable<any>{
+      const data = {
+        option:option,
+        batimentId:batimentId,
+        date:dateFormatee,
+        userId:userId,
+        raison:raison
+      }
+      return this.http.post(this.baseurl + '/historiqueBatiment/',data,{headers: this.httpHeaders});
+
+    }
+    HistoriqueEtage(option:string,batimentId:number,dateFormatee:string,userId:number,raison:string):Observable<any>{
+      const data = {
+        option:option,
+        etageId:batimentId,
+        date:dateFormatee,
+        userId:userId,
+        raison:raison
+      }
+      return this.http.post(this.baseurl + '/historiqueEtage/',data,{headers: this.httpHeaders});
+
+    }
+    HistoriqueZone(option:string,batimentId:number,dateFormatee:string,userId:number,raison:string):Observable<any>{
+      const data = {
+        option:option,
+        zoneId:batimentId,
+        date:dateFormatee,
+        userId:userId,
+        raison:raison
+      }
+      return this.http.post(this.baseurl + '/historiqueZone/',data,{headers: this.httpHeaders});
+
+    }
+    allHistoriqueBatiment() : Observable<any>{
+      return this.http.get(this.baseurl + '/historiqueBatiment/',
+       {headers: this.httpHeaders});
+    }
+    allHistoriqueEtage() : Observable<any>{
+      return this.http.get(this.baseurl + '/historiqueEtage/',
+       {headers: this.httpHeaders});
+    }
+    allHistoriqueZone() : Observable<any>{
+      return this.http.get(this.baseurl + '/historiqueZone/',
+       {headers: this.httpHeaders});
+    }
+    allHistoriqueEquipement() : Observable<any>{
+      return this.http.get(this.baseurl + '/equipementarchive/',
+       {headers: this.httpHeaders});
+    }
     
   }

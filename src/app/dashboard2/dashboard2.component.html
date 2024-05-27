@@ -1,5 +1,37 @@
 <app-header></app-header>
-<div  class="bg-[#fbfaff] w-full" style="padding-top: 7%;">
+
+     
+   
+
+
+
+
+<div  class="bg-gradient-to-br from-blue-50 to-pink-50 w-full" style="padding-top: 7%;">
+
+  <div class="flex w-8/9 justify-between">
+    <div class="bg-gradient-to-br from-blue-100 to-[#2caffe] m-4 py-6 rounded-lg shadow-medium" style="width: 200px; ">
+      <div class="font-medium text-3xl text-white text-8 ml-4" *ngIf="batiments">{{batiments.length}}</div>
+      <div class="text-lg font-medium text-white ml-4">Batiments</div>
+    </div>
+
+    <div class="bg-gradient-to-br from-pink-100 to-[#da00d3] m-4 py-6 rounded-lg shadow-medium" style="width: 200px; ">
+      <div class="font-medium text-3xl text-white text-8 ml-4">{{locaux.length}}</div>
+      <div class="text-lg font-medium text-white ml-4">Locaux</div>
+    </div>
+
+    <div class="bg-gradient-to-br from-orange-100 to-[#ffb253] m-4 py-6 rounded-lg shadow-medium" style="width: 200px; ">
+      <div *ngIf="equipements" class="font-medium text-3xl text-white text-8 ml-4">
+        <div>{{equipements.length}}</div>
+      </div>
+      <div class="text-lg font-medium text-white ml-4">Equipements</div>
+    </div>
+
+    <div class="bg-gradient-to-br from-green-100 to-[#00cb00] m-4 py-6 rounded-lg shadow-medium" style="width: 200px; ">
+      <div class="font-medium text-3xl text-white text-8 ml-4">{{alertesTotal.length}}</div>
+      <div class="text-lg font-medium text-white ml-4">Alertes</div>
+    </div>
+
+  </div>
 
   <div>
     <div class="flex items-center">
@@ -60,20 +92,15 @@
 
 
     </div>
-     <app-consumption-evolution2 [total]="sendData"></app-consumption-evolution2> 
-    <app-bar-chart [message]="sendData"></app-bar-chart>
-    <div class="flex w-full">
-       
-     <app-buildings-consumption2 [equipementsParBatiment]="equipementsParBatiment"
-        style="width: 70%"></app-buildings-consumption2> 
-     <!--  <app-locals-list (alerteChange)="handleAlerteChange($event)" class="max-h-full" style="width: 30%"></app-locals-list>
-     -->  <!--   <app-alerte-details (alerteChangeA)="handleAlerteChange($event)"></app-alerte-details>
-          -->
-    </div>
-    <div class="flex w-full">
-      <app-equipements-list2 [equipements]="equipements" style="width: 100%"></app-equipements-list2>
 
-    </div>
+    <app-buildings-consumption2 [equipementsParBatiment]="equipementsParBatiment" style="width: 100%"></app-buildings-consumption2>
+    <app-locals-equipements [equipementsParLocal]="equipementsParLocal"></app-locals-equipements>
+    <app-equipements-consommations [equipementsParLocal]="equipementsParLocal"></app-equipements-consommations>
+    <app-categories-equipements [equipementsParCategorie]="equipementsParCategorie" [equipementsParCriticite]="equipementsParCriticite"></app-categories-equipements>
+    <app-bar-chart [message]="sendData"></app-bar-chart>
+    <app-consumption-evolution2 [total]="sendData"></app-consumption-evolution2>
+    <!-- <app-equipements-list2 [equipements]="equipements" style="width: 100%"></app-equipements-list2> -->
+
     <!-- <app-bar-chart></app-bar-chart>  -->
     <div *ngIf="AlerteMessage" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
 <div class="fixed inset-0"></div>
@@ -130,6 +157,4 @@
   </div>
 
 </div>
-
-
 

@@ -55,18 +55,20 @@
               <!-- Liste des étages -->
               <div *ngFor="let batiment of batiments" class="p-4">
                 <div class="text-xl text-gray-700 font-medium m-2"> Batiment {{batiment.id}}
-                  <span class="text-lg text-gray-600 font-normal">{{ batiment.nomBatiment }} <p class="mr-4 text-sm font-medium text-gray-900 dark:text-gray-300"></p>
-                    <label class="relative cursor-pointer">
-                      <input 
-                        type="checkbox" 
-                        class="sr-only peer" 
-                        [checked]="batiment.active" 
-                        (change)="handleToggleChange($event, batiment.id)" 
-                      />
-                      <div 
-                        class="w-[53px] h-7 flex items-center bg-gray-300 rounded-full text-[9px] text-gray-300 font-extrabold peer-checked:text-[#007bff] after:flex after:items-center after:justify-center peer after:content-['Off'] peer-checked:after:content-['On'] peer-checked:after:translate-x-full after:absolute after:left-[2px] peer-checked:after:border-white after:bg-white after:border after:border-gray-300 after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-[#007bff]"
-                      ></div>
-                    </label></span>
+                  <span class="text-lg text-gray-600 font-normal">{{ batiment.nomBatiment }} 
+                    <button *ngIf="role != 'Responsable de maintenance' && !batiment.active"  (click)="handleToggleOn(batiment.id)"
+                    class="text-xs m-2 flex justify-center items-center rounded-md bg-green-500 font-medium text-white p-1 px-4 mr-8"
+                    style="border:1px solid #e7e7e7">
+                    Activer
+                    <!-- <span><i class="fa-solid fa-plus fa-2xl"></i></span> -->
+                  </button>
+                  <button *ngIf="role != 'Responsable de maintenance' && batiment.active"  (click)="handleToggleOff(batiment.id)"
+                  class="text-xs m-2 flex justify-center items-center rounded-md bg-red-500 font-medium text-white p-1 px-4 mr-8"
+                  style="border:1px solid #e7e7e7">
+                  Désactiver
+                  <!-- <span><i class="fa-solid fa-plus fa-2xl"></i></span> -->
+                </button>
+                </span>
                   
                 </div>
                 
@@ -94,7 +96,19 @@
                                 <div class="inline-flex items-center gap-x-3">
                                   <span>
                                     {{'ajoutC1.title17'| translate}}
-                                    {{ floor.nomEtage }}
+                                    {{ floor.nomEtage }} 
+                                    <button *ngIf="role != 'Responsable de maintenance' && !floor.active"  (click)="handleToggleOnEtage(floor.id)"
+                    class="text-xs m-2 flex justify-center items-center rounded-md bg-green-500 font-medium text-white p-1 px-4 mr-8"
+                    style="border:1px solid #e7e7e7">
+                    Activer
+                    <!-- <span><i class="fa-solid fa-plus fa-2xl"></i></span> -->
+                  </button>
+                  <button *ngIf="role != 'Responsable de maintenance' && floor.active"  (click)="handleToggleOffEtage(floor.id)"
+                  class="text-xs m-2 flex justify-center items-center rounded-md bg-red-500 font-medium text-white p-1 px-4 mr-8"
+                  style="border:1px solid #e7e7e7">
+                  Désactiver
+                  <!-- <span><i class="fa-solid fa-plus fa-2xl"></i></span> -->
+                </button>
                                   </span>
                                 </div>
                               </div>
@@ -222,7 +236,8 @@
                                       <td
                                         class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap col-span-2">
                                         <div class="inline-flex items-center gap-x-3">
-                                          <span>{{zone.nomLocal}}</span>
+                                          <span>{{zone.nomLocal}}
+                                          </span>
                                         </div>
                                       </td>
 
@@ -329,7 +344,7 @@
                                     {{'ajoutC1.title56'| translate}}
                                   </div>
                                   <button *ngIf="this.role !='Responsable de maintenance'" (click)="redirectToAjouterZone(floor.id)"
-                                    class="flex justify-center items-center rounded-full bg-gradient-to-r from-blue-500 to-green-400 text-transparent bg-clip-text p-4 mr-20"
+                                    class="text-xs flex justify-center items-center rounded-full bg-gradient-to-r from-blue-500 to-green-400 text-transparent bg-clip-text p-4 mr-20"
                                     style="border:1px solid #e7e7e7">
                                     <span><i class="fa-solid fa-plus fa-2xl"></i></span>
                                   </button>
@@ -352,7 +367,139 @@
       </div>
 
     </div>
-
+    <div *ngIf="DesactiverBatiment"  class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+      <div class="fixed inset-0 bg-gray-500 bg-opacity-80 transition-opacity"></div>
+    
+      <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+          <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+            <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+              <div class="sm:flex sm:items-start">
+                <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                  <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                  </svg>
+                </div> 
+                <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                  <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">La raison de Désactivation</h3>
+                  <select [(ngModel)]="selectedReason" class="block w-full border-b-2 border-blue-500 text-gray-600 text-sm focus:outline-none">
+                    <option value="" disabled selected>Choisissez une cause</option>
+                    <option value="Des Travaux">Des Travaux</option>
+                    <option value="Incendie">Incendie</option>
+                    <option value="fuite">fuite</option>
+                    <option value="Autre">Autre</option>
+                  </select>
+                
+                  <div *ngIf="selectedReason === 'Autre'" class="mt-2">
+                    <input type="text" [(ngModel)]="raison" placeholder="Veuillez préciser" 
+                           class="block w-full border-b-2 border-blue-500 text-gray-600 text-sm focus:outline-none">
+                  </div>
+                   
+                </div>
+              </div>
+            </div>
+            <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+              <button (click)="confirmerDesactiverBatiment()" type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Désactiver</button>
+              <button (click)="annulerDesactiverBatiment()" type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">{{'ajoutC1.title51'|translate}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="activerBatiment"  class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+      <div class="fixed inset-0 bg-gray-500 bg-opacity-80 transition-opacity"></div>
+    
+      <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+          <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+            <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+              <div class="sm:flex sm:items-start">
+                <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                  <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                  </svg>
+                </div> 
+                <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                  <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Etes vous sur de vouloir activer ce batiment</h3>
+                  
+                   </div>
+              </div>
+            </div>
+            <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+              <button (click)="confirmerActiverBatiment()" type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Activer</button>
+              <button (click)="annulerActiverBatiment()" type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">{{'ajoutC1.title51'|translate}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="DesactiverEtage"  class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+      <div class="fixed inset-0 bg-gray-500 bg-opacity-80 transition-opacity"></div>
+    
+      <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+          <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+            <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+              <div class="sm:flex sm:items-start">
+                <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                  <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                  </svg>
+                </div> 
+                <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                  <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">La raison de Désactivation</h3>
+                
+                  <select [(ngModel)]="selectedReason" class="block w-full border-b-2 border-blue-500 text-gray-600 text-sm focus:outline-none">
+                    <option value="" disabled selected>Choisissez une cause</option>
+                    <option value="Des Travaux">Des Travaux</option>
+                    <option value="Incendie">Incendie</option>
+                    <option value="fuite">fuite</option>
+                    <option value="Autre">Autre</option>
+                  </select>
+                
+                  <div *ngIf="selectedReason === 'Autre'" class="mt-2">
+                    <input type="text" [(ngModel)]="raison" placeholder="Veuillez préciser" 
+                           class="block w-full border-b-2 border-blue-500 text-gray-600 text-sm focus:outline-none">
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+            <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+              <button (click)="confirmerDesactiverEtage()" type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Désactiver</button>
+              <button (click)="annulerDesactiverEtage()" type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">{{'ajoutC1.title51'|translate}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="activerEtage"  class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+      <div class="fixed inset-0 bg-gray-500 bg-opacity-80 transition-opacity"></div>
+    
+      <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+          <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+            <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+              <div class="sm:flex sm:items-start">
+                <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                  <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                  </svg>
+                </div> 
+                <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                  <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Etes vous sur de vouloir activer cet étage</h3>
+                  
+                  </div>
+              </div>
+            </div>
+            <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+              <button (click)="confirmerActiverEtage()" type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Activer</button>
+              <button (click)="annulerActiverEtage()" type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">{{'ajoutC1.title51'|translate}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
 

@@ -40,6 +40,14 @@ export class ZoneDetailsComponent implements OnInit {
   batiment: string = 'a';
   temperature: any;
   humidite: any;
+  DesactiverZone:boolean=false;
+  activerZone:boolean=false;
+  idSelectionne:number=0;
+  raison:string="";
+  data: any[]=[];
+  role:any;
+  id:any;
+  selectedReason: string = '';
   currentEquipement: Equipement = {
     id: 0,
     nom: '',
@@ -101,6 +109,8 @@ formatValue(value: any) {
   }
 }
   ngOnInit(): void {
+    this.role = sessionStorage.getItem('role');
+    this.id= sessionStorage.getItem('id');
     this.zoneId = parseInt(this.route.snapshot.paramMap.get('zoneId') || '');
 
     this.loadDetails();
@@ -249,6 +259,94 @@ formatValue(value: any) {
     dateISO.substring(11, 13) + ':' +
     dateISO.substring(14, 16) + ':00';
   }
+  handleToggleOnZone(batimentId: number): void {
+    this.idSelectionne=batimentId;
+    this.activerZone=true
+        
+    }
+  confirmerActiverZone(){
+    const maDate = new Date();
+        const annee = maDate.getUTCFullYear();
+        const mois = String(maDate.getUTCMonth() + 1).padStart(2, '0');
+        const jour = String(maDate.getUTCDate()).padStart(2, '0');
+        let heures=''
+        if (maDate.getUTCHours() < 23) {
+        heures = String(maDate.getUTCHours()+1).padStart(2, '0');
+        } else {
+        heures = '00'.padStart(2, '0');
+        }
+        
+        const minutes = String(maDate.getUTCMinutes()).padStart(2, '0');
+        const secondes = String(maDate.getUTCSeconds()).padStart(2, '0');
+        const millisecondes = String(maDate.getUTCMilliseconds()).padStart(3, '0');
+        
+        const dateFormatee = `${annee}-${mois}-${jour} ${heures}:${minutes}:${secondes}`;
+    console.log(`Toggle is ON for batiment ID: ${this.idSelectionne}`);
+    this.floorService.ActiverZone(this.idSelectionne,dateFormatee).subscribe(any => {
+     
+      this.floorService.HistoriqueZone('activer',this.idSelectionne,dateFormatee,this.id,'').subscribe(any=>{
+        
+      })
+      
+      this.activerZone=false;
+      this.idSelectionne=0;
+      window.location.reload();
+    })
+  
+  }
+  
+  
+  annulerActiverZone(){
+    this.activerZone=false;
+    this.idSelectionne=0;
+  
+  }
+  handleToggleOffZone(batimentId: number): void {
+   
+    this.idSelectionne=batimentId;
+    this.DesactiverZone=true
+  }
+  confirmerDesactiverZone(){
+    const maDate = new Date();
+    const annee = maDate.getUTCFullYear();
+    const mois = String(maDate.getUTCMonth() + 1).padStart(2, '0');
+    const jour = String(maDate.getUTCDate()).padStart(2, '0');
+    let heures=''
+    if (maDate.getUTCHours() < 23) {
+    heures = String(maDate.getUTCHours()+1).padStart(2, '0');
+    } else {
+    heures = '00'.padStart(2, '0');
+    }
+    
+    const minutes = String(maDate.getUTCMinutes()).padStart(2, '0');
+    const secondes = String(maDate.getUTCSeconds()).padStart(2, '0');
+    const millisecondes = String(maDate.getUTCMilliseconds()).padStart(3, '0');
+    
+    const dateFormatee = `${annee}-${mois}-${jour} ${heures}:${minutes}:${secondes}`;
+    console.log(`Toggle is ON for batiment ID: ${this.idSelectionne}`);
+    this.floorService.DesactiverZone(this.idSelectionne,dateFormatee).subscribe(any => {
+      let reason
+      if(this.selectedReason==='Autre'){
+        reason= this.raison
+      }
+      else{
+        reason=this.selectedReason
+      }
+      console.log('raison',reason)
+      this.floorService.HistoriqueZone('desactiver',this.idSelectionne,dateFormatee,this.id,reason).subscribe(any=>{
+        
+      })
+      window.location.reload();
+      this.DesactiverZone=false;
+    })
+  
+  }
+  annulerDesactiverZone(){
+    this.DesactiverZone=false;
+    this.idSelectionne=0;
+  
+  }
+  
     
  /*  filtrerEquipements() {
     this.equipementsFiltre = [];

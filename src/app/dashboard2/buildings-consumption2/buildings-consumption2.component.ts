@@ -88,7 +88,7 @@ export class BuildingsConsumption2Component {
           etageElementId = 'batiment-' + this.equipementsParBatiment[i][0].batimentId
           this.renderer.setAttribute(divElement, 'id', etageElementId);
           this.renderer.setAttribute(divElement, 'class', 'diagramme-batiment');
-          this.renderer.setAttribute(divElement, 'style', 'width: 25%; height: 200px; ');
+          this.renderer.setAttribute(divElement, 'style', 'width: 50%; height: 200px; ');
           this.renderer.appendChild(parentElement, divElement);
 
           // Regrouper les équipements par etage
@@ -145,7 +145,8 @@ export class BuildingsConsumption2Component {
 
   insertFloorChart(etageElementId: string, _name: string, _categories: string[], etagesChartData: any[], colorIndex:number){
 
-    let colors = ['#00bbf9', '#00f5d4', '#FEE440', '#9b5de5', '#f15bb5', '#219ebc', '#ff006e']
+    let colors = ['#00bbf9', '#00f5d4', '#fee440', '#9b5de5', '#f15bb5', '#219ebc', '#ff006e']
+    console.log('col: ',colorIndex)
     Highcharts.chart(etageElementId, {
       chart: {
         type: 'bar'
@@ -271,7 +272,7 @@ export class BuildingsConsumption2Component {
                 if(diagrammes){
                   Array.from(diagrammes).forEach(diagramme => {
                     if(diagramme.id != this.name.split(':')[0].replace(' ', '-')){
-                      diagramme.setAttribute('style', 'width: 20%; height: 200px; margin-right: 3%; opacity: 10%; transition: opacity 300ms;')
+                      diagramme.setAttribute('style', 'width: 50%; height: 200px;  opacity: 10%; transition: opacity 300ms;')
                     }
                   });
                 }
@@ -281,7 +282,7 @@ export class BuildingsConsumption2Component {
                 if(diagrammes){
                   Array.from(diagrammes).forEach(diagramme => {
                     if(diagramme.id != this.name.split(':')[0].replace(' ', '-')){
-                      diagramme.setAttribute('style', 'width: 20%; height: 200px; margin-right: 3%; opacity: 100%; transition: opacity 300ms;')
+                      diagramme.setAttribute('style', 'width: 50%; height: 200px;  opacity: 100%; transition: opacity 300ms;')
                     }
                   });
                 }

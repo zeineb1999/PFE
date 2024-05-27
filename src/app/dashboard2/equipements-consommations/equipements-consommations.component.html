@@ -1,0 +1,42 @@
+<div class="w-8/9 max-w-screen-xl bg-white m-4 shadow-md rounded-lg ">
+  <div class="flex justify-center">
+    <div class="w-full">
+      <div class="flex row flex-wrap g-white  px-3 py-2 mb-4">
+
+        <div class="block py-2 px-2 w-full flex row items-center justify-between">
+          <div class="text-gray-700 text-lg font-semibold">
+            Consommation des Ã©quipements
+          </div>
+        </div>
+
+        <div class="w-full">
+
+          <div *ngFor="let batiment of batiments" class=" overflow-x-auto custom-scrollbar rounded-md shadow-md m-4 max-w-full p-4 bg-white" style="flex-wrap: nowrap;" [ngClass]="[ 'bg-'+bgColorBatiments[batiment.id%5] ]">
+
+            <div class="w-full mb-4 font-medium text-lg" [ngClass]="['text-'+titleColors[batiment.id%5] ]">
+              Batiment {{batiment.id}} : {{batiment.nomBatiment}}
+            </div>
+
+            <div class="flex">
+              <div *ngFor="let etage of batiment.etages" class="mx-2" [ngClass]="[ 'bg-'+bgColorBatiments[batiment.id%5] ]">
+                <div class="p-4 rounded-sm shadow-sm bg-white border min-w-full" style="width: fit-content;" [ngClass]="[ 'border-'+titleColors[batiment.id%5] ]">
+
+                  <div class="w-full m-2 text-center font-medium" [ngClass]="['text-'+titleColors[batiment.id%5] ]">
+                    Etage {{etage.id}}: {{etage.nomEtage}}
+                  </div>
+
+                  <div [id]="'etage'+etage.id+'locals-container'" class="flex">
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

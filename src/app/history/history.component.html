@@ -1,0 +1,230 @@
+<app-header></app-header>
+
+    <div class="mx-auto max-w-screen-lg px-4 py-8 sm:px-8">
+        <div class="flex items-center justify-between pb-6">
+          <div>
+            <h2 class="font-semibold text-gray-700">Historique</h2>
+            <span class="text-xs text-gray-500">Voir toutes les actions effectuées</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <i class="fa-solid fa-filter fa-lg mr-6" style="color: #6b7280"></i>
+            <select (change)="onFilterChange($event)" class="block w-full border-b-2 border-blue-500 text-gray-600 text-sm w-4/5 bg-gray-100 p-1 rounded-md">
+              <option value="batiment">Batiments</option>
+              <option value="etages">Etages</option>
+              <option value="locaux">Locaux</option>
+              <option value="equipemnts">Équipement</option>
+            </select>
+          </div>
+        </div>
+      
+        <div *ngIf="boolBatiment" class="overflow-y-hidden rounded-lg border">
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <thead>
+                <tr class="bg-blue-600 text-left text-xs font-semibold uppercase tracking-widest text-white">
+                  <th class="px-5 py-3">ID</th>
+                  <th class="px-5 py-3">Batiment</th>
+                  <th class="px-5 py-3">L'utilisateur</th>
+                  <th class="px-5 py-3">Created at</th>
+                  <th class="px-5 py-3">raison</th>
+                  <th class="px-5 py-3">Action</th>
+                </tr>
+              </thead>
+              <tbody class="text-gray-500">
+                <tr *ngFor="let item of historiqueBatiment">
+                  <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+                    <p class="whitespace-no-wrap">{{ item.id }}</p>
+                  </td>
+                  <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+                    <div class="flex items-center">
+                      <div class="h-10 w-10 flex-shrink-0">
+                     <!--    <img class="h-full w-full rounded-full" src="/images/-ytzjgg6lxK1ICPcNfXho.png" alt="" />
+                   -->    </div>
+                      <div class="ml-3">
+                        <p class="whitespace-no-wrap">{{ BatimentNom(item.batimentId) }}</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+                    <p class="whitespace-no-wrap">{{ userLast(item.userId) }}{{ userFirst(item.userId) }}</p>
+                  </td>
+                  <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+                    <p class="whitespace-no-wrap">{{dateFormate(item.date)}} {{timeFormate(item.date)}}</p>
+                  </td>
+                  <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+                    <p class="whitespace-no-wrap">{{ item.raison }}</p>
+                  </td>
+                  <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+                    <span [ngClass]="{
+                        'bg-green-200 text-green-900': item.option === 'activer',
+                        'bg-yellow-200 text-yellow-900': item.option === 'Suspended',
+                        'bg-red-200 text-red-900': item.option === 'desactiver'
+                      }"
+                      class="rounded-full px-3 py-1 text-xs font-semibold">
+                      {{ item.option }}
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+  <div *ngIf="boolEtage" class="overflow-y-hidden rounded-lg border">
+    <div class="overflow-x-auto">
+      <table class="w-full">
+        <thead>
+          <tr class="bg-blue-600 text-left text-xs font-semibold uppercase tracking-widest text-white">
+            <th class="px-5 py-3">ID</th>
+                  <th class="px-5 py-3">Etage</th>
+                  <th class="px-5 py-3">L'utilisateur</th>
+                  <th class="px-5 py-3">Created at</th>
+                  <th class="px-5 py-3">raison</th>
+                  <th class="px-5 py-3">Action</th>
+          </tr>
+        </thead>
+        <tbody class="text-gray-500">
+          <tr *ngFor="let item of historiqueEtage">
+            <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+              <p class="whitespace-no-wrap">{{ item.id }}</p>
+            </td>
+            <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+              <div class="flex items-center">
+                <div class="h-10 w-10 flex-shrink-0">
+               <!--    <img class="h-full w-full rounded-full" src="/images/-ytzjgg6lxK1ICPcNfXho.png" alt="" />
+             -->    </div>
+                <div class="ml-3">
+                  <p class="whitespace-no-wrap">{{ EtageNom(item.etageId) }}</p>
+                </div>
+              </div>
+            </td>
+            <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+              <p class="whitespace-no-wrap">{{ userLast(item.userId) }}{{ userFirst(item.userId) }}</p>
+            </td>
+            <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+              <p class="whitespace-no-wrap">{{dateFormate(item.date)}} {{timeFormate(item.date)}}</p>
+            </td>
+            <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+              <p class="whitespace-no-wrap">{{ item.raison }}</p>
+            </td>
+            <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+              <span [ngClass]="{
+                  'bg-green-200 text-green-900': item.option === 'activer',
+                  'bg-yellow-200 text-yellow-900': item.option === 'Suspended',
+                  'bg-red-200 text-red-900': item.option === 'desactiver'
+                }"
+                class="rounded-full px-3 py-1 text-xs font-semibold">
+                {{ item.option }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div *ngIf="boolZone" class="overflow-y-hidden rounded-lg border">
+    <div class="overflow-x-auto">
+      <table class="w-full">
+        <thead>
+          <tr class="bg-blue-600 text-left text-xs font-semibold uppercase tracking-widest text-white">
+            <th class="px-5 py-3">ID</th>
+                  <th class="px-5 py-3">Local</th>
+                  <th class="px-5 py-3">L'utilisateur</th>
+                  <th class="px-5 py-3">Created at</th>
+                  <th class="px-5 py-3">raison</th>
+                  <th class="px-5 py-3">Action</th>
+          </tr>
+        </thead>
+        <tbody class="text-gray-500">
+          <tr *ngFor="let item of historiqueZone">
+            <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+              <p class="whitespace-no-wrap">{{ item.id }}</p>
+            </td>
+            <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+              <div class="flex items-center">
+                <div class="h-10 w-10 flex-shrink-0">
+               <!--    <img class="h-full w-full rounded-full" src="/images/-ytzjgg6lxK1ICPcNfXho.png" alt="" />
+             -->    </div>
+                <div class="ml-3">
+                  <p class="whitespace-no-wrap">{{ LocalNom(item.zoneId) }}</p>
+                </div>
+              </div>
+            </td>
+            <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+              <p class="whitespace-no-wrap"> {{ userLast(item.userId) }}{{ userFirst(item.userId) }}</p>
+            </td>
+            <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+              <p class="whitespace-no-wrap">{{dateFormate(item.date)}} {{timeFormate(item.date)}}</p>
+            </td>
+            <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+              <p class="whitespace-no-wrap">{{ item.raison }}</p>
+            </td>
+            <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+              <span [ngClass]="{
+                  'bg-green-200 text-green-900': item.option === 'activer',
+                  'bg-yellow-200 text-yellow-900': item.option === 'Suspended',
+                  'bg-red-200 text-red-900': item.option === 'desactiver'
+                }"
+                class="rounded-full px-3 py-1 text-xs font-semibold">
+                {{ item.option }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div *ngIf="boolEquipement" class="overflow-y-hidden rounded-lg border">
+    <div class="overflow-x-auto">
+      <table class="w-full">
+        <thead>
+          <tr class="bg-blue-600 text-left text-xs font-semibold uppercase tracking-widest text-white">
+            <th class="px-5 py-3">ID</th>
+            <th class="px-5 py-3">Equipement</th>
+            <th class="px-5 py-3">type</th>
+            <th class="px-5 py-3">categorie</th>
+            <th class="px-5 py-3">puissance</th>  
+            <th class="px-5 py-3">local</th>
+            <th class="px-5 py-3">Created At</th>
+          
+          </tr>
+        </thead>
+        <tbody class="text-gray-500">
+          <tr *ngFor="let item of historiqueEquipement">
+            <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+              <p class="whitespace-no-wrap">{{ item.id }}</p>
+            </td>
+            <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+              <div class="flex items-center">
+                <div class="h-10 w-10 flex-shrink-0">
+               <!--    <img class="h-full w-full rounded-full" src="/images/-ytzjgg6lxK1ICPcNfXho.png" alt="" />
+             -->    </div>
+                <div class="ml-3">
+                  <p class="whitespace-no-wrap">{{ item.nom }}</p>
+                </div>
+              </div>
+            </td>
+            <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+              <p class="whitespace-no-wrap">{{ item.type }}</p>
+            </td>
+            <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+              <p class="whitespace-no-wrap">{{ item.categorie}}</p>
+            </td>
+            <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+              <p class="whitespace-no-wrap">{{ item.puissance }}</p>
+            </td>
+            <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+              <p class="whitespace-no-wrap">{{ item.zoneE}}</p>
+            </td>
+            <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+              <p class="whitespace-no-wrap">{{dateFormate(item.date)}} {{timeFormate(item.date)}}</p>
+            </td>
+           
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

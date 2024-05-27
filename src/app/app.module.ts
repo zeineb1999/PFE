@@ -78,6 +78,10 @@ import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { NgxGaugeModule } from 'ngx-gauge';
 import { ArchiComponent } from './archi/archi.component';
 import { AjouterEquipementRemplacementComponent } from './ajout/ajouter-equipement-remplacement/ajouter-equipement-remplacement.component';
+import { CategoriesEquipementsComponent } from './dashboard2/categories-equipements/categories-equipements.component';
+import { EquipementsConsommationsComponent } from './dashboard2/equipements-consommations/equipements-consommations.component';
+import { LocalsEquipementsComponent } from './dashboard2/locals-equipements/locals-equipements.component';
+import { HistoryComponent } from './history/history.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:8000', options: {} };
 
@@ -132,6 +136,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     BarChartComponent,
     ArchiComponent,
     AjouterEquipementRemplacementComponent,
+    CategoriesEquipementsComponent,
+    EquipementsConsommationsComponent,
+    LocalsEquipementsComponent,
+    HistoryComponent,
    
   
 

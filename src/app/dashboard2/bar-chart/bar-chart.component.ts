@@ -103,10 +103,10 @@ export class BarChartComponent implements OnInit, OnChanges {
         type: 'column'
       },
       title: {
-        text: 'Consommation des équipements'
+        text: ''
       },
       xAxis: {
-        categories: ['janvier', 'février', 'mars', 'avril', 'mai', 'juin']
+        categories: ['janvier', 'fÃ©vrier', 'mars', 'avril', 'mai', 'juin']
       },
       yAxis: {
         title: {

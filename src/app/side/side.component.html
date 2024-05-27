@@ -95,6 +95,14 @@
           
         </a>
       </li>
+      <li *ngIf="this.role !='admin'">
+        <a href="#" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700" routerLink="/history" [ngStyle]="{
+            'color': getCurrentPage()=='history' || getCurrentSection()=='#history' ? 'white' : '' ,
+            'background-image':getCurrentPage()=='history' || getCurrentSection()=='history' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%)' :'none'
+          }">Historique
+          
+        </a>
+      </li>
       <li *ngIf="role === 'Responsable de l\'hopital'">
         <a href="#" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700" routerLink="/utilisateurs" [ngStyle]="{
             'color': getCurrentPage()=='utilisateurs' || getCurrentSection()=='#utilisateurs' ? 'white' : '' ,
