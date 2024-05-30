@@ -1,9 +1,9 @@
 
 <div *ngIf="isLoggedIn">
   <app-header></app-header>
-  <div *ngIf="equipementDetails" class="bg-[#ebf2ff] min-h-screen" style="padding-top: 7%;">
+  <div *ngIf="equipementDetails" class="bg-[#ebf2ff] min-h-screen py-4">
 
-    <div class="w-full flex justify-start text-2xl font-medium text-gray-700 mx-8 mt-4 mb-6">
+    <div class="w-full flex justify-start text-2xl font-medium text-gray-700 mx-8  mb-6">
       {{'ajoutC1.title60' | translate}} N° {{equipementDetails.id}} : {{equipementDetails.nom}}
     </div>
 

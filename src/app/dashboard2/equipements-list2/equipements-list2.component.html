@@ -1,95 +1,199 @@
 <!--Liste d'équipements-->
-<div class="w-full max-w-screen-xl mx-auto px-6">
-  <div class="flex justify-center py-4 px-3 ">
-      <div class="w-full">
-          <div class="bg-white shadow-md rounded-lg px-3 py-2 mb-4">
-              <div class="block text-gray-700 text-lg font-semibold py-2 px-2">
-                  Liste des équipements
+<div class="w-8/9 max-w-screen-xl bg-white m-4 shadow-md rounded-lg ">
+  <div class="flex justify-center">
+    <div class="w-full">
+      <div class="flex row flex-wrap g-white  px-3 py-2 mb-4">
+        <div class="block py-2 px-2 w-full flex row items-center justify-between">
+          <div class="text-gray-700 text-lg font-semibold">
+            Equipements
+          </div>
+          <span class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full ml-4" style="height: fit-content;"
+            *ngIf="equipements[0]=='rien' || equipements.length==0">
+            0 {{'ajoutC1.title65'|translate}}</span>
+          <span class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full ml-4" style="height: fit-content;"
+            *ngIf="equipements.length>0 && equipements[0]!='rien'">{{ equipements.length }}
+            {{'ajoutC1.title65'|translate}}</span>
+        </div>
+
+
+        <section class="flow-root my-6">
+
+          <div class="shadow-md md:rounded-lg">
+            <!--Filtres-->
+            <div scope="col"
+              class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 shadow-sm md:rounded-lg">
+              <div class="flex items-center gap-2">
+                <i class="fa-solid fa-filter fa-lg mr-6" style="color: #6b7280"></i>
+
+                <!-- Menu déroulant pour le type -->
+                <select [(ngModel)]="typeFiltre" (change)="filtrerEquipements()" class="w-1/5 bg-gray-100 p-1 rounded-md">
+                  <option value="">{{'Criticité'|translate}}</option>
+                  <option *ngFor="let type of types" [value]="">{{type}}</option>
+                </select>
+
+                <!-- Menu déroulant pour la catégorie -->
+                <select [(ngModel)]="categorieFiltre" (change)="filtrerEquipements()" class="w-1/5 bg-gray-100 p-1 rounded-md">
+                  <option value="">{{'Catégorie'|translate}}</option>
+                  <option *ngFor="let categorie of categories" [value]="">{{ categorie }}</option>
+                </select>
+
+                <!-- Menu déroulant pour l'état -->
+                <select [(ngModel)]="etatFiltre" (change)="filtrerEquipements()" class="w-1/5 bg-gray-100 p-1 rounded-md">
+                  <option value="">{{'État'|translate}}</option>
+                  <option *ngFor="let etat of etats" [value]="">{{ etat }}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="table min-w-full">
+              <!--table head-->
+              <div class="w-full flex justify-between">
+                <div scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 "
+                  style="width: 20%;">
+                  <div class="flex items-center gap-x-2">
+                    <!--                           <input type="checkbox" class="text-blue-500 border-gray-300 rounded cursor-pointer">-->
+                    <span>{{'ajoutC1.nom' | translate}}</span>
+                  </div>
+                </div>
+
+                <div scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500"
+                  style="width: 10%;">
+                  <div class="flex items-center gap-x-2">
+                    <span>{{'ajoutC1.title29' | translate}}</span>
+                  </div>
+                </div>
+
+                <div scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500"
+                  style="width: 25%;">
+                  <div class="flex items-center gap-x-2">
+                    <!--  <span>{{'ajoutC1.title7'|translate}}</span> -->
+                    <span>Catégorie</span>
+                  </div>
+                </div>
+
+                <div scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 "
+                  style="width: 20%;">
+                  <div class="flex items-center gap-x-2">
+                    <span>{{'ajoutC1.puissance'|translate}}</span>
+                  </div>
+                </div>
+
+                <div scope="col" class="relative py-3.5 px-4">
+                  <span class="sr-only">{{'ajoutC1.title44'|translate}}</span>
+                </div>
               </div>
 
-              <div class="flex items-center">
-                <!-- Barre de recherche des equipements -->
-                <div class="flex items-center bg-gray-200 rounded-md " style="width: 24%; height: fit-content">
-                  <div class="pl-2">
-                      <svg class="fill-current text-gray-500 w-6 h-6"
-                          viewBox="0 0 24 24">
-                          <path class="heroicon-ui"
-                              d="M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" />
-                      </svg>
-                  </div>
-                  <input
-                    class="w-full rounded-md bg-gray-200 text-gray-700 leading-tight focus:outline-none py-2 px-2"
-                    id="search" type="text" placeholder="Chercher un équipement" [(ngModel)]="EquipementAChercher"
-                  >
+              <!--table body-->
+              <div *ngIf="equipements.length > 0 && equipements[0] != 'rien'" class="w-full overflow-y-auto custom-scrollbar " style="max-height: 300px;">
+                <div *ngFor="let equipement of equipementsFiltre" class="even:bg-gray-50 w-full flex justify-between">
+
+                  <td class="px-4 py-4 text-sm font-medium text-gray-700" style="width: 20%;">
+                    <div class="inline-flex items-center gap-x-3">
+                      <!-- <input type="checkbox" class="text-blue-500 border-gray-300 rounded cursor-pointer"> -->
+                      <span>{{ equipement.nom }}</span>
+                    </div>
+                  </td>
+
+                  <td class="px-4 py-4 text-sm font-medium text-gray-700" style="width: 10%;">
+                    <div class="inline-flex items-center gap-x-3">
+                      <div class="group flex relative">
+                        <span *ngIf="equipement.etat=='OFF'" class="px-3 py-1 text-xs text-green-600 bg-red-100 rounded-full"><i
+                            class="fa-solid fa-power-off" style="color: #a30000;"></i></span>
+                        <span class="group-hover:opacity-100 transition-opacity bg-gray-100 px-1 text-xs text-gray-700 rounded-md absolute left-1/2
+                                      -translate-x-1/2 translate-y-full opacity-0 m-1 p-1 mx-auto">
+                          Off
+                        </span>
+                      </div>
+                      <div class="group flex relative">
+                        <span *ngIf="equipement.etat=='ON'"
+                          class="px-3 py-1 text-xs text-green-600 bg-green-100 rounded-full"><i class="fa-solid fa-power-off"
+                            style="color: #006226;"></i>
+                        </span>
+                        <span class="group-hover:opacity-100 transition-opacity bg-gray-100 px-1 text-xs text-gray-700 rounded-md absolute left-1/2
+                                      -translate-x-1/2 translate-y-full opacity-0 m-1 p-1 mx-auto">
+                          On
+                        </span>
+
+                      </div>
+                      <div class="group flex relative">
+                        <span class="group-hover:opacity-100 transition-opacity bg-gray-100 px-1 text-xs text-gray-700 rounded-md absolute left-1/2
+                                      -translate-x-1/2 translate-y-full opacity-0 m-1 p-1 mx-auto">
+                          Critique
+                        </span>
+                        <span *ngIf="equipement.categorie!='normal'"
+                          class="px-3 py-1 text-xs text-green-600 bg-red-100 rounded-full">
+                          <i class="fa-solid fa-triangle-exclamation" style="color: #a30000;"></i>
+                        </span>
+                      </div>
+
+                    </div>
+                  </td>
+
+                  <td class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right" style="width: 25%;">
+                    <div class="inline-flex items-center gap-x-3">
+                      {{equipement.type}}
+                    </div>
+                  </td>
+
+                  <td class="px-12 py-3.5  text-sm font-medium text-gray-700 text-left rtl:text-right" style="width: 20%;">
+                    <div class="inline-flex items-center gap-x-3">
+                      {{equipement.puissance}} W
+                    </div>
+                  </td>
+
+                  <td class="px-12 py-3.5 text-sm font-medium text-gray-700 text-right flex items-center justify-end"
+                    style="width: 20%;">
+                    <!-- <span class="text-xs cursor-pointer mx-4" style="color: #3b72f6;" (click)="updateEquipement(equipement.id)">{{'ajoutC1.title38'|translate}}
+                                  <i class="fa-solid fa-pen fa-xs ml-1"></i>
+                                </span>
+                                <span class="text-xs cursor-pointer mx-4" style="color: #e30000;" (click)="deleteEquipement(equipement.id)">{{'ajoutC1.title43'|translate}}
+                                  <i class="fa-solid fa-trash fa-xs ml-1"></i>
+                                </span> -->
+                    <span class=" cursor-pointer text-xs mx-4" style="color: #6b7280;"
+                      (click)="redirectToEquipementDetails(equipement.id)">
+                      <i class="fa-solid fa-bars fa-xl ml-1"></i>
+                    </span>
+                  </td>
+                </div>
+              </div>
+
+              <div *ngIf="equipements[0] == 'rien' " class="w-full flex justify-center items-center"
+                style="min-height: 200px">
+                <!--Spinner-->
+                <div role="status">
+                  <svg aria-hidden="true" class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+                    viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                      fill="currentColor" />
+                    <path
+                      d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                      fill="currentFill" />
+                  </svg>
+                  <span class="sr-only">Loading...</span>
                 </div>
 
               </div>
 
-              <!-- Liste des equipements -->
-              <div class="overflow-y-auto max-h-64 custom-scrollbar">
 
-                  <div class="py-3 text-sm">
-                    <!-- Afficher un spinner en attendant le chargement ... -->
-                    <div *ngIf="this.EquipementsLoading == true">
-                      <div aria-label="Loading..." role="status" class="flex flex-col items-center space-x-2">
-                        <svg class="h-8 w-8 animate-spin stroke-gray-500 m-2" viewBox="0 0 256 256">
-                            <line x1="128" y1="32" x2="128" y2="64" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line>
-                            <line x1="195.9" y1="60.1" x2="173.3" y2="82.7" stroke-linecap="round" stroke-linejoin="round"
-                                stroke-width="24"></line>
-                            <line x1="224" y1="128" x2="192" y2="128" stroke-linecap="round" stroke-linejoin="round" stroke-width="24">
-                            </line>
-                            <line x1="195.9" y1="195.9" x2="173.3" y2="173.3" stroke-linecap="round" stroke-linejoin="round"
-                                stroke-width="24"></line>
-                            <line x1="128" y1="224" x2="128" y2="192" stroke-linecap="round" stroke-linejoin="round" stroke-width="24">
-                            </line>
-                            <line x1="60.1" y1="195.9" x2="82.7" y2="173.3" stroke-linecap="round" stroke-linejoin="round"
-                                stroke-width="24"></line>
-                            <line x1="32" y1="128" x2="64" y2="128" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line>
-                            <line x1="60.1" y1="60.1" x2="82.7" y2="82.7" stroke-linecap="round" stroke-linejoin="round" stroke-width="24">
-                            </line>
-                        </svg>
-                        <div class="text-xs font-medium text-gray-500">Chargement des équipement en cours...</div>
-                      </div>
-                    </div>
-
-                    <table *ngIf="this.EquipementsLoading == false" class="w-full">
-                      <div *ngFor="let equip of this.equipements" class="" style="min-height: 0;">
-                        <div *ngIf="(this.EquipementAChercher && equip.nom.toLowerCase().startsWith(this.EquipementAChercher.toLowerCase())) || (!this.EquipementAChercher)"
-                          class="flex justify-between cursor-pointer text-gray-700 hover:text-blue-400 hover:bg-blue-100 rounded-md px-2 py-2 my-2"
-                          (click)="redirectToEquipementDetails(equip.id)"
-                        >
-                          <div class="font-medium px-2 mr-4 flex items-center" style="width: 25%; min-width: 25%;">
-                            <div *ngIf="equip.etat=='ON'" class="bg-green-400 h-2 min-w-2 max-w-2 m-2 mr-4 rounded-full"></div>
-                            <div *ngIf="equip.etat=='OFF'" class="bg-red-500 h-2 min-w-2 max-w-2 m-2 mr-4 rounded-full"></div>
-                            <div class="flex items-center" style="height:fit-content">{{equip.nom}}</div>
-                          </div>
-                          <div style="width: 60%;" class="">
-                            {{equip.batiment}}<i class="fa-solid fa-chevron-right fa-sm mx-2"></i>
-                            Etage {{equip.numEtage}} : {{equip.nomEtage}} <i class="fa-solid fa-chevron-right fa-sm mx-2"></i>
-                            {{equip.typeLocal}} {{equip.localId}} : {{equip.nomLocal}} 
-                            <!-- <span>{{equip.batiment}}</span><i class="fa-solid fa-chevron-right fa-sm mx-2"></i>
-                            <span>Etage {{equip.numEtage}} : {{equip.nomEtage}} </span><i class="fa-solid fa-chevron-right fa-sm mx-2"></i>
-                            <span>{{equip.typeLocal}} {{equip.localId}} : {{equip.nomLocal}} </span> -->
-                          </div>
-                          <div *ngIf="equip.consommation_kW >= 0.01" class="mr-6 text-sm font-normal text-gray-500 tracking-wide flex items-center justify-end" style="width: 10%;">
-                            {{equip.consommation_kW.toFixed(2)}} kWh
-                          </div>
-                          <div *ngIf="equip.consommation_kW < 0.01" class="mr-6 text-sm font-normal text-gray-500 tracking-wide  flex items-center justify-end" style="width: 10%;">
-                            {{equip.consommation_W.toFixed(2)}} Wh
-                          </div>
-                        </div>
-                      </div>
-                    </table>
-                  </div>
-              </div>
-              <!-- Boutons en bas de la liste -->
-              <div class="block bg-gray-200 text-sm text-right py-2 px-3 -mx-3 -mb-2 rounded-b-lg">
-
-                  <button routerLink="/ajouterEquipement" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    Ajouter un équipement
-                  </button>
-              </div>
+            </div>
           </div>
+
+        </section>
       </div>
+    </div>
   </div>
 </div>
+
+
+
+
+<!--
+<div class="bg-white shadow-md rounded-lg mx-auto mt-4 p-8 w-8/9">
+  <div class="flow-root">
+    <dl class="-my-3 divide-y divide-gray-100 text-sm">
+
+
+    </dl>
+  </div>
+</div> -->

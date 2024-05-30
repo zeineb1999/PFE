@@ -35,7 +35,7 @@ export class AlerteDetailsComponent {
   Rid: number = 0;
 
   utilisateurs: any[] = [];
-
+  usersStock:any;
   userRole: any;
   roleUser: any;
   user: any;
@@ -61,6 +61,7 @@ export class AlerteDetailsComponent {
   constructor(private authService: AuthService,private route: ActivatedRoute, private router: Router, private floorService: FloorService) {this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true'; }
 
   ngOnInit() {
+   
     this.roleUser=sessionStorage.getItem('role');
     console.log('roleUser:---------> ', this.roleUser)
     //window.location.reload();
@@ -70,6 +71,7 @@ export class AlerteDetailsComponent {
     this.floorService.getAlerte(this.alerteId).subscribe(
       ((alerte: any) =>{
         this.thisAlerte = alerte
+        console.log('*********************************alerte: ', alerte)
         this.thisAlerte.vu = true
 
         this.floorService.getRapportsByAlerteId(this.thisAlerte.id).subscribe((rapports: any) => {
@@ -119,7 +121,28 @@ export class AlerteDetailsComponent {
   /* batiment(batiment: any, arg1: string, batiment1: any) {
     throw new Error('Method not implemented.');
   } */
+  userLast(id:number):string{
 
+    console.log('id',id)
+    for (const batiment of this.utilisateurs) {
+      if (batiment.id === id) {
+        return batiment.last_name;
+      }
+    }
+    throw new Error(`Aucun bâtiment trouvé avec l'ID ${id}`);
+
+    
+  }
+  userFirst(id:number):string{
+    console.log('id',id)
+    for (const batiment of this.utilisateurs) {
+      if (batiment.id === id) {
+        return batiment.first_name;
+      }
+    }
+    throw new Error(`Aucun bâtiment trouvé avec l'ID ${id}`);
+
+  }
   sendNotification(idAlerte: number) {
 
     if (this.Rid) {
@@ -149,8 +172,12 @@ export class AlerteDetailsComponent {
           })
       } */
       this.floorService.addUserAlerte(idAlerte, idUser).subscribe(
+        (response => {
+           this.router.navigate(['/rapport']);
+        }))
+       
         // Gérer la réponse de l'API ou les éventuelles erreurs
-      );
+      
     } else {
       console.log('Sélectionnez un responsable de maintenance.');
     }

@@ -1,11 +1,12 @@
 {
+
   "header.title": "Mon Application",
   "header.titleTwo": "Mon Application deux",
   "header.acceuil": "Accueil",
   "header.titlefour": "Tableau de bord",
   "Acceuil.title": "Notre Plateforme",
   "Acceuil.title1": "se connecter",
-  "Accueil.title2": "Vous accompagne vers un avenir énergétique durable",
+  "Accueil.title2": "Nous vous aidons à suivre la consommation électrique dans votre hopital",
   "Acceuil.title3": "Plus d'informations",
   "Notifications.title": "Les Notifications",
   "sign.title1":"connexion ",
@@ -29,10 +30,10 @@
   "login.title11":"se connecter",
   "profile.title1":"ouvrir le menu",
   "profile.title2":"energie hopital Intelligent",
-  "profile.title3":"Êtes-vous sûr de vouloir modifier le nom d'utilisateur",
-  "profile.title4":"Êtes-vous sûr de vouloir modifier le prénom ",
-  "profile.title5":"Êtes-vous sûr de vouloir modifier le nom de famille",
-  "profile.title6":"Entrez votre nouvelle boite email ",
+  "profile.title3":"modifier votre nom d'utilisateur",
+  "profile.title4":"modifier votre prénom ",
+  "profile.title5":"modifier votre nom de famille",
+  "profile.title6":"Entrez votre nouvelle addresse email ",
   "profile.title7":"entrez le code envoyé a votre nouvelle boite email",
   "profile.title8":"se deconnecter",
   "profile.title9":"Totale Utilisateurs",
@@ -158,5 +159,13 @@
   "forget.title1":"Entrez votre email",
   "header.language": "Langue",
   "language.french": "Français",
-  "language.english": "Anglais"
+  "language.english": "Anglais",
+
+  "etape": "Etape",
+
+  "nomDeFamille": "Nom",
+  "prenom": "Prénom",
+  "username":"Nom d'utilisateur",
+  "password": "Mot de passe",
+  "modifier": "modifier"
 }

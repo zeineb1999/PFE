@@ -1,10 +1,10 @@
 <div *ngIf="page!='dashboard2'">
   <app-header></app-header>
-  <div class="w-full flex justify-start text-2xl font-medium text-gray-700 mx-8 mt-4 mb-6" style="padding-top: 7%;">
+  <div class="w-full flex justify-start text-2xl font-medium text-gray-700 mx-8 mt-4 mb-6" >
     Alerte N° {{thisAlerte.id}}
   </div>
 
-  <div class="bg-white shadow-md rounded-lg mx-auto overflow-y-auto custom-scrollbar my-4 p-8" style="width: 95%" >
+  <div class="bg-blue-100 shadow-md rounded-lg mx-auto overflow-y-auto custom-scrollbar my-4 p-8" style="width: 95%" >
     <div class="flow-root">
       <dl class="-my-3 divide-y divide-gray-100 text-sm">
         <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
@@ -13,7 +13,7 @@
         </div>
 
         <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
-          <dt class="font-medium text-gray-900">{{'ajoutC1.title7' | translate }}</dt>
+          <dt class="font-medium text-gray-900">{{'ajoutC1.type' | translate }}</dt>
           <dd class="font-medium text-gray-700 sm:col-span-2">Alerte de {{ this.thisAlerte.type }}</dd>
         </div>
 
@@ -34,17 +34,23 @@
         <div *ngIf="this.thisAlerte.text" class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
           <dt class="font-medium text-gray-900">{{'alerte.title2' | translate }}:</dt>
           <dd class="font-medium text-gray-700 sm:col-span-2">
-            {{ this.thisAlerte.text }}
+            {{ this.thisAlerte.text }} 
           </dd>
         </div>
 
 
       </dl>
     </div>
-    <!-- Ajoutez d'autres détails de la zone ici selon vos besoins -->
-
+    <br>
+    <div *ngIf="this.thisAlerte.userID!=null" class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+      <dt class="font-medium text-gray-900">Responsable de maintenance affecté</dt>
+      <dd class="font-medium text-gray-700 sm:col-span-2">
+        {{ userLast(this.thisAlerte.userID) }} {{ userFirst(this.thisAlerte.userID) }}
+      </dd>
+    </div>
+   <div *ngIf="this.thisAlerte.userID===null"> 
     <div *ngIf="!(this.roleUser=='Responsable de maintenance')">
-
+      <br><br>
       <form *ngIf="thisAlerte.type=='temperature' || thisAlerte.type=='humidite' ||thisAlerte.type=='surConsommation' ">
         <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 ">{{'alerte.title4' | translate }}
           </label>
@@ -53,12 +59,15 @@
           <option selected disabled></option>
           <option *ngFor="let R of responsables_maintenance" [value]="R.id">{{R.id}} {{R.username}}</option>
         </select>
-
+        <br>
         <label for="message">{{'alerte.title3' | translate }} </label>
         <input type="text" id="message">
-        <button type="button" (click)="sendNotification(thisAlerte.id)">{{'alerte.title5' | translate }}</button>
-      </form>
-    </div>
+        <br>
+        <button type="button" (click)="sendNotification(thisAlerte.id)" class="text-sm font-medium shadow-sm px-3 py-2 rounded-md hover:shadow-lg my-6"
+        style="color: white; background-image: linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%);"
+        >{{'alerte.title5' | translate }}</button>
+      </form></div>
+   </div> 
 
     <div *ngIf="this.roleUser=='Responsable de maintenance' && (!this.rapport || this.rapport.length==0)"  >
       <button [routerLink]="'/rediger-rapport/'+ thisAlerte.id"

@@ -36,7 +36,7 @@ export class LocalsEquipementsComponent {
           batiment.etages.forEach((etage: any) => {
             etage.locals_names = []
             etage.ConsData = []
-            etage.ConsData[0] = {name: 'Les locaux dans l\'Ã©tage '+etage.id, data: []}
+            etage.ConsData[0] = {name: 'Les locaux dans l\'étage '+etage.id, data: []}
 
             this.floorService.getZonesForEtage(etage.id).subscribe((locaux: any[]) => {
               etage.locaux = locaux

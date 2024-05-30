@@ -1,5 +1,3 @@
-
-
 import { Component, ElementRef, Renderer2, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FloorService } from '../service/floor.service';

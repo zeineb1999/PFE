@@ -45,9 +45,22 @@ export class BarChartComponent implements OnInit, OnChanges {
       const tousjuin = critiquejuin + normaljuin;
 
       this.initialData = [
-        { name: 'critique', data: [13790468.0450, 12630468.045, 10800468.045, 11630468.045, 12700468.045, critiquejuin] },
-        { name: 'non critique', data: [793645.04, 793645.04, 793645.04, 793645.04, 793645.04, normaljuin] },
-        { name: 'tous', data: [12930468.045, 12930468.045, 12930468.045, 12930468.045, 12930468.045, tousjuin] }
+        { name: 'critique', data: [46789257.88
+        , 42124170.68
+        , 46482600.08
+        , 46976971.96
+        //, 38951304.78
+        , critiquejuin] },
+        { name: 'non critique', data: [8710699.26
+        , 8365710.98
+        , 8797140.96//, 8694232.16
+        , 8809289.76, normaljuin] },
+        { name: 'tous', data: [55499957.15
+        , 50489881.66
+        , 55279741.05
+        , 55671204.13
+        //, 47760594.55
+        , tousjuin] }
       ];
       this.renderChart(this.initialData);
     } else {
@@ -106,7 +119,10 @@ export class BarChartComponent implements OnInit, OnChanges {
         text: ''
       },
       xAxis: {
-        categories: ['janvier', 'fÃ©vrier', 'mars', 'avril', 'mai', 'juin']
+        
+        //categories: ['janvier', 'février', 'mars', 'avril', 'mai', 'juin']
+        categories: ['janvier', 'février', 'mars', 'avril', 'mai']
+       
       },
       yAxis: {
         title: {

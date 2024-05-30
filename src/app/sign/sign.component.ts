@@ -53,7 +53,10 @@ attemptLogin() {
             // Effacez le message après quelques secondes
             setTimeout(() => {
                 this.successMessage = '';
-                this.router.navigate(['/profile']);
+                if(this.roleEntree != 'admin')
+                {this.router.navigate(['/dashboard2']);}
+                else
+                {this.router.navigate(['/dashboard']);}
             }, 1000);
            
         },

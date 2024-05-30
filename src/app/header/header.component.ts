@@ -96,6 +96,7 @@ export class HeaderComponent implements OnInit {
     
             setTimeout(() => {
               this.AlerteMessage = '';
+              window.location.reload();
           }, 5000);
           }
         }
@@ -123,6 +124,7 @@ export class HeaderComponent implements OnInit {
     
             setTimeout(() => {
               this.AlerteMessageUser = '';
+              window.location.reload();
           }, 5000);
           }
         }

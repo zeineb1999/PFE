@@ -65,15 +65,15 @@ export class AppComponent implements OnInit{
     this.translateService.setDefaultLang('fr');
     this.translateService.use(sessionStorage.getItem('lang') || 'fr');
     this.router.events.subscribe((event) => {
-      if(event instanceof NavigationEnd) 
+      if(event instanceof NavigationEnd)
         this.afficherSide = this.showSideBar(event.url)
     })
   }
   showSideBar(url: string): boolean {
-    if (url.includes('login') || url.includes('signup') || url.includes('accueil') || url=='/')
+    if (url.includes('forgetPassword') || url.includes('signup') || url.includes('accueil') || url=='/')
       return false
     return true
-    
+
   }
 
 }

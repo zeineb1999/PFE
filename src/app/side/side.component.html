@@ -1,43 +1,38 @@
-
-
-
 <div class="flex h-screen flex-col justify-between border-e bg-white">
   <div class="px-4 py-6">
-    <span class="grid h-10 w-32 place-content-center rounded-lg bg-gray-100 text-xs text-gray-600">
-        <img src="../../assets/logota3na.png" alt="Description of the image" class="h-full w-full object-contain">
-    </span>
+      <img src="../../assets/logoH_noo_bg.png" alt="Description of the image" class="">
 
 
 
     <ul class="mt-6 space-y-1">
-      <li >
+      <!-- <li >
         <a href="#" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700" routerLink="/" [ngStyle]="{
             'color': getCurrentPage()=='' || url=='http://localhost:4200/' ? 'white' : '' ,
-            'background-image':getCurrentPage()=='' || url=='http://localhost:4200/' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%)' :'none'
+            'background-image':getCurrentPage()=='' || url=='http://localhost:4200/' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, #1e7ee2 91.7%)' :'none'
           }" style="background-color: white;">
           {{ 'header.acceuil' | translate }}
         </a>
       </li>
-     
+ -->
 
       <li  *ngIf="this.role !='admin'">
         <a href="#" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700" routerLink="/dashboard2" [ngStyle]="{
             'color': getCurrentPage()=='dashboard2' || getCurrentSection()=='#dashboard2' ? 'white' : '' ,
-            'background-image':getCurrentPage()=='dashboard2' || getCurrentSection()=='dashboard2' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%)' :'none'
+            'background-image':getCurrentPage()=='dashboard2' || getCurrentSection()=='dashboard2' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, #1e7ee2 91.7%)' :'none'
           }" style="background-color: white;">
           {{ 'header.titlefour' | translate }}
         </a>
       </li>
       <li  *ngIf="this.role =='admin'">
-        
+
         <a href="#" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700" routerLink="/dashboard" [ngStyle]="{
             'color': getCurrentPage()=='dashboard' || getCurrentSection()=='#dashboard' ? 'white' : '' ,
-            'background-image':getCurrentPage()=='dashboard' || getCurrentSection()=='dashboard' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%)' :'none'
+            'background-image':getCurrentPage()=='dashboard' || getCurrentSection()=='dashboard' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, #1e7ee2 91.7%)' :'none'
           }" style="background-color: white;">
-          {{ 'header.titlefour' | translate }} 
+          {{ 'header.titlefour' | translate }}
         </a>
       </li>
-      
+
       <li *ngIf="this.role !='admin'">
         <details class="group [&_summary::-webkit-details-marker]:hidden">
           <summary
@@ -62,24 +57,24 @@
           </summary>
 
           <ul class="mt-2 space-y-1 px-4">
-         
+
             <li>
               <!-- class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700" -->
               <a href="#" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700" routerLink="/toutesZones" [ngStyle]="{
                   'color': getCurrentPage()=='toutesZones' || getCurrentSection()=='#toutesZones' ? 'white' : '' ,
-                  'background-image':getCurrentPage()=='toutesZones' || getCurrentSection()=='toutesZones' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%)' :'none'
+                  'background-image':getCurrentPage()=='toutesZones' || getCurrentSection()=='toutesZones' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, #1e7ee2 91.7%)' :'none'
                 }" >initial
               </a>
             </li>
 
 
 
-           
+
             <li>
               <!-- class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700" -->
               <a href="#" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700" routerLink="/archi" [ngStyle]="{
                   'color': getCurrentPage()=='archi' || getCurrentSection()=='#archi' ? 'white' : '' ,
-                  'background-image':getCurrentPage()=='archi' || getCurrentSection()=='archi' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%)' :'none'
+                  'background-image':getCurrentPage()=='archi' || getCurrentSection()=='archi' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, #1e7ee2 91.7%)' :'none'
                 }" >personnaliser
               </a>
             </li>
@@ -90,23 +85,23 @@
       <li *ngIf="this.role !='admin'">
         <a href="#" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700" routerLink="/rapport" [ngStyle]="{
             'color': getCurrentPage()=='rapport' || getCurrentSection()=='#rapport' ? 'white' : '' ,
-            'background-image':getCurrentPage()=='rapport' || getCurrentSection()=='rapport' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%)' :'none'
-          }">Rapports 
-          
+            'background-image':getCurrentPage()=='rapport' || getCurrentSection()=='rapport' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, #1e7ee2 91.7%)' :'none'
+          }">Rapports
+
         </a>
       </li>
       <li *ngIf="this.role !='admin'">
         <a href="#" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700" routerLink="/history" [ngStyle]="{
             'color': getCurrentPage()=='history' || getCurrentSection()=='#history' ? 'white' : '' ,
-            'background-image':getCurrentPage()=='history' || getCurrentSection()=='history' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%)' :'none'
+            'background-image':getCurrentPage()=='history' || getCurrentSection()=='history' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, #1e7ee2 91.7%)' :'none'
           }">Historique
-          
+
         </a>
       </li>
       <li *ngIf="role === 'Responsable de l\'hopital'">
         <a href="#" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700" routerLink="/utilisateurs" [ngStyle]="{
             'color': getCurrentPage()=='utilisateurs' || getCurrentSection()=='#utilisateurs' ? 'white' : '' ,
-            'background-image':getCurrentPage()=='utilisateurs' || getCurrentSection()=='utilisateurs' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%)' :'none'
+            'background-image':getCurrentPage()=='utilisateurs' || getCurrentSection()=='utilisateurs' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, #1e7ee2 91.7%)' :'none'
           }">Utilisateurs
         </a>
       </li>
@@ -198,19 +193,19 @@
           </summary>
 
           <ul class="mt-2 space-y-1 px-4">
-         
+
             <li>
               <!-- class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700" -->
               <a href="#" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700" routerLink="/profile" [ngStyle]="{
                   'color': getCurrentPage()=='profile' || getCurrentSection()=='#profile' ? 'white' : '' ,
-                  'background-image':getCurrentPage()=='profile' || getCurrentSection()=='profile' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%)' :'none'
+                  'background-image':getCurrentPage()=='profile' || getCurrentSection()=='profile' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, #1e7ee2 91.7%)' :'none'
                 }" >Details
               </a>
             </li>
 
 
 
-           
+
             <li>
               <form (click)="logout()">
                 <button

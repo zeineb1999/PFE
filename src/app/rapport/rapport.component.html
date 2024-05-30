@@ -1,8 +1,8 @@
 <div *ngIf="isLoggedIn">
   <app-header></app-header>
-  <div class="bg-[#ebf2ff] min-h-screen" style="padding-top: 7%;">
+  <div class="bg-[#ebf2ff] min-h-screen py-4" >
 
-    <div class="w-full flex justify-start text-2xl font-medium text-gray-700 mx-8 mt-4 mb-6">
+    <div class="w-full flex justify-start text-2xl font-medium text-gray-700 mx-8 mb-6">
       Liste des alertes
     </div>
 
@@ -195,7 +195,8 @@
 
                   <td class=" py-4 text-sm font-medium text-gray-700 text-left rtl:text-right">
                     <div class="inline-flex items-center gap-x-3" *ngIf="alerte.user">
-                      {{alerte.user.last_name}} {{alerte.user.first_name}}
+                      {{ userLast(alerte.user.id) }} {{ userFirst(alerte.user.id) }}
+                      
                     </div>
                   </td>
 

@@ -1,6 +1,6 @@
 <app-header></app-header>
 
-    <div class="mx-auto max-w-screen-lg px-4 py-8 sm:px-8">
+    <div class="mx-auto max-w-screen-lg px-4 py-8 sm:px-8 min-h-screen">
         <div class="flex items-center justify-between pb-6">
           <div>
             <h2 class="font-semibold text-gray-700">Historique</h2>
@@ -37,16 +37,14 @@
                   </td>
                   <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
                     <div class="flex items-center">
-                      <div class="h-10 w-10 flex-shrink-0">
-                     <!--    <img class="h-full w-full rounded-full" src="/images/-ytzjgg6lxK1ICPcNfXho.png" alt="" />
-                   -->    </div>
+                     
                       <div class="ml-3">
                         <p class="whitespace-no-wrap">{{ BatimentNom(item.batimentId) }}</p>
                       </div>
                     </div>
                   </td>
                   <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-                    <p class="whitespace-no-wrap">{{ userLast(item.userId) }}{{ userFirst(item.userId) }}</p>
+                    <p class="whitespace-no-wrap">{{ userLast(item.userId) }} {{ userFirst(item.userId) }}</p>
                   </td>
                   <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
                     <p class="whitespace-no-wrap">{{dateFormate(item.date)}} {{timeFormate(item.date)}}</p>
@@ -90,16 +88,14 @@
             </td>
             <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
               <div class="flex items-center">
-                <div class="h-10 w-10 flex-shrink-0">
-               <!--    <img class="h-full w-full rounded-full" src="/images/-ytzjgg6lxK1ICPcNfXho.png" alt="" />
-             -->    </div>
+                
                 <div class="ml-3">
                   <p class="whitespace-no-wrap">{{ EtageNom(item.etageId) }}</p>
                 </div>
               </div>
             </td>
             <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-              <p class="whitespace-no-wrap">{{ userLast(item.userId) }}{{ userFirst(item.userId) }}</p>
+              <p class="whitespace-no-wrap">{{ userLast(item.userId) }} {{ userFirst(item.userId) }}</p>
             </td>
             <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
               <p class="whitespace-no-wrap">{{dateFormate(item.date)}} {{timeFormate(item.date)}}</p>
@@ -143,16 +139,14 @@
             </td>
             <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
               <div class="flex items-center">
-                <div class="h-10 w-10 flex-shrink-0">
-               <!--    <img class="h-full w-full rounded-full" src="/images/-ytzjgg6lxK1ICPcNfXho.png" alt="" />
-             -->    </div>
+               
                 <div class="ml-3">
                   <p class="whitespace-no-wrap">{{ LocalNom(item.zoneId) }}</p>
                 </div>
               </div>
             </td>
             <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-              <p class="whitespace-no-wrap"> {{ userLast(item.userId) }}{{ userFirst(item.userId) }}</p>
+              <p class="whitespace-no-wrap"> {{ userLast(item.userId) }} {{ userFirst(item.userId) }}</p>
             </td>
             <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
               <p class="whitespace-no-wrap">{{dateFormate(item.date)}} {{timeFormate(item.date)}}</p>
@@ -198,9 +192,7 @@
             </td>
             <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
               <div class="flex items-center">
-                <div class="h-10 w-10 flex-shrink-0">
-               <!--    <img class="h-full w-full rounded-full" src="/images/-ytzjgg6lxK1ICPcNfXho.png" alt="" />
-             -->    </div>
+               
                 <div class="ml-3">
                   <p class="whitespace-no-wrap">{{ item.nom }}</p>
                 </div>
@@ -216,7 +208,7 @@
               <p class="whitespace-no-wrap">{{ item.puissance }}</p>
             </td>
             <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-              <p class="whitespace-no-wrap">{{ item.zoneE}}</p>
+              <p class="whitespace-no-wrap">{{ LocalNom(item.zoneE)}}</p>
             </td>
             <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
               <p class="whitespace-no-wrap">{{dateFormate(item.date)}} {{timeFormate(item.date)}}</p>

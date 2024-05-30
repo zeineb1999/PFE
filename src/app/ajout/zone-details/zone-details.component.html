@@ -1,80 +1,37 @@
 <div class="bg-[#ebf2ff] min-h-screen">
   <div *ngIf="isLoggedIn" >
     <app-header></app-header>
-    <div *ngIf="zoneDetails" class="bg-[#ebf2ff] min-h-screen pb-6" style="padding-top: 7%;">
+    <div *ngIf="zoneDetails" class="bg-[#ebf2ff] min-h-screen pb-6" >
 
       <div class="w-full flex justify-start text-2xl font-medium text-gray-700 mx-8 mt-4 mb-6">
         Local N° {{zoneDetails.id}} : {{zoneDetails.nomLocal}}
       </div>
 
-      <div class="bg-white shadow-md rounded-lg mx-auto my-4 p-8" style="width: 95%">
-        <div class="flow-root">
-          <dl class="-my-3 divide-y divide-gray-100 text-sm">
-            <div class="w-full flex justify-start text-2xl font-medium text-gray-700 mt-4">
-              Informations
-              <button *ngIf="role != 'Responsable de maintenance' && !zoneDetails.active"  (click)="handleToggleOnZone(zoneDetails.id)"
-              class="text-xs m-2 flex justify-center items-center rounded-md bg-green-500 font-medium text-white p-1 px-4 mr-8"
-              style="border:1px solid #e7e7e7">
-              Activer
-              <!-- <span><i class="fa-solid fa-plus fa-2xl"></i></span> -->
-            </button>
-            <button *ngIf="role != 'Responsable de maintenance' && zoneDetails.active"  (click)="handleToggleOffZone(zoneDetails.id)"
-            class="text-xs m-2 flex justify-center items-center rounded-md bg-red-500 font-medium text-white p-1 px-4 mr-8"
-            style="border:1px solid #e7e7e7">
-            Désactiver
-            <!-- <span><i class="fa-solid fa-plus fa-2xl"></i></span> -->
-          </button>
-            </div>
-      
-            <div class="flow-root my-6">
-              <dl class=" divide-y divide-gray-100 text-sm">
-                <div class="grid grid-cols-1 gap-1 py-4 sm:grid-cols-3 sm:gap-4">
-                  <dt class="font-medium text-gray-900">{{'ajoutC1.nom'|translate}}</dt>
-                  <dd class="font-medium :col-span-2">{{ zoneDetails.nomLocal }}</dd>
-                </div>
-      
-                <div class="grid grid-cols-1 gap-1 py-4 sm:grid-cols-3 sm:gap-4">
-                  <dt class="font-medium text-gray-900">{{'ajoutC1.type'|translate}}</dt>
-                  <dd class="font-medium:col-span-2">{{ zoneDetails.typeLocal }}</dd>
-                </div>
-      
-                <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
-                  <dt class="font-medium text-gray-900">{{'ajoutC1.batiment'|translate}}</dt>
-                  <dd class="font-medium text-gray-700 sm:col-span-2">{{ this.batiment }}</dd>
-                </div>
-      
-                <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
-                  <dt class="font-medium text-gray-900">{{'ajoutC1.title17'|translate}}</dt>
-                  <dd class="font-medium m:col-span-2">{{ zoneDetails.etageZ }}</dd>
-                </div>
-      
-                <div class="grid grid-cols-1 gap-1 py-4 sm:grid-cols-3 sm:gap-4">
-                  <dt class="font-medium text-gray-900">{{'ajoutC1.title64'|translate}}</dt>
-                  <dd class="font-medium m:col-span-2">{{ zoneDetails.id }}</dd>
-                </div>
-      
-                <div class="grid grid-cols-1 gap-1 py-4 sm:grid-cols-3 sm:gap-4 ">
-                  <dt class="flex items-center">
-                    <span class="font-medium text-gray-900 text-lg">{{'ajoutC1.title65'|translate}}</span>
-                    <span class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full ml-4"
-                      *ngIf="equipementsLocals[0]=='rien' || equipementsLocals.length==0">
-                      0 {{'ajoutC1.title65'|translate}}</span>
-                    <span class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full ml-4"
-                      *ngIf="equipementsLocals.length>0 && equipementsLocals[0]!='rien'">{{ equipementsLocals.length }}
-                      {{'ajoutC1.title65'|translate}}</span>
-                  </dt>
-                  <dd class="font-medium:col-span-2">
-                    <button (click)="redirectToAjouterEquipement()"
-                      class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">
-                      {{'ajoutC1.title45'|translate}}
-                    </button>
-                  </dd>
-      
-                </div>
-              </dl>
-            </div>
-          </dl>
+      <div *ngIf="role != 'Responsable de maintenance' && !zoneDetails.active" class="flex bg-red-100 text-red-800 shadow-md mx-auto my-4 py-4 px-8" style="width: 95%; border-left: 4px solid #cb3131;">
+        <div class="text-md mr-4">Ce local est désactivé depuis <span class="font-medium text-red">{{dateFormate(this.lastDateActiver)}} {{timeFormate(this.lastDateActiver)}}.</span></div>
+        <div>
+          Voulez vous le réactiver ?
+          <span class="ml-4 hover:underline font-bold cursor-pointer" (click)="handleToggleOnZone(zoneDetails.id)">
+            Réactiver
+          </span>
         </div>
+        <!-- <button *ngIf="role != 'Responsable de maintenance' && !zoneDetails.active"
+          (click)="handleToggleOnZone(zoneDetails.id)"
+          class="text-xs my-4 flex justify-center items-center rounded-md bg-green-500 font-medium text-white p-1 px-4 mr-8"
+          style="border:1px solid #e7e7e7">
+          Réactiver
+        </button> -->
+      </div>
+
+      <div class="bg-white shadow-md rounded-lg mx-auto my-4 px-8" style="width: 95%">
+        <div class="py-3">
+          <dd class="font-medium text-md text-gray-700">
+            <span class="mr-4">Batiment {{ this.idBatiment }} : {{ this.nomBatiment }}</span> >>
+            <span class="mx-4">Etage {{ zoneDetails.etageZ }}</span> >>
+            <span class="mx-4">Local N° {{zoneDetails.id}} : {{zoneDetails.nomLocal}}</span>
+          </dd>
+        </div>
+
       </div>
 
       <div class="bg-white shadow-md rounded-lg mx-auto my-2 p-4" style="width: 95%">
@@ -108,10 +65,6 @@
 
       </div>
 
-      
-      
-
-      
       <div class="bg-white shadow-md rounded-lg mx-auto mt-4 p-8" style="width: 95%">
         <div class="flow-root">
           <dl class="-my-3 divide-y divide-gray-100 text-sm">
@@ -139,20 +92,19 @@
                 <div  scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 shadow-sm md:rounded-lg">
                   <div class="flex items-center gap-2">
                     <i class="fa-solid fa-filter fa-lg mr-6" style="color: #6b7280"></i>
-  
+
                     <!-- Menu déroulant pour le type -->
                     <select [(ngModel)]="typeFiltre" (change)="filtrerEquipements()" class="w-1/5 bg-gray-100 p-1 rounded-md">
                       <option value="">{{'Criticité'|translate}}</option>
-                      <option [value]="">Equipements critiques</option>
-                      <option [value]="">Equipements non critiques</option>
+                      <option *ngFor="let type of types" [value]="">{{type}}</option>
                     </select>
-  
+
                     <!-- Menu déroulant pour la catégorie -->
                     <select [(ngModel)]="categorieFiltre" (change)="filtrerEquipements()" class="w-1/5 bg-gray-100 p-1 rounded-md">
                       <option value="">{{'Catégorie'|translate}}</option>
                       <option *ngFor="let categorie of categories" [value]="">{{ categorie }}</option>
                     </select>
-  
+
                     <!-- Menu déroulant pour l'état -->
                     <select [(ngModel)]="etatFiltre" (change)="filtrerEquipements()" class="w-1/5 bg-gray-100 p-1 rounded-md">
                       <option value="">{{'État'|translate}}</option>
@@ -208,20 +160,20 @@
                   <!--table body-->
                   <div *ngIf="equipementsLocals.length > 0 && equipementsLocals[0] != 'rien'" class="w-full">
                     <div *ngFor="let equipement of equipementsFiltre" class="even:bg-gray-50 w-full flex justify-between">
-  
+
                       <td class="px-4 py-4 text-sm font-medium text-gray-700" style="width: 20%;">
                         <div class="inline-flex items-center gap-x-3">
                           <!-- <input type="checkbox" class="text-blue-500 border-gray-300 rounded cursor-pointer"> -->
                           <span>{{ equipement.nom }}</span>
                         </div>
                       </td>
-  
+
                       <td class="px-4 py-4 text-sm font-medium text-gray-700" style="width: 10%;">
                         <div class="inline-flex items-center gap-x-3">
                           <div class="group flex relative">
                             <span *ngIf="equipement.etat=='OFF'" class="px-3 py-1 text-xs text-green-600 bg-red-100 rounded-full"><i
                                 class="fa-solid fa-power-off" style="color: #a30000;"></i></span>
-                            <span class="group-hover:opacity-100 transition-opacity bg-gray-100 px-1 text-xs text-gray-700 rounded-md absolute left-1/2 
+                            <span class="group-hover:opacity-100 transition-opacity bg-gray-100 px-1 text-xs text-gray-700 rounded-md absolute left-1/2
                               -translate-x-1/2 translate-y-full opacity-0 m-1 p-1 mx-auto">
                               Off
                             </span>
@@ -230,14 +182,14 @@
                             <span *ngIf="equipement.etat=='ON'" class="px-3 py-1 text-xs text-green-600 bg-green-100 rounded-full"><i
                                 class="fa-solid fa-power-off" style="color: #006226;"></i>
                             </span>
-                            <span class="group-hover:opacity-100 transition-opacity bg-gray-100 px-1 text-xs text-gray-700 rounded-md absolute left-1/2 
+                            <span class="group-hover:opacity-100 transition-opacity bg-gray-100 px-1 text-xs text-gray-700 rounded-md absolute left-1/2
                               -translate-x-1/2 translate-y-full opacity-0 m-1 p-1 mx-auto">
                               On
                             </span>
 
                           </div>
                           <div class="group flex relative">
-                            <span class="group-hover:opacity-100 transition-opacity bg-gray-100 px-1 text-xs text-gray-700 rounded-md absolute left-1/2 
+                            <span class="group-hover:opacity-100 transition-opacity bg-gray-100 px-1 text-xs text-gray-700 rounded-md absolute left-1/2
                               -translate-x-1/2 translate-y-full opacity-0 m-1 p-1 mx-auto">
                               Critique
                             </span>
@@ -246,22 +198,22 @@
                               <i class="fa-solid fa-triangle-exclamation" style="color: #a30000;"></i>
                             </span>
                           </div>
-  
+
                         </div>
                       </td>
-  
+
                       <td class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right" style="width: 25%;">
                         <div class="inline-flex items-center gap-x-3">
                           {{equipement.type}}
                         </div>
                       </td>
-  
+
                       <td class="px-12 py-3.5  text-sm font-medium text-gray-700 text-left rtl:text-right" style="width: 20%;">
                         <div class="inline-flex items-center gap-x-3">
                           {{equipement.puissance}} W
                         </div>
                       </td>
-  
+
                       <td class="px-12 py-3.5 text-sm font-medium text-gray-700 text-right flex items-center justify-end" style="width: 20%;">
                         <!-- <span class="text-xs cursor-pointer mx-4" style="color: #3b72f6;" (click)="updateEquipement(equipement.id)">{{'ajoutC1.title38'|translate}}
                           <i class="fa-solid fa-pen fa-xs ml-1"></i>
@@ -291,9 +243,9 @@
                       </svg>
                       <span class="sr-only">Loading...</span>
                     </div>
-                  
+
                   </div>
-                    
+
 
                 </div>
               </div>
@@ -303,10 +255,21 @@
           </dl>
         </div>
       </div>
+
+      <div class="mx-auto" style="width: 95%">
+        <button *ngIf="role != 'Responsable de maintenance' && zoneDetails.active" (click)="handleToggleOffZone(zoneDetails.id)"
+          class="text-xs my-4 flex justify-center items-center rounded-md bg-red-500 font-medium text-white py-2 px-4 mr-8"
+          style="border:1px solid #e7e7e7">
+          Désactiver ce local
+          <!-- <span><i class="fa-solid fa-plus fa-2xl"></i></span> -->
+        </button>
+      </div>
+
     </div>
+
     <div *ngIf="DesactiverZone"  class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
       <div class="fixed inset-0 bg-gray-500 bg-opacity-80 transition-opacity"></div>
-    
+
       <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
         <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
           <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
@@ -316,10 +279,10 @@
                   <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
                   </svg>
-                </div> 
+                </div>
                 <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                   <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">La raison de Désactivation</h3>
-                
+
                   <select [(ngModel)]="selectedReason" class="block w-full border-b-2 border-blue-500 text-gray-600 text-sm focus:outline-none">
                     <option value="" disabled selected>Choisissez une cause</option>
                     <option value="Des Travaux">Des Travaux</option>
@@ -327,13 +290,13 @@
                     <option value="fuite">fuite</option>
                     <option value="Autre">Autre</option>
                   </select>
-                
+
                   <div *ngIf="selectedReason === 'Autre'" class="mt-2">
-                    <input type="text" [(ngModel)]="raison" placeholder="Veuillez préciser" 
+                    <input type="text" [(ngModel)]="raison" placeholder="Veuillez préciser"
                            class="block w-full border-b-2 border-blue-500 text-gray-600 text-sm focus:outline-none">
                   </div>
                 </div>
-                
+
               </div>
             </div>
             <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
@@ -346,7 +309,7 @@
     </div>
     <div *ngIf="activerZone"  class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
       <div class="fixed inset-0 bg-gray-500 bg-opacity-80 transition-opacity"></div>
-    
+
       <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
         <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
           <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
@@ -356,10 +319,10 @@
                   <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
                   </svg>
-                </div> 
+                </div>
                 <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                   <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Etes vous sur de vouloir activer cet étage</h3>
-                  
+
                   </div>
               </div>
             </div>

@@ -34,10 +34,16 @@ export class UtilisateursComponent implements OnInit {
   demandeModificationEmail: boolean = false;
   demandeCodeEmail: boolean = false;
   roles: string[] = [];
+  rolesChoice:string="";
+  boolChangement:boolean=false;
+  userChange:number=0;
+  newRole:string="";
+
 
   constructor(private authService: AuthService, private router: Router, private floorService : FloorService) {this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true'; }
 
   ngOnInit(): void {
+    
     this.floorService.getAllHistoriqueUsers().subscribe(users => {
       this.actions=users;
     })
@@ -143,6 +149,31 @@ export class UtilisateursComponent implements OnInit {
   SeDeconnecter() {
     this.authService.logout();
     
+  }
+  onRoleChange(event: any, user: any): void {
+    const newRole = event.target.value;
+    console.log("changmeent role",user.id , newRole)
+    // Appel de la méthode pour mettre à jour le rôle de l'utilisateur
+    this.updateUserRole(user.id, newRole);
+  }
+  updateUserRole(id:any,newRole:any){
+    this.userChange=id;
+    this.newRole=newRole;
+    this.boolChangement=true;
+
+    
+
+  }
+  confirmerChangementRole(){
+    this.floorService.ChangerRole(this.userChange,this.newRole).subscribe(response=>{
+      
+      this.boolChangement=false;
+      window.location.reload();
+    })
+
+  }
+  annulerChangementRole(){
+    this.boolChangement=false;
   }
   // modifier username
   modifierUsername() {

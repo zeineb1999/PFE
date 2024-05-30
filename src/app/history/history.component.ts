@@ -21,17 +21,11 @@ export class HistoryComponent implements OnInit {
   etages:any;
   locaux:any;
   users:any;
-  /* data: any[] = [
-    // Example data
-    { id: 3, batiment: 'Besique Monroe', utilisateur: 'Administrator', createdAt: 'Sep 28, 2022', status: 'Active' },
-    { id: 7, batiment: 'James Cavier', utilisateur: 'Author', createdAt: 'Sep 28, 2022', status: 'Active' },
-    { id: 12, batiment: 'Elvis Son', utilisateur: 'Editor', createdAt: 'Sep 28, 2022', status: 'Suspended' },
-    { id: 66, batiment: 'Dana White', utilisateur: 'Administrator', createdAt: 'Sep 28, 2022', status: 'Inactive' },
-  ]; */
-
+ 
   constructor(private floorService: FloorService, private authService: AuthService) {}
 
   ngOnInit(): void {
+    this.boolBatiment=true
     this.authService.getAllusers().subscribe((users:any[])=>
     {
       this.users=users;
@@ -71,51 +65,56 @@ export class HistoryComponent implements OnInit {
     return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); // Formate l'heure selon les paramètres régionaux
   }
   BatimentNom(id: number): string {
-    // Spécifier le type de l'argument 'batiment' dans la fonction 'find'
-    let batiment = this.batiments.find((batiment: any) => batiment.id === id);
-
-    // Vérifier si le bâtiment a été trouvé avant d'accéder à ses propriétés
-    if (batiment) {
-      return batiment.nomBatiment;
-    } else {
-      // Gérer le cas où aucun bâtiment n'a été trouvé
-      throw new Error(`Aucun bâtiment trouvé avec l'ID ${id}`);
-      // return "Bâtiment non trouvé"; // Ou vous pouvez retourner une chaîne par défaut
+    console.log("batiment",this.batiments)
+    
+    for (const batiment of this.batiments) {
+      if (batiment.id === id) {
+        return batiment.nomBatiment;
+      }
     }
+    throw new Error(`Aucun bâtiment trouvé avec l'ID ${id}`);
   }
 
   
   EtageNom(id:number): string {
-    let batiment = this.etages.find((batiment: any) => batiment.id === id);
-
-    // Vérifier si le bâtiment a été trouvé avant d'accéder à ses propriétés
-    if (batiment) {
-      return batiment.nomEtage;
-    } else {
-      // Gérer le cas où aucun bâtiment n'a été trouvé
-      throw new Error(`Aucun bâtiment trouvé avec l'ID ${id}`);
-      // return "Bâtiment non trouvé"; // Ou vous pouvez retourner une chaîne par défaut
+    console.log("etages",this.etages)
+    for (const batiment of this.etages) {
+      if (batiment.id === id) {
+        return batiment.nomEtage;
+      }
     }
+    throw new Error(`Aucun bâtiment trouvé avec l'ID ${id}`);
 
   }
   LocalNom(id:number): string {
-    let batiment = this.etages.find((batiment: any) => batiment.id === id);
-
-    // Vérifier si le bâtiment a été trouvé avant d'accéder à ses propriétés
-    if (batiment) {
-      return batiment.nomLocal;
-    } else {
-      // Gérer le cas où aucun bâtiment n'a été trouvé
-      throw new Error(`Aucun bâtiment trouvé avec l'ID ${id}`);
-      // return "Bâtiment non trouvé"; // Ou vous pouvez retourner une chaîne par défaut
+    console.log("locaux ",this.locaux)
+    for (const batiment of this.locaux) {
+      if (batiment.id === id) {
+        return batiment.nomLocal;
+      }
     }
+    throw new Error(`Aucun bâtiment trouvé avec l'ID ${id}`);
+
 
   }
   userLast(id:number):string{
-    return ""
+    for (const batiment of this.users) {
+      if (batiment.id === id) {
+        return batiment.last_name;
+      }
+    }
+    throw new Error(`Aucun bâtiment trouvé avec l'ID ${id}`);
+
+    
   }
   userFirst(id:number):string{
-    return ""
+    for (const batiment of this.users) {
+      if (batiment.id === id) {
+        return batiment.first_name;
+      }
+    }
+    throw new Error(`Aucun bâtiment trouvé avec l'ID ${id}`);
+
   }
   onFilterChange(event: Event): void {
     const target = event.target as HTMLSelectElement;

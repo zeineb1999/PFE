@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./archi.component.css']
 })
 export class ArchiComponent {
-  
+
   categoriesLocaux: string[] = ['Cardiologie', 'Neurologie', 'Oncologie', 'Imagerie Médicale', 'Gynécologie et Obstétrique', 'Pédiatrie','Pharmacie','Laboratoires','Services d\'Urgence','Rééducation et Physiothérapie','Restauration','Autre'];
   categoriesLocauxParIndex: string[][] = [];
 
@@ -288,11 +288,11 @@ export class ArchiComponent {
       (response) => {
         this.batimentId = response.id;
         console.log('ID du batiment ajouté :', this.batimentId);
-        
+
         this.typeBatimentSelectionne=typeBatiment;
-        
+
         console.log(' nom  Bâtiment  :', nomBatiment);
-      
+
         console.log('type Bâtiment  :', typeBatiment);
           // Vous pouvez effectuer des actions supplémentaires ici si nécessaire
       },
@@ -303,7 +303,7 @@ export class ArchiComponent {
   );
   this.batimentAjoute = true;
   this.boutonsAjouterEnfonce=true;
-    
+
 }
 generateBuildingNames() {
   this.nomsBatiments = [];
@@ -422,46 +422,36 @@ stock(){
   this.router.navigateByUrl('/toutesZones');
 
 }
-  cmpt=0;
-  otherAdd=false;
+  //otherAdd=false;
   nextStep() {
-    if(this.cmpt===1){
-
-       this.otherAdd=true;
-       console.log(this.otherAdd);
-    }
     console.log(this.currentStep);
     if (this.currentStep < this.steps.length) {
       this.currentStep++;
-      if(this.currentStep === 3){
-        this.cmpt=1;
-       
-    }
-    console.log(this.currentStep);
+      console.log(this.currentStep);
     }
   }
   nextBatiment() {
-    this.otherAdd = false;
-    this.cmpt = 0;
+    //this.otherAdd = false;
     window.location.reload();
     this.router.navigateByUrl('/archi');
 
 
   }
   finish() {
-    this.otherAdd = false;
-    this.cmpt = 0;
+    //this.otherAdd = false;
     this.router.navigateByUrl('/toutesZones');
-    
+
   }
 
   prevStep() {
+    console.log(this.currentStep,'prec', this.currentStep-1)
     if (this.currentStep > 1) {
       this.currentStep--;
     }
   }
 
   goToStep(step: number) {
+    console.log(this.currentStep,'prec', this.currentStep+1)
     if (step <= this.currentStep) {
       this.currentStep = step;
     }

@@ -493,7 +493,7 @@ getExcelData(): Observable<any> {
   }
   addUserAlerte(idAlerte:number,idUser:number) : Observable<any>{
 
-    return this.http.post('http://127.0.0.1:8000/api/addUserAlerte', {idAlerte, idUser});
+    return this.http.post('http://127.0.0.1:8001/api/addUserAlerte', {idAlerte, idUser});
 
   }
 
@@ -715,5 +715,26 @@ getExcelData(): Observable<any> {
       return this.http.get(this.baseurl + '/equipementarchive/',
        {headers: this.httpHeaders});
     }
+    ChangerRole(userId:number,role:string):Observable<any>{
+      const data = {
+        userId,
+        role
+      }
+      return this.http.post(this.baseurl + '/changerRole/',data,{headers: this.httpHeaders});
+
+    }
+    deletePeriode(equipementid:number):Observable<any>{
+      const data = {
+        equipementid
+        
+      }
+      return this.http.post(this.baseurl + '/deletePeriode/',data,{headers: this.httpHeaders});
+
+    }
+    dateDesactivation(zoneId: number): Observable<any> {
+      return this.http.get(`${this.baseurl}/dateDesactivation/${zoneId}`);
+    }
+    
+
     
   }

@@ -44,7 +44,7 @@ export class EquipementsConsommationsComponent {
                 if (this.equipementsParLocal && this.equipementsParLocal[local.id]) {
                   local.equipements = this.equipementsParLocal[local.id]
                   local.equipements_names = []
-                  local.ConsData = [{ name: 'Les Ã©quipements dans le local ' + local.id, data: [] }]
+                  local.ConsData = [{ name: 'Les équipements dans le local ' + local.id, data: [] }]
                   
                   local.equipements.forEach((equipement: any) => {
                     let now : Date = new Date()

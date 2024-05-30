@@ -66,15 +66,17 @@ export class RapportDetailsComponent {
         );
     }
     if(this.selectedOption=='arret'){
-     
+     // supprimer periode 
       this.floorService.createEquipementArchive(this.equipement.nom,this.equipement.categorie,this.equipement.puissance,this.equipement.zoneE).subscribe(()=>{})
+      this.floorService.deletePeriode(this.equipement.id).subscribe(()=>{})
       this.floorService.deleteEquipement(this.equipement.id).subscribe(() => {
         
       })
     }
     if(this.selectedOption == 'remplacer'){
+      //supprimer periode 
       this.floorService.createEquipementArchive(this.equipement.nom,this.equipement.categorie,this.equipement.puissance,this.equipement.zoneE).subscribe(()=>{})
-    
+      this.floorService.deletePeriode(this.equipement.id).subscribe(()=>{})
       this.floorService.deleteEquipement(this.equipement.id).subscribe(() => {
         
       })

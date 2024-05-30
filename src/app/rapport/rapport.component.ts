@@ -61,7 +61,7 @@ export class RapportComponent implements OnInit {
                 alerte.user = this.users.find(user => user.id === alerte.userID);
               } else {
                 alerte.user = this.users.find(user => user.Role === 'Moyen generaux');
-              }
+              } 
 
               this.floorService.getRapportsByAlerteId(alerte.id).subscribe((rapport: any[]) => {
                 //console.log("********************* r: ", rapport)
@@ -81,7 +81,7 @@ export class RapportComponent implements OnInit {
       setTimeout(() => {
         console.log('Loading complete');
         resolve();
-      }, 2000);
+      }, 5000);
     });
 
     // Attendre la fin du chargement
@@ -90,6 +90,25 @@ export class RapportComponent implements OnInit {
     // Effacez la promesse une fois terminée
     this.loadingPromise = null;
 
+
+  }
+  userLast(id:number):string{
+    for (const batiment of this.users) {
+      if (batiment.id === id) {
+        return batiment.last_name;
+      }
+    }
+    throw new Error(`Aucun bâtiment trouvé avec l'ID ${id}`);
+
+    
+  }
+  userFirst(id:number):string{
+    for (const batiment of this.users) {
+      if (batiment.id === id) {
+        return batiment.first_name;
+      }
+    }
+    throw new Error(`Aucun bâtiment trouvé avec l'ID ${id}`);
 
   }
 

@@ -102,9 +102,38 @@ export class EquipementDetailsComponent implements OnInit {
     let consommations_mois: any[] = []
     this.consommation_annuelle_totale = 0;
     mois.forEach(this_mois => {
-      if(parseInt(this_mois) <= new Date().getMonth() + 1){
+      
+      if(parseInt(this_mois) < new Date().getMonth() + 1){
         let dateDebut = '2024-'+this_mois+'-01 00:00:00'
+        console.log("dateDebut",dateDebut)
         let dateFin = '2024-'+this_mois+'-'+derniers_jours_de_mois[parseInt(this_mois)-1]+' 00:00:00'
+        console.log("datefin",dateFin)
+        this.floorService.getAnEquipementConsommation(this.equipementId, dateDebut, dateFin)
+        .subscribe((data: any) =>{
+          this.equipementInfos = data;
+          //console.log(noms_mois[parseInt(this_mois)-1], ' equipementInfos : ', data)
+          consommations_mois.push({nom: noms_mois[parseInt(this_mois)-1], y: data.consommation_kW})
+          //console.log('consommations_mois: ', consommations_mois)
+          this.consommation_annuelle_totale += data.consommation_kW;
+
+          if(consommations_mois.length == new Date().getMonth() + 1){
+            // Trier la liste par mois
+            consommations_mois.sort(this.comparerMois);
+            this.insertChart(consommations_mois, noms_mois, this.consommation_annuelle_totale)
+          }
+        });
+      } 
+      else if(parseInt(this_mois) == new Date().getMonth() + 1) {
+        
+        console.log("this_mois",this_mois)
+        let dateDebut = '2024-'+this_mois+'-01 00:00:00'
+        let d = new Date()
+        let day =  d.getDate(); 
+        console.log("new date",day)
+        let h = d.getHours()
+        let m = d.getMinutes()
+        let dateFin = '2024-' + this_mois + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':00'
+        console.log('*************dateFin ', dateFin)
         this.floorService.getAnEquipementConsommation(this.equipementId, dateDebut, dateFin)
         .subscribe((data: any) =>{
           this.equipementInfos = data;

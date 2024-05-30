@@ -31,6 +31,7 @@ interface Equipement {
 
 export class ZoneDetailsComponent implements OnInit {
   zoneId!: number;
+  lastDateActiver!:string;
   zoneDetails: any | undefined;
   equipements: Equipement[] = [];
   equipementsLocals: any[]  = ['rien'];
@@ -40,6 +41,8 @@ export class ZoneDetailsComponent implements OnInit {
   batiment: string = 'a';
   temperature: any;
   humidite: any;
+  idBatiment:any;
+  nomBatiment:any;
   DesactiverZone:boolean=false;
   activerZone:boolean=false;
   idSelectionne:number=0;
@@ -115,13 +118,25 @@ formatValue(value: any) {
 
     this.loadDetails();
     this.fetchNewValues();
-
+    this.floorService.dateDesactivation(this.zoneId).subscribe(
+      (batiment: any) => {
+       this.lastDateActiver=batiment.date;
+      })
 
     setInterval(() => {
       this.fetchNewValues();
     }, 60000); // 60000 millisecondes = 1 minute
 
 
+  }
+  dateFormate(dateString: string): string {
+    const date = new Date(dateString);
+    return date.toLocaleDateString(); // Formate la date selon les paramètres régionaux
+  }
+
+  timeFormate(dateString: string): string {
+    const date = new Date(dateString);
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); // Formate l'heure selon les paramètres régionaux
   }
     
     loadDetails(): void {
@@ -173,8 +188,10 @@ formatValue(value: any) {
           (etage: any) => {
             this.floorService.getBatimentById(etage.batimentId).subscribe(
               (batiment: any) => {
-                console.log(this.batiment, ' - ', this.batiment)
-                this.batiment = batiment.nomBatiment;
+                console.log( 'batiment - ', batiment)
+                this.batiment = batiment;
+                this.idBatiment=batiment.id;
+                this.nomBatiment=batiment.nomBatiment;
               },
               (error) => {
                 console.error('Une erreur s\'est produite lors de la récupération des détails de la zone :', error);

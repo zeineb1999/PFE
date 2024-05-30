@@ -29,11 +29,12 @@ export class ConsumptionEvolution2Component {
        }
     ) */
    
-    let consom:any [] = [{mois: 1, consommation: 16798943.227777813},
-      {mois: 2, consommation: 15578770.548611129},
-      {mois: 3, consommation: 16577564.177083328},
-      {mois: 4, consommation: 16354767.313888894},
-      {mois: 5, consommation: 14534320.397167528}
+    let consom:any [] = [{mois: 1, consommation: 55499957.15},
+      {mois: 2, consommation: 50489881.66},
+      {mois: 3, consommation:  55279741.05},
+      {mois: 4, consommation: 55671204.13},
+      {mois: 5, consommation: 47760594.55}
+
     ]
     this.insertChart(consom);
     //this.LoadEquipementsParMois()
@@ -48,11 +49,12 @@ export class ConsumptionEvolution2Component {
 
       const tousjuin = message.critique + message.normal;
 
-      this.consommations_mois =  [{mois: 1, consommation: 16798943.227777813},
-        {mois: 2, consommation: 15578770.548611129},
-        {mois: 3, consommation: 16577564.177083328},
-        {mois: 4, consommation: 16354767.313888894},
+      this.consommations_mois =  [{mois: 1, consommation: 55499957.15},
+        {mois: 2, consommation:50489881.66},
+        {mois: 3, consommation:  55279741.05},
+        {mois: 4, consommation: 55671204.13},
         {mois: 5, consommation: tousjuin}
+      
       ];
       this.insertChart(this.consommations_mois);
     } else {

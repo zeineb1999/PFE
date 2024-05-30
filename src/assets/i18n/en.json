@@ -1,11 +1,12 @@
 {
+
     "header.title": "My Application",
     "header.titleTwo": "My Application Two",
     "header.acceuil": "Home",
     "header.titlefour": "Dashboard",
     "Acceuil.title": "Our plateform",
     "Acceuil.title1": "login",
-    "Accueil.title2": "Supports you towards a sustainable energy future",
+    "Accueil.title2": "We help you monitor electricity consumption in your hospital",
     "Acceuil.title3": "More informations",
     "Notifications.title": "The Notifications",
     "sign.title1":"connect ",
@@ -29,9 +30,9 @@
     "login.title11": "Log in",
     "profile.title1": "open the menu",
     "profile.title2": "Smart hospital energy",
-    "profile.title3": "Are you sure you want to change the username",
-    "profile.title4": "Are you sure you want to change the first name",
-    "profile.title5": "Are you sure you want to change the last name",
+    "profile.title3": "Update your username",
+    "profile.title4": "Update your first name",
+    "profile.title5": "Update your last name",
     "profile.title6": "Enter your new email address",
     "profile.title7": "enter the code sent to your new email address",
     "profile.title8": "logout",
@@ -158,5 +159,13 @@
     "forget.title1": "Enter your email",
     "header.language": "Language",
     "language.french": "French",
-    "language.english": "English"
+    "language.english": "English",
+
+    "etape": "Step",
+
+    "nomDeFamille": "Last name",
+    "prenom": "First name",
+    "username":"Username",
+    "password": "Password",
+    "modifier": "update"
 }
