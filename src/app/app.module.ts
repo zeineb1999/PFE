@@ -82,6 +82,7 @@ import { CategoriesEquipementsComponent } from './dashboard2/categories-equipeme
 import { EquipementsConsommationsComponent } from './dashboard2/equipements-consommations/equipements-consommations.component';
 import { LocalsEquipementsComponent } from './dashboard2/locals-equipements/locals-equipements.component';
 import { HistoryComponent } from './history/history.component';
+import { PredictionComponent } from './prediction/prediction.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:8000', options: {} };
 
@@ -140,6 +141,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     EquipementsConsommationsComponent,
     LocalsEquipementsComponent,
     HistoryComponent,
+    PredictionComponent,
    
   
 

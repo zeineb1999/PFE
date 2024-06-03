@@ -5,6 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ColorString } from 'highcharts/highcharts.src';
 import {Subscription,interval} from 'rxjs';
 import { WebSocketService } from '../service/web-socket.service';
+import { SoundService } from '../service/sound.service';
 
 @Component({
   selector: 'app-header',
@@ -43,7 +44,7 @@ export class HeaderComponent implements OnInit {
   AlerteMessage: string = '';
   AlerteMessageUser: string = '';
 
-  constructor(private wsService: WebSocketService,private floorService: FloorService, private router: Router,private translate: TranslateService, private renderer: Renderer2, private el: ElementRef) {
+  constructor( private soundService: SoundService,private wsService: WebSocketService,private floorService: FloorService, private router: Router,private translate: TranslateService, private renderer: Renderer2, private el: ElementRef) {
     this.isLoggedIn = sessionStorage.getItem('isLoggedIn')
   }
 
@@ -93,7 +94,7 @@ export class HeaderComponent implements OnInit {
             this.alertes.push(message.message);
             console.log('les alertes  apres push-------------->', this.alertes)
             console.log('rrrrrrrrrr ', this.AlerteMessage)
-    
+            this.soundService.beep(200, 440, 100);
             setTimeout(() => {
               this.AlerteMessage = '';
               window.location.reload();
@@ -121,7 +122,7 @@ export class HeaderComponent implements OnInit {
             this.AlerteMessageUser = `vous avez une alerte pour faire un rapport`;
             //this.alertes.push(this.AlerteMessage);
             console.log('rrrrrrrrrr ', this.AlerteMessageUser)
-    
+            this.soundService.beep(200, 440, 100);
             setTimeout(() => {
               this.AlerteMessageUser = '';
               window.location.reload();

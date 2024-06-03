@@ -33,6 +33,7 @@ import { RapportDetailsComponent } from './rapport-details/rapport-details.compo
 import { ArchiComponent } from './archi/archi.component';
 import { AjouterEquipementRemplacementComponent } from './ajout/ajouter-equipement-remplacement/ajouter-equipement-remplacement.component';
 import { HistoryComponent } from './history/history.component';
+import { PredictionComponent } from './prediction/prediction.component';
 const routes: Routes = [
   
   
@@ -69,7 +70,8 @@ const routes: Routes = [
   {path: 'rapport', component: RapportComponent },
   {path: 'rapport-details/:alerteId', component: RapportDetailsComponent },
   { path: 'ajouterEquipementRemplacement/:zoneId/:id/:rapport', component: AjouterEquipementRemplacementComponent },
-  {path:'history',component:HistoryComponent}
+  {path:'history',component:HistoryComponent},
+  {path:'predection',component:PredictionComponent}
 ];
 
 @NgModule({

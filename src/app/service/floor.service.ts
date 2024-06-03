@@ -734,6 +734,14 @@ getExcelData(): Observable<any> {
     dateDesactivation(zoneId: number): Observable<any> {
       return this.http.get(`${this.baseurl}/dateDesactivation/${zoneId}`);
     }
+    predictConsumption(data: any): Observable<any> {
+      return this.http.post(this.baseurl + '/predict/',data,{headers: this.httpHeaders});
+
+     
+    }
+    predictConsumptionMois(data:any):Observable<any>{
+      return this.http.post(this.baseurl + '/prediction_mois/',data,{headers: this.httpHeaders});
+    }
     
 
     
