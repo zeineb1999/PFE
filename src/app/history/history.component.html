@@ -1,10 +1,10 @@
-<app-header></app-header>
+
 
     <div class="mx-auto max-w-screen-lg px-4 py-8 sm:px-8 min-h-screen">
         <div class="flex items-center justify-between pb-6">
           <div>
-            <h2 class="font-semibold text-gray-700">Historique</h2>
-            <span class="text-xs text-gray-500">Voir toutes les actions effectuées</span>
+            <h2 class="font-semibold text-gray-700">Historique des actions effectuées </h2>
+            <span class="text-xs text-gray-500">pour voir l'historique concernant des élements precis veuillez selectionner </span>
           </div>
           <div class="flex items-center justify-between">
             <i class="fa-solid fa-filter fa-lg mr-6" style="color: #6b7280"></i>
@@ -18,6 +18,7 @@
         </div>
       
         <div *ngIf="boolBatiment" class="overflow-y-hidden rounded-lg border">
+        
           <div class="overflow-x-auto">
             <table class="w-full">
               <thead>
@@ -31,9 +32,9 @@
                 </tr>
               </thead>
               <tbody class="text-gray-500">
-                <tr *ngFor="let item of historiqueBatiment">
+                <tr *ngFor="let item of historiqueBatiment, let j = index ">
                   <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-                    <p class="whitespace-no-wrap">{{ item.id }}</p>
+                    <p class="whitespace-no-wrap">{{j+1}}</p>
                   </td>
                   <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
                     <div class="flex items-center">
@@ -82,9 +83,9 @@
           </tr>
         </thead>
         <tbody class="text-gray-500">
-          <tr *ngFor="let item of historiqueEtage">
+          <tr *ngFor="let item of historiqueEtage, let j = index">
             <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-              <p class="whitespace-no-wrap">{{ item.id }}</p>
+              <p class="whitespace-no-wrap">{{ j+1 }}</p>
             </td>
             <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
               <div class="flex items-center">
@@ -133,9 +134,9 @@
           </tr>
         </thead>
         <tbody class="text-gray-500">
-          <tr *ngFor="let item of historiqueZone">
+          <tr *ngFor="let item of historiqueZone, let j = index">
             <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-              <p class="whitespace-no-wrap">{{ item.id }}</p>
+              <p class="whitespace-no-wrap">{{ j+1 }}</p>
             </td>
             <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
               <div class="flex items-center">
@@ -186,9 +187,9 @@
           </tr>
         </thead>
         <tbody class="text-gray-500">
-          <tr *ngFor="let item of historiqueEquipement">
+          <tr *ngFor="let item of historiqueEquipement, let j = index">
             <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-              <p class="whitespace-no-wrap">{{ item.id }}</p>
+              <p class="whitespace-no-wrap">{{ j+1 }}</p>
             </td>
             <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
               <div class="flex items-center">

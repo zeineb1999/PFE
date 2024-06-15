@@ -71,7 +71,7 @@ export class AlerteDetailsComponent {
     this.floorService.getAlerte(this.alerteId).subscribe(
       ((alerte: any) =>{
         this.thisAlerte = alerte
-        console.log('*********************************alerte: ', alerte)
+        console.log('*********************************   alerte iciiiiii: ', alerte)
         this.thisAlerte.vu = true
 
         this.floorService.getRapportsByAlerteId(this.thisAlerte.id).subscribe((rapports: any) => {

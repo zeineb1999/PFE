@@ -460,7 +460,7 @@ handleToggleOffZone(batimentId: number): void {
     this.router.navigate(['/ajouterEtage', batimentId]);
   }
   redirectToAjouterBatiment(): void {
-    this.router.navigate(['/ajouterBatiment']);
+    this.router.navigate(['/archi']);
 
   }
 

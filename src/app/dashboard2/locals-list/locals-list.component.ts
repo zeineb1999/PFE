@@ -96,17 +96,17 @@ export class LocalsListComponent {
   }
  
   processData(): void {
-    console.log('data: ', this.data);
+    //console.log('data: ', this.data);
     this.data.forEach((local, index) => {
       if (local !== "empty") {
-        console.log('local: ', local);
+        //console.log('local: ', local);
         const localId = index;  // Utilise l'index directement, car il correspond à l'ID du local
         this.localsT[localId] = local.T;
         this.localsH[localId] = local.H;
       }
     });
-    console.log('localst: ', this.localsT);
-    console.log('localsh: ', this.localsH);
+    //console.log('localst: ', this.localsT);
+    //console.log('localsh: ', this.localsH);
     
   }
   
@@ -115,7 +115,7 @@ export class LocalsListComponent {
   activeMethode(): void {
     this.floorService.startDjangoMethod().subscribe(
       () => {
-        console.log('La méthode dans Django a été lancée avec succès.');
+        //console.log('La méthode dans Django a été lancée avec succès.');
       }
     )
   }
@@ -123,10 +123,10 @@ export class LocalsListComponent {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
-    console.log('rah n3ytou La méthode dans Django ');
+    //console.log('rah n3ytou La méthode dans Django ');
     this.floorService.stopDjangoMethod().subscribe(
       () => {
-        console.log('******La méthode dans Django a été arrêtée avec succès.');
+        //console.log('******La méthode dans Django a été arrêtée avec succès.');
       },
       (error) => {
         console.error('------------------Une erreur s\'est produite lors de l\'arrêt de la méthode dans Django : ', error);
@@ -379,7 +379,7 @@ export class LocalsListComponent {
   selectFilter(event: Event): void {
     const target = event.target as HTMLSelectElement;
     this.selectedFilter = target.value;
-    console.log(this.selectedFilter);
+    //console.log(this.selectedFilter);
   }
 
  

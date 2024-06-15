@@ -10,14 +10,14 @@
 
         <div class="flex w-full overflow-x-auto custom-scrollbar" style="flex-wrap: nowrap;">
 
-          <div *ngFor="let batiment of batiments" [ngClass]="['rounded-md', 'shadow-md', 'm-4', 'w-full', 'p-4', 'bg-'+bgColorBatiments[batiment.id%5] ]" >
-            <div class="w-full mb-4 font-medium text-lg text-center" [ngClass]="['text-'+titleColors[batiment.id%5] ]">Batiment {{batiment.id}} : {{batiment.nomBatiment}}</div>
+          <div *ngFor="let batiment of batiments, let j = index" [ngClass]="['rounded-md', 'shadow-md', 'm-4', 'w-full', 'p-4', 'bg-'+bgColorBatiments[batiment.id%5] ]" >
+            <div class="w-full mb-4 font-medium text-lg text-center" [ngClass]="['text-'+titleColors[batiment.id%5] ]">Batiment {{j+1}} : {{batiment.nomBatiment}}</div>
             <div class="w-full flex" [id]="'charts-container'+batiment.id">
 
 
-              <div *ngFor="let etage of batiment.etages" id="whiteContainer" class="p-4 rounded-sm shadow-sm bg-white" [ngClass]="[ 'border', 'border'+this.titleColors[batiment.id%5] ]">
+              <div *ngFor="let etage of batiment.etages; let i = index" id="whiteContainer" class="p-4 rounded-sm shadow-sm bg-white" [ngClass]="[ 'border', 'border'+this.titleColors[batiment.id%5] ]">
                 <div [id]="'label-etage-'+etage.id" class="w-full m-2 text-center font-medium" [ngClass]="'text-'+this.titleColors[batiment.id%5]">
-                  Etage {{etage.id}} : {{etage.nomEtage}}
+                  Etage {{i+1}} : {{etage.nomEtage}}
                 </div>
                 <div [id]="'etage-'+etage.id" style="min-width: 300px; ">
 

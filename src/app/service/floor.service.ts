@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable , interval,of } from 'rxjs';
+import { Observable , Subject, interval,of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { catchError } from 'rxjs/operators';
 import {  forkJoin } from 'rxjs';
@@ -26,6 +26,7 @@ export interface Zone {
   providedIn: 'root'
 })
 export class FloorService {
+  lancementSocket = new Subject<any>();
   private baseurl = "http://127.0.0.1:8000/api";
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
@@ -193,6 +194,11 @@ export class FloorService {
     console.log("body: ",body)
     return this.http.post(this.baseurl + '/equipement/', body,{headers: this.httpHeaders});
   }
+  addEquipementAjouter(equipement:{  nom: string,  etat: string, categorie: string, puissance: number, zoneE: number,rapport:number }) : Observable<any>{
+    const body = {  nom: equipement.nom,  etat: equipement.etat, categorie: equipement.categorie, puissance: equipement.puissance, zoneE: equipement.zoneE,rapport:equipement.rapport}
+    console.log("body: ",body)
+    return this.http.post(this.baseurl + '/equipementajouter/', body,{headers: this.httpHeaders});
+  }
   createEquipementArchive(nom: string,categorie: string, puissance: number, zoneE: number):Observable<any>{
     const body = {  nom: nom,  categorie: categorie, puissance: puissance, zoneE: zoneE}
     console.log("body: ",body)
@@ -231,6 +237,10 @@ export class FloorService {
 
 getEquipementDetails(equipementId: number): Observable<any> {
   return this.http.get(this.baseurl + '/equipement/'+ equipementId+'/' ,
+  {headers: this.httpHeaders});
+}
+getEquipementAjouterDetails(equipementId: number): Observable<any> {
+  return this.http.get(this.baseurl + '/equipementRemplacement/'+ equipementId+'/' ,
   {headers: this.httpHeaders});
 }
 
@@ -274,6 +284,12 @@ getAllAlertes() : Observable<any>{
 
 deleteEquipement(equipementId: number): Observable<any> {
   return this.http.delete(`${this.baseurl}/equipement/${equipementId}`, { headers: this.httpHeaders })
+    .pipe(
+      catchError(this.handleError)
+    );
+}
+deleteEquipementAjouter(equipementId: number): Observable<any> {
+  return this.http.delete(`${this.baseurl}/equipementajouter/${equipementId}`, { headers: this.httpHeaders })
     .pipe(
       catchError(this.handleError)
     );
@@ -556,6 +572,18 @@ getExcelData(): Observable<any> {
   addDecision(id: number,decision: string): Observable<any> {
     const data = {id: id,decision: decision }
     return this.http.post(this.baseurl + '/decision/', data);
+  }
+  addCout(id: number,cout: number): Observable<any> {
+    const data = {id: id,cout: cout }
+    return this.http.post(this.baseurl + '/cout/', data);
+  }
+  addApprovation(id: number,approuve:string): Observable<any> {
+    const data = {id: id ,approuve:approuve}
+    return this.http.post(this.baseurl + '/approvation/', data);
+  }
+  archiveEquipement(id:number) : Observable<any> {
+    const data = {id: id }
+    return this.http.post(this.baseurl + '/archive/', data);
   }
 
     createHistorique(rapport: any,decision: string,equipement:any,equipementDest:any): Observable<any> {

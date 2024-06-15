@@ -29,11 +29,11 @@ export class ConsumptionEvolution2Component {
        }
     ) */
    
-    let consom:any [] = [{mois: 1, consommation: 55499957.15},
-      {mois: 2, consommation: 50489881.66},
-      {mois: 3, consommation:  55279741.05},
-      {mois: 4, consommation: 55671204.13},
-      {mois: 5, consommation: 47760594.55}
+    let consom:any [] = [{mois: 1, consommation: 62306714.601388894},
+      {mois: 2, consommation: 56528505.615555584},
+      {mois: 3, consommation:  62023832.65944443},
+      {mois: 4, consommation: 66407158.762777776},
+      {mois: 5, consommation: 54413977.726341434}
 
     ]
     this.insertChart(consom);
@@ -41,7 +41,7 @@ export class ConsumptionEvolution2Component {
     //console.log('Equipements:', this.equipements);
   }
   ngOnChanges() {
-    console.log('total',this.total);
+    //console.log('total',this.total);
     this.updateData(this.total);
   }
   updateData(message: any): void {
@@ -49,11 +49,12 @@ export class ConsumptionEvolution2Component {
 
       const tousjuin = message.critique + message.normal;
 
-      this.consommations_mois =  [{mois: 1, consommation: 55499957.15},
-        {mois: 2, consommation:50489881.66},
-        {mois: 3, consommation:  55279741.05},
-        {mois: 4, consommation: 55671204.13},
-        {mois: 5, consommation: tousjuin}
+      this.consommations_mois =   [{mois: 1, consommation: 62306714.601388894},
+        {mois: 2, consommation:56528505.615555584},
+        {mois: 3, consommation:62023832.65944443},
+        {mois: 4, consommation: 66407158.762777776},
+        {mois: 5, consommation: 54413977.726341434},
+        {mois: 6, consommation: tousjuin}
       
       ];
       this.insertChart(this.consommations_mois);
@@ -75,15 +76,15 @@ export class ConsumptionEvolution2Component {
     this.consommations_mois= []
     mois.forEach(this_mois => {
       if (parseInt(this_mois) <= new Date().getMonth() + 1) {
-        console.log('mois: ',new Date().getMonth())
+        //console.log('mois: ',new Date().getMonth())
         let dateDebut = '2024-'+this_mois+'-01 00:00:00'
         let dateFin = '2024-'+this_mois+'-'+derniers_jours_de_mois[parseInt(this_mois)-1]+' 00:00:00'
-        console.log('********************* ', dateDebut, ' -> ', dateFin)
+        //console.log('********************* ', dateDebut, ' -> ', dateFin)
         this.floorService.getHopitalConsommationPendantMois(dateDebut, dateFin)
         .subscribe((data: number) => {
           this.consommations_mois.push({ mois: parseInt(mois2[parseInt(this_mois) - 1]), consommation: data })
-          console.log('consommations_mois', this.consommations_mois)
-          console.log('rrrrrrrr', new Date().getMonth())
+          //console.log('consommations_mois', this.consommations_mois)
+          //console.log('rrrrrrrr', new Date().getMonth())
           if (this.consommations_mois.length == new Date().getMonth()+1) {
             // Trier la liste par mois
             this.consommations_mois.sort(this.comparerMois);

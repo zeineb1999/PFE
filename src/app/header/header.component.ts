@@ -25,6 +25,7 @@ export class HeaderComponent implements OnInit {
   @Input() nowSlash: string = '';
   open: Boolean = false
   openRapport: Boolean = false
+  
   alertes: any;
   isLoggedIn: any;
   webSocket: any[] = []; 
@@ -35,6 +36,9 @@ export class HeaderComponent implements OnInit {
   rapportNew: any;
   rapports: any;
   message: string = '';
+  nbAlertes:any;
+  nbRapport:any;
+  rapport:any;
   alerteSubscription: Subscription | undefined;
   rapportSubscription: Subscription | undefined;
   onAlertChange(local: string, temperature: number, nowSlash: ColorString) {
@@ -51,15 +55,60 @@ export class HeaderComponent implements OnInit {
   currentSection: string = '';
  
   ngOnInit() {
-    this.user = sessionStorage.getItem('id');
+    
+    console.log("normalement darha ",this.user)
     this.role = sessionStorage.getItem('role');
     this.isLoggedIn = sessionStorage.getItem('isLoggedIn')
     this.lang = sessionStorage.getItem('lang') || 'fr';
-    if(this.role === 'Responsable de maintenance' || this.role === 'responsable de maintenance') {
-      this.floorService.getAlertesById(this.user).subscribe(
+    this.user = sessionStorage.getItem('id');
+    this.floorService.lancementSocket.subscribe(
+      (data) => {
+        console.log("lancement socket",data)
+        
+        console.log("gettttttttttttttt",)
+        this.lancerSocket(data);
+        
+       
+     });
+    
+   
+  }
+  lancerSocket(dataRecu:any){ if (dataRecu.role === 'Responsable de l\'hopital') {
+      setInterval(() => {
+        this.floorService.getAllRapports().subscribe((data) => {
+          this.rapport = data;
+          let cpt = 0
+          data.forEach((alerte: any) => {
+            if (!alerte.approuve) {
+              cpt++
+            }
+          });
+
+          this.nbRapport = cpt
+         
+          
+          console.log("dfkjhereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",this.rapport);
+        });
+      }, 6000); 
+    }
+    
+    if(dataRecu.role === 'Responsable de maintenance' || dataRecu.role === 'responsable de maintenance') {
+    
+      console.log('userrrrrrrrrrrrrrr',this.user)
+      this.floorService.getAlertesById(dataRecu.id).subscribe(
         (data) => {
           console.log('cas maintenance : ')
           this.alertes = data;
+          console.log("les alertes ----------------",this.alertes)
+          let cpt = 0
+          data.forEach((alerte: any) => {
+            if (alerte.vu == false) {
+              cpt++
+            }
+          });
+
+          this.nbAlertes = cpt
+          
           this.alertesNew = 0;
           this.trieralertes(this.alertes);
           
@@ -67,37 +116,55 @@ export class HeaderComponent implements OnInit {
       )
     } 
     
-    if(this.role === 'Admin' || this.role === 'Moyen generaux' || this.role === 'moyen generaux') {
+    if(dataRecu.role === 'Admin' || dataRecu.role === 'Moyen generaux' || dataRecu.role === 'moyen generaux') {
+      
       this.floorService.getAlertesSansId().subscribe((alertes: any) => {
         console.log('cas contraire : ')
         console.log('alertes : ', alertes)
         this.alertes = alertes;
+        let cpt = 0
+          alertes.forEach((alerte: any) => {
+            if (alerte.vu == false) {
+              cpt++
+            }
+          });
+          this.nbAlertes = cpt
         this.alertesNew = 0;
         this.trieralertes(this.alertes);
       });
     }
    const roomName = 'notification_test';
-    if(this.role === 'Moyen generaux' || this.role === 'moyen generaux') {
+    if(dataRecu.role === 'Moyen generaux' || dataRecu.role === 'moyen generaux') {
+     
     this.wsService.connect(roomName).subscribe(
       (message) => {
         console.log('Received message:', message);
         this.webSocket.unshift(message.message);
-        if(this.role === 'Moyen generaux' || this.role === 'moyen generaux') {
+        if(dataRecu.role === 'Moyen generaux' || dataRecu.role === 'moyen generaux') {
 
           if(message && message.message){
             const{id} = message.message;
             this.AlerteId = id;
             console.log('id ----------->', id)
             const { text, localId, type } = message.message; // Récupérez les propriétés nécessaires du message
-            this.AlerteMessage = `vous avez une alerte au Local ${localId}: ${text} type: ${type}`;
-            console.log('les alertes  avanr push-------------->', this.alertes)
+            
+            this.floorService.getZoneDetails(localId).subscribe(
+              (message) =>{
+                const name = message.nomLocal
+                
+
+              this.AlerteMessage = `vous avez une alerte de ${type} au Local ${localId} ${name}\n  `;
+              //this.AlerteMessage = `vous avez une alerte de ${type} au Local ${localId}:\n ${text} `;
+              
+                }
+            )
             this.alertes.push(message.message);
-            console.log('les alertes  apres push-------------->', this.alertes)
-            console.log('rrrrrrrrrr ', this.AlerteMessage)
+            this.nbAlertes++;
+      
             this.soundService.beep(200, 440, 100);
             setTimeout(() => {
               this.AlerteMessage = '';
-              window.location.reload();
+              //this.refresh_nb_alerte();
           }, 5000);
           }
         }
@@ -108,78 +175,48 @@ export class HeaderComponent implements OnInit {
       
     );
     }
-    if(this.role === 'Responsable de maintenance' || this.role === 'responsable de maintenance') {
+    if(dataRecu.role === 'Responsable de maintenance' || dataRecu.role === 'responsable de maintenance') {
+      
     this.wsService.connectUser().subscribe((messageUser: any) => {
       
       console.log('Received messageUSER :', messageUser);
         this.webSocket.unshift(messageUser.message);
-        if(this.role === 'Responsable de maintenance' || this.role === 'responsable de maintenance') {
+        if(dataRecu.role === 'Responsable de maintenance' || dataRecu.role === 'responsable de maintenance') {
           if(messageUser && messageUser.message){
             const{id} = messageUser.message;
             this.AlerteId = id;
             console.log('id ----------->', id)
             const { text, localId, type } = messageUser.message; // Récupérez les propriétés nécessaires du message
             this.AlerteMessageUser = `vous avez une alerte pour faire un rapport`;
-            //this.alertes.push(this.AlerteMessage);
+            this.alertes.push(messageUser.message);
+            this.nbAlertes++;
             console.log('rrrrrrrrrr ', this.AlerteMessageUser)
             this.soundService.beep(200, 440, 100);
             setTimeout(() => {
               this.AlerteMessageUser = '';
-              window.location.reload();
+              //this.refresh_nb_alerte();
           }, 5000);
           }
         }
     })
     }  
-    /* this.webSocketService.getMessages().subscribe((message: string) => {
-      console.log('Message from Django:', message);
-      // Traitez le message ici (par exemple, affichez-le dans une alerte)
-    }); */
-    
-    
-    
-   
-     /*if(this.isLoggedIn === 'true') {
-      this.rapportSubscription = interval(1000).subscribe(() => {
-        
-        if (this.role === 'Moyen generaux' || this.role === 'moyen generaux') {
-          this.floorService.getAllRapports().subscribe((rapports: any) => {
-            this.rapports = rapports;
-            this.rapportNew = 0;
-            this.trierrapports(this.rapports);
 
-          });
-
-        } 
-        
-        
-
-      });
-      this.alerteSubscription = interval(1000).subscribe(() => {
-        
-        if (this.role === 'responsable de maintenance' || this.role === 'Responsable de maintenance') {
-          this.floorService.getAlertesById(this.user).subscribe((alertes: any) => {
-            this.alertes = alertes;
-            this.alertesNew = 0;
-            this.trieralertes(this.alertes);
-
-          });
-
-        } else {
-          this.floorService.getAlertesSansId().subscribe((alertes: any) => {
-            this.alertes = alertes;
-            this.alertesNew = 0;
-            this.trieralertes(this.alertes);
-          });
-        }
-        
-
-      });
-    } */
   }
- /*  sendMessage() {
-    this.webSocketService.sendMessage('Hello from Angular!');
-  } */
+  refresh_nb_alerte() {
+    this.floorService.getAlertesSansId().subscribe(
+    (data) => {
+      this.alertes = data;
+      let cpt = 0
+      data.forEach((alerte: any) => {
+        if (alerte.vu == false) {
+          cpt++
+        }
+      });
+      console.log("cpt",cpt)
+      this.nbAlertes = cpt
+      console.log("nb",this.nbAlertes)
+    })
+  }
   trieralertes(alertes: any) {
     //console.log("alertes ",this.alertes)
       this.alertes.forEach((alerte: any) => {

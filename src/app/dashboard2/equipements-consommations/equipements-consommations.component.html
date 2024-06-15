@@ -11,18 +11,18 @@
 
         <div class="w-full">
 
-          <div *ngFor="let batiment of batiments" class=" overflow-x-auto custom-scrollbar rounded-md shadow-md m-4 max-w-full p-4 bg-white" style="flex-wrap: nowrap;" [ngClass]="[ 'bg-'+bgColorBatiments[batiment.id%5] ]">
+          <div *ngFor="let batiment of batiments; let i = index" class=" overflow-x-auto custom-scrollbar rounded-md shadow-md m-4 max-w-full p-4 bg-white" style="flex-wrap: nowrap;" [ngClass]="[ 'bg-'+bgColorBatiments[batiment.id%5] ]">
 
             <div class="w-full mb-4 font-medium text-lg" [ngClass]="['text-'+titleColors[batiment.id%5] ]">
-              Batiment {{batiment.id}} : {{batiment.nomBatiment}}
+              Batiment {{i + 1}}  : {{batiment.nomBatiment}}
             </div>
 
             <div class="flex">
-              <div *ngFor="let etage of batiment.etages" class="mx-2" [ngClass]="[ 'bg-'+bgColorBatiments[batiment.id%5] ]">
+              <div *ngFor="let etage of batiment.etages; let j = index" class="mx-2" [ngClass]="[ 'bg-'+bgColorBatiments[batiment.id%5] ]">
                 <div class="p-4 rounded-sm shadow-sm bg-white border min-w-full" style="width: fit-content;" [ngClass]="[ 'border-'+titleColors[batiment.id%5] ]">
 
                   <div class="w-full m-2 text-center font-medium" [ngClass]="['text-'+titleColors[batiment.id%5] ]">
-                    Etage {{etage.id}}: {{etage.nomEtage}}
+                    Etage {{j+1}}: {{etage.nomEtage}}
                   </div>
 
                   <div [id]="'etage'+etage.id+'locals-container'" class="flex">

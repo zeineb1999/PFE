@@ -27,6 +27,11 @@ export class BarChartComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     //this.initializeData();
+    this.initialData = [
+      { name: 'critique', data: [13790468.0450, 12630468.045, 10800468.045, 11630468.045,12700468.045, 10000000] },
+      { name: 'non critique', data: [793645.04, 793645.04, 793645.04, 793645.04, 793645.04 ,600000] },
+      { name: 'tous', data: [12930468.045, 12930468.045, 12930468.045, 12930468.045,12930468.045, 10000000] }, //  { name: 'tous', data: [11630468.045, 11630468.045, 11630468.045, 11630468.045, 11630468.045, 11630468.045] }
+    ];
     this.renderChart(this.initialData);
    /*  this.wsService.connectequipement().subscribe(
       (message) => {
@@ -45,22 +50,23 @@ export class BarChartComponent implements OnInit, OnChanges {
       const tousjuin = critiquejuin + normaljuin;
 
       this.initialData = [
-        { name: 'critique', data: [46789257.88
-        , 42124170.68
-        , 46482600.08
-        , 46976971.96
-        //, 38951304.78
+        { name: 'critique', data: [53037.88
+        , 53137.1212
+        , 40000.5345
+        , 49457.9
+        , 46271.3
         , critiquejuin] },
-        { name: 'non critique', data: [8710699.26
-        , 8365710.98
-        , 8797140.96//, 8694232.16
-        , 8809289.76, normaljuin] },
-        { name: 'tous', data: [55499957.15
-        , 50489881.66
-        , 55279741.05
-        , 55671204.13
-        //, 47760594.55
+        { name: 'non critique', data: [40100.26
+        , 40000.1212
+        , 42232.5345, 49457.9
+        , 46271.3, normaljuin] },
+        { name: 'tous', data: [62306.601388894
+        , 56528.615555584
+        , 62023.65944443
+        , 66407.762777776
+        , 54413.726341434
         , tousjuin] }
+        
       ];
       this.renderChart(this.initialData);
     } else {
@@ -69,7 +75,7 @@ export class BarChartComponent implements OnInit, OnChanges {
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['message']) {
-      console.log('Message:', this.message);
+      //console.log('Message:', this.message);
       this.updateData(this.message);
     }
     if (changes['selectedOption']) {
@@ -120,8 +126,8 @@ export class BarChartComponent implements OnInit, OnChanges {
       },
       xAxis: {
         
-        //categories: ['janvier', 'février', 'mars', 'avril', 'mai', 'juin']
-        categories: ['janvier', 'février', 'mars', 'avril', 'mai']
+        categories: ['janvier', 'février', 'mars', 'avril', 'mai', 'juin']
+       
        
       },
       yAxis: {

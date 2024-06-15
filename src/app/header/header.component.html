@@ -56,7 +56,7 @@
             <!-- Votre logo d'université ici -->
             <img src="../../assets/usthb.png" alt="Logo de l'université" style="width: 50px; height: 45px;">
           </div>
-          <div *ngIf="isLoggedIn !== undefined && isLoggedIn && this.role!='admin'">
+          <div *ngIf="isLoggedIn !== undefined &&isLoggedIn && this.role!='admin' && this.role!='Responsable de l\'hopital'">
             <!-- Mobile Menu open: "block", Menu closed: "hidden" --><!-- 
               <div x-cloak :class="[isOpenRapport ? 'translate-x-0 opacity-100 ' : 'opacity-0 -translate-x-full']" class="absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center">
   
@@ -120,7 +120,7 @@
 
                       <button (click)="open_close()" class="h-full p-2 text-gray-600 hover:bg-gray-50 hover:text-gray-700">
                         <i class="fa-regular fa-bell fa-xl"></i>
-                        <span class="nbNotifs">{{alertesNew}}</span>
+                        <span class="nbNotifs">{{nbAlertes}}</span>
                       </button>
                     </div>
 
@@ -135,9 +135,9 @@
                             <div class="ml-4" 
                               style="display: flex;flex-direction: column;align-items: normal;height: unset;">
                               <span style="font-size: smaller; margin-bottom: 30%;display: flex;justify-content: end;">12:30</span>
-                              <span style="color: #c5215b; font-size: larger;">{{alerte.text}}</span>
+                             <!--  <span style="color: #c5215b; font-size: larger;">{{alerte.text}}</span> -->
                               <span style="color: #c5215b; font-size: larger;">{{alerte.type}} </span>
-                              <span style="color: #c5215b; font-size: larger;">{{alerte.localId}} </span>
+                              <span style="color: #c5215b; font-size: larger;">{{alerte.valeur}} </span>
                             
                             </div>
                             <!-- <div class="ml-4" *ngIf="alerte.type=='surConsommation'"
@@ -151,9 +151,9 @@
                             <div class="ml-4"
                               style="display: flex;flex-direction: column;align-items: normal;height: unset;">
                               <span style="font-size: smaller; margin-bottom: 30%;display: flex;justify-content: end;">12:30</span>
-                              <span style="color: #c5215b; font-size: larger;">{{alerte.text}} </span>
+                              <!-- <span style="color: #c5215b; font-size: larger;">{{alerte.text}} </span> -->
                               <span style="color: #c5215b; font-size: larger;">{{alerte.type}} </span>
-                              <span style="color: #c5215b; font-size: larger;">{{alerte.localId}} </span>
+                              <span style="color: #c5215b; font-size: larger;">{{alerte.valeur}} </span>
                             </div>
                           
                       <!-- 
@@ -176,6 +176,59 @@
           </div>
 
       </div>
+      <div *ngIf="isLoggedIn !== undefined && isLoggedIn  && this.role==='Responsable de l\'hopital'">
+         <div x-cloak :class="[isOpen ? 'translate-x-0 opacity-100 ' : 'opacity-0 -translate-x-full']" class="absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center">
+
+
+            <div class="flex items-center justify-center-4 lg:mt-0 gap-2">
+
+              <div class="relative">
+                <div class="inline-flex items-center overflow-hidden rounded-md border bg-white">
+
+                  <button (click)="open_close()" class="h-full p-2 text-gray-600 hover:bg-gray-50 hover:text-gray-700">
+                    <i class="fa-regular fa-bell fa-xl"></i>
+                    <span class="nbNotifs">{{nbRapport}}</span>
+                  </button>
+                </div>
+
+                <div style="display: none;" id="notifs"
+                  class="absolute end-0 z-10 mt-2 w-56 rounded-md border border-gray-100 bg-white shadow-lg overflow-y-auto custom-scrollbar" role="menu">
+                  <div  *ngIf='rapport' class="w-full">
+                    <a href="/rapport-details/{{rap.alerte}}" *ngFor="let rap of rapport" class="" role="menuitem">
+                      <div *ngIf="rap.approuve" class="bg-white block px-4 py-4 text-sm text-[#18577ac9] hover:bg-[#18577a24] hover:text-[#18577a] border border-b-[#18577a24] flex justify-between items-start">
+                       <span *ngIf="rap.approuve==='false'"> vous avez désaprouver le rapport N {{rap.id}} </span>
+                       <span *ngIf="rap.approuve==='true'"> vous avez approuver le rapport N {{rap.id}} </span>
+                       
+                      
+                        
+                        <div class="ml-4" 
+                          style="display: flex;flex-direction: column;align-items: normal;height: unset;">
+                          
+                          
+                        </div>
+                
+                      </div>
+                      <div *ngIf="!rap.approuve" class=" bg-[#18577a17] block px-4 py-4 text-sm text-[#18577ac9] hover:bg-[#18577a24] hover:text-[#18577a] border border-transparent border-b-[#18577a24] flex justify-between items-start">
+                        vous devez consuler le rapport N {{rap.id}} pour approbation
+                        <div class="ml-4"
+                          style="display: flex;flex-direction: column;align-items: normal;height: unset;">
+                                  </div>
+                      
+                
+                      </div>
+                    </a>
+
+                  </div>
+                </div>
+              </div>
+
+             
+            
+
+        </div>
+      </div>
+
+  </div>
   </div>
   <div *ngIf="AlerteMessageUser" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
     <div class="fixed inset-0"></div>

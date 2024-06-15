@@ -1,5 +1,5 @@
 <div *ngIf="isLoggedIn">
-  <app-header></app-header>
+  
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="https://code.highcharts.com/modules/treemap.js"></script>
   <script src="https://code.highcharts.com/modules/treegraph.js"></script>
@@ -59,13 +59,13 @@
                     <button *ngIf="role != 'Responsable de maintenance' && !batiment.active"  (click)="handleToggleOn(batiment.id)"
                     class="text-xs m-2 flex justify-center items-center rounded-md bg-green-500 font-medium text-white p-1 px-4 mr-8"
                     style="border:1px solid #e7e7e7">
-                    Activer
+                    Mettre En service
                     <!-- <span><i class="fa-solid fa-plus fa-2xl"></i></span> -->
                   </button>
                   <button *ngIf="role != 'Responsable de maintenance' && batiment.active"  (click)="handleToggleOff(batiment.id)"
                   class="text-xs m-2 flex justify-center items-center rounded-md bg-red-500 font-medium text-white p-1 px-4 mr-8"
                   style="border:1px solid #e7e7e7">
-                  Désactiver
+                  Mettre Hors Service
                   <!-- <span><i class="fa-solid fa-plus fa-2xl"></i></span> -->
                 </button>
                 </span>
@@ -100,13 +100,13 @@
                                     <button *ngIf="role != 'Responsable de maintenance' && !floor.active"  (click)="handleToggleOnEtage(floor.id)"
                     class="text-xs m-2 flex justify-center items-center rounded-md bg-green-500 font-medium text-white p-1 px-4 mr-8"
                     style="border:1px solid #e7e7e7">
-                    Activer
+                    Mettre En service
                     <!-- <span><i class="fa-solid fa-plus fa-2xl"></i></span> -->
                   </button>
                   <button *ngIf="role != 'Responsable de maintenance' && floor.active"  (click)="handleToggleOffEtage(floor.id)"
                   class="text-xs m-2 flex justify-center items-center rounded-md bg-red-500 font-medium text-white p-1 px-4 mr-8"
                   style="border:1px solid #e7e7e7">
-                  Désactiver
+                  Mettre Hors service
                   <!-- <span><i class="fa-solid fa-plus fa-2xl"></i></span> -->
                 </button>
                                   </span>

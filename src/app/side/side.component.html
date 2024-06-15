@@ -32,7 +32,7 @@
           {{ 'header.titlefour' | translate }}
         </a>
       </li>
-
+<!-- 
       <li *ngIf="this.role !='admin'">
         <details class="group [&_summary::-webkit-details-marker]:hidden">
           <summary
@@ -59,7 +59,7 @@
           <ul class="mt-2 space-y-1 px-4">
 
             <li>
-              <!-- class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700" -->
+
               <a href="#" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700" routerLink="/toutesZones" [ngStyle]="{
                   'color': getCurrentPage()=='toutesZones' || getCurrentSection()=='#toutesZones' ? 'white' : '' ,
                   'background-image':getCurrentPage()=='toutesZones' || getCurrentSection()=='toutesZones' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, #1e7ee2 91.7%)' :'none'
@@ -71,8 +71,7 @@
 
 
             <li>
-              <!-- class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700" -->
-              <a href="#" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700" routerLink="/archi" [ngStyle]="{
+                   <a href="#" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700" routerLink="/archi" [ngStyle]="{
                   'color': getCurrentPage()=='archi' || getCurrentSection()=='#archi' ? 'white' : '' ,
                   'background-image':getCurrentPage()=='archi' || getCurrentSection()=='archi' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, #1e7ee2 91.7%)' :'none'
                 }" >personnaliser
@@ -81,12 +80,29 @@
           </ul>
         </details>
       </li>
+ -->
+      
+      <li *ngIf="this.role !='admin'">
+        <a href="#" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700" routerLink="/toutesZones" [ngStyle]="{
+            'color': getCurrentPage()=='toutesZones' || getCurrentSection()=='#toutesZones' ? 'white' : '' ,
+            'background-image':getCurrentPage()=='toutesZones' || getCurrentSection()=='toutesZones' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, #1e7ee2 91.7%)' :'none'
+          }">Architecture
 
+        </a>
+      </li>
       <li *ngIf="this.role !='admin'">
         <a href="#" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700" routerLink="/rapport" [ngStyle]="{
             'color': getCurrentPage()=='rapport' || getCurrentSection()=='#rapport' ? 'white' : '' ,
             'background-image':getCurrentPage()=='rapport' || getCurrentSection()=='rapport' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, #1e7ee2 91.7%)' :'none'
           }">Rapports
+
+        </a>
+      </li>
+      <li *ngIf="this.role !='admin'">
+        <a href="#" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700" routerLink="/predection" [ngStyle]="{
+            'color': getCurrentPage()=='predection' || getCurrentSection()=='#predection' ? 'white' : '' ,
+            'background-image':getCurrentPage()=='predection' || getCurrentSection()=='predection' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, #1e7ee2 91.7%)' :'none'
+          }">Prédiction
 
         </a>
       </li>

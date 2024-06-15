@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { FloorService } from '../service/floor.service';
 
 @Component({
   selector: 'app-sign',
@@ -21,11 +22,11 @@ export class SignComponent {
   selectedRole?: string;
   roleEntree: string = '';
   roleExact: string = '';
-  id: number = 0;
+  id: any;
   roles = ['Responsable de maintenance', 'Moyens généraux', 'Administrateur', 'Responsable de l\'hôpital'];
   isRoleManuallySelected: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router, private http: HttpClient) { }
+  constructor(private authService: AuthService,private floor :FloorService, private router: Router, private http: HttpClient) { }
 
   sign() {
     console.log("role ", this.roleEntree);
@@ -34,8 +35,10 @@ export class SignComponent {
         this.roleExact = response.role;
         console.log(this.roleExact);
 
+        this.id=response.id
         // Maintenant que nous avons reçu le rôle exact, procédons à la connexion
         this.attemptLogin();
+        this.floor.lancementSocket.next({role:this.roleEntree,id:this.id})
       });
     }
   }
@@ -44,11 +47,12 @@ export class SignComponent {
     // Vérifions si le rôle entré correspond au rôle exact
     if (this.roleEntree == this.roleExact) {
       this.authService.login(this.username, this.password).subscribe(response => {
-        console.log(response);
+        console.log(response.id);
         sessionStorage.setItem('token', response.access);
         this.successMessage = 'Connexion réussie !';
         sessionStorage.setItem('isLoggedIn', 'true');
         sessionStorage.setItem('role', this.roleEntree);
+        sessionStorage.setItem('id', this.id);
 
         // Redirigez l'utilisateur vers la page de tableau de bord après la connexion réussie
         setTimeout(() => {

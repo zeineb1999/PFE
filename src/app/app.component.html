@@ -1,11 +1,12 @@
 <div class="flex w-10/12 ml-auto">
 </div>
 <div class="flex w-full">
+
   <app-side *ngIf="afficherSide" class="fixed bg-white shadow-md z-10 w-2/12" style="z-index: 9999;"></app-side>
 
   <div class="w-10/12 ml-auto" [ngClass]="{'w-full':!afficherSide}">
-    <!-- <app-header class="fixed w-10/12" [ngClass]="{'w-full':!afficherSide}" style="z-index: 9998;"></app-header>
-    --> <router-outlet class="w-full"></router-outlet>
+     <app-header class="fixed w-10/12" [ngClass]="{'w-full':!afficherSide}" style="z-index: 9998;"></app-header> 
+     <router-outlet class="w-full"></router-outlet>
   </div>
 </div>
 

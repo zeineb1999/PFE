@@ -1,5 +1,5 @@
 <div *ngIf="page!='dashboard2'">
-  <app-header></app-header>
+  
   <div class="w-full flex justify-start text-2xl font-medium text-gray-700 mx-8 mt-4 mb-6" >
     Alerte N° {{thisAlerte.id}}
   </div>
@@ -37,6 +37,7 @@
             {{ this.thisAlerte.text }} 
           </dd>
         </div>
+    
 
 
       </dl>
@@ -48,8 +49,11 @@
         {{ userLast(this.thisAlerte.userID) }} {{ userFirst(this.thisAlerte.userID) }}
       </dd>
     </div>
+
    <div *ngIf="this.thisAlerte.userID===null"> 
+ 
     <div *ngIf="!(this.roleUser=='Responsable de maintenance')">
+
       <br><br>
       <form *ngIf="thisAlerte.type=='temperature' || thisAlerte.type=='humidite' ||thisAlerte.type=='surConsommation' ">
         <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 ">{{'alerte.title4' | translate }}

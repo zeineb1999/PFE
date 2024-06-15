@@ -18,6 +18,7 @@
       batiment: string;
       consommation_W: number;
       consommation_kW: number;
+      
     }
     
     @Component({
@@ -35,7 +36,9 @@
       equipementsParBatiment: any;
       equipementsParCategorie: any;
       equipementsParCriticite: any;
-    
+      errorDate: boolean = false;
+      Consommation_totale:number=0;
+      
       EquipementsLoading: boolean= false;
       EquipementAChercher :string|undefined;
     
@@ -58,7 +61,7 @@
 
     
       onAlertChange(local: string, temperature: number, nowSlash: string) {
-        console.log(`Alert received: Local: ${local}, Temperature: ${temperature}, Now: ${nowSlash}`);
+        //console.log(`Alert received: Local: ${local}, Temperature: ${temperature}, Now: ${nowSlash}`);
       }
     
       AlerteMessage: string = '';
@@ -120,7 +123,11 @@
         else if (!this.dateDebut && this.dateFin) { this.dateDebutAlert() }
     
         else if(this.dateDebut && this.dateFin){
-    
+          let dateFinObj = new Date(this.dateFin);
+          //console.log('---------------------------dateFinObj: ', dateFinObj)
+          
+          let now = new Date();
+          //console.log('---------------------------now: ', now)
           let dateHeureDebut = this.dateDebut + ' 00:00:0'
           if(this.heureDebut)  { dateHeureDebut = this.dateDebut+' '+this.heureDebut+':0'}
           else { this.el.nativeElement.querySelector('#heureDebut').value = '00:00:00'}
@@ -130,7 +137,14 @@
           else { this.el.nativeElement.querySelector('#heureFin').value = '00:00:00' }
     
           if(new Date(this.dateDebut) >= new Date(this.dateFin)) {  this.invalidDatesAlert()  }
-    
+          else 
+      
+          if (new Date(dateHeureFin) > now) {
+            //console.log("La date de fin ne peut pas être dans le futur.");
+            //console.log('date de fin: ', this.dateFin)
+            //console.log('now: ', now)
+            this.invalidDatesAlertDepasse()
+          }
           else {  // dateDebut < dateFin
             this.hideAllAlerts()
     
@@ -141,6 +155,10 @@
                 this.refreshButtonEnabled(true)   // Réactiver le boutton refresh:
     
                 this.equipements = data;
+                this.Consommation_totale=0;
+                data.forEach(eq => {
+                  this.Consommation_totale+=eq.consommation_kW
+                })
                 this.equipementsParLocal = this.RegrouperEquipementParLocal();
                 this.equipementsParEtage = this.RegrouperEquipementParEtage();
                 this.equipementsParBatiment = this.RegrouperEquipementParBatiment();
@@ -165,6 +183,10 @@
               this.refreshButtonEnabled(true)
     
               this.equipements = data;
+              this.Consommation_totale=0;
+              data.forEach(eq => {
+                this.Consommation_totale+=eq.consommation_kW
+              })
               this.equipementsParLocal = this.RegrouperEquipementParLocal();
               this.equipementsParEtage = this.RegrouperEquipementParEtage();
               this.equipementsParBatiment = this.RegrouperEquipementParBatiment();
@@ -240,7 +262,7 @@
     
       RegrouperEquipementParCriticite(){
         // Regrouper les équipements par etage
-        console.log('this.equipements _____', this.equipements)
+        //console.log('this.equipements _____', this.equipements)
         const equipementsParCriticite: { [key: number]: any[] } = this.equipements.reduce((acc: { [x: string]: any[]; }, equipement: any) => {
           const { categorie } = equipement;
     
@@ -251,7 +273,7 @@
           acc[categorie].push(equipement);
           return acc;
         }, {});
-        console.log('equipementsParCriticite DDDD', equipementsParCriticite)
+        //console.log('equipementsParCriticite DDDD', equipementsParCriticite)
         return equipementsParCriticite;
       }
     
@@ -272,6 +294,7 @@
       }
     
       dateFinAlert(){
+        this.renderer.setAttribute(this.el.nativeElement.querySelector('#dateFin-depasse'), 'style', 'display: none');
         this.renderer.setAttribute(this.el.nativeElement.querySelector('#dates-warning'), 'style', 'display: none');
         this.renderer.setAttribute(this.el.nativeElement.querySelector('#dateDebut-missed'), 'style', 'display: none');
         this.renderer.setAttribute(this.el.nativeElement.querySelector('#dateFin-missed'), 'style', 'display: flex');
@@ -280,8 +303,19 @@
         this.renderer.setAttribute(this.el.nativeElement.querySelector('#dateFin'), 'style', 'border: 1px solid #c91c1c;');
         this.renderer.setAttribute(this.el.nativeElement.querySelector('#heureFin'), 'style', 'border: 1px solid #c91c1c;');
       }
+      invalidDatesAlertDepasse(){
+        this.renderer.setAttribute(this.el.nativeElement.querySelector('#dateFin-depasse'), 'style', 'display: flex');
     
+        this.renderer.setAttribute(this.el.nativeElement.querySelector('#dateDebut-missed'), 'style', 'display: none');
+        this.renderer.setAttribute(this.el.nativeElement.querySelector('#dateFin-missed'), 'style', 'display: none');
+        this.renderer.setAttribute(this.el.nativeElement.querySelector('#dates-warning'), 'style', 'display: none');
+        this.renderer.setAttribute(this.el.nativeElement.querySelector('#dateDebut'), 'style', 'border: 1px solid transparent;');
+        this.renderer.setAttribute(this.el.nativeElement.querySelector('#heureDebut'), 'style', 'border:1px solid transparent;');
+        this.renderer.setAttribute(this.el.nativeElement.querySelector('#dateFin'), 'style', 'border: 1px solid #c91c1c;');
+        this.renderer.setAttribute(this.el.nativeElement.querySelector('#heureFin'), 'style', 'border: 1px solid #c91c1c;');
+      }
       dateDebutAlert(){
+        this.renderer.setAttribute(this.el.nativeElement.querySelector('#dateFin-depasse'), 'style', 'display: none');
         this.renderer.setAttribute(this.el.nativeElement.querySelector('#dates-warning'), 'style', 'display: none');
         this.renderer.setAttribute(this.el.nativeElement.querySelector('#dateFin-missed'), 'style', 'display: none');
         this.renderer.setAttribute(this.el.nativeElement.querySelector('#dateDebut-missed'), 'style', 'display: flex');
@@ -292,6 +326,7 @@
       }
     
       invalidDatesAlert(){
+        this.renderer.setAttribute(this.el.nativeElement.querySelector('#dateFin-depasse'), 'style', 'display: none');
         this.renderer.setAttribute(this.el.nativeElement.querySelector('#dateDebut-missed'), 'style', 'display: none');
         this.renderer.setAttribute(this.el.nativeElement.querySelector('#dateFin-missed'), 'style', 'display: none');
         this.renderer.setAttribute(this.el.nativeElement.querySelector('#dates-warning'), 'style', 'display: flex');
@@ -302,6 +337,7 @@
       }
     
       hideAllAlerts(){
+        this.renderer.setAttribute(this.el.nativeElement.querySelector('#dateFin-depasse'), 'style', 'display: none');
         this.renderer.setAttribute(this.el.nativeElement.querySelector('#dates-warning'), 'style', 'display: none');
         this.renderer.setAttribute(this.el.nativeElement.querySelector('#dateDebut-missed'), 'style', 'display: none');
         this.renderer.setAttribute(this.el.nativeElement.querySelector('#dateFin-missed'), 'style', 'display: none');
@@ -309,7 +345,7 @@
     
       handleAlerteChange(event: any) {
     
-        console.log('j ai reçu alerte maint ? ', event.type)
+        //console.log('j ai reçu alerte maint ? ', event.type)
         if (event.type == 'maintenance') {
           //console.log('local '+ event.localId+ ': ', event.nomLocal +' type: ',  event.type+' now: '+ event.nowSlash)
           this.AlerteMessage = 'Mr/Mme ' + event.userID + 'Local ' + event.localId + ' : ' + event.nomLocal + ' type : ' + event.type;
@@ -332,7 +368,7 @@
       }
     
       redirectToAlerteDetails(alerteId: number) {
-        console.log('alerteId', alerteId)
+        //console.log('alerteId', alerteId)
         this.router.navigate(['/alerte-details/', alerteId]);
       }
     

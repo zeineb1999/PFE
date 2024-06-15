@@ -1,6 +1,6 @@
 <div class="bg-[#ebf2ff] min-h-screen">
   <div *ngIf="isLoggedIn" >
-    <app-header></app-header>
+    
     <div *ngIf="zoneDetails" class="bg-[#ebf2ff] min-h-screen pb-6" >
 
       <div class="w-full flex justify-start text-2xl font-medium text-gray-700 mx-8 mt-4 mb-6">
@@ -8,9 +8,9 @@
       </div>
 
       <div *ngIf="role != 'Responsable de maintenance' && !zoneDetails.active" class="flex bg-red-100 text-red-800 shadow-md mx-auto my-4 py-4 px-8" style="width: 95%; border-left: 4px solid #cb3131;">
-        <div class="text-md mr-4">Ce local est désactivé depuis <span class="font-medium text-red">{{dateFormate(this.lastDateActiver)}} {{timeFormate(this.lastDateActiver)}}.</span></div>
+        <div class="text-md mr-4">Ce local est hors service depuis <span class="font-medium text-red">{{dateFormate(this.lastDateActiver)}} {{timeFormate(this.lastDateActiver)}}.</span></div>
         <div>
-          Voulez vous le réactiver ?
+          Voulez vous le mettre en service ?
           <span class="ml-4 hover:underline font-bold cursor-pointer" (click)="handleToggleOnZone(zoneDetails.id)">
             Réactiver
           </span>
@@ -260,7 +260,7 @@
         <button *ngIf="role != 'Responsable de maintenance' && zoneDetails.active" (click)="handleToggleOffZone(zoneDetails.id)"
           class="text-xs my-4 flex justify-center items-center rounded-md bg-red-500 font-medium text-white py-2 px-4 mr-8"
           style="border:1px solid #e7e7e7">
-          Désactiver ce local
+          Mettre Hors service ce local
           <!-- <span><i class="fa-solid fa-plus fa-2xl"></i></span> -->
         </button>
       </div>

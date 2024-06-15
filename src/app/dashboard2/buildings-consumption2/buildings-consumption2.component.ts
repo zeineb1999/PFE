@@ -71,13 +71,16 @@ export class BuildingsConsumption2Component {
         const parentElement = this.el.nativeElement.querySelector('#diagrammes-etages');
 
         let colorIndex = 0;
+        let indiceExacte =1;
 
         for (const i in this.equipementsParBatiment)  {
-          let _name = 'batiment '+ this.equipementsParBatiment[i][0].batimentId + ': ' + this.equipementsParBatiment[i][0].batiment
+          //console.log("&&&&&&&&&&&&&&&&&&&&&&&&777  i",i)
+          let _name = 'batiment '+ indiceExacte+ ': ' + this.equipementsParBatiment[i][0].batiment
           let consommationBatiment = 0;
           this.equipementsParBatiment[i].forEach((equipement: Equipement) => {
             consommationBatiment += equipement.consommation_kW
           });
+          
           // Préparer les données du diagramme des batiments:
           buildingsData.push({name: _name, y: consommationBatiment})
           //buildingsData.push({name: _name, y: 10})
@@ -85,7 +88,7 @@ export class BuildingsConsumption2Component {
           // Créer un élément div pour insérer les diagramme des etages:
           let etageElementId: string;
           divElement = this.renderer.createElement('div')
-          etageElementId = 'batiment-' + this.equipementsParBatiment[i][0].batimentId
+          etageElementId = 'batiment-' + indiceExacte
           this.renderer.setAttribute(divElement, 'id', etageElementId);
           this.renderer.setAttribute(divElement, 'class', 'diagramme-batiment');
           this.renderer.setAttribute(divElement, 'style', 'width: 50%; height: 200px; ');
@@ -106,8 +109,9 @@ export class BuildingsConsumption2Component {
 
           let _categories: string[] = []
           etagesChartData = []
+          let indiceExacteEtage = 1
           for (const j in equipementsParEtage) {
-            let _etageNum = 'etage '+ equipementsParEtage[j][0].numEtage
+            let _etageNum = 'etage '+ indiceExacteEtage
             let _etageName = _etageNum + ': '+ equipementsParEtage[j][0].nomEtage
             let consommation = 0;
             equipementsParEtage[j].forEach(equipement => {
@@ -116,9 +120,11 @@ export class BuildingsConsumption2Component {
             etagesChartData.push({name: _etageName, y: consommation})
             //etagesChartData.push({name: _etageName, y: 10})
             _categories.push(_etageNum)
+            indiceExacteEtage++;
           }
           this.insertFloorChart(etageElementId, _name, _categories, etagesChartData, colorIndex)
           colorIndex++;
+          indiceExacte++;
         }
 
         this.insertBuildingsPieChart(buildingsData)
@@ -146,7 +152,7 @@ export class BuildingsConsumption2Component {
   insertFloorChart(etageElementId: string, _name: string, _categories: string[], etagesChartData: any[], colorIndex:number){
 
     let colors = ['#00bbf9', '#00f5d4', '#fee440', '#9b5de5', '#f15bb5', '#219ebc', '#ff006e']
-    console.log('col: ',colorIndex)
+    //console.log('col: ',colorIndex)
     Highcharts.chart(etageElementId, {
       chart: {
         type: 'bar'

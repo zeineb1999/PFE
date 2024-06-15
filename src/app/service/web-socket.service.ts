@@ -53,14 +53,14 @@ export class WebSocketService {
   } */
 
   close() {
-    if (this.socket$) {
+   /*  if (this.socket$) {
       this.socket$.complete();
       console.log('Disconnected from WebSocket server');
     }
     if(this.socketUser$) {
       this.socketUser$.complete();
       console.log('Disconnected from WebSocket user');
-    }
+    } */
   }
 
 }

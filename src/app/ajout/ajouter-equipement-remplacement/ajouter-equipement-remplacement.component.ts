@@ -88,16 +88,17 @@ export class AjouterEquipementRemplacementComponent implements OnInit {
   ajouterEquipement() {
     const equipementData = {
       nom: this.nom,
-      etat: 'OFF',
+      etat: 'ON',
       categorie: this.categorie,
       puissance: this.puissance,
      
-      zoneE: this.zoneRoomId
+      zoneE: this.zoneRoomId,
+      rapport: this.rapport
     };
     console.log("equipementData: ",equipementData);
-    this.floorService.addEquipement(equipementData).subscribe(
+    this.floorService.addEquipementAjouter(equipementData).subscribe(
       (data: any) => {
-        const equipementId = data.id;
+        /* const equipementId = data.id;
         console.log("donnes histo  rapport",this.rapport,"equi remp",this.equipementIdRemplacant,equipementId);
         this.floorService.createHistoriqueRemplacement(this.rapport, "remplacer",this.equipementIdRemplacant,equipementId).subscribe(
           (data: any) => {
@@ -107,18 +108,19 @@ export class AjouterEquipementRemplacementComponent implements OnInit {
           (error) => {
             console.log(error);
           }
-        );
+        ); */
     
-        this.floorService.generatePeriode(equipementId).subscribe(
+   /*      this.floorService.generatePeriode(equipementId).subscribe(
           (data: any) => {
            
           },
           error => {
             console.log(error);
           }
-        )
+        ) 
         console.log(data);
         this.equipements.push(data);
+        this.router.navigateByUrl(`/zone-details/${this.zoneRoomId}`);*/
         this.router.navigateByUrl(`/zone-details/${this.zoneRoomId}`);
       },
       error => {

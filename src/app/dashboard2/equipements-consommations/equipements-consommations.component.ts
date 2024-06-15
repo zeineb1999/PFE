@@ -38,13 +38,13 @@ export class EquipementsConsommationsComponent {
             this.floorService.getZonesForEtage(etage.id).subscribe((locaux: any[]) => {
               etage.locaux = locaux
               //console.log('etage', etage)
-              
+              let indiceExacteLocal = 1
               etage.locaux.forEach((local: any) => {
 
                 if (this.equipementsParLocal && this.equipementsParLocal[local.id]) {
                   local.equipements = this.equipementsParLocal[local.id]
                   local.equipements_names = []
-                  local.ConsData = [{ name: 'Les équipements dans le local ' + local.id, data: [] }]
+                  local.ConsData = [{ name: 'Les équipements dans le local ' + indiceExacteLocal, data: [] }]
                   
                   local.equipements.forEach((equipement: any) => {
                     let now : Date = new Date()
@@ -58,7 +58,7 @@ export class EquipementsConsommationsComponent {
                     }
                   }); // fin equipement
                 }
-
+                indiceExacteLocal++
               }); // fin local
             })
           })
@@ -69,7 +69,7 @@ export class EquipementsConsommationsComponent {
 
   renderChart(bat_id: number, local: any) {
     let id = 'local-' + local.id
-    console.log('local : ', local)
+    //console.log('local : ', local)
 
     let localElement = this.renderer.createElement('div')
     this.renderer.setAttribute(localElement, 'id', id);

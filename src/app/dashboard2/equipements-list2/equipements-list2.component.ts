@@ -138,7 +138,7 @@ export class EquipementsList2Component {
                 //console.log("************************",equipement.etat, 'this.etatFiltre', this.etatFiltre)
 
               }
-              console.log("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM***************", equipement)
+              //console.log("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM***************", equipement)
             })
           });
         }
@@ -168,9 +168,9 @@ export class EquipementsList2Component {
       let now : Date = new Date()
       let isoDateString = new Date(now.getTime() + (60 * 60 * 1000)).toISOString();
 
-        console.log('peeeriode: ', '2024-'+(new Date().getMonth()+1)+'-01 00:00:00',' -> ', isoDateString.slice(0, 19).replace('T', ' '))
+        //console.log('peeeriode: ', '2024-'+(new Date().getMonth()+1)+'-01 00:00:00',' -> ', isoDateString.slice(0, 19).replace('T', ' '))
         this.equipementsSubscription2 = this.floorService.getAllEquipements().subscribe(        (data: any[]) =>{
-          console.log('dataaa : ', data)
+          //console.log('dataaa : ', data)
           this.equipementsFiltre = data
         })
     }
@@ -181,7 +181,7 @@ export class EquipementsList2Component {
   }
 
   filtrerEquipements() {
-    console.log('******************************* etaaaaaaaaaaaaaat', this.etatFiltre)
+    //console.log('******************************* etaaaaaaaaaaaaaat', this.etatFiltre)
     // Vérifier si aucun filtre n'est sélectionné
     if (this.equipements) {
       if (this.typeFiltre === '' && this.categorieFiltre === '' && this.etatFiltre === '') {
@@ -193,10 +193,10 @@ export class EquipementsList2Component {
         let etatCondition: boolean;
         // Si au moins un filtre est sélectionné, appliquer les filtres
         this.equipements.forEach(element => {
-          console.log('pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp ', element.etat)
+          //console.log('pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp ', element.etat)
         });
         this.equipementsFiltre = this.equipements.filter(equipement => {
-            console.log("***************", equipement.etat)
+            //console.log("***************", equipement.etat)
             // Vérifier si le filtre de type est défini et si l'équipement correspond
             if (equipement.categorie) {
               typeCondition = this.typeFiltre === '' || equipement.categorie.toLocaleLowerCase() === this.typeFiltre.toLocaleLowerCase();
@@ -217,7 +217,7 @@ export class EquipementsList2Component {
           });
       }
 
-      console.log("Filtre : ", this.equipementsFiltre);
+      //console.log("Filtre : ", this.equipementsFiltre);
 
     }
 }

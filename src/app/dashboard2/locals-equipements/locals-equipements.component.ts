@@ -33,10 +33,11 @@ export class LocalsEquipementsComponent {
       batiments.forEach(batiment => {
         this.floorService.getEtagesByBatiments(batiment.id).subscribe((etages: any[]) => {
           batiment.etages = etages
+          let indiceExacteLocal = 1
           batiment.etages.forEach((etage: any) => {
             etage.locals_names = []
             etage.ConsData = []
-            etage.ConsData[0] = {name: 'Les locaux dans l\'étage '+etage.id, data: []}
+            etage.ConsData[0] = {name: 'Les locaux dans l\'étage '+ indiceExacteLocal, data: []}
 
             this.floorService.getZonesForEtage(etage.id).subscribe((locaux: any[]) => {
               etage.locaux = locaux
@@ -72,7 +73,7 @@ export class LocalsEquipementsComponent {
             //console.log('etage.ConsData',etage.ConsData )
             //etage.ConsData.data =
 
-
+            indiceExacteLocal++
           }); // fin etage
 
         })  // fin etages
@@ -98,7 +99,7 @@ export class LocalsEquipementsComponent {
     this.renderer.setAttribute(etageElement, 'style', 'width: 300px; ');
     this.renderer.appendChild(whiteContainer, etageElement); */
 
-
+    
     Highcharts.chart('etage-'+etage.id, {
       chart: {
         type: 'column',
