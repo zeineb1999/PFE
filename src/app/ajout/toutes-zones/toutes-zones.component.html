@@ -56,13 +56,13 @@
               <div *ngFor="let batiment of batiments" class="p-4">
                 <div class="text-xl text-gray-700 font-medium m-2"> Batiment {{batiment.id}}
                   <span class="text-lg text-gray-600 font-normal">{{ batiment.nomBatiment }} 
-                    <button *ngIf="role != 'Responsable de maintenance' && !batiment.active"  (click)="handleToggleOn(batiment.id)"
+                    <button *ngIf="role == 'Responsable de l\'hopital' && !batiment.active"  (click)="handleToggleOn(batiment.id)"
                     class="text-xs m-2 flex justify-center items-center rounded-md bg-green-500 font-medium text-white p-1 px-4 mr-8"
                     style="border:1px solid #e7e7e7">
                     Mettre En service
                     <!-- <span><i class="fa-solid fa-plus fa-2xl"></i></span> -->
                   </button>
-                  <button *ngIf="role != 'Responsable de maintenance' && batiment.active"  (click)="handleToggleOff(batiment.id)"
+                  <button *ngIf="role == 'Responsable de l\'hopital' && batiment.active"  (click)="handleToggleOff(batiment.id)"
                   class="text-xs m-2 flex justify-center items-center rounded-md bg-red-500 font-medium text-white p-1 px-4 mr-8"
                   style="border:1px solid #e7e7e7">
                   Mettre Hors Service
@@ -97,13 +97,13 @@
                                   <span>
                                     {{'ajoutC1.title17'| translate}}
                                     {{ floor.nomEtage }} 
-                                    <button *ngIf="role != 'Responsable de maintenance' && !floor.active"  (click)="handleToggleOnEtage(floor.id)"
+                                    <button *ngIf="role == 'Responsable de l\'hopital' && !floor.active"  (click)="handleToggleOnEtage(floor.id)"
                     class="text-xs m-2 flex justify-center items-center rounded-md bg-green-500 font-medium text-white p-1 px-4 mr-8"
                     style="border:1px solid #e7e7e7">
                     Mettre En service
                     <!-- <span><i class="fa-solid fa-plus fa-2xl"></i></span> -->
                   </button>
-                  <button *ngIf="role != 'Responsable de maintenance' && floor.active"  (click)="handleToggleOffEtage(floor.id)"
+                  <button *ngIf="role == 'Responsable de l\'hopital' && floor.active"  (click)="handleToggleOffEtage(floor.id)"
                   class="text-xs m-2 flex justify-center items-center rounded-md bg-red-500 font-medium text-white p-1 px-4 mr-8"
                   style="border:1px solid #e7e7e7">
                   Mettre Hors service

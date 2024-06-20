@@ -27,9 +27,9 @@ export class PredictionComponent implements OnInit {
     const months: [number, number][] = this.getMonthsArray(nbrmois);
     this.loadPredictions(...months).then(predictions => {
       this.initialData = [
-        { name: 'critique', data: predictions.map(p => p.predicted_consumption) },
-        { name: 'non critique', data: predictions.map(p => p.predicted_consumption2) },
-        { name: 'tous', data: predictions.map(p => p.predicted_consumption + p.predicted_consumption2) }
+        { name: 'critique', data: predictions.map(p => p.predicted_consumption/3) },
+        { name: 'non critique', data: predictions.map(p => p.predicted_consumption2/3) },
+        { name: 'tous', data: predictions.map(p => (p.predicted_consumption + p.predicted_consumption2)/3) }
       ];
       this.renderChart(this.initialData, nbrmois);
     });

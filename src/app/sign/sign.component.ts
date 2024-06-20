@@ -58,7 +58,13 @@ export class SignComponent {
         setTimeout(() => {
           this.successMessage = '';
           if (this.roleEntree != 'admin') {
-            this.router.navigate(['/dashboard2']);
+            if(this.roleEntree == 'Responsable de l\'hopital'){
+              this.router.navigate(['/dashboard2']);
+            }
+            else{
+              this.router.navigate(['/toutesZones']);
+            }
+            
           } else {
             this.router.navigate(['/dashboard']);
           }

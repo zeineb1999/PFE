@@ -433,6 +433,16 @@ getExcelData(): Observable<any> {
     const url = ` ${this.baseurl}/hopital_consommation_pendant_mois_all`;
     return this.http.get<any>(url);
   }
+  getHopitalConsommationCriticite(mois:any): Observable<any> {
+    const url = ` ${this.baseurl}/hopital_consommation_total`;
+    
+    const options = {
+      params: {
+        mois:mois // Convertissez nom_fichier en chaîne et ajoutez-le à vos paramètres (to string())
+      }
+    };
+    return this.http.get<any>(url, options);
+  }
 
   sendCode(email:string,code: number): Observable<any> {
     return this.http.post<any>('http://127.0.0.1:8000/api/modificationProfile/', { email ,code});

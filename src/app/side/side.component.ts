@@ -110,6 +110,8 @@ export class SideComponent {
     this.translate.use(selectedLanguage);
   }
   logout() {
+    this.authService.changementHeader.next("changmenet header")
+    console.log("methode deconnexion")
     this.authService.logout();
   }
 

@@ -1,6 +1,6 @@
 
 
-<div  class="bg-gradient-to-br from-blue-50 to-pink-50 w-full" >
+<div  class="bg-gradient-to-br from-blue-50 to-pink-50 w-full "style="padding-top: 7%;" >
 
   <div class="flex w-8/9 justify-between">
     <div class="bg-gradient-to-br from-blue-100 to-[#2caffe] m-4 py-6 rounded-lg shadow-medium" style="width: 200px; ">
@@ -119,10 +119,10 @@
     <app-locals-equipements [equipementsParLocal]="equipementsParLocal"></app-locals-equipements>
     <app-equipements-consommations [equipementsParLocal]="equipementsParLocal"></app-equipements-consommations>
     <app-categories-equipements [equipementsParCategorie]="equipementsParCategorie" [equipementsParCriticite]="equipementsParCriticite"></app-categories-equipements>
-    <app-bar-chart [message]="sendData"></app-bar-chart>
-    <app-consumption-evolution2 [total]="sendData"></app-consumption-evolution2>
+  <app-bar-chart [message]="sendData"></app-bar-chart>
+    <app-consumption-evolution2 [total]="sendData"></app-consumption-evolution2> 
     <app-equipements-list2 style="width: 100%"></app-equipements-list2>
-
+ 
     <!-- <app-bar-chart></app-bar-chart>  -->
     <div *ngIf="AlerteMessage" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
 <div class="fixed inset-0"></div>

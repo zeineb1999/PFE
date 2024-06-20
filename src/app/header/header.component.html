@@ -52,11 +52,11 @@
                 <button (click)="switchLanguage('en')">{{ 'language.english' | translate }}</button>
               </div>-->
           </div>
-          <div *ngIf="this.role==='admin'||isLoggedIn == undefined" class="flex items-center justify-end">
+          <div *ngIf="!verif1 && !verif2" class="flex items-center justify-end">
             <!-- Votre logo d'université ici -->
             <img src="../../assets/usthb.png" alt="Logo de l'université" style="width: 50px; height: 45px;">
           </div>
-          <div *ngIf="isLoggedIn !== undefined &&isLoggedIn && this.role!='admin' && this.role!='Responsable de l\'hopital'">
+          <div *ngIf="verif1">
             <!-- Mobile Menu open: "block", Menu closed: "hidden" --><!-- 
               <div x-cloak :class="[isOpenRapport ? 'translate-x-0 opacity-100 ' : 'opacity-0 -translate-x-full']" class="absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center">
   
@@ -176,7 +176,7 @@
           </div>
 
       </div>
-      <div *ngIf="isLoggedIn !== undefined && isLoggedIn  && this.role==='Responsable de l\'hopital'">
+      <div *ngIf="verif2">
          <div x-cloak :class="[isOpen ? 'translate-x-0 opacity-100 ' : 'opacity-0 -translate-x-full']" class="absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center">
 
 

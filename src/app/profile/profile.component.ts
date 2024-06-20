@@ -139,6 +139,7 @@ export class ProfileComponent implements OnInit {
          });
   }
   SeDeconnecter() {
+   
     this.authService.logout();
     
   }

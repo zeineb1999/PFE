@@ -1,8 +1,8 @@
 import * as Highcharts from 'highcharts';
 import { Component, OnInit, OnChanges, SimpleChanges, Input } from '@angular/core';
 import { FloorService } from 'src/app/service/floor.service';
-import { forkJoin } from 'rxjs';
 import { WebSocketService } from 'src/app/service/web-socket.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-bar-chart',
@@ -11,71 +11,41 @@ import { WebSocketService } from 'src/app/service/web-socket.service';
 })
 export class BarChartComponent implements OnInit, OnChanges {
 
-  initialData: any[] = [
-    { name: 'critique', data: [13790468.0450, 12630468.045, 10800468.045, 11630468.045,12700468.045, 10000000] },
-    { name: 'non critique', data: [793645.04, 793645.04, 793645.04, 793645.04, 793645.04 ,600000] },
-    { name: 'tous', data: [12930468.045, 12930468.045, 12930468.045, 12930468.045,12930468.045, 10000000] }, //  { name: 'tous', data: [11630468.045, 11630468.045, 11630468.045, 11630468.045, 11630468.045, 11630468.045] }
-  ];  
-  filteredData: any[] = [];
-  tous: any[] = [];
-  tousjuin: any;
-  critiquejuin: any;
   @Input() message: any;
-  normaljuin: any;
-  webSocket: any[] = [];
-  constructor(private wsService: WebSocketService,private floorService: FloorService) { }
+  initialData: any[] = [];
+  filteredData: any[] = [];
+  janvierCritique: number = 0;
+  janvierNonCritique: number = 0;
+ 
+  fevrierCritique: number = 0;
+  fevrierNonCritique: number = 0;
+  
+  marsCritique: number = 0;
+  marsNonCritique: number = 0;
+ 
+  avrilCritique: number = 0;
+  avrilNonCritique: number = 0;
+  
+  maiCritique: number = 0;
+  maiNonCritique: number = 0;
 
-  ngOnInit(): void {
-    //this.initializeData();
-    this.initialData = [
-      { name: 'critique', data: [13790468.0450, 12630468.045, 10800468.045, 11630468.045,12700468.045, 10000000] },
-      { name: 'non critique', data: [793645.04, 793645.04, 793645.04, 793645.04, 793645.04 ,600000] },
-      { name: 'tous', data: [12930468.045, 12930468.045, 12930468.045, 12930468.045,12930468.045, 10000000] }, //  { name: 'tous', data: [11630468.045, 11630468.045, 11630468.045, 11630468.045, 11630468.045, 11630468.045] }
-    ];
+  juinCritique: number = 0;
+  juinNonCritique: number = 0;
+ 
+  
+  Consommation_totale: number = 0;
+  sendData: any[] = [];
+  selectedOption: string = 'all'; // Default value
+
+  constructor(private wsService: WebSocketService, private floorService: FloorService) { }
+
+  async ngOnInit(): Promise<void> {
+    await this.initializeData();
     this.renderChart(this.initialData);
-   /*  this.wsService.connectequipement().subscribe(
-      (message) => {
-        console.log('Received message:', message);
-        this.webSocket.unshift(message.message);
-        this.updateData(message);
-      }) */
-
   }
 
-
-  updateData(message: any): void {
-    if (message && typeof message.critique !== 'undefined' && typeof message.normal !== 'undefined') {
-      const critiquejuin = message.critique;
-      const normaljuin = message.normal;
-      const tousjuin = critiquejuin + normaljuin;
-
-      this.initialData = [
-        { name: 'critique', data: [53037.88
-        , 53137.1212
-        , 40000.5345
-        , 49457.9
-        , 46271.3
-        , critiquejuin] },
-        { name: 'non critique', data: [40100.26
-        , 40000.1212
-        , 42232.5345, 49457.9
-        , 46271.3, normaljuin] },
-        { name: 'tous', data: [62306.601388894
-        , 56528.615555584
-        , 62023.65944443
-        , 66407.762777776
-        , 54413.726341434
-        , tousjuin] }
-        
-      ];
-      this.renderChart(this.initialData);
-    } else {
-      console.error('Invalid data format:', message);
-    }
-  }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['message']) {
-      //console.log('Message:', this.message);
       this.updateData(this.message);
     }
     if (changes['selectedOption']) {
@@ -83,39 +53,71 @@ export class BarChartComponent implements OnInit, OnChanges {
     }
   }
 
-  /* initializeData(): void {
-    this.floorService.getSauvegardeData().subscribe((data: any) => {
-      this.tous = data;
-      console.log('***************data', data);
-      this.loadData();
-    });
-  } 
-
-  loadData(): void {
-    const dateDebut = '2024-06-01 00:00:00';
-    const dateFin = '2024-06-18 00:00:00';
-
-    forkJoin([
-      this.floorService.getHopitalConsommationPendantMoisNormal(dateDebut, dateFin),
-      this.floorService.getHopitalConsommationPendantMoisCritique(dateDebut, dateFin)
-    ]).subscribe(([normalData, critiqueData]: [any, any]) => {
-      this.normaljuin = normalData;
-      this.critiquejuin = critiqueData;
-      console.log('normaljuin', this.normaljuin);
-      console.log('critiquejuin', this.critiquejuin);
-
-      this.tousjuin = this.normaljuin + this.critiquejuin;
-
+  async initializeData(): Promise<void> {
+    
+      const janvierData = await this.consommationCriticite(1);
+      this.janvierCritique = janvierData.critique;
+      this.janvierNonCritique = janvierData.noncritique;
+  
+      const fevrierData = await this.consommationCriticite(2);
+      this.fevrierCritique = fevrierData.critique;
+      this.fevrierNonCritique = fevrierData.noncritique;
+  
+      const marsData = await this.consommationCriticite(3);
+      this.marsCritique = marsData.critique;
+      this.marsNonCritique = marsData.noncritique;
+  
+      const avrilData = await this.consommationCriticite(4);
+      this.avrilCritique = avrilData.critique;
+      this.avrilNonCritique = avrilData.noncritique;
+  
+      const maiData = await this.consommationCriticite(5);
+      this.maiCritique = maiData.critique;
+      this.maiNonCritique = maiData.noncritique;
+  
+      const juinData = await this.consommationCriticite(6);
+      this.juinCritique = juinData.critique;
+      this.juinNonCritique = juinData.noncritique;
+  
       this.initialData = [
-        { name: 'critique', data: [13790468.0450, 12630468.045, 10800468.045, 11630468.045,12700468.045, this.critiquejuin] },
-        { name: 'non critique', data: [793645.04, 793645.04, 793645.04, 793645.04, 793645.04, this.normaljuin] },
-        { name: 'tous', data: [12930468.045, 12930468.045, 12930468.045, 12930468.045,12930468.045, this.tousjuin] }
+        { name: 'critique', data: [this.janvierCritique, this.fevrierCritique, this.marsCritique, this.avrilCritique, this.maiCritique, this.juinCritique] },
+        { name: 'non critique', data: [this.janvierNonCritique, this.fevrierNonCritique, this.marsNonCritique, this.avrilNonCritique, this.maiNonCritique, this.juinNonCritique] },
+        { name: 'tous', data: [this.janvierCritique + this.janvierNonCritique, this.fevrierCritique + this.fevrierNonCritique, this.marsCritique + this.marsNonCritique, this.avrilCritique + this.avrilNonCritique, this.maiCritique + this.maiNonCritique, this.juinCritique + this.juinNonCritique] }
+      ];
+  }  
+  
+
+  consommationCriticite(mois: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.floorService.getHopitalConsommationCriticite(mois).subscribe(
+        (consommation: any) => {
+          resolve(consommation);
+        },
+        (error: any) => {
+          reject(error);
+        }
+      );
+    });
+  }
+
+  updateData(message: any): void {
+    if (message && typeof message.critique !== 'undefined' && typeof message.normal !== 'undefined') {
+      const critiquejuin = message.critique;
+      const normaljuin = message.normal;
+      const tousjuin = critiquejuin + normaljuin;
+      
+      this.initialData = [
+        { name: 'critique', data: [this.janvierCritique, this.fevrierCritique, this.marsCritique, this.avrilCritique, this.maiCritique, critiquejuin] },
+        { name: 'non critique', data: [this.janvierNonCritique, this.fevrierNonCritique, this.marsNonCritique, this.avrilNonCritique, this.maiNonCritique, normaljuin] },
+        { name: 'tous', data: [this.janvierCritique+this.janvierNonCritique,this.fevrierCritique+this.fevrierNonCritique,this.marsCritique+this.marsNonCritique,this.avrilCritique+this.avrilNonCritique,this.maiCritique+this.maiNonCritique,tousjuin] }, //  { name: 'tous', data: [11630468.045, 11630468.045, 11630468.045, 11630468.045, 11630468.045, 11630468.045] }
       ];
 
       this.renderChart(this.initialData);
-    });
+    } else {
+      console.error('Invalid data format:', message);
+    }
   }
-*/
+
   renderChart(data: any[]): void {
     Highcharts.chart('container', {
       chart: {
@@ -125,10 +127,7 @@ export class BarChartComponent implements OnInit, OnChanges {
         text: ''
       },
       xAxis: {
-        
         categories: ['janvier', 'février', 'mars', 'avril', 'mai', 'juin']
-       
-       
       },
       yAxis: {
         title: {
@@ -138,8 +137,6 @@ export class BarChartComponent implements OnInit, OnChanges {
       series: data
     });
   }
-
-  selectedOption: string = 'all'; // Default value
 
   filterData(): void {
     if (this.selectedOption === 'all') {

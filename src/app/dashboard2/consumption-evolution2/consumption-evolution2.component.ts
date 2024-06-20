@@ -18,10 +18,25 @@ export class ConsumptionEvolution2Component {
 
   Highcharts = Highcharts;
   chartOptions: any;
+  conso:any;
+  janvierCritique: number = 0;
+  
+ 
+  fevrierCritique: number = 0;
+  
+  marsCritique: number = 0;
+ 
+  avrilCritique: number = 0;
+  maiCritique: number = 0;
+
+  juinCritique: number = 0;
+ 
+
+  Consommation_totale: number = 0;
   @Input() total: any;
   consommations_mois: any[] = [];
   constructor(private wsService: WebSocketService,private floorService: FloorService){ }
-  ngOnInit() {/* 
+  async ngOnInit() {/* 
     this.wsService.connectequipementSecond().subscribe(
       (message) => {
         console.log('Received message:', message);
@@ -29,16 +44,50 @@ export class ConsumptionEvolution2Component {
        }
     ) */
    
-    let consom:any [] = [{mois: 1, consommation: 62306714.601388894},
-      {mois: 2, consommation: 56528505.615555584},
-      {mois: 3, consommation:  62023832.65944443},
-      {mois: 4, consommation: 66407158.762777776},
-      {mois: 5, consommation: 54413977.726341434}
-
-    ]
-    this.insertChart(consom);
+    await this.initializeData();
+    this.insertChart(this.consommations_mois);
     //this.LoadEquipementsParMois()
     //console.log('Equipements:', this.equipements);
+  }
+  async initializeData(): Promise<void> {
+    const janvierData = await this.consommationCriticite(1);
+      this.janvierCritique = janvierData.critique+janvierData.noncritique;
+  
+      const fevrierData = await this.consommationCriticite(2);
+      this.fevrierCritique = fevrierData.critique+fevrierData.noncritique;
+  
+      const marsData = await this.consommationCriticite(3);
+      this.marsCritique = marsData.critique+marsData.noncritique;
+  
+      const avrilData = await this.consommationCriticite(4);
+      this.avrilCritique = avrilData.critique+avrilData.noncritique;
+  
+      const maiData = await this.consommationCriticite(5);
+      this.maiCritique = maiData.critique+ maiData.noncritique;
+  
+      const juinData = await this.consommationCriticite(6);
+      this.juinCritique = juinData.critique+juinData.noncritique;
+    this.consommations_mois = [
+      { mois: 1, consommation: this.janvierCritique},
+      { mois: 2, consommation: this.fevrierCritique },
+      { mois: 3, consommation: this.marsCritique},
+      { mois: 4, consommation: this.avrilCritique },
+      { mois: 5, consommation: this.maiCritique },
+      { mois: 6, consommation: this.juinCritique }
+    ];
+  }
+
+  consommationCriticite(mois: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.floorService.getHopitalConsommationCriticite(mois).subscribe(
+        (consommation: any) => {
+          resolve(consommation);
+        },
+        (error: any) => {
+          reject(error);
+        }
+      );
+    });
   }
   ngOnChanges() {
     //console.log('total',this.total);
@@ -48,15 +97,16 @@ export class ConsumptionEvolution2Component {
     if (message && typeof message.critique !== 'undefined' && typeof message.normal !== 'undefined') {
 
       const tousjuin = message.critique + message.normal;
-
-      this.consommations_mois =   [{mois: 1, consommation: 62306714.601388894},
-        {mois: 2, consommation:56528505.615555584},
-        {mois: 3, consommation:62023832.65944443},
-        {mois: 4, consommation: 66407158.762777776},
-        {mois: 5, consommation: 54413977.726341434},
-        {mois: 6, consommation: tousjuin}
-      
+    
+      this.consommations_mois = [
+        { mois: 1, consommation: this.janvierCritique},
+        { mois: 2, consommation: this.fevrierCritique },
+        { mois: 3, consommation: this.marsCritique},
+        { mois: 4, consommation: this.avrilCritique },
+        { mois: 5, consommation: this.maiCritique },
+        { mois: 6, consommation: tousjuin}
       ];
+   
       this.insertChart(this.consommations_mois);
     } else {
       console.error('Invalid data format:', message);

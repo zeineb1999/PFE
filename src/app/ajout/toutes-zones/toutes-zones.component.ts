@@ -143,7 +143,7 @@ handleToggleOff(batimentId: number): void {
   const dateFormatee = `${annee}-${mois}-${jour} ${heures}:${minutes}:${secondes}`;
   console.log(`Toggle is OFF for batiment ID: ${batimentId}`);
   this.floorService.DesactiverBatiment(batimentId,dateFormatee).subscribe(any => {
-    window.location.reload();
+   
   }) */
   // Appeler la méthode pour l'état OFF
   // Par exemple : appeler une fonction ou envoyer une requête HTTP avec l'ID du bâtiment
