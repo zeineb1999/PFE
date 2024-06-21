@@ -33,12 +33,21 @@
         </div>
 
       </div>
+      <div class="bg-white shadow-md rounded-lg mx-auto my-4 px-8" style="width: 95%">
+        <div class="py-3">
+          <dd class="font-medium text-md text-gray-700">
+            <span class="mr-4">plage de Température [{{ zoneDetails.minT }} - {{ zoneDetails.maxT }}]</span> 
+            <span class="mx-4">plage de Humidité [{{ zoneDetails.minH }} - {{ zoneDetails.maxH }}]</span> 
+          </dd>
+        </div>
+
+      </div>
 
       <div class="bg-white shadow-md rounded-lg mx-auto my-2 p-4" style="width: 95%">
         <div class="flow-root">
           <dl class="-my-3 divide-y divide-gray-100 text-sm">
             <div class="w-full flex justify-start text-2xl font-medium text-gray-700 mt-4">
-              Température / Humidité
+              Température / Humidité  / presence : {{this.presence}}
             </div>
 
             <div class="flex justify-between items-center mx-12" style="height: 300px;">
@@ -264,6 +273,19 @@
           <!-- <span><i class="fa-solid fa-plus fa-2xl"></i></span> -->
         </button>
       </div>
+
+      <div class="mx-auto" style="width: 95%">
+        <button *ngIf="role != 'Responsable de maintenance'" (click)="predire(zoneDetails.id)"
+          class="text-xs my-4 flex justify-center items-center rounded-md bg-red-500 font-medium text-white py-2 px-4 mr-8"
+          style="border:1px solid #e7e7e7">
+          Prediction de la Consommation pour le prochain mois
+        </button>
+      </div>
+      
+      <div *ngIf="predictionValue" class="mx-auto" style="width: 95%">
+        <p class="text-sm font-medium">Valeur prédite : {{ predictionValue }}</p>
+      </div>
+      
 
     </div>
 

@@ -189,8 +189,9 @@ export class FloorService {
     return this.http.get<any>(this.baseurl + '/rapportByAlerte/'+ alerteId ,
       {headers: this.httpHeaders});
   }
-  addEquipement(equipement:{  nom: string,  etat: string, categorie: string, puissance: number, zoneE: number }) : Observable<any>{
-    const body = {  nom: equipement.nom,  etat: equipement.etat, categorie: equipement.categorie, puissance: equipement.puissance, zoneE: equipement.zoneE}
+ 
+  addEquipement(equipement:{  nom: string, type:string,minC:number,maxC:number, etat: string, categorie: string, puissance: number, zoneE: number }) : Observable<any>{
+    const body = {  nom: equipement.nom,type:equipement.type,minC:equipement.minC,maxC:equipement.maxC ,  etat: equipement.etat, categorie: equipement.categorie, puissance: equipement.puissance, zoneE: equipement.zoneE}
     console.log("body: ",body)
     return this.http.post(this.baseurl + '/equipement/', body,{headers: this.httpHeaders});
   }
@@ -780,7 +781,16 @@ getExcelData(): Observable<any> {
     predictConsumptionMois(data:any):Observable<any>{
       return this.http.post(this.baseurl + '/prediction_mois/',data,{headers: this.httpHeaders});
     }
+   
+    predictConsumptionLocal(data: any): Observable<any> {
+      console.log("hayaaaaaaaaaaaaaaaaaaaaaa ",data)
+      return this.http.post(this.baseurl + '/prediction_mois_local/', data, { headers: this.httpHeaders });
+    }
     
+    predictConsumptionEquipement(data:any):Observable<any>{
+      return this.http.post(this.baseurl + '/prediction_mois_equipement/',data,{headers: this.httpHeaders});
+    }
+
 
     
   }

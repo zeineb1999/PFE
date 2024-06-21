@@ -40,6 +40,7 @@ export class ZoneDetailsComponent implements OnInit {
   isLoggedIn: boolean;
   batiment: string = 'a';
   temperature: any;
+  presence:any;
   humidite: any;
   idBatiment:any;
   nomBatiment:any;
@@ -50,6 +51,7 @@ export class ZoneDetailsComponent implements OnInit {
   data: any[]=[];
   role:any;
   id:any;
+  predictionValue: any; 
   selectedReason: string = '';
   currentEquipement: Equipement = {
     id: 0,
@@ -256,6 +258,7 @@ formatValue(value: any) {
       (response: any) => {
         this.temperature = response.T.toFixed(1);
         this.humidite = response.H.toFixed(1);
+        this.presence = response.P;
 
       },
       (error: any) => {
@@ -364,7 +367,20 @@ formatValue(value: any) {
   
   }
   
-    
+  predire(zoneId: number): void {
+    const data = { zoneId: zoneId }; // Emballez zoneId dans un objet
+    this.floorService.predictConsumptionLocal(data).subscribe(
+      value => {
+        this.predictionValue = value.predicted_consumption;
+        console.log("la prediciton ",this.predictionValue) // Stocke la valeur retournée
+      },
+      error => {
+        console.error('Erreur lors de la prédiction:', error);
+        alert('Erreur lors de la prédiction: ' + JSON.stringify(error)); // Affichez l'erreur pour diagnostic
+      }
+    );
+  }
+  
  /*  filtrerEquipements() {
     this.equipementsFiltre = [];
     console.log("Filtre Type : ", this.typeFiltre, " - Categorie : ", this.categorieFiltre, " - Etat : ", this.etatFiltre);

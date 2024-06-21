@@ -11,7 +11,6 @@ interface Equipement {
     nom: string;
     etat: string;
     categorie: string;
-
     puissance: number;
     maxConsommation: number;
     minConsommation: number;
@@ -24,8 +23,10 @@ interface Equipement {
   styleUrls: ['./equipement-details.component.css']
 })
 export class EquipementDetailsComponent implements OnInit {
-
+  predictionValue: any; 
   equipementId!: number;
+  
+  nbrequipement:number = 5;
   equipementDetails: Equipement | undefined;
 
   isLoggedIn: boolean;
@@ -301,5 +302,17 @@ export class EquipementDetailsComponent implements OnInit {
   addTypeFilter(type: string) {
     this.typeFilter = type;
     this.loadAlertes()
+  }
+  predire(Id: number): void {
+    const data = { equipementId: Id }; // Emballez zoneId dans un objet
+    this.floorService.predictConsumptionEquipement(data).subscribe(
+      value => {
+        this.predictionValue = value.predicted_consumption; // Stocke la valeur retournée
+      },
+      error => {
+        console.error('Erreur lors de la prédiction:', error);
+        alert('Erreur lors de la prédiction: ' + JSON.stringify(error)); // Affichez l'erreur pour diagnostic
+      }
+    );
   }
 }

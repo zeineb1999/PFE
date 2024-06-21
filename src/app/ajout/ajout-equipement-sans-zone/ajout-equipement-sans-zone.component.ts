@@ -68,8 +68,8 @@ export class AjoutEquipementSansZoneComponent implements OnInit {
       categorie: this.categorie,
       type: this.type,
       puissance: this.puissance,
-      maxConsommation: this.maxConsommation,
-      minConsommation: this.minConsommation,
+      maxC: this.maxConsommation,
+      minC: this.minConsommation,
       zoneE: this.zoneId
     };
 

@@ -120,7 +120,10 @@ export class RapportDetailsComponent {
         etat: 'ON',
         categorie: this.equipementRemplacer[0].categorie,
         puissance: this.equipementRemplacer[0].puissance,
-        zoneE: this.equipement.zoneE
+        zoneE: this.equipementRemplacer[0].zoneE,
+        minC:this.equipementRemplacer[0].minC,
+        maxC:this.equipementRemplacer[0].maxC,
+        type:this.equipementRemplacer[0].type
       };
 
       console.log("equipementData: ",equipementData);

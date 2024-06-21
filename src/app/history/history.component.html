@@ -26,8 +26,8 @@
                   <th class="px-5 py-3">ID</th>
                   <th class="px-5 py-3">Batiment</th>
                   <th class="px-5 py-3">L'utilisateur</th>
-                  <th class="px-5 py-3">Created at</th>
-                  <th class="px-5 py-3">raison</th>
+                  <th class="px-5 py-3">Date</th>
+                  <th class="px-5 py-3">cause</th>
                   <th class="px-5 py-3">Action</th>
                 </tr>
               </thead>
@@ -60,7 +60,7 @@
                         'bg-red-200 text-red-900': item.option === 'desactiver'
                       }"
                       class="rounded-full px-3 py-1 text-xs font-semibold">
-                      {{ item.option }}
+                      {{ item.option === 'activer' ? 'activé' : (item.option === 'desactiver' ? 'désactivé' : item.option) }}
                     </span>
                   </td>
                 </tr>

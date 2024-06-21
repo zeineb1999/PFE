@@ -223,7 +223,17 @@
         </dl>
       </div>
     </div>
-
+    <div class="mx-auto" style="width: 95%">
+      <button  (click)="predire(equipementDetails.id)"
+        class="text-xs my-4 flex justify-center items-center rounded-md bg-red-500 font-medium text-white py-2 px-4 mr-8"
+        style="border:1px solid #e7e7e7">
+        Prediction de la Consommation pour le prochain mois
+      </button>
+    </div>
+    
+    <div *ngIf="predictionValue" class="mx-auto" style="width: 95%">
+      <p class="text-sm font-medium">Valeur prédite : {{ predictionValue }}</p>
+    </div>
   </div>
 
 

@@ -24,6 +24,15 @@ interface Zone {
   providers: [FloorService]
 })
 export class AjouterEquipementComponent implements OnInit {
+  selectedCategory: string = ''; // Propriété pour stocker la catégorie sélectionnée
+
+  categories = [
+    { label: 'Réfrigérateurs et Congélateurs', value: 'Réfrigérateurs et Congélateurs' },
+    { label: 'Equipements de bureaux', value: 'Equipements de bureaux' },
+    { label: 'Equipements médicaux', value: 'Equipements médicaux' },
+    { label: 'Equipements de cuisine', value: 'Equipements de cuisine' },
+    { label: 'Prises à usage personnel', value: 'Prises à usage personnel' }
+  ];
   zones: Zone[] = [];
   equipements: Equipement[] = [];
   selectedEquipements: any;
@@ -37,7 +46,7 @@ export class AjouterEquipementComponent implements OnInit {
   maxConsommation!: number;
   minConsommation!: number;
   zoneId!: number;
-
+  type!:string;
   zoneRoomId!: any;
   isLoggedIn: boolean;
   localName: string ='';
@@ -90,9 +99,13 @@ export class AjouterEquipementComponent implements OnInit {
       etat: 'OFF',
       categorie: this.categorie,
       puissance: this.puissance,
-     
-      zoneE: this.zoneRoomId
+      type:this.selectedCategory,
+
+      zoneE: this.zoneRoomId,
+      minC: this.minConsommation,
+      maxC: this.maxConsommation
     };
+    console.log('categorie',this.selectedCategory)
     console.log("equipementData: ",equipementData);
     this.floorService.addEquipement(equipementData).subscribe(
       (data: any) => {
