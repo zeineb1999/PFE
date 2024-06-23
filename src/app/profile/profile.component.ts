@@ -246,11 +246,13 @@ export class ProfileComponent implements OnInit {
     if(this.code==this.codeValide){
     this.authService.updateUserProfile(this.user.username, this.user.firstname, this.user.lastname,this.newEmail)
       .subscribe(response => {
-        this.floorService.setHistorique(this.user.id,this.user.firstname,this.newEmail,"changement d'email").subscribe(()=>{});
+        this.floorService.setHistorique(this.user.id,this.user.firstname,this.newEmail,"changement d'email").subscribe(()=>{
+          this.user.email =this.newEmail ;
+        });
     
       
        
-      window.location.reload();
+      //window.location.reload();
     });
     this.demandeCodeEmail = false;
     }

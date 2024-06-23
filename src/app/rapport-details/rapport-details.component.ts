@@ -22,20 +22,31 @@ export class RapportDetailsComponent {
   decisionValidated: boolean = false;
   approvation:boolean=false;
   selectedApp:any;
+  thisAlerte:any;
   constructor(private authService: AuthService,private route: ActivatedRoute, private router: Router, private floorService: FloorService) {this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true'; }
 
   ngOnInit() {
     this.roleUser=sessionStorage.getItem('role');
     this.alerteId = parseInt(this.route.snapshot.paramMap.get('alerteId') || '');
     console.log('alerteid: ', this.alerteId)
-
+    this.floorService.getAlerte(this.alerteId).subscribe(
+      ((alerte: any) =>{
+        this.thisAlerte = alerte})
+      );
     this.floorService.getRapportsByAlerteId(this.alerteId).subscribe((rapport: any) => {
       console.log('rapport: ', rapport)
       if (rapport && rapport.length > 0) {
         this.rapport = rapport[0]
+        let annee: number, mois: number;
+       
+        if (this.rapport.dateRapport) {
+            annee =parseInt(this.rapport.dateRapport.split('T')[0].split('-')[0])
+            mois = parseInt(this.rapport.dateRapport.split('T')[0].split('-')[1])
+            this.rapport.dateRapport = annee+'/'+ mois + '/' + this.rapport.dateRapport.split('T')[0].split('-')[2] + ' '+ this.rapport.dateRapport.split('T')[1].split(':')[0] + ':'+this.rapport.dateRapport.split('T')[1].split(':')[1]
+        };
         console.log('rapport: ', rapport)
         if(this.rapport){
-          this.floorService.getEquipementDetails(this.rapport.equipement).subscribe((equipement: any) => {
+          this.floorService.getEquipementDetails(this.thisAlerte.equipementId).subscribe((equipement: any) => {
             this.equipement = equipement
             console.log('ee', equipement)
           })

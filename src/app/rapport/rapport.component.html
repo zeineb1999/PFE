@@ -38,9 +38,9 @@
                     Alertes d'humidité
                   </button>
                   <button class="rounded-full bg-gray-100 py-1 px-2 mr-2 font-medium shadow-none focus-shadow-md"
-                    style="font-size: 10px;" (click)="addTypeFilter('surconsommation')" [ngStyle]="{
-                                'color': typeFilter=='surconsommation' ? 'white' : '' ,
-                                'background-image': typeFilter=='surconsommation' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%)' :'none'
+                    style="font-size: 10px;" (click)="addTypeFilter('consommation')" [ngStyle]="{
+                                'color': typeFilter=='consommation' ? 'white' : '' ,
+                                'background-image': typeFilter=='consommation' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%)' :'none'
                               }">
                     Alertes de surconsommation
                   </button>
@@ -159,8 +159,7 @@
                 </tr>
               </thead>
               <tbody class="bg-white">
-                <span *ngIf="alertes.length === 0">Aucune alerte pour cet quipement.</span>
-                <tr *ngFor="let alerte of alertes" class="w-full" style="border-bottom: 1px solid #f3f4f6"
+                 <tr *ngFor="let alerte of alertes" class="w-full" style="border-bottom: 1px solid #f3f4f6"
                 [ngStyle]="{'background-color': 'alerte.vu' ? 'white' : 'gray'}">
 
                   <td class=" py-4 text-sm font-medium text-gray-700">
@@ -170,7 +169,7 @@
                     </div>
                   </td>
                   <td class=" py-4 text-sm font-medium text-gray-700" [ngStyle]="{
-                                'color': alerte.type === 'temperature' ? 'red' : (alerte.type === 'humidite' || alerte.type === 'humidite' ? 'blue' : (alerte.type === 'surconsommation' ? 'orange' : '' ))
+                                'color': alerte.type === 'temperature' ? 'red' : (alerte.type === 'humidite' || alerte.type === 'humidite' ? 'blue' : (alerte.type === 'consommation' ? 'orange' : '' ))
                               }">
                     <div class="inline-flex items-center gap-x-3">
                       <!-- <input type="checkbox" class="text-blue-500 border-gray-300 rounded cursor-pointer"> -->
@@ -183,7 +182,7 @@
                       <span>{{alerte.valeur.toFixed(1)}}</span>
                       <span *ngIf="alerte.type=='temperature'">°C</span>
                       <span *ngIf="alerte.type=='humidite'">%</span>
-                      <span *ngIf="alerte.type=='surconsommation'">kWh</span>
+                      <span *ngIf="alerte.type=='consommation'">kWh</span>
 
                     </div>
                   </td>
@@ -218,7 +217,7 @@
                     </span>
                   </td>
                 </tr>
-
+                  
               </tbody>
             </table>
             <div class="w-full text-center p-10 font-medium text-lg text-gray-500" *ngIf="alertes.length == 0">

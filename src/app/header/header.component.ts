@@ -175,6 +175,13 @@ export class HeaderComponent implements OnInit {
         (data) => {
           console.log('cas maintenance : ')
           this.alertes = data;
+          let annee: number, mois: number;
+          this.alertes.forEach((alerte: any) => {
+          if (alerte.dateAlerte) {
+            annee =parseInt(alerte.dateAlerte.split('T')[0].split('-')[0])
+            mois = parseInt(alerte.dateAlerte.split('T')[0].split('-')[1])
+            alerte.dateAlerte = annee+'/'+ mois + '/' + alerte.dateAlerte.split('T')[0].split('-')[2] + ' '+ alerte.dateAlerte.split('T')[1].split(':')[0] + ':'+alerte.dateAlerte.split('T')[1].split(':')[1]
+          }});
           console.log("les alertes ----------------",this.alertes)
           let cpt = 0
           data.forEach((alerte: any) => {
@@ -199,6 +206,13 @@ export class HeaderComponent implements OnInit {
         console.log('cas contraire : ')
         console.log('alertes : ', alertes)
         this.alertes = alertes;
+        let annee: number, mois: number;
+          this.alertes.forEach((alerte: any) => {
+          if (alerte.dateAlerte) {
+            annee =parseInt(alerte.dateAlerte.split('T')[0].split('-')[0])
+            mois = parseInt(alerte.dateAlerte.split('T')[0].split('-')[1])
+            alerte.dateAlerte = annee+'/'+ mois + '/' + alerte.dateAlerte.split('T')[0].split('-')[2] + ' '+ alerte.dateAlerte.split('T')[1].split(':')[0] + ':'+alerte.dateAlerte.split('T')[1].split(':')[1]
+          }});
         let cpt = 0
           alertes.forEach((alerte: any) => {
             if (alerte.vu == false) {
@@ -223,18 +237,9 @@ export class HeaderComponent implements OnInit {
             const{id} = message.message;
             this.AlerteId = id;
             console.log('id ----------->', id)
-            const { text, localId, type } = message.message; // Récupérez les propriétés nécessaires du message
-            
-            this.floorService.getZoneDetails(localId).subscribe(
-              (message) =>{
-                const name = message.nomLocal
-                
-
-              //this.AlerteMessage = `Alerte de ${type} au Local ${localId} ${name}\n  `;
-              this.AlerteMessage = `vous avez une alerte de ${type} au Local ${localId}:\n ${text} `;
-              console.log("zmerrrrrrrrrrrrr",this.AlerteMessage)
-                }
-            )
+            const { text, equipementId, type } = message.message; // Récupérez les propriétés nécessaires du message
+            this.AlerteMessage = `alerte de ${type} a l'equipement ${equipementId}:\n ${text} `;
+           
             this.alertes.push(message.message);
             this.nbAlertes++;
       
@@ -264,7 +269,7 @@ export class HeaderComponent implements OnInit {
             this.AlerteId = id;
             console.log('id ----------->', id)
             const { text, localId, type } = messageUser.message; // Récupérez les propriétés nécessaires du message
-            this.AlerteMessageUser = ` alerte pour faire un rapport`;
+            this.AlerteMessageUser = ` alerte `;
             this.alertes.push(messageUser.message);
             this.nbAlertes++;
             console.log('rrrrrrrrrr ', this.AlerteMessageUser)
@@ -284,6 +289,13 @@ export class HeaderComponent implements OnInit {
     this.floorService.getAlertesSansId().subscribe(
     (data) => {
       this.alertes = data;
+      let annee: number, mois: number;
+          this.alertes.forEach((alerte: any) => {
+          if (alerte.dateAlerte) {
+            annee =parseInt(alerte.dateAlerte.split('T')[0].split('-')[0])
+            mois = parseInt(alerte.dateAlerte.split('T')[0].split('-')[1])
+            alerte.dateAlerte = annee+'/'+ mois + '/' + alerte.dateAlerte.split('T')[0].split('-')[2] + ' '+ alerte.dateAlerte.split('T')[1].split(':')[0] + ':'+alerte.dateAlerte.split('T')[1].split(':')[1]
+          }});
       let cpt = 0
       data.forEach((alerte: any) => {
         if (alerte.vu == false) {

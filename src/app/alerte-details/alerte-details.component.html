@@ -8,6 +8,18 @@
     <div class="flow-root">
       <dl class="-my-3 divide-y divide-gray-100 text-sm">
         <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+          <dt class="font-medium text-gray-900">Equipement endommagé</dt>
+          <dd class="font-medium text-gray-700 sm:col-span-2">
+            <a [routerLink]="'/equipement-details/'+ equipement.id" *ngIf="equipement" class="text-blue-700 hover:underline">
+              equipement n° {{this.equipement.id}} : {{this.equipement.nom}}
+            </a>
+          </dd>
+        </div>
+        <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+          <dt class="font-medium text-gray-900">Date </dt>
+          <dd class="font-medium text-gray-700 sm:col-span-2">{{ this.thisAlerte.dateAlerte }}</dd>
+        </div>
+        <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
           <dt class="font-medium text-gray-900">{{'alerte.title1' | translate }}</dt>
           <dd class="font-medium text-gray-700 sm:col-span-2">{{ this.thisAlerte.id }}</dd>
         </div>
@@ -55,7 +67,7 @@
     <div *ngIf="!(this.roleUser=='Responsable de maintenance')">
 
       <br><br>
-      <form *ngIf="thisAlerte.type=='temperature' || thisAlerte.type=='humidite' ||thisAlerte.type=='surConsommation' ">
+      <form >
         <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 ">{{'alerte.title4' | translate }}
           </label>
         <select id="Rid" [(ngModel)]="Rid" name="Rid"

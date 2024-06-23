@@ -70,7 +70,7 @@ export class AppComponent implements OnInit{
     })
   }
   showSideBar(url: string): boolean {
-    if (url.includes('forgetPassword') || url.includes('signup') || url.includes('accueil') || url=='/')
+    if (url.includes('forgetPassword') || url.includes('signup') || url.includes('accueil') ||url.includes('changerPassword') || url=='/')
       return false
     return true
 

@@ -26,8 +26,8 @@
           <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
             <div class="flex items-center justify-between">
               <div>
-                <dt class="font-medium text-gray-900">Alerte concernée</dt>
-                <dd class="font-medium text-gray-700 sm:col-span-2">{{ rapport.alerte }}</dd>
+                <dt class="font-medium text-gray-900">Alerte  N° {{ rapport.alerte }}</dt>
+                
               </div>
               <div *ngIf="rapport.approuve === 'false'" class="ml-8">
                 <img src="../../assets/delete.png" alt="Non approuvé" class="w-4 h-4">
@@ -37,7 +37,20 @@
               </div>
             </div>
           </div>
-
+          <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+            <dt class="font-medium text-gray-900">Equipement </dt>
+            <dd class="font-medium text-gray-700 sm:col-span-2">
+              <a [routerLink]="'/equipement-details/'+ equipement.id" *ngIf="equipement" class="text-blue-700 hover:underline">
+                equipement n° {{this.equipement.id}} : {{this.equipement.nom}}
+              </a>
+            </dd>
+          </div>
+          <div *ngIf="rapport.dateRapport"  class="py-3">
+            <dt class="font-medium text-gray-900">Date du rapport</dt>
+            <li class="px-10 py-2 font-medium text-gray-700">
+              {{rapport.dateRapport}}
+            </li>
+          </div>
           <div class="py-3">
             <dt class="font-medium text-gray-900">Causes de l'alerte</dt>
             <li *ngFor="let cause of rapport.causes.split('|')" class="px-10 py-2 font-medium text-gray-700">
@@ -59,14 +72,7 @@
             </li>
           </div>
 
-          <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
-            <dt class="font-medium text-gray-900">Equipement endommagé</dt>
-            <dd class="font-medium text-gray-700 sm:col-span-2">
-              <a [routerLink]="'/equipement-details/'+ equipement.id" *ngIf="equipement" class="text-blue-700 hover:underline">
-                equipement n° {{this.equipement.id}} : {{this.equipement.nom}}
-              </a>
-            </dd>
-          </div>
+         
                 <div class="py-3">
             <dt class="font-medium text-gray-900">Materiel nécessaire pour la maintenance</dt>
 

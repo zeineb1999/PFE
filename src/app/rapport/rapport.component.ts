@@ -49,7 +49,7 @@ export class RapportComponent implements OnInit {
             if (alerte.dateAlerte) {
               annee =parseInt(alerte.dateAlerte.split('T')[0].split('-')[0])
               mois = parseInt(alerte.dateAlerte.split('T')[0].split('-')[1])
-              alerte.dateAlerte = annee+'/'+ mois + '/' + alerte.dateAlerte.split('T')[0].split('-')[0] + ' '+ alerte.dateAlerte.split('T')[1].split(':')[0] + ':'+alerte.dateAlerte.split('T')[1].split(':')[1]
+              alerte.dateAlerte = annee+'/'+ mois + '/' + alerte.dateAlerte.split('T')[0].split('-')[2] + ' '+ alerte.dateAlerte.split('T')[1].split(':')[0] + ':'+alerte.dateAlerte.split('T')[1].split(':')[1]
             }
             console.log(annee, ' = ', new Date().getFullYear(), '  ', mois , '=', new Date().getMonth()+1)
 

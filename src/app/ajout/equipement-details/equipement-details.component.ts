@@ -37,6 +37,7 @@ export class EquipementDetailsComponent implements OnInit {
   rapports: any[] = [];
   alertes: any[] = [];
   typeFilter: string = '';
+  etatPeriode:any;
   constructor(private route: ActivatedRoute, private router: Router, private authService: AuthService, private floorService: FloorService) {  this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true'; }
 
   ngOnInit(): void {
@@ -46,9 +47,36 @@ export class EquipementDetailsComponent implements OnInit {
   }
 
   loadDetails (){
+    const maDate = new Date();
+    const annee = maDate.getUTCFullYear();
+    const mois = String(maDate.getUTCMonth() + 1).padStart(2, '0');
+    const jour = String(maDate.getUTCDate()).padStart(2, '0');
+    let heures=''
+    if (maDate.getUTCHours() < 23) {
+    heures = String(maDate.getUTCHours()+1).padStart(2, '0');
+    } else {
+    heures = '00'.padStart(2, '0');
+    }
+
+    const minutes = String(maDate.getUTCMinutes()).padStart(2, '0');
+    const secondes = String(maDate.getUTCSeconds()).padStart(2, '0');
+    const millisecondes = String(maDate.getUTCMilliseconds()).padStart(3, '0');
+
+    const dateFormatee = `${annee}-${mois}-${jour} ${heures}:${minutes}:${secondes}`;
+  
     // Récupérer le paramètre zoneId de l'URL
     this.equipementId = parseInt(this.route.snapshot.paramMap.get('equipementId') || '');
+    this.floorService.getPeriodeParEquipement(this.equipementId, dateFormatee).subscribe((periode: any) => {
+      //console.log('quipement:', equipement.nom, ' periode: ', periode)
+      if (periode.length>0) {
+        this.etatPeriode = 'ON'
+      } else {
+        this.etatPeriode = 'OFF'
+        //console.log("************************",equipement.etat, 'this.etatFiltre', this.etatFiltre)
 
+      }
+      //console.log("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM***************", equipement)
+    })
     // Appeler le service pour récupérer les détails de la zone
     this.floorService.getEquipementDetails(this.equipementId).subscribe(
       (data: Equipement) => {
@@ -63,29 +91,25 @@ export class EquipementDetailsComponent implements OnInit {
   loadAlertes() {
     this.alertes = []
     this.equipementId = parseInt(this.route.snapshot.paramMap.get('equipementId') || '');
+    this.floorService.getAlertesByEquipementId(this.equipementId).subscribe(Response => {
+      this.alertes=Response;
+       Response.forEach((alerte: any) => {
 
-    this.floorService.getRapportsByEquipementId(this.equipementId).subscribe(Response => {
-      this.rapports = Response;
-      console.log('--------------------------------rapports', this.rapports)
-      Response.forEach((rapport: any) => {
-        this.floorService.getAlerte(rapport.alerte).subscribe((alerte: any) => {
-          console.log('cond: ', (alerte.type == this.typeFilter || this.typeFilter == ''),'al: ', alerte.type,'f ',  this.typeFilter)
-          if (alerte.type == this.typeFilter || this.typeFilter == '') {
             alerte.dateAlerte = alerte.dateAlerte.split('T')[0].split('-')[2]+'/'+ alerte.dateAlerte.split('T')[0].split('-')[1] + '/' + alerte.dateAlerte.split('T')[0].split('-')[0] + ' '+ alerte.dateAlerte.split('T')[1].split(':')[0] + ':'+alerte.dateAlerte.split('T')[1].split(':')[1]
             console.log(alerte)
 
             this.authService.getAllusers().subscribe((users: any[]) => {
               console.log(users)
               alerte.user = users.find(user => user.id === alerte.userID);
+              console.log("hereeeeeeeeeee",alerte.user)
             })
 
             this.floorService.getRapportsByAlerteId(alerte.id).subscribe((rapports: any[]) => {
-              alerte.rapport = rapport;
+              alerte.rapport = rapports;
               console.log('alerte; ',alerte)
-              this.alertes.push(alerte)
+              //this.alertes.push(alerte)
             })
-          }
-        })
+        
       });
     })
 

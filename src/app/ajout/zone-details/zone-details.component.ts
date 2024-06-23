@@ -4,6 +4,7 @@ import { FloorService } from 'src/app/service/floor.service';
 import { switchMap } from 'rxjs/operators';
 import * as Highcharts from 'highcharts';
 import { NgxGaugeType } from 'ngx-gauge/gauge/gauge';
+import { NONE_TYPE } from '@angular/compiler';
 
 interface Zone {
   id: number;
@@ -31,7 +32,12 @@ interface Equipement {
 
 export class ZoneDetailsComponent implements OnInit {
   zoneId!: number;
+  modifierParametres:boolean=false;
   lastDateActiver!:string;
+  maxHNew: number | undefined;
+  minHNew: number | undefined;
+  minTNew: number | undefined;
+  maxTNew: number | undefined;
   zoneDetails: any | undefined;
   equipements: Equipement[] = [];
   equipementsLocals: any[]  = ['rien'];
@@ -504,6 +510,48 @@ formatValue(value: any) {
       // Mettre à jour les données après la suppression
       this.loadDetails();
     });
+  }
+  modifierTH(){
+    this.modifierParametres=true;
+
+  }
+  confirmerModifier(){
+    if(this.minTNew){this.zoneDetails.minT=this.minTNew;
+      console.log("k1",this.minTNew)
+      this.floorService.modifierValeurs1(this.zoneDetails.id,this.minTNew).subscribe({
+
+      })
+    }
+    if(this.maxTNew){this.zoneDetails.maxT=this.maxTNew;
+      console.log("k2",this.maxTNew)
+      this.floorService.modifierValeurs2(this.zoneDetails.id,this.maxTNew).subscribe({
+        
+      })
+    }
+    if(this.maxHNew){this.zoneDetails.maxH=this.maxHNew;
+      console.log("k3",this.maxHNew)
+      this.floorService.modifierValeurs3(this.zoneDetails.id,this.maxHNew).subscribe({
+        
+      })
+    }
+    if(this.minHNew){this.zoneDetails.minH=this.minHNew;
+      console.log("k4",this.minHNew)
+      this.floorService.modifierValeurs4(this.zoneDetails.id,this.minHNew).subscribe({
+        
+      })
+    }
+  
+   
+    this.modifierParametres=false;
+  }
+  annulerModifier(){
+    this.modifierParametres=false;
+    this.maxHNew = undefined;
+    this.minHNew = undefined;
+    this.minTNew = undefined;
+    this.maxTNew = undefined;
+
+
   }
   toggleEquipement(): void {
     this.equipementActif = !this.equipementActif;

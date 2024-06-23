@@ -134,7 +134,7 @@
                             
                             <div class="ml-4" 
                               style="display: flex;flex-direction: column;align-items: normal;height: unset;">
-                              <span style="font-size: smaller; margin-bottom: 30%;display: flex;justify-content: end;">12:30</span>
+                              <span style="font-size: smaller; margin-bottom: 30%;display: flex;justify-content: end;">{{alerte.dateAlerte}}</span>
                              <!--  <span style="color: #c5215b; font-size: larger;">{{alerte.text}}</span> -->
                               <span style="color: #c5215b; font-size: larger;">{{alerte.type}} </span>
                               <span style="color: #c5215b; font-size: larger;">{{alerte.valeur}} </span>
@@ -150,7 +150,7 @@
                             {{alerte.text}}
                             <div class="ml-4"
                               style="display: flex;flex-direction: column;align-items: normal;height: unset;">
-                              <span style="font-size: smaller; margin-bottom: 30%;display: flex;justify-content: end;">12:30</span>
+                              <span style="font-size: smaller; margin-bottom: 30%;display: flex;justify-content: end;">{{alerte.dateAlerte}}</span>
                               <!-- <span style="color: #c5215b; font-size: larger;">{{alerte.text}} </span> -->
                               <span style="color: #c5215b; font-size: larger;">{{alerte.type}} </span>
                               <span style="color: #c5215b; font-size: larger;">{{alerte.valeur}} </span>
@@ -196,8 +196,8 @@
                   <div  *ngIf='rapport' class="w-full">
                     <a href="/rapport-details/{{rap.alerte}}" *ngFor="let rap of rapport" class="" role="menuitem">
                       <div *ngIf="rap.approuve" class="bg-white block px-4 py-4 text-sm text-[#18577ac9] hover:bg-[#18577a24] hover:text-[#18577a] border border-b-[#18577a24] flex justify-between items-start">
-                       <span *ngIf="rap.approuve==='false'"> vous avez désaprouver le rapport N {{rap.id}} </span>
-                       <span *ngIf="rap.approuve==='true'"> vous avez approuver le rapport N {{rap.id}} </span>
+                       <span *ngIf="rap.approuve==='false'">  désaprouver le rapport N {{rap.id}} </span>
+                       <span *ngIf="rap.approuve==='true'">  approuver le rapport N {{rap.id}} </span>
                        
                       
                         
@@ -209,7 +209,7 @@
                 
                       </div>
                       <div *ngIf="!rap.approuve" class=" bg-[#18577a17] block px-4 py-4 text-sm text-[#18577ac9] hover:bg-[#18577a24] hover:text-[#18577a] border border-transparent border-b-[#18577a24] flex justify-between items-start">
-                        vous devez consuler le rapport N {{rap.id}} pour approbation
+                       consuler le rapport N {{rap.id}} pour approbation !
                         <div class="ml-4"
                           style="display: flex;flex-direction: column;align-items: normal;height: unset;">
                                   </div>

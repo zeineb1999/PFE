@@ -37,7 +37,7 @@ export class ForgetPassComponent implements OnInit {
           if (this.code && this.email) {
             sessionStorage.setItem('verificationCode', this.code.toString());
             sessionStorage.setItem('verificationEmail', this.email.toString());
-          
+            this.router.navigate(['/']);
           }
           this.successMessage = ''; // Effacer le message après quelques secondes
         }, 1000); // 3000 millisecondes = 3 secondes

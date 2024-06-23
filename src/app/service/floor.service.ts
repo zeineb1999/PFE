@@ -253,6 +253,10 @@ getRapportsByEquipementId(equipementId: number): Observable<any> {
   return this.http.get<any>(this.baseurl + '/rapportByEquipement/'+ equipementId ,
     {headers: this.httpHeaders});
 }
+getAlertesByEquipementId(equipementId: number): Observable<any> {
+  return this.http.get<any>(this.baseurl + '/alertesByEquipement/'+ equipementId ,
+    {headers: this.httpHeaders});
+}
 getEtagesByBatiments(batimentId: any): Observable<any> {
   return this.http.get<any>(this.baseurl + '/batiment/'+ batimentId+'/etages/' ,
     {headers: this.httpHeaders});
@@ -334,6 +338,31 @@ modifierZone(zoneId: number, zoneData:  Zone) : Observable<any> {
     .pipe(
       catchError(this.handleError)
     );
+}
+modifierValeurs1(zoneId: number, val1:number) : Observable<any> {
+    const body = {  zoneId:zoneId,val1:val1 }
+    console.log("body: ",body)
+    return this.http.post(this.baseurl + '/modifierParam1/', body,{headers: this.httpHeaders});
+
+  
+}
+modifierValeurs2(zoneId: number, val2:number) : Observable<any> {
+  const body = {  zoneId:zoneId,val2:val2 }
+    console.log("body: ",body)
+    return this.http.post(this.baseurl + '/modifierParam2/', body,{headers: this.httpHeaders});
+
+}
+modifierValeurs3(zoneId: number, val3:number) : Observable<any> {
+  const body = {  zoneId:zoneId,val3:val3 }
+    console.log("body: ",body)
+    return this.http.post(this.baseurl + '/modifierParam3/', body,{headers: this.httpHeaders});
+
+}
+modifierValeurs4(zoneId: number, val4:number) : Observable<any> {
+  const body = {  zoneId:zoneId,val4:val4 }
+    console.log("body: ",body)
+    return this.http.post(this.baseurl + '/modifierParam4/', body,{headers: this.httpHeaders});
+
 }
 
 getZoneAModifier(zoneId: number): Observable<Zone> {

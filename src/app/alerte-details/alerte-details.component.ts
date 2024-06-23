@@ -33,7 +33,7 @@ export class AlerteDetailsComponent {
   responsables_maintenance : any[] = []
   thisAlerte : any;
   Rid: number = 0;
-
+  equipement:any;
   utilisateurs: any[] = [];
   usersStock:any;
   userRole: any;
@@ -73,10 +73,19 @@ export class AlerteDetailsComponent {
         this.thisAlerte = alerte
         console.log('*********************************   alerte iciiiiii: ', alerte)
         this.thisAlerte.vu = true
-
+        let annee: number, mois: number;
+        if (this.thisAlerte.dateAlerte) {
+          annee =parseInt(alerte.dateAlerte.split('T')[0].split('-')[0])
+          mois = parseInt(alerte.dateAlerte.split('T')[0].split('-')[1])
+          this.thisAlerte.dateAlerte = annee+'/'+ mois + '/' + alerte.dateAlerte.split('T')[0].split('-')[2] + ' '+ alerte.dateAlerte.split('T')[1].split(':')[0] + ':'+alerte.dateAlerte.split('T')[1].split(':')[1]
+        };
         this.floorService.getRapportsByAlerteId(this.thisAlerte.id).subscribe((rapports: any) => {
           this.rapport = rapports
           console.log('rap: ', rapports)
+        })
+        this.floorService.getEquipementDetails(this.thisAlerte.equipementId).subscribe((equipement: any) => {
+          this.equipement = equipement
+          console.log('ee', equipement)
         })
         
         this.floorService.getZoneDetails(this.thisAlerte.localId).subscribe((thisLocal: any) => {

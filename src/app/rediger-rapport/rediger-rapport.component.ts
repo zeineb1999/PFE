@@ -89,7 +89,7 @@ export class RedigerRapportComponent {
   equipementsM: EquipementNecessite[] = [{equipement: '', necessite:''}]
   nbEquipements: any;
   equipementsLocal: any;
-  equipementSelect: any;
+  //equipementSelect: any;
   autre: string='';
   userID: number = 0;
   constructor(private authService: AuthService,private route: ActivatedRoute, private router: Router, private floorService: FloorService, private renderer: Renderer2, private el: ElementRef) {this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
@@ -222,8 +222,8 @@ export class RedigerRapportComponent {
     });
     let now=new Date();
     console.log('now: ', now)
-    console.log('equipe',this.equipementSelect)  
-    this.floorService.addRapport(this.thisAlerte.id, this.userID, saveCauses, saveSolutions, saveRisques, saveEquipements, saveNecessite,this.equipementSelect,now).subscribe((rapport: any) => {
+    console.log('equipe',this.thisAlerte.equipementId)  
+    this.floorService.addRapport(this.thisAlerte.id, this.userID, saveCauses, saveSolutions, saveRisques, saveEquipements, saveNecessite,this.thisAlerte.equipementId,now).subscribe((rapport: any) => {
       console.log('rapport enregistré: ', rapport)
       this.router.navigate(['/rapport']);
     })
