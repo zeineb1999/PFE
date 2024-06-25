@@ -1,10 +1,20 @@
 <div *ngIf="page!='dashboard2'">
   
-  <div *ngIf="rapport" class="bg-[#ebf2ff] min-h-screen py-4" >
+  <div *ngIf="rapport" class="bg-[#ebf2ff] min-h-screen py-4" style="padding-top: 7%;">
 
 
-    <div class="w-full flex justify-start text-2xl font-medium text-gray-700 mx-8  mb-6">
+    <div class="w-full flex justify-start align-center text-2xl font-medium text-gray-700 mx-8  mb-6">
       Rapport N° {{rapport.id}}
+      <div *ngIf="rapport.approuve === 'false'" class="ml-8 flex" style="
+      align-items: center;">
+        <img src="../../assets/delete.png" alt="Non approuvé" class="w-4 h-4 mr-2">
+        <span class="text-sm" style="color:#e63c32">Désapprouvé</span>
+      </div>
+      <div *ngIf="rapport.approuve === 'true'" class="ml-8 flex" style="
+      align-items: center;">
+        <img src="../../assets/check.png" alt="Approuvé" class="w-4 h-4 mr-2">
+        <span class="text-sm" style="color: #00ba00;">Approuvé</span>
+      </div>
     </div>
 
     <div class="bg-white shadow-md rounded-lg mx-auto overflow-y-auto custom-scrollbar my-4 p-8"
@@ -29,12 +39,7 @@
                 <dt class="font-medium text-gray-900">Alerte  N° {{ rapport.alerte }}</dt>
                 
               </div>
-              <div *ngIf="rapport.approuve === 'false'" class="ml-8">
-                <img src="../../assets/delete.png" alt="Non approuvé" class="w-4 h-4">
-              </div>
-              <div *ngIf="rapport.approuve === 'true'" class="ml-8">
-                <img src="../../assets/check.png" alt="Approuvé" class="w-4 h-4">
-              </div>
+              
             </div>
           </div>
           <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
@@ -90,10 +95,11 @@
 
 
         </dl>
+        
         <div *ngIf="rapport.decision">
           <dt *ngIf="rapport.decision==='remplacer' && equipementRemplacer" class="font-medium text-gray-900">Remplacer par l'equipement {{equipementRemplacer[0].nom}}</dt> 
       
-          <dt *ngIf="rapport.decision!='remplacer'" class="font-medium text-gray-900">Decision prise {{rapport.decision}}</dt>
+          <dt *ngIf="rapport.decision!='remplacer'" class="font-medium text-gray-900">Decision prise {{rapport.decision}} avec un cout de {{rapport.cout}}</dt>
           
       </div>
 

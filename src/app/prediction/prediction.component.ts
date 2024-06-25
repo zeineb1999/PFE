@@ -15,7 +15,7 @@ export class PredictionComponent implements OnInit {
   boolZone: boolean = false;
   prediction: any;
   initialData: any[] = [];
-
+  loading: boolean = false;
   constructor(private route: ActivatedRoute, private router: Router, private floorService: FloorService) {}
 
   ngOnInit(): void {
@@ -24,13 +24,14 @@ export class PredictionComponent implements OnInit {
   }
 
   updatePredictions(nbrmois: number): void {
+   
     const months: [number, number][] = this.getMonthsArray(nbrmois);
     this.loadPredictions(...months).then(predictions => {
       this.initialData = [
         { name: 'critique', data: predictions.map(p => p.predicted_consumption) },
         { name: 'non critique', data: predictions.map(p => p.predicted_consumption2) },
         { name: 'tous', data: predictions.map(p => (p.predicted_consumption + p.predicted_consumption2)) }
-      ];
+      ]; this.loading = true;
       this.renderChart(this.initialData, nbrmois);
     });
   }

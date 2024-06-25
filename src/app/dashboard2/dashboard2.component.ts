@@ -102,7 +102,8 @@
         if (this.equipementsSubscription) {
           this.equipementsSubscription.unsubscribe();
         }
-        this.floorService.stopDjangoMethod();
+       
+        //this.floorService.stopDjangoMethod();
         if (this.intervalId) {
           clearInterval(this.intervalId);
         }

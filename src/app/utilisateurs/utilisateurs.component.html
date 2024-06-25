@@ -5,7 +5,7 @@
       <div class="bg-[#ebf2ff] min-h-screen pb-6">
 
         <div class="w-full flex justify-start text-2xl font-medium text-gray-700 mx-8 mt-4 mb-6">
-          Gérer les utilisateurs
+          {{'utilisateur.title1' | translate}}
         </div>
 
         <div class="m-10 grid gap-5 sm:grid-cols-3 mx-auto max-w-screen-lg flex justify-between" style="width: 95%">
@@ -30,7 +30,7 @@
               fill="currentColor">
               <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
             </svg>
-            <div class="mt-4 font-medium">Users</div>
+            <div class="mt-4 font-medium">{{'utilisateur.title2' | translate}}</div>
             <div class="mt-2 text-xl font-medium">
               {{utilisateurs.length}}
             </div>
@@ -45,10 +45,10 @@
                 <thead>
                   <tr class="bg-blue-600 text-left text-xs font-semibold uppercase tracking-widest text-white">
                     <th class="px-5 py-3">ID</th>
-                    <th class="px-5 py-3">Full Name</th>
-                    <th class="px-5 py-3">User Role</th>
+                    <th class="px-5 py-3">{{'utilisateur.title3' | translate}}</th>
+                    <th class="px-5 py-3">{{'utilisateur.title4' | translate}}</th>
                     <th class="px-5 py-3">Email</th>
-                    <th class="px-5 py-3">Status</th>
+                    <th class="px-5 py-3">{{'utilisateur.title5' | translate}}</th>
                   </tr>
                 </thead>
                 <tbody class="text-gray-500">
@@ -86,7 +86,7 @@
           </div>
           <div class="bg-gray-200 rounded-br-md rounded-bl-md flex justify-end">
             <button *ngIf="role != 'admin'" class="bg-[#2563eb] hover:bg-blue-800 text-white font-bold py-2 px-4 rounded my-2 mx-8" (click)="addUser()">
-            Ajouter utilisateur
+              {{'utilisateur.ajout' | translate}}
             </button>
           </div>
         </div>

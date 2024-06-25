@@ -94,7 +94,7 @@
         <a href="#" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700" routerLink="/rapport" [ngStyle]="{
             'color': getCurrentPage()=='rapport' || getCurrentSection()=='#rapport' ? 'white' : '' ,
             'background-image':getCurrentPage()=='rapport' || getCurrentSection()=='rapport' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, #1e7ee2 91.7%)' :'none'
-          }">Rapports /Alertes 
+          }">  {{'side.rapport' | translate}}
 
         </a>
       </li>
@@ -102,7 +102,7 @@
         <a href="#" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700" routerLink="/predection" [ngStyle]="{
             'color': getCurrentPage()=='predection' || getCurrentSection()=='#predection' ? 'white' : '' ,
             'background-image':getCurrentPage()=='predection' || getCurrentSection()=='predection' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, #1e7ee2 91.7%)' :'none'
-          }">Prédiction
+          }">  {{'side.prediction' | translate}}
 
         </a>
       </li>
@@ -110,7 +110,7 @@
         <a href="#" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700" routerLink="/history" [ngStyle]="{
             'color': getCurrentPage()=='history' || getCurrentSection()=='#history' ? 'white' : '' ,
             'background-image':getCurrentPage()=='history' || getCurrentSection()=='history' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, #1e7ee2 91.7%)' :'none'
-          }">Historique
+          }">  {{'side.historique' | translate}}
 
         </a>
       </li>
@@ -118,7 +118,7 @@
         <a href="#" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700" routerLink="/utilisateurs" [ngStyle]="{
             'color': getCurrentPage()=='utilisateurs' || getCurrentSection()=='#utilisateurs' ? 'white' : '' ,
             'background-image':getCurrentPage()=='utilisateurs' || getCurrentSection()=='utilisateurs' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, #1e7ee2 91.7%)' :'none'
-          }">Utilisateurs
+          }">{{'utilisateur.title2' | translate}}
         </a>
       </li>
 
@@ -190,7 +190,7 @@
           <summary
             class="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
           >
-            <span class="text-sm font-medium"> Account </span>
+            <span class="text-sm font-medium"> {{'side.compte' | translate}} </span>
 
             <span class="shrink-0 transition duration-300 group-open:-rotate-180">
               <svg
@@ -215,7 +215,7 @@
               <a href="#" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700" routerLink="/profile" [ngStyle]="{
                   'color': getCurrentPage()=='profile' || getCurrentSection()=='#profile' ? 'white' : '' ,
                   'background-image':getCurrentPage()=='profile' || getCurrentSection()=='profile' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, #1e7ee2 91.7%)' :'none'
-                }" >Details
+                }" >{{'side.details' | translate}}
               </a>
             </li>
 
@@ -228,7 +228,7 @@
                   type="submit"
                   class="w-full rounded-lg px-4 py-2 text-sm font-medium text-gray-500 [text-align:_inherit] hover:bg-gray-100 hover:text-gray-700"
                 >
-                  Logout
+                {{'side.logout' | translate}}
                 </button>
               </form>
             </li>

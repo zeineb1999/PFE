@@ -167,5 +167,19 @@
     "prenom": "First name",
     "username":"Username",
     "password": "Password",
-    "modifier": "update"
+    "modifier": "update",
+
+    "utilisateur.title1": "Manage Users",
+    "utilisateur.title2": "Users",
+    "utilisateur.title3": "Full Name",
+    "utilisateur.title4": "Role",
+    "utilisateur.title5": "Status",
+    "utilisateur.ajout": "Add a User",
+    "sign.verifier": "Check your information and try again.",
+    "side.rapport": "Reports / Alerts",
+    "side.prediction": "Prediction",
+    "side.historique": "History",
+    "side.compte": "Account",
+    "side.details": "Details",
+    "side.logout": "Log Out"
 }

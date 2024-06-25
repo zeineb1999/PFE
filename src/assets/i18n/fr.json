@@ -167,5 +167,19 @@
   "prenom": "Prénom",
   "username":"Nom d'utilisateur",
   "password": "Mot de passe",
-  "modifier": "modifier"
+  "modifier": "modifier",
+
+  "utilisateur.title1":"Gérer les utilisateurs",
+  "utilisateur.title2":"Utilisateurs",
+  "utilisateur.title3":"Nom complet",
+  "utilisateur.title4":"Role",
+  "utilisateur.title5":"Statut",
+  "utilisateur.ajout":"Ajouter un utilisateur",
+  "sign.verifier":"Vérifier vos informations et réessayer.",
+  "side.rapport":"Rapports / Alertes",
+  "side.prediction":"Prédiction",
+  "side.historique":"Historique",
+  "side.compte":"Compte",
+  "side.details":"Détails",
+  "side.logout":"Se déconnecter"
 }

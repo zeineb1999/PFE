@@ -1,8 +1,9 @@
 import * as Highcharts from 'highcharts';
-import { Component, OnInit, OnChanges, SimpleChanges, Input } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges, Input, OnDestroy } from '@angular/core';
 import { FloorService } from 'src/app/service/floor.service';
 import { WebSocketService } from 'src/app/service/web-socket.service';
 import { forkJoin } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-bar-chart',
@@ -36,7 +37,7 @@ export class BarChartComponent implements OnInit, OnChanges {
   Consommation_totale: number = 0;
   sendData: any[] = [];
   selectedOption: string = 'all'; // Default value
-
+  private subscription: Subscription | undefined;
   constructor(private wsService: WebSocketService, private floorService: FloorService) { }
 
   async ngOnInit(): Promise<void> {
@@ -52,7 +53,12 @@ export class BarChartComponent implements OnInit, OnChanges {
       this.filterData();
     }
   }
-
+  ngOnDestroy(): void {
+    // Désabonnement de la souscription pour éviter les fuites de mémoire
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
   async initializeData(): Promise<void> {
     
       const janvierData = await this.consommationCriticite(1);
@@ -89,7 +95,7 @@ export class BarChartComponent implements OnInit, OnChanges {
 
   consommationCriticite(mois: any): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.floorService.getHopitalConsommationCriticite(mois).subscribe(
+      this.subscription = this.floorService.getHopitalConsommationCriticite(mois).subscribe(
         (consommation: any) => {
           resolve(consommation);
         },

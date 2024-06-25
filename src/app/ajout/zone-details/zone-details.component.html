@@ -50,8 +50,11 @@
       <div class="bg-white shadow-md rounded-lg mx-auto my-2 p-4" style="width: 95%">
         <div class="flow-root">
           <dl class="-my-3 divide-y divide-gray-100 text-sm">
-            <div class="w-full flex justify-start text-2xl font-medium text-gray-700 mt-4">
-              Température / Humidité  / presence : {{this.presence}}
+            <div *ngIf="this.presence==1"  class="w-full flex justify-start text-2xl font-medium text-gray-700 mt-4">
+              Température / Humidité  / presence :<img src="../../assets/present.png" alt="Non approuvé" class="w-6 h-6 mr-2"> 
+            </div>
+            <div *ngIf="this.presence==0" class="w-full flex justify-start text-2xl font-medium text-gray-700 mt-4">
+              Température / Humidité  / presence : <img src="../../assets/nonpresent.png" alt="Non approuvé" class="w-4 h-4 mr-2"> 
             </div>
 
             <div class="flex justify-between items-center mx-12" style="height: 300px;">

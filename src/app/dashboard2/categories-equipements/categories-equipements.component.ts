@@ -1,8 +1,8 @@
-import { Component, ElementRef, Input, Renderer2, NgModule } from '@angular/core';
+import { Component, ElementRef, Input, Renderer2, NgModule, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import * as Highcharts from 'highcharts';
 import { FloorService } from 'src/app/service/floor.service';
-
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-categories-equipements',
   templateUrl: './categories-equipements.component.html',
@@ -15,11 +15,13 @@ export class CategoriesEquipementsComponent {
   isLoggedIn: boolean;
   typesData: any[] = []
   criticiteData: any[] = []
-
+  private subscription: Subscription = new Subscription();
   constructor(private floorService: FloorService, private router: Router, private renderer: Renderer2, private el: ElementRef) {
     this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
   }
-
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
   ngOnChanges() {
     if (this.equipementsParCategorie) {
       this.typesData = []; // Réinitialiser les données

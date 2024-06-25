@@ -1,8 +1,8 @@
-import { Component, ElementRef, Renderer2, Input } from '@angular/core';
+import { Component, ElementRef, Renderer2, Input , OnDestroy} from '@angular/core';
 import { FloorService } from '../../service/floor.service';
 import { Router } from '@angular/router';
 import * as Highcharts from 'highcharts';
-
+import { Subscription } from 'rxjs';
 interface Equipement {
   id: number;
   nom: string;
@@ -28,7 +28,7 @@ export class BuildingsConsumption2Component {
   constructor(private floorService: FloorService, private router: Router, private renderer: Renderer2, private el: ElementRef) {}
 
   @Input() equipementsParBatiment: any[] = [];
-
+  private subscription: Subscription = new Subscription();
   ngOnInit() {
     let m = [{ name: 'aa', y: 123 }, { name: 'aa', y: 125 }, { name: 'aa', y: 734 }, { name: 'aa', y: 524 }]
     this.insertBuildingsPieChart(m)
@@ -36,7 +36,9 @@ export class BuildingsConsumption2Component {
   ngOnChanges() {
     this.LoadData()
   }
-
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
   buildingsLoading: boolean = true;
   floorsLoading: boolean = true;
   localsLoading: boolean = true;

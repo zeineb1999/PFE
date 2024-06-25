@@ -116,7 +116,7 @@
             </div>
 
             <!--Liste-->
-            <table class="table w-full" *ngIf="alertes.length > 0">
+            <table class="table w-full" *ngIf="!loading && alertes.length > 0">
               <thead>
                 <tr>
                   <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 ">
@@ -220,9 +220,15 @@
                   
               </tbody>
             </table>
-            <div class="w-full text-center p-10 font-medium text-lg text-gray-500" *ngIf="alertes.length == 0">
-              Aucune alerte
-            </div>
+           <!-- Indicateur de chargement -->
+           <div class="w-full text-center p-10 font-medium text-lg text-gray-500" *ngIf="loading">
+            Chargement...
+          </div>
+          
+          <!-- Message "Aucune alerte" -->
+          <div class="w-full text-center p-10 font-medium text-lg text-gray-500" *ngIf="!loading && alertes.length === 0">
+            Aucune alerte
+          </div>
           </div>
         </dl>
       </div>

@@ -237,8 +237,8 @@ export class HeaderComponent implements OnInit {
             const{id} = message.message;
             this.AlerteId = id;
             console.log('id ----------->', id)
-            const { text, equipementId, type } = message.message; // Récupérez les propriétés nécessaires du message
-            this.AlerteMessage = `alerte de ${type} a l'equipement ${equipementId}:\n ${text} `;
+            const { text, localId, type } = message.message; // Récupérez les propriétés nécessaires du message
+            this.AlerteMessage = `Alerte de ${type} au local ${localId}\n  `;
            
             this.alertes.push(message.message);
             this.nbAlertes++;
@@ -247,7 +247,7 @@ export class HeaderComponent implements OnInit {
             setTimeout(() => {
               this.AlerteMessage = '';
               //this.refresh_nb_alerte();
-          }, 5000);
+          }, 60000);
           }
         }
       },
@@ -269,7 +269,7 @@ export class HeaderComponent implements OnInit {
             this.AlerteId = id;
             console.log('id ----------->', id)
             const { text, localId, type } = messageUser.message; // Récupérez les propriétés nécessaires du message
-            this.AlerteMessageUser = ` alerte `;
+            this.AlerteMessageUser = ` Alerte d'intervention`;
             this.alertes.push(messageUser.message);
             this.nbAlertes++;
             console.log('rrrrrrrrrr ', this.AlerteMessageUser)

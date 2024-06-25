@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input , OnDestroy} from '@angular/core';
 import * as Highcharts from 'highcharts';
 import HC_exporting from 'highcharts/modules/exporting';
 import HC_networkgraph from 'highcharts/modules/networkgraph';
@@ -8,14 +8,14 @@ import { WebSocketService } from '../../service/web-socket.service';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { waitForAsync } from '@angular/core/testing';
-
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-consumption-evolution2',
   templateUrl: './consumption-evolution2.component.html',
   styleUrls: ['./consumption-evolution2.component.css']
 })
 export class ConsumptionEvolution2Component {
-
+  subscriptions: Subscription = new Subscription();
   Highcharts = Highcharts;
   chartOptions: any;
   conso:any;
@@ -49,6 +49,9 @@ export class ConsumptionEvolution2Component {
     //this.LoadEquipementsParMois()
     //console.log('Equipements:', this.equipements);
   }
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
   async initializeData(): Promise<void> {
     const janvierData = await this.consommationCriticite(1);
       this.janvierCritique = janvierData.critique+janvierData.noncritique;
@@ -79,7 +82,7 @@ export class ConsumptionEvolution2Component {
 
   consommationCriticite(mois: any): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.floorService.getHopitalConsommationCriticite(mois).subscribe(
+      this.subscriptions=this.floorService.getHopitalConsommationCriticite(mois).subscribe(
         (consommation: any) => {
           resolve(consommation);
         },
@@ -130,7 +133,7 @@ export class ConsumptionEvolution2Component {
         let dateDebut = '2024-'+this_mois+'-01 00:00:00'
         let dateFin = '2024-'+this_mois+'-'+derniers_jours_de_mois[parseInt(this_mois)-1]+' 00:00:00'
         //console.log('********************* ', dateDebut, ' -> ', dateFin)
-        this.floorService.getHopitalConsommationPendantMois(dateDebut, dateFin)
+        this.subscriptions=this.floorService.getHopitalConsommationPendantMois(dateDebut, dateFin)
         .subscribe((data: number) => {
           this.consommations_mois.push({ mois: parseInt(mois2[parseInt(this_mois) - 1]), consommation: data })
           //console.log('consommations_mois', this.consommations_mois)

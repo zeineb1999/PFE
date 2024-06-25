@@ -6,7 +6,13 @@
 Predict Consumption {{ this.prediction }} -->
  
 <div class="mx-auto max-w-screen-lg px-4 py-8 sm:px-8 min-h-screen" style="padding-top: 7%;">
-  <div class="flex items-center justify-between pb-6">
+  <div *ngIf="!loading" class="text-center mt-8">
+    <i class="fa fa-spinner fa-spin fa-3x text-blue-500"></i>
+    <p class="text-gray-600 text-sm mt-2">Chargement en cours...</p>
+  </div>
+  
+  
+  <div *ngIf="loading" class="flex items-center justify-between pb-6">
     <div>
       <h2 class="font-semibold text-gray-700">Prédiction futur</h2>
       <span class="text-xs text-gray-500">Veuillez selectionner la durée souhaitée de prédiction</span>
@@ -21,7 +27,7 @@ Predict Consumption {{ this.prediction }} -->
     </div>
   </div>
 
-  <div *ngIf="boolBatiment" class="overflow-y-hidden rounded-lg border">
+  <div *ngIf="boolBatiment && loading" class="overflow-y-hidden rounded-lg border">
     <div class="block py-2 px-2 w-full flex row items-center justify-center">
       <div class="text-gray-700 text-lg font-semibold">
         Consommation des 3  prochains mois

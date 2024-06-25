@@ -41,9 +41,10 @@ export class EquipementDetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router, private authService: AuthService, private floorService: FloorService) {  this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true'; }
 
   ngOnInit(): void {
-    this.loadDetails();
-    this.LoadEquipementsParMois();
     this.loadAlertes();
+    this.loadDetails();
+    
+    
   }
 
   loadDetails (){
@@ -81,6 +82,7 @@ export class EquipementDetailsComponent implements OnInit {
     this.floorService.getEquipementDetails(this.equipementId).subscribe(
       (data: Equipement) => {
         this.equipementDetails = data;
+        this.LoadEquipementsParMois();
       },
       (error) => {
         console.error('Une erreur s\'est produite lors de la récupération des détails de la zone :', error);
