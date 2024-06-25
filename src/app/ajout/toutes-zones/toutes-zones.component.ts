@@ -45,6 +45,7 @@ export class ToutesZonesComponent implements OnInit {
   activerZone:boolean=false;
   idSelectionne:number=0;
   raison:string="";
+  presences:any;
   data: any[]=[];
   role:any;
   id:any;
@@ -75,6 +76,9 @@ export class ToutesZonesComponent implements OnInit {
   });
   this.floorService.getAllZones().subscribe(locals => {
     this.locals =locals;
+    this.locals.forEach((
+
+    ))
     console.log(this.locals)
   });
 
