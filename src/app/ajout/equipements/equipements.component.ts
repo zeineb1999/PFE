@@ -37,7 +37,7 @@ export class EquipementsComponent implements OnInit {
         this.equipements = data;
       },
       (error) => {
-        console.log(error);
+        //console.log(error);
       }
     );
   }

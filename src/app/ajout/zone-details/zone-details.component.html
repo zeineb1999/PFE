@@ -54,16 +54,16 @@
               Température / Humidité  / presence :<img src="../../assets/present.png" alt="Non approuvé" class="w-6 h-6 mr-2"> 
             </div>
             <div *ngIf="this.presence==0" class="w-full flex justify-start text-2xl font-medium text-gray-700 mt-4">
-              Température / Humidité  / presence : <img src="../../assets/nonpresent.png" alt="Non approuvé" class="w-4 h-4 mr-2"> 
+              Température / Humidité  / presence : <img src="../../assets/nonpresent.png" alt="Non approuvé" class="w-6 h-6 mr-2"> 
             </div>
 
             <div class="flex justify-between items-center mx-12" style="height: 300px;">
-              <ngx-gauge [markers]="markers" [thresholds]="thresholdConfig" [type]="'semi'" [cap]="'round'" [value]="temperature" [label]="gaugeLabel"
+              <ngx-gauge [thresholds]="thresholdConfig" [type]="'semi'" [cap]="'round'" [value]="temperature" [label]="gaugeLabel"
                 [append]="gaugeAppendText" [min]="0" [max]="50" [thick]="14" [foregroundColor]="'rgba(0, 180, 166, 1)'" [label]="'Temperature'" [append]="'°C'" [size]="200">
               </ngx-gauge>
 
-              <ngx-gauge [thresholds]="thresholdConfigH" [type]="'semi'" [value]="humidite" [label]="gaugeLabel"
-                [append]="gaugeAppendText" [min]="0" [max]="100" [thick]="10" [label]="'Humidité'" [append]="'%'">
+              <ngx-gauge [thresholds]="thresholdConfigH" [type]="'semi'" [cap]="'round'" [value]="humidite" [label]="gaugeLabel"
+                [append]="gaugeAppendText" [min]="0" [max]="100" [thick]="14" [label]="'Humidité'" [append]="'%'">
               </ngx-gauge>
 
               <!-- <ngx-gauge  type="arch" [thick]="10" [value]="68.2" cap="butt" label="Revenue" append="%"

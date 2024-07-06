@@ -53,7 +53,7 @@ export class UpdateZoneComponent  implements OnInit {
           this.zone = zone;
         },
         error => {
-          console.log(error);
+          //console.log(error);
         }
       );
   
@@ -66,7 +66,7 @@ export class UpdateZoneComponent  implements OnInit {
           this.etages = data;
         },
         error => {
-          console.log(error);
+          //console.log(error);
         }
       );
     }
@@ -74,7 +74,7 @@ export class UpdateZoneComponent  implements OnInit {
     updateZone() {
       this.floorService.modifierZone(this.zoneId, this.zone).subscribe(
         () => {
-          console.log('Équipement modifié avec succès !');
+          ////console.log('Équipement modifié avec succès !');
           this.successMessage = 'Équipement modifié avec succès !'; // Définir le message de succès
           setTimeout(() => {
             this.successMessage = ''; // Effacer le message après quelques secondes
@@ -82,7 +82,7 @@ export class UpdateZoneComponent  implements OnInit {
           }, 1000); // 3000 millisecondes = 3 secondes
         },
         error => {
-          console.log('Erreur lors de la modification de l\'équipement :', error);
+          //console.log('Erreur lors de la modification de l\'équipement :', error);
         }
       );
     }

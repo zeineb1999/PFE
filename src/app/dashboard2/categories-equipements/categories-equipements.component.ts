@@ -37,7 +37,7 @@ export class CategoriesEquipementsComponent {
       }
     }
     if (this.equipementsParCriticite) {
-      //console.log('/// this.equipementsParCriticite', this.equipementsParCriticite)
+      ////console.log('/// this.equipementsParCriticite', this.equipementsParCriticite)
       let cons2=0
       this.equipementsParCriticite['critique'].forEach((equipement: any) => {
         cons2 += equipement.consommation_kW;

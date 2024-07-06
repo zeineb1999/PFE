@@ -37,7 +37,7 @@ export class ClientService {
       return true
     }).catch((error) => {
       confirm("le client na pas ete cree il peut quelle existe deja")
-      console.log(error)
+      //console.log(error)
       return false
     })
     return true

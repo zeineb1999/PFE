@@ -13,6 +13,7 @@ export class ProfileComponent implements OnInit {
   user: any;
   alertes: any[] = [];
   rapports: any[] = [];
+  coderrone:boolean=false;
   utilisateurs: any[] = [];
   batiments: any[] = [];
   equipements: any[] = [];
@@ -43,15 +44,15 @@ export class ProfileComponent implements OnInit {
     })
     this.authService.getAllusers().subscribe(users => {
       this.utilisateurs = users;
-      console.log(this.utilisateurs);
+      //console.log(this.utilisateurs);
     })
     this.floorService.getAllBatiments().subscribe(batiments => {
       this.batiments = batiments;
-      console.log(this.batiments);
+      //console.log(this.batiments);
     })
     this.floorService.getAllEquipements().subscribe(equipements => {
       this.equipements = equipements;
-      console.log(this.equipements);
+      //console.log(this.equipements);
     })
     this.floorService.getAllAlertes().subscribe(alertes=> {
       this.alertes = alertes;
@@ -64,8 +65,8 @@ export class ProfileComponent implements OnInit {
     
     this.authService.getProfile().subscribe(profile => {
       this.user = profile;
-      console.log(this.user);
-      console.log('id : ',this.user.id);
+      //console.log(this.user);
+      //console.log('id : ',this.user.id);
       if(this.user && this.user.id){
         this.authService.getRole(this.user.id).subscribe(response => {
           this.userRole=response;
@@ -128,7 +129,7 @@ export class ProfileComponent implements OnInit {
        
         this.newEmail = this.user.email;
       }
-    console.log(this.newUsername, this.newFirstname, this.newLastname);
+    //console.log(this.newUsername, this.newFirstname, this.newLastname);
     this.authService.updateUserProfile(this.newUsername, this.newFirstname, this.newLastname,this.newEmail)
       .subscribe(response => {
         this.successMessage = 'Modification effectuée !';
@@ -244,6 +245,7 @@ export class ProfileComponent implements OnInit {
   }
   confirmerCodeEmail() {
     if(this.code==this.codeValide){
+      this.coderrone=false;
     this.authService.updateUserProfile(this.user.username, this.user.firstname, this.user.lastname,this.newEmail)
       .subscribe(response => {
         this.floorService.setHistorique(this.user.id,this.user.firstname,this.newEmail,"changement d'email").subscribe(()=>{
@@ -252,9 +254,13 @@ export class ProfileComponent implements OnInit {
     
       
        
-      //window.location.reload();
+      
     });
     this.demandeCodeEmail = false;
+    
+    }
+    else{
+      this.coderrone=true;
     }
     
   }

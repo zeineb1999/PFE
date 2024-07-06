@@ -40,9 +40,9 @@ export class AjouterZoneComponent implements OnInit {
         // Appelez votre service pour ajouter une zone en utilisant les données du formulaire
         this.floorService.ajouterZone(this.nomLocal, this.typeLocal, this.etageId).subscribe(
             (response) => {
-                console.log('Zone ajoutée avec succès !');
+                ////console.log('Zone ajoutée avec succès !');
                 const zoneId = response.id;
-                console.log('ID de la zone ajoutée :', zoneId);
+                ////console.log('ID de la zone ajoutée :', zoneId);
                 /* this.floorService.genererDATA(zoneId,this.minTemperature!).subscribe(
                     (response) => {
                       

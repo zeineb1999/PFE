@@ -52,7 +52,7 @@ export class ToutesZonesComponent implements OnInit {
   selectedReason: string = '';
   constructor(private floorService: FloorService, private route: ActivatedRoute, private router: Router, private location: Location, private renderer: Renderer2, private el: ElementRef) {
     this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
-    console.log(this.isLoggedIn)
+    ////console.log(this.isLoggedIn)
   }
 
   generateRandomColor(): string {
@@ -68,22 +68,60 @@ export class ToutesZonesComponent implements OnInit {
 
   this.floorService.getAllBatiments().subscribe(batiments => {
     this.batiments = batiments;
-    console.log(this.batiments)
+    ////console.log(this.batiments)
   })
   this.floorService.getAllEtages().subscribe(etages => {
     this.etages = etages;
-    console.log(this.etages)
+    ////console.log(this.etages)
   });
   this.floorService.getAllZones().subscribe(locals => {
-    this.locals =locals;
-    this.locals.forEach((
-
-    ))
-    console.log(this.locals)
-  });
+    this.locals = locals;
+  })
+  
+  
+  
 
   treemap(Highcharts);
   treegraph(Highcharts);
+}
+
+getPresence(id: number): any {
+
+    const maDate = new Date();
+    const annee = maDate.getUTCFullYear();
+    const mois = String(maDate.getUTCMonth() + 1).padStart(2, '0');
+    const jour = String(maDate.getUTCDate()).padStart(2, '0');
+    let heures = '';
+    if (maDate.getUTCHours() < 23) {
+      heures = String(maDate.getUTCHours() + 1).padStart(2, '0');
+    } else {
+      heures = '00'.padStart(2, '0');
+    }
+    const minutes = String(maDate.getUTCMinutes()).padStart(2, '0');
+    const secondes = String(maDate.getUTCSeconds()).padStart(2, '0');
+    const millisecondes = String(maDate.getUTCMilliseconds()).padStart(3, '0');
+
+    const dateFormatee = `${annee}-${mois}-${jour}T${heures}:${minutes}:${secondes}.${millisecondes}Z`;
+
+    // Utilisation de votre service pour récupérer la présence
+    ////console.log("idaaaaaaaaa",id)
+    this.floorService.avg_TH_par_instant(id, this.dateFormatter(dateFormatee)).subscribe(
+      (response: any) => {
+        ////console.log("pres",response.P)
+        return response.P;
+        
+      })
+       
+    
+  
+}
+dateFormatter(dateISO: any){
+  // Formater la date selon le format requis
+  return dateISO.substring(0, 4) + '-' +
+  dateISO.substring(5, 7) + '-' +
+  dateISO.substring(8, 10)  + ' ' +
+  dateISO.substring(11, 13) + ':' +
+  dateISO.substring(14, 16) + ':00';
 }
 
 handleToggleOn(batimentId: number): void {
@@ -107,7 +145,7 @@ confirmerActiverBatiment(){
       const millisecondes = String(maDate.getUTCMilliseconds()).padStart(3, '0');
       
       const dateFormatee = `${annee}-${mois}-${jour} ${heures}:${minutes}:${secondes}`;
-  console.log(`Toggle is ON for batiment ID: ${this.idSelectionne}`);
+  ////console.log(`Toggle is ON for batiment ID: ${this.idSelectionne}`);
   this.floorService.ActiverBatiment(this.idSelectionne,dateFormatee).subscribe(any => {
     
     this.floorService.HistoriqueBatiment('activer',this.idSelectionne,dateFormatee,this.id,'').subscribe(any=>{
@@ -145,7 +183,7 @@ handleToggleOff(batimentId: number): void {
   const millisecondes = String(maDate.getUTCMilliseconds()).padStart(3, '0');
   
   const dateFormatee = `${annee}-${mois}-${jour} ${heures}:${minutes}:${secondes}`;
-  console.log(`Toggle is OFF for batiment ID: ${batimentId}`);
+  //console.log(`Toggle is OFF for batiment ID: ${batimentId}`);
   this.floorService.DesactiverBatiment(batimentId,dateFormatee).subscribe(any => {
    
   }) */
@@ -169,7 +207,7 @@ confirmerDesactiverBatiment(){
   const millisecondes = String(maDate.getUTCMilliseconds()).padStart(3, '0');
   
   const dateFormatee = `${annee}-${mois}-${jour} ${heures}:${minutes}:${secondes}`;
-  console.log(`Toggle is ON for batiment ID: ${this.idSelectionne}`);
+  ////console.log(`Toggle is ON for batiment ID: ${this.idSelectionne}`);
   this.floorService.DesactiverBatiment(this.idSelectionne,dateFormatee).subscribe(any => {
     let reason
     if(this.selectedReason==='Autre'){
@@ -178,7 +216,7 @@ confirmerDesactiverBatiment(){
     else{
       reason=this.selectedReason
     }
-    console.log('raison',reason)
+    ////console.log('raison',reason)
     this.floorService.HistoriqueBatiment('desactiver',this.idSelectionne,dateFormatee,this.id,reason).subscribe(any=>{
       
     })
@@ -215,7 +253,7 @@ confirmerActiverEtage(){
       const millisecondes = String(maDate.getUTCMilliseconds()).padStart(3, '0');
       
       const dateFormatee = `${annee}-${mois}-${jour} ${heures}:${minutes}:${secondes}`;
-  console.log(`Toggle is ON for batiment ID: ${this.idSelectionne}`);
+  ////console.log(`Toggle is ON for batiment ID: ${this.idSelectionne}`);
   this.floorService.ActiverEtage(this.idSelectionne,dateFormatee).subscribe(any => {
    
     this.floorService.HistoriqueEtage('activer',this.idSelectionne,dateFormatee,this.id,'').subscribe(any=>{
@@ -257,7 +295,7 @@ confirmerDesactiverEtage(){
   const millisecondes = String(maDate.getUTCMilliseconds()).padStart(3, '0');
   
   const dateFormatee = `${annee}-${mois}-${jour} ${heures}:${minutes}:${secondes}`;
-  console.log(`Toggle is ON for batiment ID: ${this.idSelectionne}`);
+  ////console.log(`Toggle is ON for batiment ID: ${this.idSelectionne}`);
   this.floorService.DesactiverEtage(this.idSelectionne,dateFormatee).subscribe(any => {
     let reason
     if(this.selectedReason==='Autre'){
@@ -266,7 +304,7 @@ confirmerDesactiverEtage(){
     else{
       reason=this.selectedReason
     }
-    console.log('raison',reason)
+    ////console.log('raison',reason)
     this.floorService.HistoriqueEtage('desactiver',this.idSelectionne,dateFormatee,this.id,reason).subscribe(any=>{
       
     })
@@ -299,7 +337,7 @@ handleToggleOnZone(batimentId: number): void {
       const millisecondes = String(maDate.getUTCMilliseconds()).padStart(3, '0');
       
       const dateFormatee = `${annee}-${mois}-${jour} ${heures}:${minutes}:${secondes}`;
-  console.log(`Toggle is ON for batiment ID: ${batimentId}`);
+  ////console.log(`Toggle is ON for batiment ID: ${batimentId}`);
   this.floorService.ActiverZone(batimentId,dateFormatee).subscribe(any => {
     window.location.reload();
   })
@@ -325,7 +363,7 @@ handleToggleOffZone(batimentId: number): void {
   const millisecondes = String(maDate.getUTCMilliseconds()).padStart(3, '0');
   
   const dateFormatee = `${annee}-${mois}-${jour} ${heures}:${minutes}:${secondes}`;
-  console.log(`Toggle is OFF for batiment ID: ${batimentId}`);
+  ////console.log(`Toggle is OFF for batiment ID: ${batimentId}`);
   this.floorService.DesactiverZone(batimentId,dateFormatee).subscribe(any => {
     window.location.reload();
   })
@@ -337,7 +375,7 @@ handleToggleOffZone(batimentId: number): void {
   ngAfterViewInit(){
     this.floorService.getAllEtagesETZonesArchi().subscribe((data: any[]) => {
       this.data = data
-      console.log('combinedData:', data);
+      ////console.log('combinedData:', data);
       if (this.structure == 'arbre') {
       this.renderChart(this.data);
     } else {
@@ -418,7 +456,7 @@ handleToggleOffZone(batimentId: number): void {
         ]
       }] as any
     });
-    console.log('renderChart called');
+    ////console.log('renderChart called');
   }
 
   getEtagesForBatiment(batimentId: number):any[] {
@@ -441,7 +479,7 @@ handleToggleOffZone(batimentId: number): void {
       this.floorService.getZonesForEtage(etageId).subscribe(zones => {
         etage.zones = zones;
         etage.showZones = false;
-        console.log("clicked");
+        ////console.log("clicked");
       });
     }
   }
@@ -514,7 +552,7 @@ handleToggleOffZone(batimentId: number): void {
 
   updateStructure(S: string) {
     this.structure = S
-    console.log('s:', this.structure)
+    ////console.log('s:', this.structure)
     if (S == 'arbre') {
       this.renderChart(this.data);
     } else {

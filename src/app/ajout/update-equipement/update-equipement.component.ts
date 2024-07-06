@@ -55,10 +55,10 @@ export class UpdateEquipementComponent implements OnInit {
       ).subscribe(
         (equipement: any) => {
           this.equipement = equipement;
-          console.log(this.equipement)
+          ////console.log(this.equipement)
         },
         error => {
-          console.log(error);
+          //console.log(error);
         }
       );
   
@@ -71,7 +71,7 @@ export class UpdateEquipementComponent implements OnInit {
           this.zones = data;
         },
         error => {
-          console.log(error);
+          //console.log(error);
         }
       );
     }
@@ -79,7 +79,7 @@ export class UpdateEquipementComponent implements OnInit {
     updateEquipement() {
       this.floorService.modifierEquipement(this.equipementId, this.equipement).subscribe(
         () => {
-          console.log('Équipement modifié avec succès !');
+          ////console.log('Équipement modifié avec succès !');
           this.successMessage = 'Équipement modifié avec succès !'; // Définir le message de succès
           setTimeout(() => {
             this.successMessage = ''; // Effacer le message après quelques secondes
@@ -87,7 +87,7 @@ export class UpdateEquipementComponent implements OnInit {
           }, 1000); // 3000 millisecondes = 3 secondes
         },
         error => {
-          console.log('Erreur lors de la modification de l\'équipement :', error);
+          //console.log('Erreur lors de la modification de l\'équipement :', error);
         }
       );
     }

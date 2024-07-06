@@ -110,15 +110,15 @@ export class RedigerRapportComponent {
               this.batiment = batiment;
             })
           })
-          console.log('*********localId',this.thisAlerte.localId)
+          //console.log('*********localId',this.thisAlerte.localId)
           this.floorService.getEquipementsByZone(this.thisAlerte.localId).subscribe((equipementsLocal: any[]) => {
             this.equipementsLocal = equipementsLocal
           })
-          console.log('***************equi',this.equipementsLocal)
+          //console.log('***************equi',this.equipementsLocal)
         })
-        console.log(alerte)
+        //console.log(alerte)
         this.floorService.setAlerteNotifie(alerte.id, this.thisAlerte).subscribe((alerteM: any) => {
-          console.log('alerte vu')
+          //console.log('alerte vu')
         })
       })
     );
@@ -127,13 +127,13 @@ export class RedigerRapportComponent {
 
     this.authService.getAllusers().subscribe(users => {
       this.utilisateurs = users;
-      console.log(this.utilisateurs);
+      //console.log(this.utilisateurs);
 
       this.utilisateurs.forEach(utilisateur => {
-        console.log('*********** utilisateur ',utilisateur);
+        //console.log('*********** utilisateur ',utilisateur);
         this.authService.getRole(utilisateur.id).subscribe(response => {
           if(response.role=='Responsable de maintenance'){
-            console.log('*********** role ',response.role);
+            //console.log('*********** role ',response.role);
             this.responsables_maintenance.push(utilisateur);
           }
           this.roles.push(response.role);
@@ -145,32 +145,32 @@ export class RedigerRapportComponent {
   ajouterCause() {
     this.nbCauses++;
     this.causes.push('');
-    console.log('causes: ', this.causesM)
+    //console.log('causes: ', this.causesM)
   }
 
   ajouterEndommage() {
     this.nbEndommage ++;
     this.endommages.push('');
-    console.log('causes: ', this.endommagesM)
+    //console.log('causes: ', this.endommagesM)
   }
 
   ajouterSolution() {
     this.nbSolutions++;
     this.solutions.push('');
-    console.log('sols: ', this.solutionsM)
+    //console.log('sols: ', this.solutionsM)
   }
 
   ajouterRisque() {
     this.nbRisques++;
     this.risques.push('');
-    console.log('sols: ', this.risquesM)
+    //console.log('sols: ', this.risquesM)
   }
 
   ajouterEquipement() {
     this.nbEquipements++;
     this.equipements.push('');
     this.equipementsM.push({equipement: '', necessite:''})
-    console.log('sols: ', this.equipementsM)
+    //console.log('sols: ', this.equipementsM)
   }
 
   enregistrerRapport() {
@@ -221,10 +221,10 @@ export class RedigerRapportComponent {
       }
     });
     let now=new Date();
-    console.log('now: ', now)
-    console.log('equipe',this.thisAlerte.equipementId)  
+    //console.log('now: ', now)
+    //console.log('equipe',this.thisAlerte.equipementId)  
     this.floorService.addRapport(this.thisAlerte.id, this.userID, saveCauses, saveSolutions, saveRisques, saveEquipements, saveNecessite,this.thisAlerte.equipementId,now).subscribe((rapport: any) => {
-      console.log('rapport enregistré: ', rapport)
+      //console.log('rapport enregistré: ', rapport)
       this.router.navigate(['/rapport']);
     })
   }

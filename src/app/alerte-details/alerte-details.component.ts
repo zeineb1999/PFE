@@ -55,7 +55,7 @@ export class AlerteDetailsComponent {
     let vu = false;
     let data : AlertData = {localId, nomLocal, type, nowSlash, alerteId, userID, notifie, vu}
     this.alerteChangeA.emit(data);
-    console.log('alerte envoyé: ', data)
+    //console.log('alerte envoyé: ', data)
   }
 
   constructor(private authService: AuthService,private route: ActivatedRoute, private router: Router, private floorService: FloorService) {this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true'; }
@@ -63,7 +63,7 @@ export class AlerteDetailsComponent {
   ngOnInit() {
    
     this.roleUser=sessionStorage.getItem('role');
-    console.log('roleUser:---------> ', this.roleUser)
+    ////console.log('roleUser:---------> ', this.roleUser)
     //window.location.reload();
 
     this.alerteId = parseInt(this.route.snapshot.paramMap.get('alerteId') || '');
@@ -71,7 +71,7 @@ export class AlerteDetailsComponent {
     this.floorService.getAlerte(this.alerteId).subscribe(
       ((alerte: any) =>{
         this.thisAlerte = alerte
-        console.log('*********************************   alerte iciiiiii: ', alerte)
+        //console.log('*********************************   alerte iciiiiii: ', alerte)
         this.thisAlerte.vu = true
         let annee: number, mois: number;
         if (this.thisAlerte.dateAlerte) {
@@ -81,41 +81,41 @@ export class AlerteDetailsComponent {
         };
         this.floorService.getRapportsByAlerteId(this.thisAlerte.id).subscribe((rapports: any) => {
           this.rapport = rapports
-          console.log('rap: ', rapports)
+          //console.log('rap: ', rapports)
         })
         this.floorService.getEquipementDetails(this.thisAlerte.equipementId).subscribe((equipement: any) => {
           this.equipement = equipement
-          console.log('ee', equipement)
+          //console.log('ee', equipement)
         })
         
         this.floorService.getZoneDetails(this.thisAlerte.localId).subscribe((thisLocal: any) => {
           this.local = thisLocal
-          console.log('rrrrrr', thisLocal)
+          //console.log('rrrrrr', thisLocal)
           this.floorService.getEtageById(thisLocal.etageZ).subscribe((etage: any) => {
-            console.log('etage', etage)
+            //console.log('etage', etage)
             this.etage = etage
             this.floorService.getBatimentById(etage.batimentId).subscribe((batiment: any) => {
               this.batiment = batiment;
-              console.log('bat: ', batiment)
+              //console.log('bat: ', batiment)
             })
           })
         })
-        console.log(alerte)
+        //console.log(alerte)
         this.floorService.setAlerteNotifie(alerte.id, this.thisAlerte).subscribe((alerteM: any) => {
-          console.log('alerte vu')
+          //console.log('alerte vu')
         })
       })
     );
 
     this.authService.getAllusers().subscribe(users => {
       this.utilisateurs = users;
-      console.log(this.utilisateurs);
+      //console.log(this.utilisateurs);
 
       this.utilisateurs.forEach(utilisateur => {
-        console.log('*********** utilisateur ',utilisateur);
+        //console.log('*********** utilisateur ',utilisateur);
         this.authService.getRole(utilisateur.id).subscribe(response => {
           if(response.role=='Responsable de maintenance'){
-            console.log('*********** role ',response.role);
+            //console.log('*********** role ',response.role);
             this.responsables_maintenance.push(utilisateur);
           }
           this.roles.push(response.role);
@@ -132,7 +132,7 @@ export class AlerteDetailsComponent {
   } */
   userLast(id:number):string{
 
-    console.log('id',id)
+    //console.log('id',id)
     for (const batiment of this.utilisateurs) {
       if (batiment.id === id) {
         return batiment.last_name;
@@ -143,7 +143,7 @@ export class AlerteDetailsComponent {
     
   }
   userFirst(id:number):string{
-    console.log('id',id)
+    //console.log('id',id)
     for (const batiment of this.utilisateurs) {
       if (batiment.id === id) {
         return batiment.first_name;
@@ -156,13 +156,13 @@ export class AlerteDetailsComponent {
 
     if (this.Rid) {
       const idUser = this.Rid;
-      console.log('************id User ', idUser);
+      //console.log('************id User ', idUser);
 /*
       let now =new Date()
       this.floorService.addAlerte(1 ,'maintenance', now, this.alerteMText, 0).subscribe(
         (alerte: any) => {
-          console.log(now)
-          console.log('notif envoyé: ', alerte)
+          //console.log(now)
+          //console.log('notif envoyé: ', alerte)
           if (this.local) {
             this.emitAlert(1, 'salle', 'maintenance', now, alerte.id, this.Rid);
           }
@@ -173,8 +173,8 @@ export class AlerteDetailsComponent {
         let now =new Date()
         this.floorService.addAlerte( this.local.id,'maintenance', now).subscribe(
           (alerte: any) => {
-            console.log(now)
-            console.log('notif envoyé: ', alerte)
+            //console.log(now)
+            //console.log('notif envoyé: ', alerte)
             if (this.local) {
               this.emitAlert(this.local.id, this.local.nomLocal, 'maintenance', now, alerte.id, this.Rid);
             }
@@ -188,7 +188,7 @@ export class AlerteDetailsComponent {
         // Gérer la réponse de l'API ou les éventuelles erreurs
       
     } else {
-      console.log('Sélectionnez un responsable de maintenance.');
+      //console.log('Sélectionnez un responsable de maintenance.');
     }
   }
 

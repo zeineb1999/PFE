@@ -52,7 +52,7 @@ export class UtilisateursComponent implements OnInit {
     })
     this.authService.getAllusers().subscribe(users => {
       this.utilisateurs = users;
-      console.log(this.utilisateurs);
+      //console.log(this.utilisateurs);
     })
   
     this.floorService.getAllAlertes().subscribe(alertes=> {
@@ -66,8 +66,8 @@ export class UtilisateursComponent implements OnInit {
     
     this.authService.getProfile().subscribe(profile => {
       this.user = profile;
-      console.log(this.user);
-      console.log('id : ',this.user.id);
+      //console.log(this.user);
+      //console.log('id : ',this.user.id);
       if(this.user && this.user.id){
         this.authService.getRole(this.user.id).subscribe(response => {
           this.userRole=response;
@@ -136,7 +136,7 @@ export class UtilisateursComponent implements OnInit {
        
         this.newEmail = this.user.email;
       }
-    console.log(this.newUsername, this.newFirstname, this.newLastname);
+    //console.log(this.newUsername, this.newFirstname, this.newLastname);
     this.authService.updateUserProfile(this.newUsername, this.newFirstname, this.newLastname,this.newEmail)
       .subscribe(response => {
         this.successMessage = 'Modification effectuée !';
@@ -152,7 +152,7 @@ export class UtilisateursComponent implements OnInit {
   }
   onRoleChange(event: any, user: any): void {
     const newRole = event.target.value;
-    console.log("changmeent role",user.id , newRole)
+    //console.log("changmeent role",user.id , newRole)
     // Appel de la méthode pour mettre à jour le rôle de l'utilisateur
     this.updateUserRole(user.id, newRole);
   }

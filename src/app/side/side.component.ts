@@ -25,7 +25,7 @@ export class SideComponent {
   role: any;
   url: string='';
   onAlertChange(local: string, temperature: number, nowSlash: ColorString) {
-    console.log(`Alert received: Local: ${local}, Temperature: ${temperature}, Now: ${nowSlash}`);
+    //console.log(`Alert received: Local: ${local}, Temperature: ${temperature}, Now: ${nowSlash}`);
   }
 
   AlerteMessage: string = '';
@@ -39,7 +39,7 @@ export class SideComponent {
 
   ngOnInit() {
     this.url = window.location.href;
-    console.log(this.url)
+    //console.log(this.url)
     this.user = sessionStorage.getItem('id');
     this.role = sessionStorage.getItem('role');
     this.isLoggedIn = sessionStorage.getItem('isLoggedIn')
@@ -69,18 +69,18 @@ export class SideComponent {
   handleAlerteChange(event: any) {
 
     if (event.type == 'maintenance') {
-      console.log('local '+ event.localId+ ': ', event.nomLocal +' type: ',  event.type+' now: '+ event.nowSlash)
+      //console.log('local '+ event.localId+ ': ', event.nomLocal +' type: ',  event.type+' now: '+ event.nowSlash)
       this.AlerteMessage = 'Local '+ event.localId + ' : '+ event.nomLocal+' type : '+ event.type;
-      console.log('rrrrrrrrrr ', this.AlerteMessage)
+      //console.log('rrrrrrrrrr ', this.AlerteMessage)
 
       setTimeout(() => {
         this.AlerteMessage = '';
       }, 5000);
 
     } else {
-      console.log('local '+ event.localId+ ': ', event.nomLocal +' type: ',  event.type+' now: '+ event.nowSlash)
+      //console.log('local '+ event.localId+ ': ', event.nomLocal +' type: ',  event.type+' now: '+ event.nowSlash)
       this.AlerteMessage = 'Local '+ event.localId + ' : '+ event.nomLocal+' enregistre une '+ event.type+ ' moyenne inhabituelle';
-      console.log('rrrrrrrrrr ', this.AlerteMessage)
+      //console.log('rrrrrrrrrr ', this.AlerteMessage)
       setTimeout(() => {
         this.AlerteMessage = '';
         // Effacer le message après quelques secondes
@@ -92,7 +92,7 @@ export class SideComponent {
   open_close() {
     let notifElement = this.el.nativeElement.querySelector('#notifs');
     this.open = !this.open
-    console.log('open', this.open)
+    //console.log('open', this.open)
     if (this.open) {
       this.renderer.setAttribute(notifElement, 'style', 'display: flex; width: 400px; height: 300px;');
 
@@ -111,7 +111,7 @@ export class SideComponent {
   }
   logout() {
     this.authService.changementHeader.next("changmenet header")
-    console.log("methode deconnexion")
+    //console.log("methode deconnexion")
     this.authService.logout();
   }
 

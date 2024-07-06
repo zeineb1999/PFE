@@ -17,7 +17,7 @@ export class WebSocketService {
       this.socket$ = webSocket({
         url: `ws://localhost:8001/ws/chat/notification_test/`
       });
-      console.log('Connected to WebSocket server');
+      //console.log('Connected to WebSocket server');
     }
     return this.socket$;
   }
@@ -26,7 +26,7 @@ export class WebSocketService {
       this.socketUser$ = webSocket({
         url: `ws://localhost:8001/ws/user-id-change/`
       });
-      console.log('Connected to WebSocket user');
+      //console.log('Connected to WebSocket user');
     }
     return this.socketUser$;
   }
@@ -35,7 +35,7 @@ export class WebSocketService {
       this.socketMinute$ = webSocket({
         url: `ws://localhost:8000/ws/dataminute/`
       });
-      console.log('Connected to WebSocket minute');
+      //console.log('Connected to WebSocket minute');
     }
     return this.socketMinute$;
   } 
@@ -46,7 +46,7 @@ export class WebSocketService {
       this.socketequipement$ = webSocket({
         url: `ws://localhost:8000/ws/equipement/`
       });
-      console.log('Connected to WebSocket equipement');
+      //console.log('Connected to WebSocket equipement');
     }
     return this.socketequipement$;
     
@@ -55,11 +55,11 @@ export class WebSocketService {
   close() {
    /*  if (this.socket$) {
       this.socket$.complete();
-      console.log('Disconnected from WebSocket server');
+      //console.log('Disconnected from WebSocket server');
     }
     if(this.socketUser$) {
       this.socketUser$.complete();
-      console.log('Disconnected from WebSocket user');
+      //console.log('Disconnected from WebSocket user');
     } */
   }
 
@@ -77,7 +77,7 @@ export class WebSocketService {
 
   constructor() {
     this.socket$ = new WebSocketSubject('ws://127.0.0.1:8000/ws/my-websocket/');
-    console.log('socket created',this.socket$);
+    //console.log('socket created',this.socket$);
 }
 
   

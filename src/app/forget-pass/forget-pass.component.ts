@@ -30,7 +30,7 @@ export class ForgetPassComponent implements OnInit {
     }
     if (this.email && this.code) {
       this.authService.resetPassword(this.email,this.code).subscribe(response => {
-        console.log(response)
+        //console.log(response)
         
         this.successMessage = 'Email envoyé verifier votre boite email  !';
         setTimeout(() => {

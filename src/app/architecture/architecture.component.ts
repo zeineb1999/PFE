@@ -326,7 +326,7 @@ getCategorieTypesPairs(): { categorie: string, types: string[] }[] {
   ) { }
 
   ngOnInit(): void {
-    console.log("Contenu de tousLesBatiments :", this.tousLesBatiments);
+    //console.log("Contenu de tousLesBatiments :", this.tousLesBatiments);
     this.titleInit()
 
     this.champsClient.forEach((champ)=>{
@@ -348,12 +348,12 @@ getCategorieTypesPairs(): { categorie: string, types: string[] }[] {
     this.floorService.ajouterEtage(nomBatiment, id).subscribe(
       (response) => {
         const etageId = response.id;
-        console.log('ID de l\'étage ajouté :', etageId);
+        //console.log('ID de l\'étage ajouté :', etageId);
         this.tousLesEtagesSansException.push(response.id);
         this.tousLesNomsEtagesSansException.push(nomBatiment);
         this.tousLesNomsEtages.push(nomBatiment);
         this.tousLesTypesEtages.push(typeBatiment);
-        console.log('Étage ajouté avec succès :', response);
+        //console.log('Étage ajouté avec succès :', response);
       },
       (error) => {
         console.error('Erreur lors de l\'ajout de l\'étage :', error);
@@ -369,7 +369,7 @@ getCategorieTypesPairs(): { categorie: string, types: string[] }[] {
 }
   idBatiment:number=0;
   prochainBatiment(nomBatiment: string) {
-    console.log('nb: ', this.nombreBatiments, 'indiceBatimentCourant ', this.indiceBatimentCourant, '->', this.indiceBatimentCourant+1)
+    //console.log('nb: ', this.nombreBatiments, 'indiceBatimentCourant ', this.indiceBatimentCourant, '->', this.indiceBatimentCourant+1)
     this.indiceBatimentCourant++;
     // Réinitialisez l'indice de l'étage courant pour le nouveau bâtiment
     this.indiceEtageCourant = 0;
@@ -382,11 +382,11 @@ getCategorieTypesPairs(): { categorie: string, types: string[] }[] {
     this.floorService.ajouterEquipementArchi(nomBatiment, id).subscribe(
       (response) => {
         const equipementId = response.id;
-        console.log('ID de l equipement ajoutée :', equipementId);
+        //console.log('ID de l equipement ajoutée :', equipementId);
         this.tousLesEquipementsSansException.push(response.id);
         this.tousLesNomsEquipementsSansException.push(nomBatiment);
         this.tousLesNomsEquipements.push(nomBatiment);
-        console.log('Étage ajouté avec succès :', response);
+        //console.log('Étage ajouté avec succès :', response);
       },
       (error) => {
         console.error('Erreur lors de l\'ajout de l\'étage :', error);
@@ -411,11 +411,11 @@ getCategorieTypesPairs(): { categorie: string, types: string[] }[] {
     /* this.floorService.ajouterZoneArchi(nomBatiment, id).subscribe(
       (response) => {
         const zoneId = response.id;
-        console.log('ID de la zone ajoutée :', zoneId);
+        //console.log('ID de la zone ajoutée :', zoneId);
         this.tousLesZonesSansException.push(response.id);
         this.tousLesNomsZonesSansException.push(nomBatiment);
         this.tousLesNomsLocaux.push(nomBatiment);
-        console.log('Étage ajouté avec succès :', response);
+        //console.log('Étage ajouté avec succès :', response);
       },
       (error) => {
         console.error('Erreur lors de l\'ajout de l\'étage :', error);
@@ -467,13 +467,13 @@ getCategorieTypesPairs(): { categorie: string, types: string[] }[] {
     this.floorService.ajouterBatiment(nomBatiment,typeBatiment).subscribe(
       (response) => {
         const batimentId = response.id;
-        console.log('ID du batiment ajouté :', batimentId);
+        //console.log('ID du batiment ajouté :', batimentId);
         this.tousLesBatiments.push(batimentId);
 
         this.tousLesNomsBatiments.push(nomBatiment);
-        console.log(' nom  Bâtiment  :', nomBatiment);
+        //console.log(' nom  Bâtiment  :', nomBatiment);
         this.tousLesTypesBatiments.push(typeBatiment);
-        console.log('type Bâtiment  :', typeBatiment);
+        //console.log('type Bâtiment  :', typeBatiment);
           // Vous pouvez effectuer des actions supplémentaires ici si nécessaire
       },
       (error) => {
@@ -518,7 +518,7 @@ getCategorieTypesPairs(): { categorie: string, types: string[] }[] {
 
 
   nextStep(){
-    console.log("Contenu de tousLesBatiments :", this.tousLesBatiments);
+    //console.log("Contenu de tousLesBatiments :", this.tousLesBatiments);
     this.step++;
     switch (this.step) {
       case 0:

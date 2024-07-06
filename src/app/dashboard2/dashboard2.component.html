@@ -103,7 +103,7 @@
           <div class="flex row flex-wrap g-white  px-3 py-2 mb-4">
             <div class="block py-2 px-2 w-full flex row items-center justify-between">
               <div class="text-gray-700 text-lg font-semibold">
-                Consommation totale de l'hôpital pendant le mois actuelle 
+                Consommation totale de l'hôpital 
               </div>
             </div>
             <div class="flex w-full justify-center itels-center p-8 font-bold text-3xl text-[#7360e2]">
@@ -115,14 +115,14 @@
     </div>
 
 
-    <app-buildings-consumption2 [equipementsParBatiment]="equipementsParBatiment" style="width: 100%"></app-buildings-consumption2>
+   <app-buildings-consumption2 [equipementsParBatiment]="equipementsParBatiment" style="width: 100%"></app-buildings-consumption2>
     <app-locals-equipements [equipementsParLocal]="equipementsParLocal"></app-locals-equipements>
     <app-equipements-consommations [equipementsParLocal]="equipementsParLocal"></app-equipements-consommations>
     <app-categories-equipements [equipementsParCategorie]="equipementsParCategorie" [equipementsParCriticite]="equipementsParCriticite"></app-categories-equipements>
   <app-bar-chart [message]="sendData"></app-bar-chart>
     <app-consumption-evolution2 [total]="sendData"></app-consumption-evolution2> 
     <app-equipements-list2 style="width: 100%"></app-equipements-list2>
- 
+  
     <!-- <app-bar-chart></app-bar-chart>  -->
     <div *ngIf="AlerteMessage" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
 <div class="fixed inset-0"></div>

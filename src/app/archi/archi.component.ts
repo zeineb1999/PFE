@@ -287,13 +287,13 @@ export class ArchiComponent {
     this.floorService.ajouterBatiment(nomBatiment,typeBatiment).subscribe(
       (response) => {
         this.batimentId = response.id;
-        console.log('ID du batiment ajouté :', this.batimentId);
+        //console.log('ID du batiment ajouté :', this.batimentId);
 
         this.typeBatimentSelectionne=typeBatiment;
 
-        console.log(' nom  Bâtiment  :', nomBatiment);
+        //console.log(' nom  Bâtiment  :', nomBatiment);
 
-        console.log('type Bâtiment  :', typeBatiment);
+        //console.log('type Bâtiment  :', typeBatiment);
           // Vous pouvez effectuer des actions supplémentaires ici si nécessaire
       },
       (error) => {
@@ -320,12 +320,12 @@ ajouterNewEtage(nomBatiment: string,typeBatiment: string,id:number,index:number)
   this.floorService.ajouterEtage(nomBatiment, id).subscribe(
     (response) => {
       const etageId = response.id;
-      console.log('ID de l\'étage ajouté :', etageId);
+      //console.log('ID de l\'étage ajouté :', etageId);
       this.tousLesEtagesSansException.push(response.id);
       this.tousLesNomsEtagesSansException.push(nomBatiment);
       this.tousLesNomsEtages.push(nomBatiment);
       this.tousLesTypesEtages.push(typeBatiment);
-      console.log('Étage ajouté avec succès :', response);
+      //console.log('Étage ajouté avec succès :', response);
     },
     (error) => {
       console.error('Erreur lors de l\'ajout de l\'étage :', error);
@@ -349,12 +349,12 @@ ajouterNewZone(nomBatiment: string,id:number,index:number,maxT:number,minT:numbe
 
         }
     )
-      console.log('ID de la zone ajoutée :', zoneId);
+      //console.log('ID de la zone ajoutée :', zoneId);
       this.tousLesZonesSansException.push(response.id);
       this.tousLesNomsZonesSansException.push(nomBatiment);
       this.tousLesNomsLocaux.push(nomBatiment);
 
-      console.log('Étage ajouté avec succès :', response);
+      //console.log('Étage ajouté avec succès :', response);
     },
     (error) => {
       console.error('Erreur lors de l\'ajout de l\'étage :', error);
@@ -395,11 +395,11 @@ ajouterNewEquipement(nomBatiment: string,id:number, index:number) {
   this.floorService.ajouterEquipementArchi(nomBatiment, id).subscribe(
     (response) => {
       const equipementId = response.id;
-      console.log('ID de l equipement ajoutée :', equipementId);
+      //console.log('ID de l equipement ajoutée :', equipementId);
       this.tousLesEquipementsSansException.push(response.id);
       this.tousLesNomsEquipementsSansException.push(nomBatiment);
       this.tousLesNomsEquipements.push(nomBatiment);
-      console.log('Étage ajouté avec succès :', response);
+      //console.log('Étage ajouté avec succès :', response);
     },
     (error) => {
       console.error('Erreur lors de l\'ajout de l\'étage :', error);
@@ -424,10 +424,10 @@ stock(){
 }
   //otherAdd=false;
   nextStep() {
-    console.log(this.currentStep);
+    //console.log(this.currentStep);
     if (this.currentStep < this.steps.length) {
       this.currentStep++;
-      console.log(this.currentStep);
+      //console.log(this.currentStep);
     }
   }
   nextBatiment() {
@@ -444,14 +444,14 @@ stock(){
   }
 
   prevStep() {
-    console.log(this.currentStep,'prec', this.currentStep-1)
+    //console.log(this.currentStep,'prec', this.currentStep-1)
     if (this.currentStep > 1) {
       this.currentStep--;
     }
   }
 
   goToStep(step: number) {
-    console.log(this.currentStep,'prec', this.currentStep+1)
+    //console.log(this.currentStep,'prec', this.currentStep+1)
     if (step <= this.currentStep) {
       this.currentStep = step;
     }

@@ -76,7 +76,7 @@ export class BuildingsConsumption2Component {
         let indiceExacte =1;
 
         for (const i in this.equipementsParBatiment)  {
-          //console.log("&&&&&&&&&&&&&&&&&&&&&&&&777  i",i)
+          ////console.log("&&&&&&&&&&&&&&&&&&&&&&&&777  i",i)
           let _name = 'batiment '+ indiceExacte+ ': ' + this.equipementsParBatiment[i][0].batiment
           let consommationBatiment = 0;
           this.equipementsParBatiment[i].forEach((equipement: Equipement) => {
@@ -154,7 +154,7 @@ export class BuildingsConsumption2Component {
   insertFloorChart(etageElementId: string, _name: string, _categories: string[], etagesChartData: any[], colorIndex:number){
 
     let colors = ['#00bbf9', '#00f5d4', '#fee440', '#9b5de5', '#f15bb5', '#219ebc', '#ff006e']
-    //console.log('col: ',colorIndex)
+    ////console.log('col: ',colorIndex)
     Highcharts.chart(etageElementId, {
       chart: {
         type: 'bar'

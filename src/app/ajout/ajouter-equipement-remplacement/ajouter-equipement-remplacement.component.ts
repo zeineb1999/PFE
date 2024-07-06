@@ -25,6 +25,8 @@ interface Zone {
 })
 export class AjouterEquipementRemplacementComponent implements OnInit {
   zones: Zone[] = [];
+  selectedCategory: string = ''; // Propriété pour stocker la catégorie sélectionnée
+
   equipements: Equipement[] = [];
   selectedEquipements: any;
   selectedZones: any;
@@ -64,7 +66,7 @@ export class AjouterEquipementRemplacementComponent implements OnInit {
         this.el.nativeElement.querySelector('#local-name').innerHTML = '<span class="inline-block bg-gradient-to-r from-blue-500 to-green-400 text-transparent bg-clip-text font-bold">'+this.localName+'</span>'
       },
       error => {
-        console.log(error);
+        //console.log(error);
       }
     );
 
@@ -73,14 +75,17 @@ export class AjouterEquipementRemplacementComponent implements OnInit {
   ngOnChanges() {
   }
 
+  selectCat(cat:string){
+    this.selectedCategory=cat;
 
+  }
   getZones = () => {
     this.floorService.getAllZones().subscribe(
       (data: Zone[]) => {
         this.zones = data;
       },
       error => {
-        console.log(error);
+        //console.log(error);
       }
     );
   }
@@ -91,22 +96,23 @@ export class AjouterEquipementRemplacementComponent implements OnInit {
       etat: 'ON',
       categorie: this.categorie,
       puissance: this.puissance,
-     
+      type:this.selectedCategory,
+
       zoneE: this.zoneRoomId,
       rapport: this.rapport
     };
-    console.log("equipementData: ",equipementData);
+    ////console.log("equipementData: ",equipementData);
     this.floorService.addEquipementAjouter(equipementData).subscribe(
       (data: any) => {
         /* const equipementId = data.id;
-        console.log("donnes histo  rapport",this.rapport,"equi remp",this.equipementIdRemplacant,equipementId);
+        //console.log("donnes histo  rapport",this.rapport,"equi remp",this.equipementIdRemplacant,equipementId);
         this.floorService.createHistoriqueRemplacement(this.rapport, "remplacer",this.equipementIdRemplacant,equipementId).subscribe(
           (data: any) => {
-            console.log("done ",data);
+            //console.log("done ",data);
 
           },
           (error) => {
-            console.log(error);
+            //console.log(error);
           }
         ); */
     
@@ -115,16 +121,16 @@ export class AjouterEquipementRemplacementComponent implements OnInit {
            
           },
           error => {
-            console.log(error);
+            //console.log(error);
           }
         ) 
-        console.log(data);
+        //console.log(data);
         this.equipements.push(data);
         this.router.navigateByUrl(`/zone-details/${this.zoneRoomId}`);*/
         this.router.navigateByUrl(`/zone-details/${this.zoneRoomId}`);
       },
       error => {
-        console.log(error);
+        //console.log(error);
       }
     );
   }

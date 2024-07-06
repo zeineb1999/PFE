@@ -39,7 +39,7 @@ export class ConsumptionEvolution2Component {
   async ngOnInit() {/* 
     this.wsService.connectequipementSecond().subscribe(
       (message) => {
-        console.log('Received message:', message);
+        //console.log('Received message:', message);
         this.updateData(message);
        }
     ) */
@@ -47,7 +47,7 @@ export class ConsumptionEvolution2Component {
     await this.initializeData();
     this.insertChart(this.consommations_mois);
     //this.LoadEquipementsParMois()
-    //console.log('Equipements:', this.equipements);
+    ////console.log('Equipements:', this.equipements);
   }
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
@@ -93,7 +93,7 @@ export class ConsumptionEvolution2Component {
     });
   }
   ngOnChanges() {
-    //console.log('total',this.total);
+    ////console.log('total',this.total);
     this.updateData(this.total);
   }
   updateData(message: any): void {
@@ -117,7 +117,7 @@ export class ConsumptionEvolution2Component {
   }
   /* ngOnChanges() {
     //this.LoadEquipementsParMois()
-    //console.log('Equipements:', this.equipements);
+    ////console.log('Equipements:', this.equipements);
   } */
 
   LoadEquipementsParMois(){
@@ -129,19 +129,19 @@ export class ConsumptionEvolution2Component {
     this.consommations_mois= []
     mois.forEach(this_mois => {
       if (parseInt(this_mois) <= new Date().getMonth() + 1) {
-        //console.log('mois: ',new Date().getMonth())
+        ////console.log('mois: ',new Date().getMonth())
         let dateDebut = '2024-'+this_mois+'-01 00:00:00'
         let dateFin = '2024-'+this_mois+'-'+derniers_jours_de_mois[parseInt(this_mois)-1]+' 00:00:00'
-        //console.log('********************* ', dateDebut, ' -> ', dateFin)
+        ////console.log('********************* ', dateDebut, ' -> ', dateFin)
         this.subscriptions=this.floorService.getHopitalConsommationPendantMois(dateDebut, dateFin)
         .subscribe((data: number) => {
           this.consommations_mois.push({ mois: parseInt(mois2[parseInt(this_mois) - 1]), consommation: data })
-          //console.log('consommations_mois', this.consommations_mois)
-          //console.log('rrrrrrrr', new Date().getMonth())
+          ////console.log('consommations_mois', this.consommations_mois)
+          ////console.log('rrrrrrrr', new Date().getMonth())
           if (this.consommations_mois.length == new Date().getMonth()+1) {
             // Trier la liste par mois
             this.consommations_mois.sort(this.comparerMois);
-          //console.log(consommations_mois);
+          ////console.log(consommations_mois);
           this.insertChart(this.consommations_mois);
           }
         })

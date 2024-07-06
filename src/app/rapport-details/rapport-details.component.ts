@@ -28,13 +28,13 @@ export class RapportDetailsComponent {
   ngOnInit() {
     this.roleUser=sessionStorage.getItem('role');
     this.alerteId = parseInt(this.route.snapshot.paramMap.get('alerteId') || '');
-    console.log('alerteid: ', this.alerteId)
+    //console.log('alerteid: ', this.alerteId)
     this.floorService.getAlerte(this.alerteId).subscribe(
       ((alerte: any) =>{
         this.thisAlerte = alerte})
       );
     this.floorService.getRapportsByAlerteId(this.alerteId).subscribe((rapport: any) => {
-      console.log('rapport: ', rapport)
+      //console.log('rapport: ', rapport)
       if (rapport && rapport.length > 0) {
         this.rapport = rapport[0]
         let annee: number, mois: number;
@@ -44,18 +44,18 @@ export class RapportDetailsComponent {
             mois = parseInt(this.rapport.dateRapport.split('T')[0].split('-')[1])
             this.rapport.dateRapport = annee+'/'+ mois + '/' + this.rapport.dateRapport.split('T')[0].split('-')[2] + ' '+ this.rapport.dateRapport.split('T')[1].split(':')[0] + ':'+this.rapport.dateRapport.split('T')[1].split(':')[1]
         };
-        console.log('rapport: ', rapport)
+        //console.log('rapport: ', rapport)
         if(this.rapport){
           this.floorService.getEquipementDetails(this.thisAlerte.equipementId).subscribe((equipement: any) => {
             this.equipement = equipement
-            console.log('ee', equipement)
+            //console.log('ee', equipement)
           })
         }
         if(this.rapport.decision==="remplacer"){
           this.floorService.getEquipementAjouterDetails(this.rapport.id).subscribe((equipement: any) => {
             this.equipementRemplacer = equipement
 
-            console.log('ee',  this.equipementRemplacer[0].puissance )
+            //console.log('ee',  this.equipementRemplacer[0].puissance )
           })
           
         }
@@ -67,26 +67,26 @@ export class RapportDetailsComponent {
 
   validateChoice() {
 
-    console.log('equipement:', this.equipement.id);
+    //console.log('equipement:', this.equipement.id);
 
     this.decisionValidated = true; // Mark the decision as validated
 
     this.floorService.addDecision(this.rapport.id, this.selectedOption).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
       },
       (error) => {
-        console.log(error);
+        //console.log(error);
       }
     );
     if(this.selectedOption != 'remplacer'){
       this.demandeCout=true
    /*  this.floorService.createHistorique(this.rapport, "remplacer",this.equipement,"").subscribe(
           (data: any) => {
-            console.log(data);
+            //console.log(data);
           },
           (error) => {
-            console.log(error);
+            //console.log(error);
           }
         ); */
         
@@ -117,10 +117,10 @@ export class RapportDetailsComponent {
     this.approvation=true
     this.floorService.addApprovation(this.rapport.id,"true").subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
       },
       (error) => {
-        console.log(error);
+        //console.log(error);
       }
     );
    
@@ -137,18 +137,18 @@ export class RapportDetailsComponent {
         type:this.equipementRemplacer[0].type
       };
 
-      console.log("equipementData: ",equipementData);
+      //console.log("equipementData: ",equipementData);
       this.floorService.addEquipement(equipementData).subscribe(
         (data: any) => {
           const equipementId = data.id;
-          console.log("donnes histo  rapport",this.rapport,"equi remp",this.equipement.id,equipementId);
+          //console.log("donnes histo  rapport",this.rapport,"equi remp",this.equipement.id,equipementId);
           this.floorService.createHistoriqueRemplacement(this.rapport, "remplacer",this.equipement.id,equipementId).subscribe(
             (data: any) => {
-              console.log("done ",data);
+              //console.log("done ",data);
   
             },
             (error) => {
-              console.log(error);
+              //console.log(error);
             }
           );
       
@@ -157,22 +157,22 @@ export class RapportDetailsComponent {
              
             },
             error => {
-              console.log(error);
+              //console.log(error);
             }
           )
-          console.log(data);
+          //console.log(data);
         },
         error => {
-          console.log(error);
+          //console.log(error);
         }
       );
 
     this.floorService.createHistorique(this.rapport, this.rapport.decision,this.equipement,"").subscribe(
                 (data: any) => {
-                  console.log(data);
+                  //console.log(data);
                 },
                 (error) => {
-                  console.log(error);
+                  //console.log(error);
                 }
               );
     
@@ -186,10 +186,10 @@ export class RapportDetailsComponent {
     if(this.rapport.decision != 'remplacer'){
       this.floorService.createHistorique(this.rapport, this.rapport.decision,this.equipement,"").subscribe(
             (data: any) => {
-              console.log(data);
+              //console.log(data);
             },
             (error) => {
-              console.log(error);
+              //console.log(error);
             }
           );
    }
@@ -199,10 +199,10 @@ export class RapportDetailsComponent {
     this.approvation=true
     this.floorService.addApprovation(this.rapport.id,"false").subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
       },
       (error) => {
-        console.log(error);
+        //console.log(error);
       }
     );
    
@@ -212,7 +212,7 @@ export class RapportDetailsComponent {
         
         },
         (error) => {
-          console.log(error);
+          //console.log(error);
         }
       );
 
@@ -224,10 +224,10 @@ export class RapportDetailsComponent {
 
     this.floorService.addCout(this.rapport.id, this.cout).subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
       },
       (error) => {
-        console.log(error);
+        //console.log(error);
       }
     );
     this.demandeCout=false

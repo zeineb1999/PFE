@@ -19,7 +19,7 @@
             </div>
 
             <div>
-              <label for="" class="block mb-2 text-sm font-medium text-gray-900 ">{{'ajoutC1.criticite' |
+              <label for="" class="block mb-2 text-sm font-medium text-gray-900 ">{{'ajoutC1.title32' |
                 translate}}</label>
               <div class="flex gap-2 items-center font-medium my-3 ml-8">
                 <input type="radio" name="categorie" id="" value="critique" [(ngModel)]="categorie"
@@ -60,9 +60,24 @@
             </div>
             <div>
               <label for="category" class="block mb-2 text-sm font-medium text-gray-900">Catégorie</label>
-              <select id="category" [(ngModel)]="selectedCategory" class="block w-full border-gray-300 rounded-md shadow-sm">
-                <option *ngFor="let category of categories" [value]="category.value">{{ category.label }}</option>
-              </select>
+              <select name="role" [(ngModel)]="selectedCategory" (change)="selectCat(selectedCategory)" id="role"
+                  class="hover:shadow bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border focus:border-blue-600 block w-full p-2.5">
+            <option [ngValue]="null"></option>
+           
+
+            <option value="Réfrigérateurs et Congélateurs">Réfrigérateurs et Congélateurs</option>
+            <option value="Equipements de bureaux">Equipements de bureaux</option>
+            <option value="Equipements médicaux">Equipements médicaux</option>
+            <option value="Equipements de cuisine">Equipements de cuisine</option>
+            <option value="Prises à usage personnel">Prises à usage personnel</option>
+            <option value="Équipements de Confort et de Divertissement">Équipements de Confort et de Divertissement</option>
+            <option value="Climatiseurs">Climatiseurs</option>
+            <option value="Chauffages">Chauffages</option>
+            <option value="Déshumidificateurs">Déshumidificateurs</option>
+            <option value="Eclairage">Eclairage</option>
+            
+          </select>
+             
             </div>
             
             

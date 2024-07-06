@@ -47,7 +47,7 @@ export class FloorService {
       minH:minH,
       etageZ:etageZ
     };
-    console.log("zone ajoutéeeeeeeeee ",etageData)
+    //console.log("zone ajoutéeeeeeeeee ",etageData)
     return this.http.post(this.baseurl + '/zones/', etageData);
   }
   ajouterEquipementArchi(nom: string, zoneE: number): Observable<any> {
@@ -140,7 +140,7 @@ export class FloorService {
           });
           i++;
         });
-        console.log(result)
+        //console.log(result)
         return result;
       })
     );
@@ -192,17 +192,17 @@ export class FloorService {
  
   addEquipement(equipement:{  nom: string, type:string,minC:number,maxC:number, etat: string, categorie: string, puissance: number, zoneE: number }) : Observable<any>{
     const body = {  nom: equipement.nom,type:equipement.type,minC:equipement.minC,maxC:equipement.maxC ,  etat: equipement.etat, categorie: equipement.categorie, puissance: equipement.puissance, zoneE: equipement.zoneE}
-    console.log("body: ",body)
+    //console.log("body: ",body)
     return this.http.post(this.baseurl + '/equipement/', body,{headers: this.httpHeaders});
   }
   addEquipementAjouter(equipement:{  nom: string,  etat: string, categorie: string, puissance: number, zoneE: number,rapport:number }) : Observable<any>{
     const body = {  nom: equipement.nom,  etat: equipement.etat, categorie: equipement.categorie, puissance: equipement.puissance, zoneE: equipement.zoneE,rapport:equipement.rapport}
-    console.log("body: ",body)
+    //console.log("body: ",body)
     return this.http.post(this.baseurl + '/equipementajouter/', body,{headers: this.httpHeaders});
   }
   createEquipementArchive(nom: string,categorie: string, puissance: number, zoneE: number):Observable<any>{
     const body = {  nom: nom,  categorie: categorie, puissance: puissance, zoneE: zoneE}
-    console.log("body: ",body)
+    //console.log("body: ",body)
     return this.http.post(this.baseurl + '/equipementarchive/', body,{headers: this.httpHeaders});
 
   }
@@ -341,26 +341,26 @@ modifierZone(zoneId: number, zoneData:  Zone) : Observable<any> {
 }
 modifierValeurs1(zoneId: number, val1:number) : Observable<any> {
     const body = {  zoneId:zoneId,val1:val1 }
-    console.log("body: ",body)
+    //console.log("body: ",body)
     return this.http.post(this.baseurl + '/modifierParam1/', body,{headers: this.httpHeaders});
 
   
 }
 modifierValeurs2(zoneId: number, val2:number) : Observable<any> {
   const body = {  zoneId:zoneId,val2:val2 }
-    console.log("body: ",body)
+    //console.log("body: ",body)
     return this.http.post(this.baseurl + '/modifierParam2/', body,{headers: this.httpHeaders});
 
 }
 modifierValeurs3(zoneId: number, val3:number) : Observable<any> {
   const body = {  zoneId:zoneId,val3:val3 }
-    console.log("body: ",body)
+    //console.log("body: ",body)
     return this.http.post(this.baseurl + '/modifierParam3/', body,{headers: this.httpHeaders});
 
 }
 modifierValeurs4(zoneId: number, val4:number) : Observable<any> {
   const body = {  zoneId:zoneId,val4:val4 }
-    console.log("body: ",body)
+    //console.log("body: ",body)
     return this.http.post(this.baseurl + '/modifierParam4/', body,{headers: this.httpHeaders});
 
 }
@@ -536,7 +536,7 @@ getExcelData(): Observable<any> {
   }
   addAlerte( localId:number,type:string , dateAlerte: Date, text: string, valeur: number) : Observable<any>{
     const body = {  localId: localId,type: type, dateAlerte: dateAlerte, text: text, valeur: valeur}
-    //console.log(body)
+    ////console.log(body)
     return this.http.post(this.baseurl + '/alerte/', body,{headers: this.httpHeaders});
   }
   getAlertesById(id: number) : Observable<any>{
@@ -590,7 +590,7 @@ getExcelData(): Observable<any> {
           dateRapport: date
 
       }
-      console.log(rapport)
+      //console.log(rapport)
       return this.http.post(this.baseurl + '/rapport/', rapport,{headers: this.httpHeaders});
     }
 
@@ -641,7 +641,7 @@ getExcelData(): Observable<any> {
         decision: decision,
         equipement:equipement.id
       };
-      console.log(data)
+      //console.log(data)
       return this.http.post(this.baseurl + '/historique/', data,{headers: this.httpHeaders});
     }
     createHistoriqueRemplacement(rapport: any,decision: string,equipement:any,equipementDest:any): Observable<any> {
@@ -660,7 +660,7 @@ getExcelData(): Observable<any> {
         equipement:equipement,
         equipementDest:equipementDest
       };
-      console.log(data)
+      //console.log(data)
       return this.http.post(this.baseurl + '/historique/', data,{headers: this.httpHeaders});
     }
     getPeriodeParEquipement(equipement_id: number, date: string): Observable<any> {
@@ -812,7 +812,7 @@ getExcelData(): Observable<any> {
     }
    
     predictConsumptionLocal(data: any): Observable<any> {
-      console.log("hayaaaaaaaaaaaaaaaaaaaaaa ",data)
+      //console.log("hayaaaaaaaaaaaaaaaaaaaaaa ",data)
       return this.http.post(this.baseurl + '/prediction_mois_local/', data, { headers: this.httpHeaders });
     }
     

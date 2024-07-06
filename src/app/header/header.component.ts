@@ -45,7 +45,7 @@ export class HeaderComponent implements OnInit {
   alerteSubscription: Subscription | undefined;
   rapportSubscription: Subscription | undefined;
   onAlertChange(local: string, temperature: number, nowSlash: ColorString) {
-    //console.log(`Alert received: Local: ${local}, Temperature: ${temperature}, Now: ${nowSlash}`);
+    ////console.log(`Alert received: Local: ${local}, Temperature: ${temperature}, Now: ${nowSlash}`);
   }
 
   AlerteMessage: string = '';
@@ -59,7 +59,7 @@ export class HeaderComponent implements OnInit {
  
   ngOnInit() {
     
-    console.log("normalement darha ",this.user)
+    //console.log("normalement darha ",this.user)
     this.role = sessionStorage.getItem('role');
     this.isLoggedIn = sessionStorage.getItem('isLoggedIn')
     this.lang = sessionStorage.getItem('lang') || 'fr';
@@ -81,19 +81,19 @@ export class HeaderComponent implements OnInit {
           this.nbRapport = cpt
          
           
-          console.log("dfkjhereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",this.rapport);
+          //console.log("dfkjhereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",this.rapport);
         });
       }, 6000); 
     }
     if(this.role === 'Responsable de maintenance' || this.role === 'responsable de maintenance') {
       this.verif1=true
-      console.log('userrrrrrrrrrrrrrr',this.user)
+      //console.log('userrrrrrrrrrrrrrr',this.user)
       setInterval(() => {
       this.floorService.getAlertesById(this.user).subscribe(
         (data) => {
-          console.log('cas maintenance : ')
+          //console.log('cas maintenance : ')
           this.alertes = data;
-          console.log("les alertes ----------------",this.alertes)
+          //console.log("les alertes ----------------",this.alertes)
           let cpt = 0
           data.forEach((alerte: any) => {
             if (alerte.vu == false) {
@@ -114,8 +114,8 @@ export class HeaderComponent implements OnInit {
       this.verif1=true
       setInterval(() => {
       this.floorService.getAlertesSansId().subscribe((alertes: any) => {
-        console.log('cas contraire : ')
-        console.log('alertes : ', alertes)
+        //console.log('cas contraire : ')
+        //console.log('alertes : ', alertes)
         this.alertes = alertes;
         let cpt = 0
           alertes.forEach((alerte: any) => {
@@ -130,16 +130,16 @@ export class HeaderComponent implements OnInit {
     } */
     this.floorService.lancementSocket.subscribe(
       (data) => {
-        console.log("lancement socket",data)
+        //console.log("lancement socket",data)
         
-        console.log("gettttttttttttttt",)
+        //console.log("gettttttttttttttt",)
         this.lancerSocket(data);
         
        
      });
     this.authservice.changementHeader.subscribe(
       (data)=>{
-        console.log("nsupprimiw",data)
+        //console.log("nsupprimiw",data)
         this.verif1=false
         this.verif2=false
       }
@@ -162,7 +162,7 @@ export class HeaderComponent implements OnInit {
           this.nbRapport = cpt
          
           
-          console.log("dfkjhereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",this.rapport);
+          //console.log("dfkjhereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",this.rapport);
         });
       }, 6000); 
     }
@@ -170,10 +170,10 @@ export class HeaderComponent implements OnInit {
     if(dataRecu.role === 'Responsable de maintenance' || dataRecu.role === 'responsable de maintenance') {
       this.verif1=true
       
-      console.log('userrrrrrrrrrrrrrr',this.user)
+      //console.log('userrrrrrrrrrrrrrr',this.user)
       this.floorService.getAlertesById(dataRecu.id).subscribe(
         (data) => {
-          console.log('cas maintenance : ')
+          //console.log('cas maintenance : ')
           this.alertes = data;
           let annee: number, mois: number;
           this.alertes.forEach((alerte: any) => {
@@ -182,7 +182,7 @@ export class HeaderComponent implements OnInit {
             mois = parseInt(alerte.dateAlerte.split('T')[0].split('-')[1])
             alerte.dateAlerte = annee+'/'+ mois + '/' + alerte.dateAlerte.split('T')[0].split('-')[2] + ' '+ alerte.dateAlerte.split('T')[1].split(':')[0] + ':'+alerte.dateAlerte.split('T')[1].split(':')[1]
           }});
-          console.log("les alertes ----------------",this.alertes)
+          //console.log("les alertes ----------------",this.alertes)
           let cpt = 0
           data.forEach((alerte: any) => {
             if (alerte.vu == false) {
@@ -203,15 +203,18 @@ export class HeaderComponent implements OnInit {
       this.verif1=true
       
       this.floorService.getAlertesSansId().subscribe((alertes: any) => {
-        console.log('cas contraire : ')
-        console.log('alertes : ', alertes)
+        //console.log('cas contraire : ')
+        //console.log('alertes : ', alertes)
         this.alertes = alertes;
         let annee: number, mois: number;
           this.alertes.forEach((alerte: any) => {
           if (alerte.dateAlerte) {
             annee =parseInt(alerte.dateAlerte.split('T')[0].split('-')[0])
             mois = parseInt(alerte.dateAlerte.split('T')[0].split('-')[1])
-            alerte.dateAlerte = annee+'/'+ mois + '/' + alerte.dateAlerte.split('T')[0].split('-')[2] + ' '+ alerte.dateAlerte.split('T')[1].split(':')[0] + ':'+alerte.dateAlerte.split('T')[1].split(':')[1]
+            const hourString = alerte.dateAlerte.split('T')[1].split(':')[0]; // Extracts the hour part as a string
+            const hourNumber = parseInt(hourString, 10); // Converts the string to a number
+            const result = hourNumber ; 
+            alerte.dateAlerte = annee+'/'+ mois + '/' + alerte.dateAlerte.split('T')[0].split('-')[2] + ' '+ result + ':'+alerte.dateAlerte.split('T')[1].split(':')[1]
           }});
         let cpt = 0
           alertes.forEach((alerte: any) => {
@@ -229,14 +232,14 @@ export class HeaderComponent implements OnInit {
      
     this.wsService.connect(roomName).subscribe(
       (message) => {
-        console.log('Received message:', message);
+        //console.log('Received message:', message);
         this.webSocket.unshift(message.message);
         if(dataRecu.role === 'Moyen generaux' || dataRecu.role === 'moyen generaux') {
 
           if(message && message.message){
             const{id} = message.message;
             this.AlerteId = id;
-            console.log('id ----------->', id)
+            //console.log('id ----------->', id)
             const { text, localId, type } = message.message; // Récupérez les propriétés nécessaires du message
             this.AlerteMessage = `Alerte de ${type} au local ${localId}\n  `;
            
@@ -261,20 +264,20 @@ export class HeaderComponent implements OnInit {
       
     this.wsService.connectUser().subscribe((messageUser: any) => {
       
-      console.log('Received messageUSER :', messageUser);
+      //console.log('Received messageUSER :', messageUser);
         this.webSocket.unshift(messageUser.message);
         if(dataRecu.role === 'Responsable de maintenance' || dataRecu.role === 'responsable de maintenance') {
           if(messageUser && messageUser.message){
             const{id} = messageUser.message;
             this.AlerteId = id;
-            console.log('id ----------->', id)
+            //console.log('id ----------->', id)
             const { text, localId, type } = messageUser.message; // Récupérez les propriétés nécessaires du message
             this.AlerteMessageUser = ` Alerte d'intervention`;
             this.alertes.push(messageUser.message);
             this.nbAlertes++;
-            console.log('rrrrrrrrrr ', this.AlerteMessageUser)
+            //console.log('rrrrrrrrrr ', this.AlerteMessageUser)
             this.soundService.beep(200, 440, 100);
-            console.log("beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeep")
+            //console.log("beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeep")
             setTimeout(() => {
               this.AlerteMessageUser = '';
               //this.refresh_nb_alerte();
@@ -302,32 +305,32 @@ export class HeaderComponent implements OnInit {
           cpt++
         }
       });
-      console.log("cpt",cpt)
+      //console.log("cpt",cpt)
       this.nbAlertes = cpt
-      console.log("nb",this.nbAlertes)
+      //console.log("nb",this.nbAlertes)
     })
   }
   trieralertes(alertes: any) {
-    //console.log("alertes ",this.alertes)
+    ////console.log("alertes ",this.alertes)
       this.alertes.forEach((alerte: any) => {
         
         if(alerte.vu==false){
-          this.alertesNew++;//console.log(alerte)
+          this.alertesNew++;////console.log(alerte)
         }
       })
   }
   redirectToAlerteDetails(alerteId: number) {
     this.AlerteMessage = '';
-    console.log('alerteId', alerteId)
+    //console.log('alerteId', alerteId)
     this.router.navigate(['/alerte-details/', alerteId]);
   }
   
   trierrapports(rapports: any) {
-    //console.log("alertes ",this.alertes)
+    ////console.log("alertes ",this.alertes)
       this.rapports.forEach((rapport: any) => {
         
         if(rapport.vu==false){
-          this.rapportNew++;//console.log(alerte)
+          this.rapportNew++;////console.log(alerte)
         }
       })
   }
@@ -356,18 +359,18 @@ export class HeaderComponent implements OnInit {
   handleAlerteChange(event: any) {
 
     if (event.type == 'maintenance') {
-      //console.log('local '+ event.localId+ ': ', event.nomLocal +' type: ',  event.type+' now: '+ event.nowSlash)
+      ////console.log('local '+ event.localId+ ': ', event.nomLocal +' type: ',  event.type+' now: '+ event.nowSlash)
       this.AlerteMessage = 'Local '+ event.localId + ' : '+ event.nomLocal+' type : '+ event.type;
-      //console.log('rrrrrrrrrr ', this.AlerteMessage)
+      ////console.log('rrrrrrrrrr ', this.AlerteMessage)
 
       setTimeout(() => {
         this.AlerteMessage = '';
       }, 5000);
 
     } else {
-      //console.log('local '+ event.localId+ ': ', event.nomLocal +' type: ',  event.type+' now: '+ event.nowSlash)
+      ////console.log('local '+ event.localId+ ': ', event.nomLocal +' type: ',  event.type+' now: '+ event.nowSlash)
       this.AlerteMessage = 'Local '+ event.localId + ' : '+ event.nomLocal+' enregistre une '+ event.type+ ' moyenne inhabituelle';
-      //console.log('rrrrrrrrrr ', this.AlerteMessage)
+      ////console.log('rrrrrrrrrr ', this.AlerteMessage)
       setTimeout(() => {
         this.AlerteMessage = '';
         // Effacer le message après quelques secondes
@@ -379,7 +382,7 @@ export class HeaderComponent implements OnInit {
   open_close() {
     let notifElement = this.el.nativeElement.querySelector('#notifs');
     this.open = !this.open
-    //console.log('open', this.open)
+    ////console.log('open', this.open)
     if (this.open) {
       this.renderer.setAttribute(notifElement, 'style', 'display: flex; width: 400px; height: 300px;');
 
@@ -390,7 +393,7 @@ export class HeaderComponent implements OnInit {
   open_closeRapport() {
     let notifElement = this.el.nativeElement.querySelector('#rapports');
     this.openRapport = !this.openRapport
-    //console.log('open', this.open)
+    ////console.log('open', this.open)
     if (this.openRapport) {
       this.renderer.setAttribute(notifElement, 'style', 'display: flex; width: 400px; height: 300px;');
 

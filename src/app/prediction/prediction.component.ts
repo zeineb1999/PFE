@@ -91,8 +91,8 @@ export class PredictionComponent implements OnInit {
     this.floorService.predictConsumptionMois(data).subscribe(
       response => {
         this.prediction = response;
-        console.log('Prediction cri:', response.predicted_consumption);
-        console.log('Prediction nor:', response.predicted_consumption2);
+        //console.log('Prediction cri:', response.predicted_consumption);
+        //console.log('Prediction nor:', response.predicted_consumption2);
         const predictionData = this.formatPredictionData(response.predicted_consumption);
         if (this.selectedFilter === 'batiment') {
           this.renderChart(predictionData, 3);

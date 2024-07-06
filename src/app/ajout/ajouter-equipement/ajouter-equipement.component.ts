@@ -92,7 +92,10 @@ export class AjouterEquipementComponent implements OnInit {
       }
     );
   }
+  selectCat(cat:string){
+    this.selectedCategory=cat;
 
+  }
   ajouterEquipement() {
     const equipementData = {
       nom: this.nom,
@@ -105,8 +108,8 @@ export class AjouterEquipementComponent implements OnInit {
       minC: this.minConsommation,
       maxC: this.maxConsommation
     };
-    console.log('categorie',this.selectedCategory)
-    console.log("equipementData: ",equipementData);
+    ////console.log('categorie',this.selectedCategory)
+    ////console.log("equipementData: ",equipementData);
     this.floorService.addEquipement(equipementData).subscribe(
       (data: any) => {
         const equipementId = data.id;
@@ -118,7 +121,7 @@ export class AjouterEquipementComponent implements OnInit {
             console.log(error);
           }
         )
-        console.log(data);
+        ////console.log(data);
         this.equipements.push(data);
         this.router.navigateByUrl(`/zone-details/${this.zoneRoomId}`);
       },

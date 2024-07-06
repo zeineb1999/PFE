@@ -42,15 +42,15 @@ export class DashboardComponent implements OnInit {
     })
     this.authService.getAllusers().subscribe(users => {
       this.utilisateurs = users;
-      console.log(this.utilisateurs);
+      //console.log(this.utilisateurs);
     })
     this.floorService.getAllBatiments().subscribe(batiments => {
       this.batiments = batiments;
-      console.log(this.batiments);
+      //console.log(this.batiments);
     })
     this.floorService.getAllEquipements().subscribe(equipements => {
       this.equipements = equipements;
-      console.log(this.equipements);
+      //console.log(this.equipements);
     })
     this.floorService.getAllAlertes().subscribe(alertes=> {
       this.alertes = alertes;
@@ -63,8 +63,8 @@ export class DashboardComponent implements OnInit {
     
     this.authService.getProfile().subscribe(profile => {
       this.user = profile;
-      console.log(this.user);
-      console.log('id : ',this.user.id);
+      //console.log(this.user);
+      //console.log('id : ',this.user.id);
       if(this.user && this.user.id){
         this.authService.getRole(this.user.id).subscribe(response => {
           this.userRole=response;
@@ -124,7 +124,7 @@ export class DashboardComponent implements OnInit {
        
         this.newEmail = this.user.email;
       }
-    console.log(this.newUsername, this.newFirstname, this.newLastname);
+    //console.log(this.newUsername, this.newFirstname, this.newLastname);
     this.authService.updateUserProfile(this.newUsername, this.newFirstname, this.newLastname,this.newEmail)
       .subscribe(response => {
         this.successMessage = 'Modification effectuée !';

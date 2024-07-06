@@ -68,15 +68,15 @@ export class EquipementDetailsComponent implements OnInit {
     // Récupérer le paramètre zoneId de l'URL
     this.equipementId = parseInt(this.route.snapshot.paramMap.get('equipementId') || '');
     this.floorService.getPeriodeParEquipement(this.equipementId, dateFormatee).subscribe((periode: any) => {
-      //console.log('quipement:', equipement.nom, ' periode: ', periode)
+      ////console.log('quipement:', equipement.nom, ' periode: ', periode)
       if (periode.length>0) {
         this.etatPeriode = 'ON'
       } else {
         this.etatPeriode = 'OFF'
-        //console.log("************************",equipement.etat, 'this.etatFiltre', this.etatFiltre)
+        ////console.log("************************",equipement.etat, 'this.etatFiltre', this.etatFiltre)
 
       }
-      //console.log("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM***************", equipement)
+      ////console.log("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM***************", equipement)
     })
     // Appeler le service pour récupérer les détails de la zone
     this.floorService.getEquipementDetails(this.equipementId).subscribe(
@@ -98,17 +98,17 @@ export class EquipementDetailsComponent implements OnInit {
        Response.forEach((alerte: any) => {
 
             alerte.dateAlerte = alerte.dateAlerte.split('T')[0].split('-')[2]+'/'+ alerte.dateAlerte.split('T')[0].split('-')[1] + '/' + alerte.dateAlerte.split('T')[0].split('-')[0] + ' '+ alerte.dateAlerte.split('T')[1].split(':')[0] + ':'+alerte.dateAlerte.split('T')[1].split(':')[1]
-            console.log(alerte)
+            ////console.log(alerte)
 
             this.authService.getAllusers().subscribe((users: any[]) => {
-              console.log(users)
+              ////console.log(users)
               alerte.user = users.find(user => user.id === alerte.userID);
-              console.log("hereeeeeeeeeee",alerte.user)
+              ////console.log("hereeeeeeeeeee",alerte.user)
             })
 
             this.floorService.getRapportsByAlerteId(alerte.id).subscribe((rapports: any[]) => {
               alerte.rapport = rapports;
-              console.log('alerte; ',alerte)
+              ////console.log('alerte; ',alerte)
               //this.alertes.push(alerte)
             })
         
@@ -132,15 +132,15 @@ export class EquipementDetailsComponent implements OnInit {
       
       if(parseInt(this_mois) < new Date().getMonth() + 1){
         let dateDebut = '2024-'+this_mois+'-01 00:00:00'
-        console.log("dateDebut",dateDebut)
+        ////console.log("dateDebut",dateDebut)
         let dateFin = '2024-'+this_mois+'-'+derniers_jours_de_mois[parseInt(this_mois)-1]+' 00:00:00'
-        console.log("datefin",dateFin)
+        ////console.log("datefin",dateFin)
         this.floorService.getAnEquipementConsommation(this.equipementId, dateDebut, dateFin)
         .subscribe((data: any) =>{
           this.equipementInfos = data;
-          //console.log(noms_mois[parseInt(this_mois)-1], ' equipementInfos : ', data)
+          ////console.log(noms_mois[parseInt(this_mois)-1], ' equipementInfos : ', data)
           consommations_mois.push({nom: noms_mois[parseInt(this_mois)-1], y: data.consommation_kW})
-          //console.log('consommations_mois: ', consommations_mois)
+          ////console.log('consommations_mois: ', consommations_mois)
           this.consommation_annuelle_totale += data.consommation_kW;
 
           if(consommations_mois.length == new Date().getMonth() + 1){
@@ -152,21 +152,22 @@ export class EquipementDetailsComponent implements OnInit {
       } 
       else if(parseInt(this_mois) == new Date().getMonth() + 1) {
         
-        console.log("this_mois",this_mois)
+        ////console.log("this_mois",this_mois)
         let dateDebut = '2024-'+this_mois+'-01 00:00:00'
         let d = new Date()
         let day =  d.getDate(); 
-        console.log("new date",day)
+        ////console.log("new date",day)
         let h = d.getHours()
         let m = d.getMinutes()
         let dateFin = '2024-' + this_mois + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':00'
-        console.log('*************dateFin ', dateFin)
+        ////console.log('*************dateFin ', dateFin)
         this.floorService.getAnEquipementConsommation(this.equipementId, dateDebut, dateFin)
         .subscribe((data: any) =>{
+          console.log("KKKKKKKKKKK",data)
           this.equipementInfos = data;
-          //console.log(noms_mois[parseInt(this_mois)-1], ' equipementInfos : ', data)
-          consommations_mois.push({nom: noms_mois[parseInt(this_mois)-1], y: data.consommation_kW})
-          //console.log('consommations_mois: ', consommations_mois)
+          ////console.log(noms_mois[parseInt(this_mois)-1], ' equipementInfos : ', data)
+          consommations_mois.push({nom: noms_mois[parseInt(this_mois)-1], y: data.consommation_kW/2})
+          ////console.log('consommations_mois: ', consommations_mois)
           this.consommation_annuelle_totale += data.consommation_kW;
 
           if(consommations_mois.length == new Date().getMonth() + 1){
@@ -194,7 +195,7 @@ export class EquipementDetailsComponent implements OnInit {
     let j = 0;
     while(newTab.length < new Date().getMonth() + 1) {
       month_data = consommations_mois.find(mois => mois.nom === noms_mois[j]);
-      //console.log('moissssss: ', month_data)
+      ////console.log('moissssss: ', month_data)
       if(prec==0 || j==0){
         diff.push(0)
       } else {
@@ -246,7 +247,7 @@ export class EquipementDetailsComponent implements OnInit {
               formatter: (function() {
 
                 return function() {
-                  //console.log('this : ', this.y?.toFixed(2))
+                  ////console.log('this : ', this.y?.toFixed(2))
                   if (this.y) {
                     i++; // Incrémenter i à chaque fois que la fonction est appelée
                     if(diff[i]){
@@ -280,7 +281,7 @@ export class EquipementDetailsComponent implements OnInit {
                 mouseOver: function() {
                   let afficheur= document.getElementById('afficheur-consommation')
                   if(afficheur){
-                    //console.log(this.category)
+                    ////console.log(this.category)
                     afficheur.innerHTML = '<div class="text-5xl text-gray-200 text-bold py-2 cons-totale-titre  flex justify-center"  *ngIf="equipementDetails">'+this.category+'</div>'+
                     '<div class="text-5xl text-gray-200 py-4 cons-totale-val  flex justify-center">'+this.y?.toFixed(2)+' kWh</div>'+
                     '<style>'+
@@ -293,7 +294,7 @@ export class EquipementDetailsComponent implements OnInit {
                 mouseOut: function() {
                   let afficheur= document.getElementById('afficheur-consommation')
                   if(afficheur){
-                    //console.log(this.category)
+                    ////console.log(this.category)
                     afficheur.innerHTML = '<div class="text-5xl text-gray-200 text-bold py-2 cons-totale-titre  flex justify-center"  *ngIf="equipementDetails">Total</div>'+
                     '<div class="text-5xl text-gray-200 py-4 cons-totale-val  flex justify-center">'+consommation_annuelle_totale?.toFixed(2)+' kWh</div>'+
                     '<style>'+

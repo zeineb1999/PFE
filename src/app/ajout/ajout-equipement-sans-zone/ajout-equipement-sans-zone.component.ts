@@ -75,7 +75,7 @@ export class AjoutEquipementSansZoneComponent implements OnInit {
 
     this.floorService.addEquipement(equipementData).subscribe(
     (data: Equipement) => { // Spécifiez le type de données comme Movie
-    console.log(data);
+    ////console.log(data);
     this.equipements.push(data); // Mettez à jour les propriétés du film sélectionné
     this.router.navigateByUrl('/equipements');
   },

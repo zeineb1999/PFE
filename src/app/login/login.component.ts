@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit{
       this.userService.registerNewUser(this.register).subscribe(
         response => {
           const userId = response.id;
-          console.log('User ID:', userId);
+          //console.log('User ID:', userId);
           this.userService.registerNewRole(userId, this.role).subscribe(
             response => {
               

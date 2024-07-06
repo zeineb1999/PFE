@@ -61,7 +61,7 @@
 
     
       onAlertChange(local: string, temperature: number, nowSlash: string) {
-        //console.log(`Alert received: Local: ${local}, Temperature: ${temperature}, Now: ${nowSlash}`);
+        ////console.log(`Alert received: Local: ${local}, Temperature: ${temperature}, Now: ${nowSlash}`);
       }
     
       AlerteMessage: string = '';
@@ -86,13 +86,13 @@
         this.LoadEquipements()
           this.floorService.getHopitalConsommationPendantMoisCritiqueETNormal().subscribe((data: any) => {
           this.sendData = data;
-          //console.log('sendData: ', this.sendData);
+          ////console.log('sendData: ', this.sendData);
         });
     
         this.intervalId = setInterval(() => {
           this.floorService.getHopitalConsommationPendantMoisCritiqueETNormal().subscribe((data: any) => {
             this.sendData = data;
-            //console.log('sendData: ', this.sendData);
+            ////console.log('sendData: ', this.sendData);
           });
         }, 60000);
       }
@@ -125,10 +125,10 @@
     
         else if(this.dateDebut && this.dateFin){
           let dateFinObj = new Date(this.dateFin);
-          //console.log('---------------------------dateFinObj: ', dateFinObj)
+          ////console.log('---------------------------dateFinObj: ', dateFinObj)
           
           let now = new Date();
-          //console.log('---------------------------now: ', now)
+          ////console.log('---------------------------now: ', now)
           let dateHeureDebut = this.dateDebut + ' 00:00:0'
           if(this.heureDebut)  { dateHeureDebut = this.dateDebut+' '+this.heureDebut+':0'}
           else { this.el.nativeElement.querySelector('#heureDebut').value = '00:00:00'}
@@ -141,9 +141,9 @@
           else 
       
           if (new Date(dateHeureFin) > now) {
-            //console.log("La date de fin ne peut pas être dans le futur.");
-            //console.log('date de fin: ', this.dateFin)
-            //console.log('now: ', now)
+            ////console.log("La date de fin ne peut pas être dans le futur.");
+            ////console.log('date de fin: ', this.dateFin)
+            ////console.log('now: ', now)
             this.invalidDatesAlertDepasse()
           }
           else {  // dateDebut < dateFin
@@ -176,10 +176,10 @@
           let now : Date = new Date()
           let isoDateString = new Date(now.getTime() + (60 * 60 * 1000)).toISOString();
     
-          //console.log('peeeriode: ', '2024-'+(new Date().getMonth()+1)+'-01 00:00:00',' -> ', isoDateString.slice(0, 19).replace('T', ' '))
+          ////console.log('peeeriode: ', '2024-'+(new Date().getMonth()+1)+'-01 00:00:00',' -> ', isoDateString.slice(0, 19).replace('T', ' '))
           this.floorService.getConsommationEquipementParPeriode('2024-'+(new Date().getMonth()+1)+'-01 00:00:00', isoDateString.slice(0, 19).replace('T', ' ')).subscribe(
             (data: any[]) => {
-              //console.log('equips : ', data)
+              ////console.log('equips : ', data)
               this.EquipementsLoading = false;
               this.refreshButtonEnabled(true)
     
@@ -210,7 +210,7 @@
             acc[localId].push(equipement);
             return acc;
           }, {});
-          //console.log('equipementsParLocalD: ', equipementsParLocal)
+          ////console.log('equipementsParLocalD: ', equipementsParLocal)
           return equipementsParLocal;
       }
     
@@ -246,7 +246,7 @@
     
       RegrouperEquipementParCategorie(){
         // Regrouper les équipements par etage
-        //console.log('this.equipements _____', this.equipements)
+        ////console.log('this.equipements _____', this.equipements)
         const equipementsParCategorie: { [key: number]: any[] } = this.equipements.reduce((acc: { [x: string]: any[]; }, equipement: any) => {
           const { type } = equipement;
     
@@ -257,13 +257,13 @@
           acc[type].push(equipement);
           return acc;
         }, {});
-        //console.log('equipementsParCategorie DDDD', equipementsParCategorie)
+        ////console.log('equipementsParCategorie DDDD', equipementsParCategorie)
         return equipementsParCategorie;
       }
     
       RegrouperEquipementParCriticite(){
         // Regrouper les équipements par etage
-        //console.log('this.equipements _____', this.equipements)
+        ////console.log('this.equipements _____', this.equipements)
         const equipementsParCriticite: { [key: number]: any[] } = this.equipements.reduce((acc: { [x: string]: any[]; }, equipement: any) => {
           const { categorie } = equipement;
     
@@ -274,7 +274,7 @@
           acc[categorie].push(equipement);
           return acc;
         }, {});
-        //console.log('equipementsParCriticite DDDD', equipementsParCriticite)
+        ////console.log('equipementsParCriticite DDDD', equipementsParCriticite)
         return equipementsParCriticite;
       }
     
@@ -346,20 +346,20 @@
     
       handleAlerteChange(event: any) {
     
-        //console.log('j ai reçu alerte maint ? ', event.type)
+        ////console.log('j ai reçu alerte maint ? ', event.type)
         if (event.type == 'maintenance') {
-          //console.log('local '+ event.localId+ ': ', event.nomLocal +' type: ',  event.type+' now: '+ event.nowSlash)
+          ////console.log('local '+ event.localId+ ': ', event.nomLocal +' type: ',  event.type+' now: '+ event.nowSlash)
           this.AlerteMessage = 'Mr/Mme ' + event.userID + 'Local ' + event.localId + ' : ' + event.nomLocal + ' type : ' + event.type;
-          //console.log('rrrrrrrrrr ', this.AlerteMessage)
+          ////console.log('rrrrrrrrrr ', this.AlerteMessage)
     
           setTimeout(() => {
             this.AlerteMessage = '';
           }, 5000);
     
         } else {
-          //console.log('local '+ event.localId+ ': ', event.nomLocal +' type: ',  event.type+' now: '+ event.nowSlash)
+          ////console.log('local '+ event.localId+ ': ', event.nomLocal +' type: ',  event.type+' now: '+ event.nowSlash)
           this.AlerteMessage = 'Local '+ event.localId + ' : '+ event.nomLocal+' enregistre une '+ event.type+ ' moyenne inhabituelle';
-          //console.log('rrrrrrrrrr ', this.AlerteMessage)
+          ////console.log('rrrrrrrrrr ', this.AlerteMessage)
           setTimeout(() => {
             this.AlerteMessage = '';
             // Effacer le message après quelques secondes
@@ -369,7 +369,7 @@
       }
     
       redirectToAlerteDetails(alerteId: number) {
-        //console.log('alerteId', alerteId)
+        ////console.log('alerteId', alerteId)
         this.router.navigate(['/alerte-details/', alerteId]);
       }
     

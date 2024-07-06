@@ -22,7 +22,7 @@ export class AcceuilComponent {
   sign() {
     if (this.username && this.password) {
       this.authService.login(this.username, this.password).subscribe(response => {
-        console.log(response)
+        ////console.log(response)
         sessionStorage.setItem('token', response.access);
         this.successMessage = 'Connexion réussie !';
         setTimeout(() => {

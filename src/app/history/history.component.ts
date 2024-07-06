@@ -65,7 +65,7 @@ export class HistoryComponent implements OnInit {
     return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); // Formate l'heure selon les paramètres régionaux
   }
   BatimentNom(id: number): string {
-    console.log("batiment",this.batiments)
+    //console.log("batiment",this.batiments)
     
     for (const batiment of this.batiments) {
       if (batiment.id === id) {
@@ -77,7 +77,7 @@ export class HistoryComponent implements OnInit {
 
   
   EtageNom(id:number): string {
-    console.log("etages",this.etages)
+    //console.log("etages",this.etages)
     for (const batiment of this.etages) {
       if (batiment.id === id) {
         return batiment.nomEtage;
@@ -87,7 +87,7 @@ export class HistoryComponent implements OnInit {
 
   }
   LocalNom(id:number): string {
-    console.log("locaux ",this.locaux)
+    //console.log("locaux ",this.locaux)
     for (const batiment of this.locaux) {
       if (batiment.id === id) {
         return batiment.nomLocal;

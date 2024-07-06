@@ -75,7 +75,7 @@ export class LocalsListComponent {
    /*  this.wsService.connectMinute().subscribe(
       (data: any) => {
         this.data = data;
-        console.log('received table minute: ', data);
+        //console.log('received table minute: ', data);
         this.processData();/* 
     ); 
     this.activeMethode();
@@ -96,17 +96,17 @@ export class LocalsListComponent {
   }
  
   processData(): void {
-    //console.log('data: ', this.data);
+    ////console.log('data: ', this.data);
     this.data.forEach((local, index) => {
       if (local !== "empty") {
-        //console.log('local: ', local);
+        ////console.log('local: ', local);
         const localId = index;  // Utilise l'index directement, car il correspond à l'ID du local
         this.localsT[localId] = local.T;
         this.localsH[localId] = local.H;
       }
     });
-    //console.log('localst: ', this.localsT);
-    //console.log('localsh: ', this.localsH);
+    ////console.log('localst: ', this.localsT);
+    ////console.log('localsh: ', this.localsH);
     
   }
   
@@ -115,7 +115,7 @@ export class LocalsListComponent {
   activeMethode(): void {
     this.floorService.startDjangoMethod().subscribe(
       () => {
-        //console.log('La méthode dans Django a été lancée avec succès.');
+        ////console.log('La méthode dans Django a été lancée avec succès.');
       }
     )
   }
@@ -123,10 +123,10 @@ export class LocalsListComponent {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
-    //console.log('rah n3ytou La méthode dans Django ');
+    ////console.log('rah n3ytou La méthode dans Django ');
     this.floorService.stopDjangoMethod().subscribe(
       () => {
-        //console.log('******La méthode dans Django a été arrêtée avec succès.');
+        ////console.log('******La méthode dans Django a été arrêtée avec succès.');
       },
       (error) => {
         console.error('------------------Une erreur s\'est produite lors de l\'arrêt de la méthode dans Django : ', error);
@@ -164,10 +164,10 @@ export class LocalsListComponent {
                   this.localsT[local.id-1] = (response.T.toFixed(1))
                   this.localsH[local.id-1] = (response.H.toFixed(1))
                   if (dateISO.substring(14, 16) == '00') {
-                    console.log('rahi 00 neb3at les alertes')
+                    //console.log('rahi 00 neb3at les alertes')
                     this.verifierSiAlerte(local, response, nowSlash)
                   } else {
-                    console.log('maneb3atch les alertes')
+                    //console.log('maneb3atch les alertes')
                   }
                   },
                   (error) => {
@@ -271,10 +271,10 @@ export class LocalsListComponent {
                   this.localsT[local.id-1] = (response.T.toFixed(1))
                   this.localsH[local.id-1] = (response.H.toFixed(1))
                   if (dateISO.substring(14, 16) == '00') {
-                    console.log('rahi 00 neb3at les alertes')
+                    //console.log('rahi 00 neb3at les alertes')
                     this.verifierSiAlerte(local, response, nowSlash)
                   } else {
-                    console.log('maneb3atch les alertes')
+                    //console.log('maneb3atch les alertes')
                   }
                   },
                   (error) => {
@@ -285,7 +285,7 @@ export class LocalsListComponent {
               this.intervalId = setInterval(() => {
                 dateISO = new Date().toISOString();
                 if(dateISO.substring(14, 16)=='00') {
-                  console.log('rani n3aweeeeeeeeeed')
+                  //console.log('rani n3aweeeeeeeeeed')
 
                   etage.zones.forEach((local: any) => {
                     this.floorService.avg_TH_par_heure(local.id,this.dateFormatter(dateISO)).subscribe(
@@ -301,7 +301,7 @@ export class LocalsListComponent {
                   })
                   this.intervalId =setInterval(() => {
                     dateISO = new Date().toISOString();
-                    console.log('rani n3aweeeeeeeeeed')
+                    //console.log('rani n3aweeeeeeeeeed')
 
                     etage.zones.forEach((local: any) => {
                       this.floorService.avg_TH_par_heure(local.id,this.dateFormatter(dateISO)).subscribe(
@@ -379,7 +379,7 @@ export class LocalsListComponent {
   selectFilter(event: Event): void {
     const target = event.target as HTMLSelectElement;
     this.selectedFilter = target.value;
-    //console.log(this.selectedFilter);
+    ////console.log(this.selectedFilter);
   }
 
  
@@ -605,7 +605,7 @@ export class LocalsListComponent {
 
     this.floorService.getBatimentsList().subscribe(
       (batiments: any) => {
-        console.log(batiments)
+        //console.log(batiments)
         this.batiments = batiments;
         batiments.forEach((batiment: any) => {
           let batimentElement = this.renderer.createElement('div')
@@ -619,7 +619,7 @@ export class LocalsListComponent {
             this.renderer.appendChild(batimentElement, etageElement);
 
             let nblocaux = etage.zones.length;
-            console.log('etage ',etage.id,' zones:', etage.zones)
+            //console.log('etage ',etage.id,' zones:', etage.zones)
             let data_T : number[] = []
             let data_H : number[] = []
             etage.zones.forEach((local: any) => {
@@ -628,9 +628,9 @@ export class LocalsListComponent {
                   data_T.push(response.data[0][0])
                   data_H.push(response.data[0][1])
 
-                  console.log('data_T.length: ', data_T.length, 'data_H.length ', 'nb: ',nblocaux,'-> ', data_T.length==nblocaux && data_H.length==nblocaux)
+                  //console.log('data_T.length: ', data_T.length, 'data_H.length ', 'nb: ',nblocaux,'-> ', data_T.length==nblocaux && data_H.length==nblocaux)
                   if(data_T.length==nblocaux && data_H.length==nblocaux){
-                    console.log('zone ',local.id,' data_T: ',data_T, ' data_H', data_H, 'len: ', nblocaux)
+                    //console.log('zone ',local.id,' data_T: ',data_T, ' data_H', data_H, 'len: ', nblocaux)
                     this.insertTHColumns('etage'+'-'+etage.id, data_T, data_H)
                   }
                 },
@@ -651,8 +651,8 @@ export class LocalsListComponent {
   }
 
   insertTHColumns(elementId: string, data_T: any[], data_H: any[]){
-    console.log('T: ', data_T)
-    console.log('H: ', data_H)
+    //console.log('T: ', data_T)
+    //console.log('H: ', data_H)
 
     Highcharts.chart(elementId, {
       data: {

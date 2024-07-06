@@ -31,13 +31,13 @@ export class ChangerPasswordComponent  implements OnInit {
     if (this.newPassword && this.uidb64 && this.token) {
       
       this.authService.changerPassword(this.uidb64, this.token, this.newPassword ).subscribe(response => {
-        console.log(response)
+        //console.log(response)
        
         this.successMessage = 'Mot de passe changé !';
         setTimeout(() => {
          
           this.successMessage = ''; // Effacer le message après quelques secondes
-          this.router.navigate(['/login']); // Redirigez l'utilisateur vers la page de tableau de bord après la connexion réussie
+          this.router.navigate(['/']); // Redirigez l'utilisateur vers la page de tableau de bord après la connexion réussie
         }, 1000); // 3000 millisecondes = 3 secondes
       });
       
@@ -75,7 +75,7 @@ export class ChangerPasswordComponent  implements OnInit {
     if (this.emailValide && this.password) {
       
       this.authService.changerPassword(this.emailValide,this.password).subscribe(response => {
-        console.log(response)
+        //console.log(response)
        
         this.successMessage = 'Mot de passe changé !';
         setTimeout(() => {

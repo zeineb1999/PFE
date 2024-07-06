@@ -31,7 +31,7 @@
             'color': structure=='arbre' ? 'white' : '' ,
             'background-image': structure=='arbre' ? 'linear-gradient(109.6deg, rgb(138, 89, 226) -19.8%, rgb(87, 27, 226) 91.7%)' :'none'
           }">
-            Structure arborecence
+            Structure arborecente
           </button>
         </div>
 
@@ -236,7 +236,12 @@
                                       <td
                                         class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap col-span-2">
                                         <div class="inline-flex items-center gap-x-3">
-                                          <span>{{zone.nomLocal}}
+                                          <span>{{zone.nomLocal}} <!-- {{ getPresence(zone.id) }}{{zone.presence}} <div *ngIf="zone.presence==1"  class="w-full flex justify-start text-2xl font-medium text-gray-700 mt-4">
+                                          <img src="../../assets/present.png" alt="Non approuvé" class="w-6 h-6 mr-2"> 
+                                          </div>
+                                          <div *ngIf="zone.presence==0" class="w-full flex justify-start text-2xl font-medium text-gray-700 mt-4">
+                                            <img src="../../assets/nonpresent.png" alt="Non approuvé" class="w-4 h-4 mr-2"> 
+                                          </div>  -->
                                           </span>
                                         </div>
                                       </td>
@@ -385,9 +390,11 @@
                   <select [(ngModel)]="selectedReason" class="block w-full border-b-2 border-blue-500 text-gray-600 text-sm focus:outline-none">
                     <option value="" disabled selected>Choisissez une cause</option>
                     <option value="Des Travaux">Des Travaux</option>
-                    <option value="Incendie">Incendie</option>
-                    <option value="fuite">fuite</option>
+                    <option value="Risque d'incendie">Risque d'incendie</option>
+                    <option value="Infrastructure Dégradée">Infrastructure Dégradée</option>
+                    <option value="Problèmes Techniques">Problèmes Techniques</option>
                     <option value="Autre">Autre</option>
+
                   </select>
                 
                   <div *ngIf="selectedReason === 'Autre'" class="mt-2">

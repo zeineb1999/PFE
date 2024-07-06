@@ -164,18 +164,18 @@ formatValue(value: any) {
       const millisecondes = String(maDate.getUTCMilliseconds()).padStart(3, '0');
       
       const dateFormatee = `${annee}-${mois}-${jour} ${heures}:${minutes}:${secondes}`;
-      //console.log('zoooooooooooooooooooooooooone', this.zoneDetails)
+      ////console.log('zoooooooooooooooooooooooooone', this.zoneDetails)
       
       /* if (this.zoneDetails) {
-        console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+        //console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
         this.floorService.getEquipementsByZone(this.zoneDetails.id).subscribe((data: any[]) => {
-            console.log('dtaa: ', data, ' ',  data.length)
+            //console.log('dtaa: ', data, ' ',  data.length)
             this.equipements = data;
           
             
           },
           (error) => {
-            console.log(error);
+            //console.log(error);
           }
         );
       } */
@@ -191,12 +191,12 @@ formatValue(value: any) {
           [data.minT]: { color: "#555", type: "triangle", size: 8, label: "min", font: "12px arial" },
           [data.maxT]: { color: "#555", type: "triangle", size: 8, label: "max", font: "12px arial" }
         };
-        console.log('zone: ', data)
+        ////console.log('zone: ', data)
         this.floorService.getEtageById(this.zoneDetails.etageZ).subscribe(
           (etage: any) => {
             this.floorService.getBatimentById(etage.batimentId).subscribe(
               (batiment: any) => {
-                console.log( 'batiment - ', batiment)
+                ////console.log( 'batiment - ', batiment)
                 this.batiment = batiment;
                 this.idBatiment=batiment.id;
                 this.nomBatiment=batiment.nomBatiment;
@@ -217,7 +217,7 @@ formatValue(value: any) {
             
             data.forEach(equipement => {
               this.floorService.getPeriodeParEquipement(equipement.id, dateFormatee).subscribe((periode: any) => {
-                console.log('quipement:', equipement.nom, ' periode: ', periode)
+                ////console.log('quipement:', equipement.nom, ' periode: ', periode)
                 if (periode.length>0) {
                   equipement.etat = 'ON'
                 } else {
@@ -258,7 +258,7 @@ formatValue(value: any) {
 
     const dateFormatee = `${annee}-${mois}-${jour}T${heures}:${minutes}:${secondes}.${millisecondes}Z`;
 
-    console.log(dateFormatee);
+    ////console.log(dateFormatee);
 
     this.floorService.avg_TH_par_instant(this.zoneId, this.dateFormatter(dateFormatee)).subscribe(
       (response: any) => {
@@ -307,7 +307,7 @@ formatValue(value: any) {
         const millisecondes = String(maDate.getUTCMilliseconds()).padStart(3, '0');
         
         const dateFormatee = `${annee}-${mois}-${jour} ${heures}:${minutes}:${secondes}`;
-    console.log(`Toggle is ON for batiment ID: ${this.idSelectionne}`);
+    ////console.log(`Toggle is ON for batiment ID: ${this.idSelectionne}`);
     this.floorService.ActiverZone(this.idSelectionne,dateFormatee).subscribe(any => {
      
       this.floorService.HistoriqueZone('activer',this.idSelectionne,dateFormatee,this.id,'').subscribe(any=>{
@@ -349,7 +349,7 @@ formatValue(value: any) {
     const millisecondes = String(maDate.getUTCMilliseconds()).padStart(3, '0');
     
     const dateFormatee = `${annee}-${mois}-${jour} ${heures}:${minutes}:${secondes}`;
-    console.log(`Toggle is ON for batiment ID: ${this.idSelectionne}`);
+    ////console.log(`Toggle is ON for batiment ID: ${this.idSelectionne}`);
     this.floorService.DesactiverZone(this.idSelectionne,dateFormatee).subscribe(any => {
       let reason
       if(this.selectedReason==='Autre'){
@@ -358,7 +358,7 @@ formatValue(value: any) {
       else{
         reason=this.selectedReason
       }
-      console.log('raison',reason)
+      ////console.log('raison',reason)
       this.floorService.HistoriqueZone('desactiver',this.idSelectionne,dateFormatee,this.id,reason).subscribe(any=>{
         
       })
@@ -378,7 +378,7 @@ formatValue(value: any) {
     this.floorService.predictConsumptionLocal(data).subscribe(
       value => {
         this.predictionValue = value.predicted_consumption;
-        console.log("la prediciton ",this.predictionValue) // Stocke la valeur retournée
+        ////console.log("la prediciton ",this.predictionValue) // Stocke la valeur retournée
       },
       error => {
         console.error('Erreur lors de la prédiction:', error);
@@ -389,67 +389,67 @@ formatValue(value: any) {
   
  /*  filtrerEquipements() {
     this.equipementsFiltre = [];
-    console.log("Filtre Type : ", this.typeFiltre, " - Categorie : ", this.categorieFiltre, " - Etat : ", this.etatFiltre);
+    //console.log("Filtre Type : ", this.typeFiltre, " - Categorie : ", this.categorieFiltre, " - Etat : ", this.etatFiltre);
 
     this.equipementsLocals.forEach(equipement => {
-      console.log("Filtre Type : ", this.typeFiltre, " - Categorie : ", this.categorieFiltre, " - Etat : ", this.etatFiltre);
-      console.log(equipement);
+      //console.log("Filtre Type : ", this.typeFiltre, " - Categorie : ", this.categorieFiltre, " - Etat : ", this.etatFiltre);
+      //console.log(equipement);
 
       if(this.typeFiltre == '' && this.categorieFiltre == '' && this.etatFiltre == '') {
-        console.log('0 0 0');
+        //console.log('0 0 0');
       }else
       if(this.typeFiltre != '' && this.categorieFiltre != '' && this.etatFiltre != '') {
         if (equipement.categorie == this.typeFiltre && equipement.type == this.categorieFiltre && equipement.etat == this.etatFiltre) {
           this.equipementsFiltre.push(equipement);
-          console.log('1 1 1');
+          //console.log('1 1 1');
         }
         else {
-          console.log("aucun ",equipement);
+          //console.log("aucun ",equipement);
         }
 
       }else
       if(this.typeFiltre == '' && this.categorieFiltre != '' && this.etatFiltre != '') {
         if (equipement.type == this.categorieFiltre && equipement.etat == this.etatFiltre) {
           this.equipementsFiltre.push(equipement);
-          console.log('0 1 1');
+          //console.log('0 1 1');
         }
       }else
       if(this.typeFiltre != '' && this.categorieFiltre == '' && this.etatFiltre != '') {
         if (equipement.categorie == this.typeFiltre && equipement.etat == this.etatFiltre) {
           this.equipementsFiltre.push(equipement);
-          console.log('1 0 1');
+          //console.log('1 0 1');
         }
 
       }else
       if(this.typeFiltre != '' && this.categorieFiltre != '' && this.etatFiltre == '') {
         if (equipement.categorie == this.typeFiltre && equipement.type == this.categorieFiltre) {
           this.equipementsFiltre.push(equipement);
-          console.log('1 1 0');
+          //console.log('1 1 0');
         }
       }else
        if(this.typeFiltre != '' && this.categorieFiltre == '' && this.etatFiltre == '') {
         if (equipement.categorie == this.typeFiltre) {
           this.equipementsFiltre.push(equipement);
-          console.log('1 0 0');
+          //console.log('1 0 0');
         }
       }else
       if(this.typeFiltre == '' && this.categorieFiltre != '' && this.etatFiltre == '') {
         if (equipement.type == this.categorieFiltre) {
           this.equipementsFiltre.push(equipement);
-          console.log('0 1 0');
+          //console.log('0 1 0');
         }
       }else
       if(this.typeFiltre == '' && this.categorieFiltre == '' && this.etatFiltre != '') {
         if (equipement.etat == this.etatFiltre) {
           this.equipementsFiltre.push(equipement);
-          console.log('0 0 1');
+          //console.log('0 0 1');
         }
       }
 
 
     });
 
-    console.log("Filtre : ", this.equipementsFiltre);
+    //console.log("Filtre : ", this.equipementsFiltre);
   } */
 
   filtrerEquipements() {
@@ -468,23 +468,23 @@ formatValue(value: any) {
             if (equipement.categorie) {
               typeCondition = this.typeFiltre === '' || equipement.categorie.toLocaleLowerCase() === this.typeFiltre.toLocaleLowerCase();
             }
-            console.log('equipement.categorie: ', equipement.categorie, ' this.typeFiltre: ', this.typeFiltre, ': ', typeCondition)
+            ////console.log('equipement.categorie: ', equipement.categorie, ' this.typeFiltre: ', this.typeFiltre, ': ', typeCondition)
             // Vérifier si le filtre de catégorie est défini et si l'équipement correspond
             if (equipement.type) {
               categorieCondition = this.categorieFiltre === '' || equipement.type.toLocaleLowerCase() === this.categorieFiltre.toLocaleLowerCase();
             }
-            console.log('equipement.type: ', equipement.type, ' this.categorieFiltre: ', this.categorieFiltre, ' : ', categorieCondition)
+            ////console.log('equipement.type: ', equipement.type, ' this.categorieFiltre: ', this.categorieFiltre, ' : ', categorieCondition)
   
               // Vérifier si le filtre d'état est défini et si l'équipement correspond
               etatCondition = this.etatFiltre === '' || equipement.etat === this.etatFiltre;
   
             // Retourner true si toutes les conditions sont remplies, sinon false
-            console.log('res: ', (typeCondition==undefined || typeCondition==true) && (categorieCondition==undefined || categorieCondition==true) && (etatCondition==undefined || etatCondition==true))
+            ////console.log('res: ', (typeCondition==undefined || typeCondition==true) && (categorieCondition==undefined || categorieCondition==true) && (etatCondition==undefined || etatCondition==true))
               return (typeCondition==undefined || typeCondition==true) && (categorieCondition==undefined || categorieCondition==true) && (etatCondition==undefined || etatCondition==true)
           });
       }
   
-      console.log("Filtre : ", this.equipementsFiltre);
+      ////console.log("Filtre : ", this.equipementsFiltre);
       
     }
 }
@@ -517,25 +517,25 @@ formatValue(value: any) {
   }
   confirmerModifier(){
     if(this.minTNew){this.zoneDetails.minT=this.minTNew;
-      console.log("k1",this.minTNew)
+      ////console.log("k1",this.minTNew)
       this.floorService.modifierValeurs1(this.zoneDetails.id,this.minTNew).subscribe({
 
       })
     }
     if(this.maxTNew){this.zoneDetails.maxT=this.maxTNew;
-      console.log("k2",this.maxTNew)
+      ////console.log("k2",this.maxTNew)
       this.floorService.modifierValeurs2(this.zoneDetails.id,this.maxTNew).subscribe({
         
       })
     }
     if(this.maxHNew){this.zoneDetails.maxH=this.maxHNew;
-      console.log("k3",this.maxHNew)
+      ////console.log("k3",this.maxHNew)
       this.floorService.modifierValeurs3(this.zoneDetails.id,this.maxHNew).subscribe({
         
       })
     }
     if(this.minHNew){this.zoneDetails.minH=this.minHNew;
-      console.log("k4",this.minHNew)
+      ////console.log("k4",this.minHNew)
       this.floorService.modifierValeurs4(this.zoneDetails.id,this.minHNew).subscribe({
         
       })
@@ -558,10 +558,10 @@ formatValue(value: any) {
 
     if (this.equipementActif) {
       // Activer l'équipement
-      console.log('Équipement activé');
+      ////console.log('Équipement activé');
     } else {
       // Désactiver l'équipement
-      console.log('Équipement désactivé');
+      ////console.log('Équipement désactivé');
     }
   }
 

@@ -29,11 +29,11 @@ export class SignComponent {
   constructor(private authService: AuthService,private floor :FloorService, private router: Router, private http: HttpClient) { }
 
   sign() {
-    console.log("role ", this.roleEntree);
+    //console.log("role ", this.roleEntree);
     if (this.username) {
       this.authService.getId(this.username).subscribe(response => {
         this.roleExact = response.role;
-        console.log(this.roleExact);
+        //console.log(this.roleExact);
 
         this.id=response.id
         // Maintenant que nous avons reçu le rôle exact, procédons à la connexion
@@ -47,7 +47,7 @@ export class SignComponent {
     // Vérifions si le rôle entré correspond au rôle exact
     if (this.roleEntree == this.roleExact) {
       this.authService.login(this.username, this.password).subscribe(response => {
-        console.log(response.id);
+        //console.log(response.id);
         sessionStorage.setItem('token', response.access);
         this.successMessage = 'Connexion réussie !';
         sessionStorage.setItem('isLoggedIn', 'true');

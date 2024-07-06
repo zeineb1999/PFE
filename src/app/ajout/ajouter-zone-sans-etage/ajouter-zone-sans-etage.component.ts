@@ -84,7 +84,7 @@ export class AjouterZoneSansEtageComponent implements OnInit {
     if (zoneData.nomLocal && zoneData.typeLocal && zoneData.etageZ) {
       this.floorService.addZone(zoneData).subscribe(
         (data: Zone) => {
-          console.log(data);
+          ////console.log(data);
           const zoneId = data.id;
           this.floorService.genererDATA(zoneId,this.temperatureMin!,this.temperatureMax!,this.humiditeMin!,this.humiditeMax!).subscribe(
             (response) => {
@@ -96,11 +96,11 @@ export class AjouterZoneSansEtageComponent implements OnInit {
           this.router.navigateByUrl(`/toutesZones`);
         },
         error => {
-          console.log(error);
+          //console.log(error);
         }
       );
     } else {
-      console.log("Veuillez remplir tous les champs.");
+      ////console.log("Veuillez remplir tous les champs.");
     }
   }
 
